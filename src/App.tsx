@@ -16,6 +16,7 @@ import PrintFullSchedule from "./views/Print/PrintFullSchedule";
 import FinalResults from "./views/Tournament/FinalResults";
 import FinalResultsPopup from "./views/Tournament/FinalResults/FinalResultsPopup";
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
+import SeatingGenerator from "./views/SeatingGenerator/SeatingGenerator";
 import Ribbon from "./views/Tournament/Ribbon";
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
 			<div className={"mahjongTournamentEngine"}>
 				<BrowserRouter>
 					<Routes>
+						<Route path={"/seating-generator"} element={<SeatingGenerator/>}/>
 						<Route path={"/print"}>
 							<Route path={"personal-schedules"} element={<PrintPersonalSchedules/>}/>
 							<Route path={"report-cards"} element={<PrintReportCards/>}/>

@@ -15,6 +15,7 @@ export enum Routes {
 	PrintPersonalSchedules = "/print/personal-schedules",
 	PrintReportCards = "/print/report-cards",
 	PrintScoreForms = "/print/score-forms",
+	SeatingGenerator = "/seating-generator"
 };
 
 export type Route = Routes;
