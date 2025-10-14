@@ -1,5 +1,5 @@
-import WindRow from "./WindRow";
 import { Game } from "../../../../data-types/tournament-data-types";
+import Games from "./Games";
 import styles from "./Round.module.css";
 
 type RoundProps = {
@@ -10,39 +10,26 @@ type RoundProps = {
 
 const Round = (props: RoundProps) => {
 	return (
-		<tbody className={styles.round}>
-			<tr>
-				<th rowSpan={4}>
-					Round {props.roundId + 1}
-				</th>
-				<WindRow
-					windId={0}
-					games={props.games}
-					playerNames={props.playerNames}
-				/>
-			</tr>
-			<tr>
-				<WindRow
-					windId={1}
-					games={props.games}
-					playerNames={props.playerNames}
-					/>
-			</tr>
-			<tr>
-				<WindRow
-					windId={2}
-					games={props.games}
-					playerNames={props.playerNames}
-				/>
-			</tr>
-			<tr>
-				<WindRow
-					windId={3}
-					games={props.games}
-					playerNames={props.playerNames}
-				/>
-			</tr>
-		</tbody>
+		<table className={styles.roundTable}>
+			<thead>
+				<tr>
+					<th colSpan={5}>
+						Round {props.roundId + 1}
+					</th>
+				</tr>
+				<tr>
+					<th className={styles.roundColumn}></th>
+					<th className={styles.roundColumn} scope={"column"}>East</th>
+					<th className={styles.roundColumn} scope={"column"}>South</th>
+					<th className={styles.roundColumn} scope={"column"}>West</th>
+					<th className={styles.roundColumn} scope={"column"}>North</th>
+				</tr>
+			</thead>
+			<Games
+				games={props.games}
+				playerNames={props.playerNames}
+			/>
+		</table>
 	);
 };
 

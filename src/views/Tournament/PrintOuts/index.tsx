@@ -6,10 +6,10 @@ const PlayerSchedules = () => {
 		<div>
 			<h1>Print-outs</h1>
 			<p>Print-outs can be printed on paper or exported to PDF (requires a print-to-PDF thingy).</p>
-			<h2>Full schedule (NYI)</h2>
+			<h2>Full schedule</h2>
+			<p>To save paper, consider various printing options such as scaling down or setting "pages per sheet" to 2.</p>
 			<PrintableIframe
 				label={"Print full schedule"}
-				subLabel={"(not yet implemented)"}
 				id={"full-schedule"}
 				src={Routes.FullSchedule}
 			/>
@@ -20,7 +20,7 @@ const PlayerSchedules = () => {
 				src={Routes.PrintPersonalSchedules}
 			/>
 			<h2>Table score forms</h2>
-			<p>Hint: if your printer supports printing on both sides, select that option. Otherwise print odd-numbered pages first, then flip the sheets, and print even-numbered pages.</p>
+			<p>To save paper, consider printing score forms on two sides.</p>
 			<PrintableIframe
 				label={"Print score forms"}
 				subLabel={"With names"}
