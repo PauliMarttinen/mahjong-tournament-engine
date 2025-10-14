@@ -18,7 +18,7 @@ const Round = (props: RoundProps) => {
 					</th>
 				</tr>
 				<tr>
-					<th className={styles.roundColumn}></th>
+					<th className={styles.roundColumn} scope={"column"}></th>
 					<th className={styles.roundColumn} scope={"column"}>East</th>
 					<th className={styles.roundColumn} scope={"column"}>South</th>
 					<th className={styles.roundColumn} scope={"column"}>West</th>

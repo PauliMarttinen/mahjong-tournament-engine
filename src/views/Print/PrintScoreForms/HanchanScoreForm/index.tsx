@@ -21,7 +21,8 @@ const HanchanScoreForm = (props: HanchanScoreFormProps) => {
 	
 	return (
 		<table className={styles.form}>
-			<caption className={styles.caption}>Table {props.form.table} - Hanchan {props.form.round}</caption>
+			<caption className={styles.tableRoundLabel}>Table {props.form.table} - Hanchan {props.form.round}</caption>
+			<caption>Please enter points relative to starting points.</caption>
 			<thead>
 				<tr>
 					<th className={styles.windCell}>{null}</th>
