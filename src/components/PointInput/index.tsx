@@ -10,12 +10,12 @@ type PointInputProps = {
 	onChange: Function,
 	unflippable?: boolean,
 	tabIndex?: number
-	short: boolean
+	short: boolean,
+	uma?: boolean
 };
 
 const PointInput = (props: PointInputProps) => {
 	const sign = props.value.positive ? "+" : "-";
-
 	const displayValue =
 		props.short
 		?
@@ -33,7 +33,8 @@ const PointInput = (props: PointInputProps) => {
 					e: e,
 					unflippable: props.unflippable,
 					short: props.short,
-					value: props.value
+					value: props.value,
+					uma: props.uma
 				}))}
 				onChange={() => {}}
 				tabIndex={props.tabIndex}

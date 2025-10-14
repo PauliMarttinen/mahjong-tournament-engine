@@ -197,6 +197,7 @@ const EditResult = (props: AddFinishedGameProps) => {
 										onChange={(newValue: PointInputType) => setUma([newValue, uma[1], uma[2], uma[3]])}
 										tabIndex={5}
 										short={safeMode}
+										uma
 									/>
 								</td>
 								<td>
@@ -227,6 +228,7 @@ const EditResult = (props: AddFinishedGameProps) => {
 										onChange={(newValue: PointInputType) => setUma([uma[0], newValue, uma[2], uma[3]])}
 										tabIndex={6}
 										short={safeMode}
+										uma
 									/>
 								</td>
 								<td>
@@ -257,6 +259,7 @@ const EditResult = (props: AddFinishedGameProps) => {
 										onChange={(newValue: PointInputType) => setUma([uma[0], uma[1], newValue, uma[3]])}
 										tabIndex={7}
 										short={safeMode}
+										uma
 									/>
 								</td>
 								<td>
@@ -287,12 +290,13 @@ const EditResult = (props: AddFinishedGameProps) => {
 										onChange={(newValue: PointInputType) => setUma([uma[0], uma[1], uma[2], newValue])}
 										tabIndex={8}
 										short={safeMode}
+										uma
 									/>
 								</td>
 								<td>
 									<PointInput
 										value={penalty[3]}
-										onChange={(newValue: PointInputType) => setPenalty([penalty[0], penalty[1], uma[3], newValue])}
+										onChange={(newValue: PointInputType) => setPenalty([penalty[0], penalty[1], penalty[3], newValue])}
 										tabIndex={12}
 										unflippable={true}
 										short={safeMode}

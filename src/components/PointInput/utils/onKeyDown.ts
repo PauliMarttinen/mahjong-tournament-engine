@@ -5,7 +5,8 @@ const onKeyDown = (params: {
 	e: KeyboardEvent<HTMLInputElement>,
 	unflippable?: boolean,
 	short: boolean,
-	value: PointInputType
+	value: PointInputType,
+	uma?: boolean
 }): PointInputType => {
 	switch (params.e.key)
 	{
@@ -26,6 +27,14 @@ const onKeyDown = (params: {
 		case "Backspace":
 			if (params.short)
 			{
+				if (params.uma)
+				{
+					return {
+						positive: params.value.positive,
+						value: Math.floor(params.value.value/10000)*1000
+					}
+				}
+
 				return {
 					positive: params.value.positive,
 					value: Math.floor(params.value.value/1000)*100
@@ -49,6 +58,14 @@ const onKeyDown = (params: {
 		case "9":
 			if (params.short)
 			{
+				if (params.uma)
+				{
+					return {
+						positive: params.value.positive,
+						value: params.value.value*10+(+params.e.key*1000)
+					}
+				}
+
 				return {
 					positive: params.value.positive,
 					value: params.value.value*10+(+params.e.key*100)
