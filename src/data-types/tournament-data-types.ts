@@ -3,14 +3,6 @@ export type GeneralInfo = {
 	rounds: number
 };
 
-export type PointSticks = {
-	tenThousand: number,
-	fiveThousand: number,
-	oneThousand: number,
-	fiveHundred: number,
-	oneHundred: number
-};
-
 export type Score = {
 	raw: number,
 	uma: number,
