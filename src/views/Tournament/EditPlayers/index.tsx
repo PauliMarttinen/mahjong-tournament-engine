@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import Button from "../../../components/Button";
 import useTournament from "../../../utils/hooks/useTournament";
 import { Player } from "../../../data-types/tournament-data-types";
+import Toggle from "../../../components/Toggle";
 
 const EditPlayers = () => {
 	const dispatch = useDispatch();
@@ -19,6 +20,10 @@ const EditPlayers = () => {
 
 	const changeName = (params: {newName: string, playerId: number}): void => {
 		setNewList(newList.map((oldPlayer: Player, index: number) => index === params.playerId ? {...oldPlayer, name: params.newName} : oldPlayer))
+	};
+
+	const switchSubstitute = (playerId: number): void => {
+		setNewList(newList.map((oldPlayer: Player, index: number) => index === playerId ? {...oldPlayer, substitute: !oldPlayer.substitute} : oldPlayer))
 	};
 
 	const saveNames = (): void => {
@@ -54,12 +59,15 @@ const EditPlayers = () => {
 			}
 			<h1>Edit player names</h1>
 			<table>
-				<tbody>
+				<thead>
 					<tr>
 						<th>Previous name</th>
 						<th>New name</th>
 						<th>{null}</th>
+						<th>Substitute</th>
 					</tr>
+				</thead>
+				<tbody>
 					{
 						tournament.playerList.map((player: Player, playerId: number) => (
 							<tr key={`editname-${playerId}`}>
@@ -79,13 +87,23 @@ const EditPlayers = () => {
 										"*"
 									}
 								</td>
+								<td>
+									<Toggle
+										true={"Yes"}
+										false={"No"}
+										value={newList[playerId].substitute}
+										onSwitch={() => {
+											switchSubstitute(playerId);
+										}}
+									/>
+								</td>
 							</tr>
 						))
 					}
 				</tbody>
 			</table>
 			<Button
-				label={"Save new names"}
+				label={"Save changes"}
 				onClick={() => saveNames()}
 			/>
 		</div>
