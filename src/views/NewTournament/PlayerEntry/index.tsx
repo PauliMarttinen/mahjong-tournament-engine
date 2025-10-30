@@ -33,7 +33,7 @@ const PlayerEntryView = () => {
 	const [customSeatingTemplate, setCustomSeatingTemplate] = useState<number[][] | null>(null);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const {addGames, addPlayers, addSeatingTemplate} = bindActionCreators(tournamentActionCreators, dispatch)
+	const {addGames, addPlayers} = bindActionCreators(tournamentActionCreators, dispatch)
 
 	const players: string[] = playersInput.split("\n").filter(name => name !== "");
 
@@ -88,7 +88,9 @@ const PlayerEntryView = () => {
 			return;
 		}
 
-		addPlayers(randomize ? players.sort((a: string, b: string) => Math.random() - 0.5) : players);
+		const playersInOrder = randomize ? players.sort((a: string, b: string) => Math.random() - 0.5) : players;
+
+		addPlayers(playersInOrder.map((name: string) => ({name: name, substitute: false})));
 		addGames(createGamesData(getSeatingTemplate()));
 		navigate(Routes.Overview);
 	};

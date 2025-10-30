@@ -6,6 +6,7 @@ import { tournamentActionCreators } from "../../../state";
 import { bindActionCreators } from "redux";
 import Button from "../../../components/Button";
 import useTournament from "../../../utils/hooks/useTournament";
+import { Player } from "../../../data-types/tournament-data-types";
 
 const EditPlayers = () => {
 	const dispatch = useDispatch();
@@ -13,15 +14,15 @@ const EditPlayers = () => {
 
 	const {addPlayers} = bindActionCreators(tournamentActionCreators, dispatch)
 
-	const [newNames, setNewNames] = useState<string[]>([...tournament.playerNames])
+	const [newList, setNewList] = useState<Player[]>([...tournament.playerList])
 	const [duplicates, setDuplicates] = useState<string[]>([]);
 
 	const changeName = (params: {newName: string, playerId: number}): void => {
-		setNewNames(newNames.map((oldName: string, index: number) => index === params.playerId ? params.newName : oldName))
+		setNewList(newList.map((oldPlayer: Player, index: number) => index === params.playerId ? {...oldPlayer, name: params.newName} : oldPlayer))
 	};
 
 	const saveNames = (): void => {
-		const duplicatesFromInput = newNames.filter((name: string, index: number) => newNames.indexOf(name) !== index);
+		const duplicatesFromInput = newList.map((player: Player) => player.name).filter((name: string, index: number, newNames: string[]) => newNames.indexOf(name) !== index);
 
 		if (duplicatesFromInput.length > 0)
 		{
@@ -29,7 +30,7 @@ const EditPlayers = () => {
 			return;
 		}
 
-		addPlayers(newNames);
+		addPlayers(newList);
 	};
 
 	return (
@@ -60,21 +61,21 @@ const EditPlayers = () => {
 						<th>{null}</th>
 					</tr>
 					{
-						tournament.playerNames.map((name: string, playerId: number) => (
+						tournament.playerList.map((player: Player, playerId: number) => (
 							<tr key={`editname-${playerId}`}>
 								<td>
-									{name}
+									{player.name}
 								</td>
 								<td>
 									<TextInput
 										label={""}
-										value={newNames[playerId]}
+										value={newList[playerId].name}
 										onChange={(newValue: string) => changeName({newName: newValue, playerId: playerId})}
 									/>
 								</td>
 								<td>
 									{
-										name !== newNames[playerId] &&
+										player.name !== newList[playerId].name &&
 										"*"
 									}
 								</td>

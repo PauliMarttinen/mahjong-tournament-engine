@@ -8,10 +8,10 @@ const PrintScoreForms = () => {
 	const tournament = useTournament();
 
 	const pages: Form[][] = curlArray(tournament.games.map((game: Game): Form => ({
-		eastPlayer: tournament.playerNames[game.participants[0].playerId],
-		southPlayer: tournament.playerNames[game.participants[1].playerId],
-		westPlayer: tournament.playerNames[game.participants[2].playerId],
-		northPlayer: tournament.playerNames[game.participants[3].playerId],
+		eastPlayer: tournament.playerList[game.participants[0].playerId].name,
+		southPlayer: tournament.playerList[game.participants[1].playerId].name,
+		westPlayer: tournament.playerList[game.participants[2].playerId].name,
+		northPlayer: tournament.playerList[game.participants[3].playerId].name,
 		table: game.table + 1,
 		round: game.round + 1
 	})).sort((a: Form, b: Form) => a.table !== b.table ? a.table - b.table : a.round - b.round), 2);

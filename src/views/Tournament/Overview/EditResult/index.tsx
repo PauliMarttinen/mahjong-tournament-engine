@@ -81,7 +81,7 @@ const EditResult = (props: AddFinishedGameProps) => {
 	const dispatch = useDispatch();
 	const {addGames} = bindActionCreators(tournamentActionCreators, dispatch);
 
-	const getPlayerName = (playerId: number): string => tournament.playerNames[playerId];
+	const getPlayerName = (playerId: number): string => tournament.playerList[playerId].name;
 
 	const getScoreSum = (): number => {
 		const east = getNumericValue(score[0]);

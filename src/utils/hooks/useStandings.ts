@@ -1,11 +1,11 @@
-import { Game, Seat, Standing } from "../../data-types/tournament-data-types";
+import { Game, Seat, Standing, Player } from "../../data-types/tournament-data-types";
 import { generateArray } from "../generateArray";
 import useTournament from "./useTournament";
 
 const useStandings = (): Standing[][] => {
 	const tournament = useTournament();
 	return generateArray(tournament.info.rounds).reduce((carry: Standing[][], roundIndex: number) => {
-		const byThisRound = tournament.playerNames.map((_: string, playerId: number): Standing => ({
+		const byThisRound = tournament.playerList.map((_: Player, playerId: number): Standing => ({
 			rank: 0,
 			playerId: playerId,
 			points: tournament.games.reduce((subTotal: number, game: Game) => {

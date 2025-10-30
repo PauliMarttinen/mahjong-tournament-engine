@@ -5,7 +5,7 @@ import styles from "./FinalResultsPopup.module.css";
 import Name from "./Name";
 import { generateArray } from "../../../../utils/generateArray";
 import useTournament from "../../../../utils/hooks/useTournament";
-import useStandings from "../../../../utils/hooks/useStandigs";
+import useStandings from "../../../../utils/hooks/useStandings";
 
 const FinalResultsPopup = () => {
 	const tournament = useTournament();
@@ -16,7 +16,7 @@ const FinalResultsPopup = () => {
 		height: window.innerHeight
 	});
 	const [shouldRevealNext, setShouldRevealNext] = useState<boolean>(false);
-	const [revealed, setRevealed] = useState<boolean[]>(Array(tournament.playerNames.length).fill(false));
+	const [revealed, setRevealed] = useState<boolean[]>(Array(tournament.playerList.length).fill(false));
 
 	const revealNext = () => {
 		const nextToReveal = revealed.lastIndexOf(false);
@@ -63,7 +63,7 @@ const FinalResultsPopup = () => {
 				<Name
 					key={`standing-${id}`}
 					position={id + 1}
-					name={tournament.playerNames[standings[id].playerId]}
+					name={tournament.playerList[standings[id].playerId].name}
 					points={standings[id].points}
 					revealed={revealed[id]}
 				/>
@@ -71,7 +71,7 @@ const FinalResultsPopup = () => {
 		</table>
 	);
 
-	const playerCount = tournament.playerNames.length;
+	const playerCount = tournament.playerList.length;
 	const columnSplitLimit = 16;
 	const playersPerColumn = 16;
 	const columns = playerCount-5 > columnSplitLimit ? Math.ceil((playerCount - 5)/playersPerColumn) : 1;
@@ -120,7 +120,7 @@ const FinalResultsPopup = () => {
 											<Name
 												key={`standing-${standing.playerId}`}
 												position={columnId*playersPerColumn + rank + 6}
-												name={tournament.playerNames[standing.playerId]}
+												name={tournament.playerList[standing.playerId].name}
 												points={standing.points}
 												revealed={revealed[columnId*playersPerColumn + rank + 5]}
 											/>

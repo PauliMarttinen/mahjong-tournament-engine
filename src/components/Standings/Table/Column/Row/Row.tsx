@@ -10,7 +10,7 @@ type RowProps = {
 
 const Row = (props: RowProps) => {
 	const tournament = useTournament();
-	const playerName = tournament.playerNames[props.standing.playerId];
+	const playerName = tournament.playerList[props.standing.playerId].name;
 	const points = formatPoints({points: props.standing.points, sign: true});
 
 	return (

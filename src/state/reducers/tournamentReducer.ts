@@ -1,15 +1,18 @@
 import { Tournament } from "../../data-types/tournament-data-types";
 import Action from "../actions/tournament-actions";
 import ActionTypes from "../action-types/tournament-action-types";
+import updateTournamentFormat, { CURRENT_DATA_VERSION } from "../../data-types/updateTournamentFormat/updateTournamentFormat";
 
 export const initialState: Tournament = {
 	info: {
 		title: "",
 		rounds: 8
 	},
-	playerNames: [],
-	seatingTemplate: [],
-	games: []
+	playerList: [],
+	games: [],
+	meta: {
+		dataFormatVersion: CURRENT_DATA_VERSION
+	}
 };
 
 const reducer = (state: Tournament = initialState, action: Action): Tournament => {
@@ -28,12 +31,12 @@ const reducer = (state: Tournament = initialState, action: Action): Tournament =
 		{  
 			const newState: Tournament = {
 				...state,
-				playerNames: action.payload
+				playerList: action.payload
 			};
 			localStorage.setItem("mahjong-tournament", JSON.stringify(newState));
 			return newState;
 		}
-		case ActionTypes.AddSeatingTemplate:
+		/* case ActionTypes.AddSeatingTemplate:
 		{  
 			const newState: Tournament = {
 				...state,
@@ -41,7 +44,7 @@ const reducer = (state: Tournament = initialState, action: Action): Tournament =
 			};
 			localStorage.setItem("mahjong-tournament", JSON.stringify(newState));
 			return newState;
-		}
+		} */
 		case ActionTypes.AddGames:
 		{
 			const newState: Tournament = {
@@ -52,8 +55,9 @@ const reducer = (state: Tournament = initialState, action: Action): Tournament =
 			return newState;
 		}
 		case ActionTypes.SetTournament:
-			localStorage.setItem("mahjong-tournament", JSON.stringify(action.payload));
-			return action.payload;
+			const newState = updateTournamentFormat(action.payload) as Tournament;
+			localStorage.setItem("mahjong-tournament", JSON.stringify(newState));
+			return newState;
 		default:
 			return state;
 	}

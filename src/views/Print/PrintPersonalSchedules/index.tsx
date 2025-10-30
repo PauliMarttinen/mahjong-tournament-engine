@@ -24,7 +24,7 @@ const PrintPlayerSchedules = () => {
 	return (
 		<div>
 			{
-				generateArray(Math.ceil(tournament.playerNames.length/9)).map((page: number) => (
+				generateArray(Math.ceil(tournament.playerList.length/9)).map((page: number) => (
 					<div
 						key={`page-${page}`}
 						className={styles.page}>
@@ -32,12 +32,12 @@ const PrintPlayerSchedules = () => {
 							[0, 1, 2, 3, 4, 5, 6, 7, 8].map((unit: number) => {
 								const playerId = page*9 + unit;
 
-								return playerId >= tournament.playerNames.length ? null : (
+								return playerId >= tournament.playerList.length ? null : (
 									<table className={styles.schedule} key={`playerschedule-${playerId}`}>
 										<thead>
 											<tr>
 												<th colSpan={3}>
-													{tournament.playerNames[playerId]}
+													{tournament.playerList[playerId].name}
 												</th>
 											</tr>
 										</thead>
