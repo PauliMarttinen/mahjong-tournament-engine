@@ -20,9 +20,9 @@ const ReportCards = () => {
 	const playerOptions: PlayerOption[] = useMemo(() => tournament.playerList
 		.map((player: Player) => player.name)
 		.sort(alphabetizer)
-		.map((playerName: string, _: number, playerNames: string[]) => ({
+		.map((playerName: string, _: number) => ({
 			playerName: playerName,
-			playerId: playerNames.indexOf(playerName)
+			playerId: tournament.playerList.findIndex((player: Player) => player.name === playerName)
 		})), []);
 		
 	const togglePlayer = (toggledPlayerId: number) => {

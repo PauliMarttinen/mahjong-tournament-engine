@@ -13,9 +13,9 @@ const IndividualPlayer = () => {
 	const playerOptions: SelectionListItem[] = useMemo(() => tournament.playerList
 		.map((player: Player) => player.name)
 		.sort(alphabetizer)
-		.map((playerName: string, _: number, playerNames: string[]) => ({
+		.map((playerName: string, _: number) => ({
 			text: playerName,
-			value: playerNames.indexOf(playerName)
+			value: tournament.playerList.findIndex((player: Player) => player.name === playerName)
 		})), []);
 
 	return (
