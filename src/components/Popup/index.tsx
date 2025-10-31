@@ -10,7 +10,8 @@ type PopupProps = {
 	onConfirm: () => void
 	cancelHidden?: boolean,
 	confirmHidden?: boolean,
-	confirmDisabled?: boolean
+	confirmDisabled?: boolean,
+	className?: string
 }
 
 const Popup = (props: PopupProps) => {
@@ -19,7 +20,7 @@ const Popup = (props: PopupProps) => {
 
 	return (
 		<div className={styles.backdrop}>
-			<div className={styles.popup}>
+			<div className={`${styles.popup} ${props.className ? props.className : ""}`}>
 				<div className={styles.title}>
 					{props.title}
 				</div>

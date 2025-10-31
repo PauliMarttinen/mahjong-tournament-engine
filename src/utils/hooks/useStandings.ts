@@ -19,7 +19,18 @@ const useStandings = (): Standing[][] => {
 			}, 0),
 			change: 0
 		}))
-			.sort((a: Standing, b: Standing): number => (a.points < b.points) ? 1 : -1)
+			.sort((a: Standing, b: Standing): number => {
+				//Move substitute players to the bottom of the standings
+				const aIsSubstitute = tournament.playerList[a.playerId].substitute;
+				const bIsSubstitute = tournament.playerList[b.playerId].substitute;
+
+				if (aIsSubstitute && !bIsSubstitute) return 1;
+				if (!aIsSubstitute && bIsSubstitute) return -1;
+
+				//Then sort by points
+
+				return (a.points < b.points) ? 1 : -1;
+			})
 			.map((standing: Standing, standingIndex: number) => ({
 				...standing,
 				rank: standingIndex + 1,
