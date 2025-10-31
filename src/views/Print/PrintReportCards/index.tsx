@@ -4,6 +4,8 @@ import useTournament from "../../../utils/hooks/useTournament";
 import alphabetizer from "../../../utils/alphabetizer";
 import styles from "./PrintReportCards.module.css";
 import { Player } from "../../../data-types/tournament-data-types";
+import bodyNoMargin from "../utils/bodyNoMargin";
+import { useEffect } from "react";
 
 const PrintReportCards = () => {
 	const tournament = useTournament();
@@ -22,6 +24,10 @@ const PrintReportCards = () => {
 			.map((playerId: string) => tournament.playerList[+playerId].name)
 			.sort(alphabetizer)
 			.map((playerName: string) => tournament.playerList.findIndex((player: Player) => player.name === playerName));
+
+	useEffect(() => {
+		bodyNoMargin();
+	}, []);
 
 	return (
 		<div>

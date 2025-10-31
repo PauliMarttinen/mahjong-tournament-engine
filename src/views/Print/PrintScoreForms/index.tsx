@@ -3,6 +3,8 @@ import curlArray from "../../../utils/curlArray";
 import useTournament from "../../../utils/hooks/useTournament";
 import HanchanScoreForm, {Form} from "./HanchanScoreForm";
 import styles from "./PrintScoreForms.module.css";
+import bodyNoMargin from "../utils/bodyNoMargin";
+import { useEffect } from "react";
 
 const PrintScoreForms = () => {
 	const tournament = useTournament();
@@ -15,6 +17,10 @@ const PrintScoreForms = () => {
 		table: game.table + 1,
 		round: game.round + 1
 	})).sort((a: Form, b: Form) => a.table !== b.table ? a.table - b.table : a.round - b.round), 2);
+
+	useEffect(() => {
+		bodyNoMargin();
+	}, []);
 
 	return (
 		<div>

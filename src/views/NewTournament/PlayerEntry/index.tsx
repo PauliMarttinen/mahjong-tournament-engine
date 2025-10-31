@@ -129,10 +129,7 @@ const PlayerEntryView = () => {
 				value={playersInput}
 				onChange={(e) => setPlayersInput(e.target.value)}
 			/>
-			{
-				!rightAmount &&
-				<p>Must have a number of players that is divisible by 4.</p>
-			}
+			
 			<p>
 				<input
 					type={"checkbox"}
@@ -161,6 +158,10 @@ const PlayerEntryView = () => {
 					onClick={() => save()}
 					disabled={!rightAmount}
 				/>
+				{
+					!rightAmount &&
+					"Must have a number of players that is divisible by 4."
+				}
 			</p>
 			{
 				showTemplateHelp &&
