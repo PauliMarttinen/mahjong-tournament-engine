@@ -1,3 +1,7 @@
+import * as versionValidators from "./updateTournamentFormat/versionValidators";
+import { Version0 } from "./updateTournamentFormat/version0/Version0";
+import { Version1 } from "./updateTournamentFormat/version1/Version1";
+
 export type GeneralInfo = {
 	title: string,
 	rounds: number
@@ -7,6 +11,11 @@ export type Score = {
 	raw: number,
 	uma: number,
 	penalty: number
+};
+
+export type Player = {
+	name: string,
+	substitute: boolean
 };
 
 export type Seat = {
@@ -23,12 +32,13 @@ export type Game = {
 	participants: Participants
 };
 
-export type Tournament = {
-	info: GeneralInfo,
-	playerNames: string[],
-	seatingTemplate: number[][],
-	games: Game[]
-};
+export type Meta = {
+	dataFormatVersion: number
+}
+
+export type AllVersions = Version0|Version1;
+
+export type Tournament = Version1;
 
 export type Standing = {
 	rank: number,
@@ -42,28 +52,7 @@ export type PointInputType = {
 	value: number
 };
 
-export const isTournamentDataValid = (data: Tournament): boolean => {
-	return (
-		//Check that general tournament info is intact
-		"info" in data &&
-		"title" in data.info && typeof data.info.title === "string" &&
-		"rounds" in data.info && typeof data.info.rounds === "number" &&
-
-		//Check that player names are ok
-		"playerNames" in data &&
-		!data.playerNames.some((name: string): boolean => typeof name !== "string") &&
-
-		//Check that game data is ok
-		"games" in data &&
-		data.games.length >= data.info.rounds * (data.playerNames.length/4)
-
-		/*TODO: check that
-		-each round has every player exactly once
-		- there are no player id's outside actual player id range
-		- there are no games with duplicate player ids
-		-each round is named exactly data.tables.length times
-		-each table is named exactly data.info.rounds times
-		-each participant in each game has a valid score object
-	*/
-	);
+export const isTournamentDataValid = (data: AllVersions): boolean => {
+	return versionValidators.isValidVersion0(data as Version0)
+		|| versionValidators.isValidVersion1(data as Version1);
 };

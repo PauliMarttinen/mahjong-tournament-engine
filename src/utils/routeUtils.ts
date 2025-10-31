@@ -21,13 +21,13 @@ export type Route = Routes;
 
 export const findRoute = (loaded: Tournament): Route => {
 	//If the loaded tournament has names, take the app to tournament page.
-	if (loaded.playerNames.length > 0)
+	if (loaded.playerList.length > 0)
 	{
 		return Routes.Overview;
 	}
 
 	//If the loaded tournament has no names, take the app to player entry phase.
-	if (loaded.playerNames.length === 0)
+	if (loaded.playerList.length === 0)
 	{
 		return Routes.PlayerEntry;
 	}

@@ -5,10 +5,11 @@ import PointInput from "../../../../components/PointInput";
 import Popup from "../../../../components/Popup";
 import Toggle from "../../../../components/Toggle";
 import { tournamentActionCreators } from "../../../../state";
-import { Game, PointInputType, Score } from "../../../../data-types/tournament-data-types";
+import { Game, Player, PointInputType, Score } from "../../../../data-types/tournament-data-types";
 import {formatPoints} from "../../../../utils/formatPoints";
 import { getNumericValue } from "../../../../utils/getNumericValue";
 import useTournament from "../../../../utils/hooks/useTournament";
+import styles from "./EditResult.module.css";
 
 type AddFinishedGameProps = {
 	round: number,
@@ -81,7 +82,7 @@ const EditResult = (props: AddFinishedGameProps) => {
 	const dispatch = useDispatch();
 	const {addGames} = bindActionCreators(tournamentActionCreators, dispatch);
 
-	const getPlayerName = (playerId: number): string => tournament.playerNames[playerId];
+	const getPlayer = (playerId: number): Player => tournament.playerList[playerId];
 
 	const getScoreSum = (): number => {
 		const east = getNumericValue(score[0]);
@@ -151,19 +152,19 @@ const EditResult = (props: AddFinishedGameProps) => {
 
 	return (
 		<Popup
-			title={"Edit Results"}
+			title={"Edit Results - Round " + (props.round + 1) + " Table " + (props.table + 1)}
 			cancelText={"Close without storing"}
 			confirmText={"Store results"}
 			onCancel={() => props.onFinish()}
 			onConfirm={() => storeGame()}
-			confirmDisabled={!totalsOk}>
+			confirmDisabled={!totalsOk}
+			className={styles.editResultPopup}>
 			<Toggle
 				false={"Danger mode"}
 				true={"Safe mode"}
 				value={safeMode}
 				onSwitch={() => setSafeMode(!safeMode)}
 			/>
-			<p>Editing results for Round {props.round + 1} Table {props.table + 1}.</p>
 			{
 				editedGame && editedGame.finished &&
 				<p><strong>This game is already stored. Score can still be edited.</strong></p>
@@ -172,17 +173,20 @@ const EditResult = (props: AddFinishedGameProps) => {
 				editedGame &&
 				<div>
 					<table>
-						<tbody>
+						<thead>
 							<tr>
 								<th colSpan={2}>Player</th>
 								<th>Raw points</th>
 								<th>Uma</th>
 								<th>Penalty</th>
 								<th>Final</th>
+								<th>{null}</th>
 							</tr>
+						</thead>
+						<tbody>
 							<tr>
 								<td>East</td>
-								<td>{getPlayerName(editedGame?.participants[0].playerId)}</td>
+								<td>{getPlayer(editedGame?.participants[0].playerId).name}</td>
 								<td>
 									<PointInput
 										value={score[0]}
@@ -210,10 +214,16 @@ const EditResult = (props: AddFinishedGameProps) => {
 									/>
 								</td>
 								<td>{safeMode ? formatPoints({points: getFinalForPlayer(0), sign: true}) : getFinalForPlayer(0)}</td>
+								<td>
+									{
+										getPlayer(editedGame?.participants[0].playerId).substitute &&
+										"(Substitute)"
+									}
+								</td>
 							</tr>
 							<tr>
 								<td>South</td>
-								<td>{getPlayerName(editedGame?.participants[1].playerId)}</td>
+								<td>{getPlayer(editedGame?.participants[1].playerId).name}</td>
 								<td>
 									<PointInput
 										value={score[1]}
@@ -241,10 +251,16 @@ const EditResult = (props: AddFinishedGameProps) => {
 									/>
 								</td>
 								<td>{safeMode ? formatPoints({points: getFinalForPlayer(1), sign: true}) : getFinalForPlayer(1)}</td>
+								<td>
+									{
+										getPlayer(editedGame?.participants[1].playerId).substitute &&
+										"(Substitute)"
+									}
+								</td>
 							</tr>
 							<tr>
 								<td>West</td>
-								<td>{getPlayerName(editedGame?.participants[2].playerId)}</td>
+								<td>{getPlayer(editedGame?.participants[2].playerId).name}</td>
 								<td>
 									<PointInput
 										value={score[2]}
@@ -272,10 +288,16 @@ const EditResult = (props: AddFinishedGameProps) => {
 									/>
 								</td>
 								<td>{safeMode ? formatPoints({points: getFinalForPlayer(2), sign: true}) : getFinalForPlayer(2)}</td>
+								<td>
+									{
+										getPlayer(editedGame?.participants[2].playerId).substitute &&
+										"(Substitute)"
+									}
+								</td>
 							</tr>
 							<tr>
 								<td>North</td>
-								<td>{getPlayerName(editedGame?.participants[3].playerId)}</td>
+								<td>{getPlayer(editedGame?.participants[3].playerId).name}</td>
 								<td>
 									<PointInput
 										value={score[3]}
@@ -303,6 +325,12 @@ const EditResult = (props: AddFinishedGameProps) => {
 									/>
 								</td>
 								<td>{safeMode ? formatPoints({points: getFinalForPlayer(3), sign: true}) : getFinalForPlayer(3)}</td>
+								<td>
+									{
+										getPlayer(editedGame?.participants[3].playerId).substitute &&
+										"(Substitute)"
+									}
+								</td>
 							</tr>
 						</tbody>
 						<tfoot>

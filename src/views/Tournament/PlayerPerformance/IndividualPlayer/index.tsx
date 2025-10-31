@@ -4,16 +4,18 @@ import useTournament from "../../../../utils/hooks/useTournament";
 import alphabetizer from "../../../../utils/alphabetizer";
 import Performance from "../../../../components/Performance";
 import styles from "./IndividualPlayer.module.css";
+import { Player } from "../../../../data-types/tournament-data-types";
 
 const IndividualPlayer = () => {
 	const tournament = useTournament();
 	const [selectedPlayer, setSelectedPlayer] = useState<number>(0);
 
-	const playerOptions: SelectionListItem[] = useMemo(() => [...tournament.playerNames]
+	const playerOptions: SelectionListItem[] = useMemo(() => tournament.playerList
+		.map((player: Player) => player.name)
 		.sort(alphabetizer)
-		.map((playerName: string) => ({
+		.map((playerName: string, _: number, playerNames: string[]) => ({
 			text: playerName,
-			value: tournament.playerNames.indexOf(playerName)
+			value: playerNames.indexOf(playerName)
 		})), []);
 
 	return (

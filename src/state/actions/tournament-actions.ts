@@ -1,6 +1,6 @@
 import ActionTypes from "../action-types/tournament-action-types";
 import {GeneralInfo, Tournament} from "../../data-types/tournament-data-types";
-import {Game} from "../../data-types/tournament-data-types";
+import {Game, Player} from "../../data-types/tournament-data-types";
 
 export type EditTournamentInfoAction = {
 	type: ActionTypes.EditTournamentInfo,
@@ -9,12 +9,7 @@ export type EditTournamentInfoAction = {
 
 export type AddPlayersAction = {
 	type: ActionTypes.AddPlayers,
-	payload: string[]
-};
-
-export type AddSeatingTemplateAction = {
-	type: ActionTypes.AddSeatingTemplate,
-	payload: number[][]
+	payload: Player[]
 };
 
 export type AddGamesAction = {
@@ -30,7 +25,6 @@ export type SetTournament = {
 type Action =
 	EditTournamentInfoAction |
 	AddPlayersAction |
-	AddSeatingTemplateAction | 
 	AddGamesAction |
 	SetTournament;
 

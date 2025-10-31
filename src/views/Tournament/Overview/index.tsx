@@ -26,7 +26,7 @@ const Overview = () => {
 	const tournament = useTournament();
 
 	const rounds = generateArray(tournament.info.rounds);
-	const tables = generateArray(tournament.playerNames.length/4);
+	const tables = generateArray(tournament.playerList.length/4);
 
 	return (
 		<div>
@@ -65,10 +65,10 @@ const Overview = () => {
 												?
 												<td key={`round-tr-${roundId}-table-td-${tableId}`}>
 													<Hanchan
-														east={tournament.playerNames[game.participants[0].playerId]}
-														south={tournament.playerNames[game.participants[1].playerId]}
-														west={tournament.playerNames[game.participants[2].playerId]}
-														north={tournament.playerNames[game.participants[3].playerId]}
+														east={tournament.playerList[game.participants[0].playerId].name}
+														south={tournament.playerList[game.participants[1].playerId].name}
+														west={tournament.playerList[game.participants[2].playerId].name}
+														north={tournament.playerList[game.participants[3].playerId].name}
 														finished={game.finished}
 														hilight={hilight}
 														onClick={() => setEditingResults({round: roundId, table: tableId})}

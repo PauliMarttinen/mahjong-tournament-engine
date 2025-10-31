@@ -1,6 +1,6 @@
 import { Standing } from "../../../data-types/tournament-data-types";
 import { formatPoints } from "../../../utils/formatPoints";
-import useStandings from "../../../utils/hooks/useStandigs";
+import useStandings from "../../../utils/hooks/useStandings";
 import useTournament from "../../../utils/hooks/useTournament";
 
 type StandingsProps = {
@@ -17,7 +17,7 @@ const PlainText = (props: StandingsProps) => {
 			<pre>
 				{
 					standings[tournament.info.rounds - 1].map((standing: Standing, rank: number) => (
-						`${rank + 1}.\t${tournament.playerNames[standing.playerId]}\t${formatPoints({points: standing.points, sign: true})}\n`
+						`${rank + 1}.\t${tournament.playerList[standing.playerId].name}\t${formatPoints({points: standing.points, sign: true})}\n`
 					))
 				}
 			</pre>

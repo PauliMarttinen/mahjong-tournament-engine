@@ -8,7 +8,7 @@ import {
 	YAxis,
 	CartesianGrid
 } from "recharts";
-import useStandings from "../../../utils/hooks/useStandigs";
+import useStandings from "../../../utils/hooks/useStandings";
 import useTournament from "../../../utils/hooks/useTournament";
 
 type RankingEvolutionProps = {
@@ -44,7 +44,7 @@ const RankingEvolution = (props: RankingEvolutionProps) => {
 				<XAxis dataKey="name" />
 				<YAxis reversed={true}/>
 				{
-					generateArray(tournament.playerNames.length).map((playerId: number) => (
+					generateArray(tournament.playerList.length).map((playerId: number) => (
 						<Line
 							key={`rankingEvolution-player-${playerId}`}
 							dataKey={`player${playerId}`}

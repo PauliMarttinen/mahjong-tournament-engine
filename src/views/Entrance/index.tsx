@@ -10,6 +10,7 @@ import React from "react";
 import download from "../../utils/download";
 import FileUpload from "../../components/FileUpload";
 import shouldOfferStoredGame from "./utils/shouldOfferStoredGame";
+import updateTournamentFormat from "../../data-types/updateTournamentFormat/updateTournamentFormat";
 
 const Entrance = () => {
 	const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Entrance = () => {
 	};
 
 	const loadFromLocalStorage = () => {
-		const tournament: Tournament = JSON.parse(localStorage.getItem("mahjong-tournament") as string);
+		const tournament: Tournament = updateTournamentFormat(JSON.parse(localStorage.getItem("mahjong-tournament") as string)) as Tournament;
 		const view = findRoute(tournament);
 		markTournamentLoaded(true);
 		setTournament(tournament);
@@ -39,7 +40,7 @@ const Entrance = () => {
 		
 		const fileReader = new FileReader();
 		fileReader.onload = () => {
-			const tournament: Tournament = JSON.parse(fileReader.result as string);
+			const tournament: Tournament = updateTournamentFormat(JSON.parse(fileReader.result as string)) as Tournament;
 			const view = findRoute(tournament);
 			setTournament(tournament);
 			markTournamentLoaded(true);

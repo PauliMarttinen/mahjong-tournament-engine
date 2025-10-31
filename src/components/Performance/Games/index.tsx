@@ -26,13 +26,13 @@ const Games = (props: GamesProps) => {
 		//If fetching name for the selected player's seat, return player's name.
 		if (params.game.participants[params.seatNumber].playerId === props.playerId)
 		{
-			return <span>{tournament.playerNames[props.playerId]}</span>;
+			return <span>{tournament.playerList[props.playerId].name}</span>;
 		}
 
 		//If names need not be anonymized
 		if (!props.anonymize)
 		{
-			return <span>{tournament.playerNames[params.game.participants[params.seatNumber].playerId]}</span>
+			return <span>{tournament.playerList[params.game.participants[params.seatNumber].playerId].name}</span>
 		}
 
 		//Otherwise return "shimocha", "toimen" or "kamicha" for the other seats appropriately.

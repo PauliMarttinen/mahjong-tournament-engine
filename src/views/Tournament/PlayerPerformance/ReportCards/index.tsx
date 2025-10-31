@@ -5,8 +5,9 @@ import { generateArray } from "../../../../utils/generateArray";
 import useTournament from "../../../../utils/hooks/useTournament";
 import { Routes } from "../../../../utils/routeUtils";
 import alphabetizer from "../../../../utils/alphabetizer";
+import { Player } from "../../../../data-types/tournament-data-types";
 
-type Player = {
+type PlayerOption = {
 	playerName: string,
 	playerId: number
 };
@@ -16,11 +17,12 @@ const ReportCards = () => {
 
 	const [playerIds, setPlayerIds] = useState<number[]>([]);
 
-	const playerOptions: Player[] = useMemo(() => [...tournament.playerNames]
+	const playerOptions: PlayerOption[] = useMemo(() => tournament.playerList
+		.map((player: Player) => player.name)
 		.sort(alphabetizer)
-		.map((playerName: string) => ({
+		.map((playerName: string, _: number, playerNames: string[]) => ({
 			playerName: playerName,
-			playerId: tournament.playerNames.indexOf(playerName)
+			playerId: playerNames.indexOf(playerName)
 		})), []);
 		
 	const togglePlayer = (toggledPlayerId: number) => {
@@ -40,14 +42,14 @@ const ReportCards = () => {
 			<p>Select players whose report cards you want to print.</p>
 			<Button
 				label={"Select all"}
-				onClick={() => setPlayerIds(generateArray(tournament.playerNames.length))}
+				onClick={() => setPlayerIds(generateArray(tournament.playerList.length))}
 			/>
 			<Button
 				label={"Deselect all"}
 				onClick={() => setPlayerIds([])}
 			/>
 			{
-				playerOptions.map((player: Player) => (
+				playerOptions.map((player: PlayerOption) => (
 					<div key={`player-${player.playerId}`}>
 						<input
 							type={"checkbox"}

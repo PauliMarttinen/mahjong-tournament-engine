@@ -10,7 +10,7 @@ type StandingsProps = {
 
 const Table = (props: StandingsProps) => {
 	const tournament = useTournament();
-	const playerCount = tournament.playerNames.length;
+	const playerCount = tournament.playerList.length;
 
 	const columnSplitLimit = 24;
 	const playersPerColumn = 16;

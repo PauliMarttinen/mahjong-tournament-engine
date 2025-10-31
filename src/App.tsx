@@ -43,7 +43,7 @@ const App = () => {
 		);
 	}
 
-	if (tournament.playerNames.length === 0)
+	if (tournament.playerList.length === 0)
 	{
 		return (
 			<div className={"mahjongTournamentEngine"}>

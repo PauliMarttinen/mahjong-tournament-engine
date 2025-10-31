@@ -1,5 +1,5 @@
 import { Standing } from "../../../../data-types/tournament-data-types";
-import useStandings from "../../../../utils/hooks/useStandigs";
+import useStandings from "../../../../utils/hooks/useStandings";
 import styles from "./Column.module.css";
 import Row from "./Row/Row";
 

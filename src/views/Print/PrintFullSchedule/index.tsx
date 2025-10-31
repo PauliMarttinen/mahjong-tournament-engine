@@ -7,7 +7,6 @@ const PrintFullSchedule = () => {
 	const tournament = useTournament();
 
 	const rounds = generateArray(tournament.info.rounds);
-	const tables = generateArray(tournament.playerNames.length/4);
 
 	return (
 		<>
@@ -17,7 +16,7 @@ const PrintFullSchedule = () => {
 						key={`round-tr-${roundId}`}
 						roundId={roundId}
 						games={tournament.games.filter((game: Game) => game.round === roundId)}
-						playerNames={tournament.playerNames}
+						playerList={tournament.playerList}
 					/>
 				))
 			}

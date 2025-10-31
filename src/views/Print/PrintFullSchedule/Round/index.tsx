@@ -1,11 +1,11 @@
-import { Game } from "../../../../data-types/tournament-data-types";
+import { Game, Player } from "../../../../data-types/tournament-data-types";
 import Games from "./Games";
 import styles from "./Round.module.css";
 
 type RoundProps = {
 	roundId: number,
 	games: Game[],
-	playerNames: string[]
+	playerList: Player[]
 };
 
 const Round = (props: RoundProps) => {
@@ -27,7 +27,7 @@ const Round = (props: RoundProps) => {
 			</thead>
 			<Games
 				games={props.games}
-				playerNames={props.playerNames}
+				playerList={props.playerList}
 			/>
 		</table>
 	);

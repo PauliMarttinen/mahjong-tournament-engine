@@ -6,6 +6,8 @@ import { tournamentActionCreators } from "../../../state";
 import { bindActionCreators } from "redux";
 import Button from "../../../components/Button";
 import useTournament from "../../../utils/hooks/useTournament";
+import { Player } from "../../../data-types/tournament-data-types";
+import Toggle from "../../../components/Toggle";
 
 const EditPlayers = () => {
 	const dispatch = useDispatch();
@@ -13,15 +15,19 @@ const EditPlayers = () => {
 
 	const {addPlayers} = bindActionCreators(tournamentActionCreators, dispatch)
 
-	const [newNames, setNewNames] = useState<string[]>([...tournament.playerNames])
+	const [newList, setNewList] = useState<Player[]>([...tournament.playerList])
 	const [duplicates, setDuplicates] = useState<string[]>([]);
 
 	const changeName = (params: {newName: string, playerId: number}): void => {
-		setNewNames(newNames.map((oldName: string, index: number) => index === params.playerId ? params.newName : oldName))
+		setNewList(newList.map((oldPlayer: Player, index: number) => index === params.playerId ? {...oldPlayer, name: params.newName} : oldPlayer))
+	};
+
+	const switchSubstitute = (playerId: number): void => {
+		setNewList(newList.map((oldPlayer: Player, index: number) => index === playerId ? {...oldPlayer, substitute: !oldPlayer.substitute} : oldPlayer))
 	};
 
 	const saveNames = (): void => {
-		const duplicatesFromInput = newNames.filter((name: string, index: number) => newNames.indexOf(name) !== index);
+		const duplicatesFromInput = newList.map((player: Player) => player.name).filter((name: string, index: number, newNames: string[]) => newNames.indexOf(name) !== index);
 
 		if (duplicatesFromInput.length > 0)
 		{
@@ -29,7 +35,7 @@ const EditPlayers = () => {
 			return;
 		}
 
-		addPlayers(newNames);
+		addPlayers(newList);
 	};
 
 	return (
@@ -53,30 +59,43 @@ const EditPlayers = () => {
 			}
 			<h1>Edit player names</h1>
 			<table>
-				<tbody>
+				<thead>
 					<tr>
 						<th>Previous name</th>
 						<th>New name</th>
 						<th>{null}</th>
+						<th>Substitute</th>
 					</tr>
+				</thead>
+				<tbody>
 					{
-						tournament.playerNames.map((name: string, playerId: number) => (
+						tournament.playerList.map((player: Player, playerId: number) => (
 							<tr key={`editname-${playerId}`}>
 								<td>
-									{name}
+									{player.name}
 								</td>
 								<td>
 									<TextInput
 										label={""}
-										value={newNames[playerId]}
+										value={newList[playerId].name}
 										onChange={(newValue: string) => changeName({newName: newValue, playerId: playerId})}
 									/>
 								</td>
 								<td>
 									{
-										name !== newNames[playerId] &&
+										player.name !== newList[playerId].name &&
 										"*"
 									}
+								</td>
+								<td>
+									<Toggle
+										true={"Yes"}
+										false={"No"}
+										value={newList[playerId].substitute}
+										onSwitch={() => {
+											switchSubstitute(playerId);
+										}}
+									/>
 								</td>
 							</tr>
 						))
@@ -84,7 +103,7 @@ const EditPlayers = () => {
 				</tbody>
 			</table>
 			<Button
-				label={"Save new names"}
+				label={"Save changes"}
 				onClick={() => saveNames()}
 			/>
 		</div>
