@@ -1,45 +1,38 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import readXlsxFile from "read-excel-file";
-import { Row } from "read-excel-file/types";
+/* import readXlsxFile from "read-excel-file";
+import { Row } from "read-excel-file/types"; */
 import { bindActionCreators } from "redux";
 import Button from "../../../components/Button";
 import Popup from "../../../components/Popup";
-import { Game, Score } from "../../../data-types/tournament-data-types";
+/* import { Game, Score } from "../../../data-types/tournament-data-types"; */
 import { tournamentActionCreators } from "../../../state";
-import { convertTemplate } from "../../../utils/convertTemplate";
-import { generateArray } from "../../../utils/generateArray";
-import { generateSeating } from "../../../utils/generateSeating";
+/* import { convertTemplate } from "../../../utils/convertTemplate";
+import { generateSeating } from "../../../utils/generateSeating"; */
 import { Routes } from "../../../utils/routeUtils";
 import styles from "./PlayerEntryView.module.css";
-import TemplateHelp from "./TemplateHelp";
-import FileUpload from "../../../components/FileUpload";
+/* import TemplateHelp from "./TemplateHelp";
+import FileUpload from "../../../components/FileUpload"; */
 import useTournament from "../../../utils/hooks/useTournament";
 
-const defaultScore: Score = {
-	raw: 0,
-	uma: 0,
-	penalty: 0
-}
-
 const PlayerEntryView = () => {
-	const tournament = useTournament();
+	/* const tournament = useTournament();
 
-	const [showTemplateHelp, setShowTemplateHelp] = useState<boolean>(false);
+	const [showTemplateHelp, setShowTemplateHelp] = useState<boolean>(false); */
 	const [playersInput, setPlayersInput] = useState<string>("");
 	const [duplicates, setDuplicates] = useState<string[]>([]);
 	const [randomize, setRandomize] = useState<boolean>(false);
-	const [customSeatingTemplate, setCustomSeatingTemplate] = useState<number[][] | null>(null);
+	/* const [customSeatingTemplate, setCustomSeatingTemplate] = useState<number[][] | null>(null); */
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const {addGames, addPlayers} = bindActionCreators(tournamentActionCreators, dispatch)
+	const {addPlayers} = bindActionCreators(tournamentActionCreators, dispatch);
 
 	const players: string[] = playersInput.split("\n").filter(name => name !== "");
 
 	const rightAmount = players.length > 0 && players.length % 4 === 0;
 
-	const createGamesData = (seatingTemplate: number[][]): Game[] => {
+	/* const createGamesData = (seatingTemplate: number[][]): Game[] => {
 		return generateArray(tournament.info.rounds).map((roundId: number): Game[] => (
 			generateArray(players.length / 4).map((tableId: number): Game => ({
 				round: roundId,
@@ -65,9 +58,9 @@ const PlayerEntryView = () => {
 				]
 			}))
 		)).reduce((combined: Game[], round: Game[]): Game[] => [...combined, ...round], []);
-	};
+	}; */
 
-	const getSeatingTemplate = () => 
+	/* const getSeatingTemplate = () => 
 		customSeatingTemplate === null
 		?
 		generateSeating({
@@ -76,7 +69,7 @@ const PlayerEntryView = () => {
 			playerCount: players.length
 		})
 		:
-		customSeatingTemplate;    
+		customSeatingTemplate;    */ 
 
 	const save = (): void => {
 		//Check for duplicates, notify if they exist and don't save names yet.
@@ -91,17 +84,17 @@ const PlayerEntryView = () => {
 		const playersInOrder = randomize ? players.sort((a: string, b: string) => Math.random() - 0.5) : players;
 
 		addPlayers(playersInOrder.map((name: string) => ({name: name, substitute: false})));
-		addGames(createGamesData(getSeatingTemplate()));
-		navigate(Routes.Overview);
+		//addGames(createGamesData(getSeatingTemplate()));
+		navigate(Routes.SeatingTemplateEntry);
 	};
 
-	const readTemplateFile = (files: FileList | null) => {
+	/* const readTemplateFile = (files: FileList | null) => {
 		if (files === null) return;
 
 		readXlsxFile(files[0]).then((excelRows: Row[]) => {
 			setCustomSeatingTemplate(convertTemplate(excelRows));
 		});
-	};
+	}; */
 
 	return (
 		<div>
@@ -140,7 +133,7 @@ const PlayerEntryView = () => {
 				/>
 				<label htmlFor={"randomize"}>Randomize the order of names.</label>
 			</p>
-			<h2>Seating template</h2>
+			{/* <h2>Seating template</h2>
 			<div>To use a seating template, upload one here:
 				<FileUpload
 					label={"Choose file"}
@@ -151,7 +144,7 @@ const PlayerEntryView = () => {
 					onClick={() => setShowTemplateHelp(true)}
 				/>
 			</div>
-			<p>If you don't upload a template, an algithmically generated seating will be used. Note that the current version of Mahjong Tournament Engine does not generate good seatings.</p>
+			<p>If you don't upload a template, an algithmically generated seating will be used. Note that the current version of Mahjong Tournament Engine does not generate good seatings.</p> */}
 			<p>
 				<Button
 					label={"Save players"}
@@ -164,10 +157,10 @@ const PlayerEntryView = () => {
 				}
 			</p>
 			{
-				showTemplateHelp &&
+				/* showTemplateHelp &&
 				<TemplateHelp
 					onClose={() => setShowTemplateHelp(false)}
-				/>
+				/> */
 			}
 		</div>
 	);

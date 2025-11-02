@@ -1,0 +1,7 @@
+.SeatingTemplateTable {
+	border-collapse: collapse;
+}
+
+.SeatingTemplateTable td, .SeatingTemplateTable th {
+	border: 1px solid black;
+}
