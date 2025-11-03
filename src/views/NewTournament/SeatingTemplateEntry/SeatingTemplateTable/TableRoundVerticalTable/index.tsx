@@ -6,7 +6,6 @@ import styles from "../SeatingTemplateTable.module.css";
 type SeatingTemplateTableProps = {
 	seatingTemplate: number[][],
 	preview: boolean
-
 };
 
 const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
@@ -28,7 +27,7 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 		if (highlightedRow === rowId || highlightedColumn === columnId)
 			return styles.throughlight;
 		return "";
-	}
+	};
 	
 	return (
 		<table className={styles.SeatingTemplateTable}>

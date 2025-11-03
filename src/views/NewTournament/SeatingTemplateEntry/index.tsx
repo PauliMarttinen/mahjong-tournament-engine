@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { Routes } from "../../../utils/routeUtils";
 import FormatSelector, {Formats} from "./FormatSelector/FormatSelector";
 import SeatingTemplateTable from "./SeatingTemplateTable";
+import { generateRandomizedSeating } from "./utils/generateRandomizedSeating";
 
 const defaultScore: Score = {
 	raw: 0,
@@ -28,7 +29,7 @@ const SeatingTemplateEntry = () => {
 	
 	const premadeExists = `r${tournament.info.rounds}p${tournament.playerList.length}` in premadeSeatingTemplates;
 	const [showPreview, setShowPreview] = useState<boolean>(false);
-	const [seatingTemplate, setSeatingTemplate] = useState<number[][] | null>(null);
+	const [seatingTemplate, setSeatingTemplate] = useState<number[][]>(premadeExists ? premadeSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`] : generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds));
 	const [selectedFormat, setSelectedFormat] = useState<Formats>(Formats.TableRoundVertical);
 	
 	const createGamesData = (seatingTemplate: number[][]): Game[] => {
@@ -64,8 +65,7 @@ const SeatingTemplateEntry = () => {
 
 		if (seatingTemplate === null) return;
 		addGames(createGamesData(seatingTemplate));
-		
-		navigate(Routes.SeatingTemplateEntry);
+		navigate(Routes.Overview);
 	};
 
 	return (
@@ -76,11 +76,11 @@ const SeatingTemplateEntry = () => {
 				onFormatChange={(format: Formats) => setSelectedFormat(format)}
 			/>
 			<SeatingTemplateTable
-				seatingTemplate={premadeSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`]}
+				seatingTemplate={seatingTemplate}
 				format={selectedFormat}
 				preview={showPreview}
 			/>
-			
+			<p>Note: No premade seating template exists for this number of players and rounds. Thus this seating arrangement has been randomly generated and may not be very good.</p>
 			<Button
 				label={"Preview With Names"}
 				onClick={() => setShowPreview(true)}
