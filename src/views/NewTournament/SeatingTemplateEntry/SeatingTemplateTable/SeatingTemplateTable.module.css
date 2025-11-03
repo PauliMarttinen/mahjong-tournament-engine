@@ -4,4 +4,13 @@
 
 .SeatingTemplateTable td, .SeatingTemplateTable th {
 	border: 1px solid black;
+	text-align: center;
+}
+
+.SeatingTemplateTable td.throughlight {
+	background-color: lightblue;
+}
+
+.SeatingTemplateTable td.playerlight {
+	background-color: yellow;
 }
