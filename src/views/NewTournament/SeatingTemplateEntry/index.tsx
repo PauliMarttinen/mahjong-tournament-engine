@@ -13,6 +13,10 @@ import { Routes } from "../../../utils/routeUtils";
 import FormatSelector, {Formats} from "./FormatSelector/FormatSelector";
 import SeatingTemplateTable from "./SeatingTemplateTable";
 import { generateRandomizedSeating } from "./utils/generateRandomizedSeating";
+import FileUpload from "../../../components/FileUpload";
+import readXlsxFile from "read-excel-file";
+import { Row } from "read-excel-file/types";
+import { convertTemplate } from "../../../utils/convertTemplate";
 
 const defaultScore: Score = {
 	raw: 0,
@@ -29,6 +33,7 @@ const SeatingTemplateEntry = () => {
 	
 	const premadeExists = `r${tournament.info.rounds}p${tournament.playerList.length}` in premadeSeatingTemplates;
 	const [showPreview, setShowPreview] = useState<boolean>(false);
+	const [showUploadPopup, setShowUploadPopup] = useState<boolean>(false);
 	const [seatingTemplate, setSeatingTemplate] = useState<number[][]>(premadeExists ? premadeSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`] : generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds));
 	const [selectedFormat, setSelectedFormat] = useState<Formats>(Formats.TableRoundVertical);
 	
@@ -68,8 +73,34 @@ const SeatingTemplateEntry = () => {
 		navigate(Routes.Overview);
 	};
 
+	const readTemplateFile = (files: FileList | null) => {
+		if (files === null) return;
+
+		readXlsxFile(files[0]).then((excelRows: Row[]) => {
+			setSeatingTemplate(convertTemplate(excelRows, tournament.info.rounds, tournament.playerList.length));
+			setShowUploadPopup(false);
+		});
+	};
+
 	return (
 		<div>
+			{
+				showUploadPopup &&
+				<Popup
+					title={"Upload Seating Template"}
+					cancelText={"Cancel"}
+					onCancel={() => setShowUploadPopup(false)}
+					confirmText={""}
+					onConfirm={() => {}}
+					confirmHidden={true}
+				>
+					<p>You can open your own seating template as an Excel file.</p>
+					<FileUpload
+						label={"Open custom seating template file"}
+						onUpload={(content) => readTemplateFile(content)}
+					/>
+				</Popup>
+			}
 			<h1>Seating</h1>
 			<FormatSelector
 				format={selectedFormat}
@@ -80,7 +111,14 @@ const SeatingTemplateEntry = () => {
 				format={selectedFormat}
 				preview={showPreview}
 			/>
-			<p>Note: No premade seating template exists for this number of players and rounds. Thus this seating arrangement has been randomly generated and may not be very good.</p>
+			{
+				!premadeExists &&
+				<p>Note: The Engine does not have a premade seating template for this number of round and players, so this seating is randomly generated.</p>
+			}
+			<Button
+				label={"Open Seating Template File"}
+				onClick={() => setShowUploadPopup(true)}
+			/>
 			<Button
 				label={"Preview With Names"}
 				onClick={() => setShowPreview(true)}
