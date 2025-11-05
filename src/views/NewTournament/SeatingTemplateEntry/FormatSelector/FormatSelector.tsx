@@ -1,3 +1,45 @@
+/**
+ * These are formats for represenging three-dimensional data in a two-dimensional array.
+ * 
+ * The first word for a format name shows which dimension is represented as rows:
+ * - "RoundTable" means rounds are rows and tables are columns.
+ * - "TableRound" means tables are rows and rounds are columns.
+ * 
+ * The second word for a format name shows how seats are oriented:
+ * - "Horizontal" means seats are represented horizontally (e.g. seat 0,1,2,3 are in the same row).
+ * - "Vertical" means seats are represented vertically (e.g. seat 0,1,2,3 are in the same column).
+ * 
+ * Thus, RoundTableHorizontal:
+ * 
+ * | Rounds\Tables | Table 1       | 
+ * |---------------|---------------|
+ * | Round 1.      | 0, 1, 2, 3    |
+ * 
+ * TableRoundHorizontal:
+ * 
+ * | Tables\Rounds | Round 1       |
+ * |---------------|---------------|
+ * | Table 1.      | 0, 1, 2, 3    |
+ * 
+ * RoundTableVertical:
+ * 
+ * | Rounds\Tables | Table 1       |
+ * |---------------|---------------| 
+ * | Round 1.      | 0             |
+ * |               | 1             |
+ * |               | 2             |
+ * |               | 3             |
+ * 
+ * TableRoundVertical:
+ * 
+ * | Tables\Rounds | Round 1       |
+ * |---------------|---------------|
+ * | Table 1.      | 0             |
+ * |               | 1             |
+ * |               | 2             |
+ * |               | 3             |
+ */
+
 export enum Formats {
 	RoundTableHorizontal,
 	TableRoundHorizontal,
