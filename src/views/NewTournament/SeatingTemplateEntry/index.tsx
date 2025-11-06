@@ -17,6 +17,7 @@ import FileUpload from "../../../components/FileUpload";
 import readXlsxFile from "read-excel-file";
 import { Row } from "read-excel-file/types";
 import { convertTemplate } from "../../../utils/convertTemplate";
+import { evaluateSeatingBalance } from "./utils/seatingTemplateEvaluation";
 
 const defaultScore: Score = {
 	raw: 0,
@@ -36,7 +37,8 @@ const SeatingTemplateEntry = () => {
 	const [showUploadPopup, setShowUploadPopup] = useState<boolean>(false);
 	const [seatingTemplate, setSeatingTemplate] = useState<number[][]>(premadeExists ? premadeSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`] : generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds));
 	const [selectedFormat, setSelectedFormat] = useState<Formats>(Formats.TableRoundVertical);
-	
+	const [showSeatingBalanceInfo, setShowSeatingBalanceInfo] = useState<boolean>(false);
+
 	const createGamesData = (seatingTemplate: number[][]): Game[] => {
 		return generateArray(tournament.info.rounds).map((roundId: number): Game[] => (
 			generateArray(tournament.playerList.length / 4).map((tableId: number): Game => ({
@@ -82,6 +84,10 @@ const SeatingTemplateEntry = () => {
 		});
 	};
 
+	const randomizeSeating = (): void => {
+		setSeatingTemplate(generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds));
+	};
+
 	return (
 		<div>
 			{
@@ -101,6 +107,20 @@ const SeatingTemplateEntry = () => {
 					/>
 				</Popup>
 			}
+			{
+				showSeatingBalanceInfo &&
+				<Popup
+					title={"Seating Balance Score"}
+					cancelText={"Close"}
+					onCancel={() => setShowSeatingBalanceInfo(false)}
+					confirmText={""}
+					onConfirm={() => {}}
+					confirmHidden={true}
+				>
+					<p>Seating Balance Score measures how perfectly players are seated into the four seat winds over the course of the tournament. The score is on the scale of 0-100 where 100 is perfect balance.</p>
+					<p>Perfect balance can be impossible with certain combinations of number of players and number of rounds.</p>
+				</Popup>
+			}
 			<h1>Seating</h1>
 			<FormatSelector
 				format={selectedFormat}
@@ -115,6 +135,24 @@ const SeatingTemplateEntry = () => {
 				!premadeExists &&
 				<p>Note: The Engine does not have a premade seating template for this number of round and players, so this seating is randomly generated.</p>
 			}
+			<table>
+				<tbody>
+					<tr>
+						<td>Seating Balance Score</td>
+						<td>{evaluateSeatingBalance(seatingTemplate).toFixed(2)}/100.00</td>
+						<td>
+							<Button
+								label={"?"}
+								onClick={() => setShowSeatingBalanceInfo(true)}
+							/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<Button
+				label={"Randomize Seating"}
+				onClick={() => randomizeSeating()}
+			/>
 			<Button
 				label={"Open Seating Template File"}
 				onClick={() => setShowUploadPopup(true)}
