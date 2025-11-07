@@ -7,7 +7,7 @@ import r8p40 from "./r8p40.json";
 import r8p44 from "./r8p44.json";
 import r8p48 from "./r8p48.json";
 
-export const premadeSeatingTemplates: { [key: string]: number[][] } = {
+export const recommendedSeatingTemplates: { [key: string]: number[][] } = {
 	"r8p16": r8p16,
 	"r8p24": r8p24,
 	"r8p28": r8p28,

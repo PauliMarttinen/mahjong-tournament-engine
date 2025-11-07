@@ -5,7 +5,7 @@ import useTournament from "../../../utils/hooks/useTournament";
 import { bindActionCreators } from "redux";
 import { tournamentActionCreators } from "../../../state";
 import { useDispatch } from "react-redux";
-import { premadeSeatingTemplates } from "./premadeSeatingTemplates/premadeSeatingTemplates";
+import { recommendedSeatingTemplates } from "./recommendedSeatingTemplates/recommendedSeatingTemplates";
 import Button from "../../../components/Button";
 import Popup from "../../../components/Popup";
 import { useNavigate } from "react-router-dom";
@@ -32,10 +32,10 @@ const SeatingTemplateEntry = () => {
 
 	const {addGames} = bindActionCreators(tournamentActionCreators, dispatch);
 	
-	const premadeExists = `r${tournament.info.rounds}p${tournament.playerList.length}` in premadeSeatingTemplates;
+	const recommendedExists = `r${tournament.info.rounds}p${tournament.playerList.length}` in recommendedSeatingTemplates;
 	const [showPreview, setShowPreview] = useState<boolean>(false);
 	const [showUploadPopup, setShowUploadPopup] = useState<boolean>(false);
-	const [seatingTemplate, setSeatingTemplate] = useState<number[][]>(premadeExists ? premadeSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`] : generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds));
+	const [seatingTemplate, setSeatingTemplate] = useState<number[][]>(recommendedExists ? recommendedSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`] : generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds));
 	const [selectedFormat, setSelectedFormat] = useState<Formats>(Formats.TableRoundVertical);
 	const [showSeatingBalanceInfo, setShowSeatingBalanceInfo] = useState<boolean>(false);
 	const [showMeetingBalanceInfo, setShowMeetingBalanceInfo] = useState<boolean>(false);
@@ -89,9 +89,9 @@ const SeatingTemplateEntry = () => {
 		setSeatingTemplate(generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds));
 	};
 
-	const setPremadeSeating = (): void => {
-		if (!premadeExists) return;
-		setSeatingTemplate(premadeSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`]);
+	const setRecommendedSeating = (): void => {
+		if (!recommendedExists) return;
+		setSeatingTemplate(recommendedSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`]);
 	};
 
 	return (
@@ -152,8 +152,8 @@ const SeatingTemplateEntry = () => {
 				preview={showPreview}
 			/>
 			{
-				!premadeExists &&
-				<p>Note: The Engine does not have a premade seating template for this number of round and players, so this seating is randomly generated.</p>
+				!recommendedExists &&
+				<p>Note: The Engine does not have a recommended seating template for this number of round and players, so this seating is randomly generated.</p>
 			}
 			<table>
 				<tbody>
@@ -180,9 +180,9 @@ const SeatingTemplateEntry = () => {
 				</tbody>
 			</table>
 			<Button
-				label={"Use premade seating template"}
-				onClick={() => setPremadeSeating()}
-				disabled={!premadeExists}
+				label={"Use recommended seating template"}
+				onClick={() => setRecommendedSeating()}
+				disabled={!recommendedExists}
 			/>
 			<Button
 				label={"Randomize Seating"}
