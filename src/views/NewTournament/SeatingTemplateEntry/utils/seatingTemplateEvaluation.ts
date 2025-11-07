@@ -66,11 +66,12 @@ export const evaluateSeatingBalance = (template: number[][]): number => {
 	
 	const seatSumPerfection: number[] = seatSums.map((sum: number) => Math.abs(perfectSeatingScore - sum));
 	const totalImbalance = seatSumPerfection.reduce((a, b) => a + b, 0);
+
 	// Normalize the score to a range between 0 and 1
 	const maxPossibleImbalance = playerCount * perfectSeatingScore;
 	const normalizedScore = totalImbalance / maxPossibleImbalance;
 
-	// Scale to a more user-friendly range (e.g., 0 to 100)
+	// Scale to 0-100
 	return 100-(normalizedScore * 100);
 }
 
@@ -82,5 +83,55 @@ export const evaluateSeatingBalance = (template: number[][]): number => {
  * Perfect balance may be impossible to achieve depending on the number of players and rounds.
  */
 export const evaluateMeetingBalance = (template: number[][]): number => {
-	return 0;
+	const playerCount = template.length;
+	const roundCount = template[0].length;
+
+	// Create a meeting matrix to count meetings between players
+	const meetingMatrix: number[][] = generateArray(playerCount).map(() => generateArray(playerCount).map(() => 0));
+
+	// Populate the meeting matrix
+	template.forEach((row: number[], index: number) => {
+		if (index % 4 !== 0) return; // Process only East seats to avoid double counting
+		row.forEach((eastPlayerId: number, roundId: number) => {
+			const southPlayerId = template[index + 1][roundId];
+			const westPlayerId = template[index + 2][roundId];
+			const northPlayerId = template[index + 3][roundId];
+		
+			meetingMatrix[eastPlayerId][southPlayerId] += 1;
+			meetingMatrix[eastPlayerId][westPlayerId] += 1;
+			meetingMatrix[eastPlayerId][northPlayerId] += 1;
+
+			meetingMatrix[southPlayerId][eastPlayerId] += 1;
+			meetingMatrix[southPlayerId][westPlayerId] += 1;
+			meetingMatrix[southPlayerId][northPlayerId] += 1;
+
+			meetingMatrix[westPlayerId][eastPlayerId] += 1;
+			meetingMatrix[westPlayerId][southPlayerId] += 1;
+			meetingMatrix[westPlayerId][northPlayerId] += 1;
+
+			meetingMatrix[northPlayerId][eastPlayerId] += 1;
+			meetingMatrix[northPlayerId][southPlayerId] += 1;
+			meetingMatrix[northPlayerId][westPlayerId] += 1;
+		});
+	});
+
+	// Calculate the ideal number of meetings
+	const idealMeetings = (roundCount * 4) / (playerCount - 1);
+
+	// Calculate the total deviation from the ideal meetings
+	const totalDeviation = meetingMatrix.reduce((total, row, y) => {
+		return total + row.reduce((rowTotal, meetings, x) => {
+			if (y !== x) {
+				return rowTotal + Math.abs(meetings - idealMeetings);
+			}
+			return rowTotal;
+		}, 0);
+	}, 0);
+
+	// Normalize the score to a range between 0 and 1
+	const maxPossibleDeviation = playerCount * (playerCount - 1) * idealMeetings;
+	const normalizedScore = totalDeviation / maxPossibleDeviation;
+
+	// Scale to 0-100
+	return 100 - (normalizedScore * 100);
 }
