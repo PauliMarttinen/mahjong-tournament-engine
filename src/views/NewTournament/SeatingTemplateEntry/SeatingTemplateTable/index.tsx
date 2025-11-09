@@ -3,11 +3,13 @@ import TableRoundVerticalTable from "./TableRoundVerticalTable";
 import TableRoundHorizontalTable from "./TableRoundHorizontalTable";
 import RoundTableVerticalTable from "./RoundTableVerticalTable";
 import RoundTableHorizontalTable from "./RoundTableHorizontalTable";
+import { SeatingTemplateErrors } from "../utils/seatingTemplateEvaluation";
 
 type SeatingTemplateTableProps = {
 	seatingTemplate: number[][],
 	format: Formats,
-	preview: boolean
+	preview: boolean,
+	errors: SeatingTemplateErrors,
 }
 
 const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
@@ -17,6 +19,7 @@ const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
 				props.format === Formats.TableRoundVertical &&
 				<TableRoundVerticalTable
 					seatingTemplate={props.seatingTemplate}
+					errors={props.errors}
 					preview={props.preview}
 				/>
 			}
@@ -24,6 +27,7 @@ const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
 				props.format === Formats.TableRoundHorizontal &&
 				<TableRoundHorizontalTable
 					seatingTemplate={props.seatingTemplate}
+					errors={props.errors}
 					preview={props.preview}
 				/>
 			}
@@ -31,6 +35,7 @@ const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
 				props.format === Formats.RoundTableVertical &&
 				<RoundTableVerticalTable
 					seatingTemplate={props.seatingTemplate}
+					errors={props.errors}
 					preview={props.preview}
 				/>
 			}
@@ -38,6 +43,7 @@ const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
 				props.format === Formats.RoundTableHorizontal &&
 				<RoundTableHorizontalTable
 					seatingTemplate={props.seatingTemplate}
+					errors={props.errors}
 					preview={props.preview}
 				/>
 			}

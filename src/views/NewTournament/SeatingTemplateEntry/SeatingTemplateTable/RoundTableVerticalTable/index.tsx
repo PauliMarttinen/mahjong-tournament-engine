@@ -2,11 +2,12 @@ import { useState } from "react";
 import { generateArray } from "../../../../../utils/generateArray";
 import useTournament from "../../../../../utils/hooks/useTournament";
 import styles from "../SeatingTemplateTable.module.css";
+import { SeatingTemplateErrors } from "../../utils/seatingTemplateEvaluation";
 
 type SeatingTemplateTableProps = {
 	seatingTemplate: number[][],
-	preview: boolean
-
+	preview: boolean,
+	errors: SeatingTemplateErrors,
 };
 
 const RoundTableVerticalTable = (props: SeatingTemplateTableProps) => {
@@ -23,11 +24,15 @@ const RoundTableVerticalTable = (props: SeatingTemplateTableProps) => {
 	};
 
 	const getClassNames = (rowId: number, columnId: number, playerId: number) => {
-		if (highlightedPlayerId === playerId)
-			return styles.playerlight;
-		if (highlightedRow === rowId || highlightedColumn === columnId)
-			return styles.throughlight;
-		return "";
+		const isDuplicate = props.errors.duplicates.some((duplicate) => duplicate.roundId === Math.floor(rowId) && duplicate.playerId === playerId);
+		if (isDuplicate)
+			return styles.duplicate;
+
+		const isOutsideRange = playerId < 0 || playerId >= tournament.playerList.length;
+		const playerLight = highlightedPlayerId === playerId;
+		const throughLight = highlightedRow === rowId || highlightedColumn === columnId;
+		
+		return `${isOutsideRange ? styles.outsideRange : ""} ${playerLight ? styles.playerlight : ""} ${throughLight ? styles.throughlight : ""}`.trim();
 	}
 
 	return (

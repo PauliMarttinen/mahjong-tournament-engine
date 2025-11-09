@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Game, Score } from "../../../data-types/tournament-data-types";
 import { generateArray } from "../../../utils/generateArray";
 import useTournament from "../../../utils/hooks/useTournament";
@@ -17,7 +17,7 @@ import FileUpload from "../../../components/FileUpload";
 import readXlsxFile from "read-excel-file";
 import { Row } from "read-excel-file/types";
 import { convertTemplate } from "../../../utils/convertTemplate";
-import { evaluateSeatingBalance, evaluateMeetingBalance } from "./utils/seatingTemplateEvaluation";
+import { evaluateSeatingBalance, evaluateMeetingBalance, findErrors } from "./utils/seatingTemplateEvaluation";
 
 const defaultScore: Score = {
 	raw: 0,
@@ -39,6 +39,8 @@ const SeatingTemplateEntry = () => {
 	const [selectedFormat, setSelectedFormat] = useState<Formats>(Formats.TableRoundVertical);
 	const [showSeatingBalanceInfo, setShowSeatingBalanceInfo] = useState<boolean>(false);
 	const [showMeetingBalanceInfo, setShowMeetingBalanceInfo] = useState<boolean>(false);
+
+	const seatingTemplateErrors = useMemo(() => findErrors(seatingTemplate), [seatingTemplate]);
 
 	const createGamesData = (seatingTemplate: number[][]): Game[] => {
 		return generateArray(tournament.info.rounds).map((roundId: number): Game[] => (
@@ -94,6 +96,8 @@ const SeatingTemplateEntry = () => {
 		setSeatingTemplate(recommendedSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`]);
 	};
 
+	const confirmDisabled = seatingTemplateErrors.missing.length > 0 || seatingTemplateErrors.duplicates.length > 0 || seatingTemplateErrors.outsideRange.length > 0;
+
 	return (
 		<div>
 			{
@@ -148,6 +152,7 @@ const SeatingTemplateEntry = () => {
 			/>
 			<SeatingTemplateTable
 				seatingTemplate={seatingTemplate}
+				errors={seatingTemplateErrors}
 				format={selectedFormat}
 				preview={showPreview}
 			/>
@@ -155,6 +160,7 @@ const SeatingTemplateEntry = () => {
 				!recommendedExists &&
 				<p>Note: The Engine does not have a recommended seating template for this number of round and players, so this seating is randomly generated.</p>
 			}
+			<h2>Seating evaluations</h2>
 			<table>
 				<tbody>
 					<tr>
@@ -179,6 +185,32 @@ const SeatingTemplateEntry = () => {
 					</tr>
 				</tbody>
 			</table>
+			{
+				seatingTemplateErrors.missing.length > 0 &&
+				<>
+					<h3>Missing players in rounds:</h3>
+					<ul>
+						{seatingTemplateErrors.missing.map((missingPlayer) => (
+							<li key={`missing-player-${missingPlayer.playerId}-round-${missingPlayer.roundId}`}>
+								Player {missingPlayer.playerId} is missing from Round {missingPlayer.roundId + 1}
+							</li>
+						))}
+					</ul>
+				</>
+			}
+			{
+				seatingTemplateErrors.outsideRange.length > 0 &&
+				<>
+					<h3>Player IDs outside valid range (0-{tournament.playerList.length-1}):</h3>
+					<ul>
+						{seatingTemplateErrors.outsideRange.map((outsideRangeEntry, index) => (
+							<li key={`outside-range-${index}`}>
+								Player ID {outsideRangeEntry.playerId} at Table {outsideRangeEntry.tableId + 1}, Round {outsideRangeEntry.roundId + 1} is outside the valid range
+							</li>
+						))}
+					</ul>
+				</>
+			}
 			<Button
 				label={"Use recommended seating template"}
 				onClick={() => setRecommendedSeating()}
@@ -199,7 +231,12 @@ const SeatingTemplateEntry = () => {
 			<Button
 				label={"Confirm Seating"}
 				onClick={() => confirmSeating()}
+				disabled={confirmDisabled}
 			/>
+			{
+				confirmDisabled &&
+				<p>Cannot confirm seating while there are errors in the seating template.</p>
+			}
 		</div>
 	);
 };

@@ -1,47 +1,76 @@
 import { generateArray } from "../../../../utils/generateArray";
 
 /**
- * findDuplicatePlayers finds all seats where a player is duplicated on the same round.
+ * findErrors finds duplicate players, missing players and player IDs that are outside of the expected range.
  */
-export type DuplicatePlayerSeatings = {
+export type DuplicatePlayerSeating = {
 	roundId: number,
-	tableId: number,
-	seatId: number,
+	playerId: number,
 };
 
-export const findDuplicatePlayers = (template: number[][]): DuplicatePlayerSeatings[] => {
-	const playerCount = template.length;
-
-	return [];
-};
-
-/**
- * findMissingPlayers finds all players who are not seated in a round.
- */
-export type MissingPlayers = {
+export type MissingPlayer = {
 	playerId: number,
 	roundId: number,
 };
 
-export const findMissingPlayers = (template: number[][]): MissingPlayers[] => {
-	const playerCount = template.length;
-
-	return [];
-};
-
-/**
- * findPlayerIdsOutsideRange finds player IDs that are outside the expected range.
- */
-export type playerIdsOutsideRange = {
+export type PlayerIdOutsideRange = {
 	roundId: number,
 	tableId: number,
-	seatId: number,
-}
+	playerId: number
+};
 
-export const findOverflowingPlayerIds = (template: number[][]): playerIdsOutsideRange[] => {
+export type SeatingTemplateErrors = {
+	duplicates: DuplicatePlayerSeating[],
+	missing: MissingPlayer[],
+	outsideRange: PlayerIdOutsideRange[],
+};
+
+export const findErrors = (template: number[][]): SeatingTemplateErrors => {
 	const playerCount = template.length;
+	const duplicates: DuplicatePlayerSeating[] = [];
+	const missing: MissingPlayer[] = [];
+	const outsideRange: PlayerIdOutsideRange[] = [];
 
-	return [];
+	generateArray(template[0].length).forEach((roundId: number) => {
+		const playersInRound: number[] = template.map((_: number[], rowIndex: number) => {
+			if (template[rowIndex][roundId] < 0 || template[rowIndex][roundId] >= playerCount) {
+				outsideRange.push({
+					roundId,
+					tableId: Math.floor(rowIndex / 4),
+					playerId: template[rowIndex][roundId],
+				});
+			}
+			return template[rowIndex][roundId];
+		});
+
+		generateArray(playerCount)
+			.forEach((playerId: number, seatId: number) => {
+			const thisPlayerInRound = playersInRound.filter((pid) => pid === playerId);
+			if (thisPlayerInRound.length > 1) {
+				// Find all seats where this player is seated in this round
+				playersInRound.forEach((pid, seatIdx) => {
+					if (pid === playerId && seatIdx !== seatId) {
+						duplicates.push({
+							roundId,
+							playerId
+						});
+					}
+				});
+			}
+			if (thisPlayerInRound.length === 0) {
+				missing.push({
+					playerId,
+					roundId,
+				});
+			}
+		});
+	});
+
+	return {
+		duplicates,
+		missing,
+		outsideRange
+	};
 };
 
 /**
@@ -97,6 +126,16 @@ export const evaluateMeetingBalance = (template: number[][]): number => {
 			const westPlayerId = template[index + 2][roundId];
 			const northPlayerId = template[index + 3][roundId];
 		
+			//Skip invalid player IDs
+			if (southPlayerId >= playerCount || westPlayerId >= playerCount || northPlayerId >= playerCount) {
+				return;
+			}
+			if (southPlayerId < 0 || westPlayerId < 0 || northPlayerId < 0) {
+				return;
+			}
+
+			// Increment meetings for all combinations at the table
+
 			meetingMatrix[eastPlayerId][southPlayerId] += 1;
 			meetingMatrix[eastPlayerId][westPlayerId] += 1;
 			meetingMatrix[eastPlayerId][northPlayerId] += 1;
