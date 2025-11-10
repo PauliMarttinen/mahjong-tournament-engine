@@ -17,7 +17,8 @@ import FileUpload from "../../../components/FileUpload";
 import readXlsxFile from "read-excel-file";
 import { Row } from "read-excel-file/types";
 import { convertTemplate } from "../../../utils/convertTemplate";
-import { evaluateSeatingBalance, evaluateMeetingBalance, findErrors } from "./utils/seatingTemplateEvaluation";
+import { findErrors } from "./utils/seatingTemplateEvaluation";
+import SeatingTemplateEvaluations from "./SeatingTemplateEvaluation";
 
 const defaultScore: Score = {
 	raw: 0,
@@ -64,8 +65,6 @@ const SeatingTemplateEntry = () => {
 	const [seatingTemplateHistory, setSeatingTemplateHistory] = useState<SeatingTemplateHistoryItem[]>([getFirstTemplate()]);
 	const [currentSeatingTemplateIndex, setCurrentSeatingTemplateIndex] = useState<number>(0);
 	const [selectedFormat, setSelectedFormat] = useState<Formats>(Formats.TableRoundVertical);
-	const [showSeatingBalanceInfo, setShowSeatingBalanceInfo] = useState<boolean>(false);
-	const [showMeetingBalanceInfo, setShowMeetingBalanceInfo] = useState<boolean>(false);
 
 	const seatingTemplateErrors = useMemo(() => findErrors(seatingTemplateHistory[currentSeatingTemplateIndex].template), [currentSeatingTemplateIndex, seatingTemplateHistory]);
 
@@ -148,34 +147,6 @@ const SeatingTemplateEntry = () => {
 					/>
 				</Popup>
 			}
-			{
-				showSeatingBalanceInfo &&
-				<Popup
-					title={"Seating Balance Score"}
-					cancelText={"Close"}
-					onCancel={() => setShowSeatingBalanceInfo(false)}
-					confirmText={""}
-					onConfirm={() => {}}
-					confirmHidden={true}
-				>
-					<p>Seating Balance Score measures how perfectly players are seated into the four seat winds over the course of the tournament. The score is on the scale of 0-100 where 100 is perfect balance.</p>
-					<p>Perfect balance can be impossible with certain combinations of number of players and number of rounds.</p>
-				</Popup>
-			}
-			{
-				showMeetingBalanceInfo &&
-				<Popup
-					title={"Meeting Balance Score"}
-					cancelText={"Close"}
-					onCancel={() => setShowMeetingBalanceInfo(false)}
-					confirmText={""}
-					onConfirm={() => {}}
-					confirmHidden={true}
-				>
-					<p>Meeting Balance Score measures how evenly players meet each other over the course of the tournament. The score is on the scale of 0-100 where 100 is perfect balance.</p>
-					<p>Perfect balance can be impossible with certain combinations of number of players and number of rounds.</p>
-				</Popup>
-			}
 			<h1>Seating</h1>
 			<h2>Seating Template</h2>
 			<Button
@@ -207,57 +178,10 @@ const SeatingTemplateEntry = () => {
 				!recommendedExists &&
 				<p>Note: The Engine does not have a recommended seating template for this number of round and players, so this seating is randomly generated.</p>
 			}
-			<h2>Seating evaluations</h2>
-			<table>
-				<tbody>
-					<tr>
-						<td>Seating Balance Score</td>
-						<td>{evaluateSeatingBalance(seatingTemplateHistory[currentSeatingTemplateIndex].template).toFixed(2)}/100.00</td>
-						<td>
-							<Button
-								label={"?"}
-								onClick={() => setShowSeatingBalanceInfo(true)}
-							/>
-						</td>
-					</tr>
-					<tr>
-						<td>Meeting Balance Score</td>
-						<td>{evaluateMeetingBalance(seatingTemplateHistory[currentSeatingTemplateIndex].template).toFixed(2)}/100.00</td>
-						<td>
-							<Button
-								label={"?"}
-								onClick={() => setShowMeetingBalanceInfo(true)}
-							/>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			{
-				seatingTemplateErrors.missing.length > 0 &&
-				<>
-					<h3>Missing players in rounds:</h3>
-					<ul>
-						{seatingTemplateErrors.missing.map((missingPlayer) => (
-							<li key={`missing-player-${missingPlayer.playerId}-round-${missingPlayer.roundId}`}>
-								Player {missingPlayer.playerId} is missing from Round {missingPlayer.roundId + 1}
-							</li>
-						))}
-					</ul>
-				</>
-			}
-			{
-				seatingTemplateErrors.outsideRange.length > 0 &&
-				<>
-					<h3>Player IDs outside valid range (0-{tournament.playerList.length-1}):</h3>
-					<ul>
-						{seatingTemplateErrors.outsideRange.map((outsideRangeEntry, index) => (
-							<li key={`outside-range-${index}`}>
-								Player ID {outsideRangeEntry.playerId} at Table {outsideRangeEntry.tableId + 1}, Round {outsideRangeEntry.roundId + 1} is outside the valid range
-							</li>
-						))}
-					</ul>
-				</>
-			}
+			<SeatingTemplateEvaluations
+				template={seatingTemplateHistory[currentSeatingTemplateIndex].template}
+				errors={seatingTemplateErrors}
+			/>
 			<Button
 				label={"Use recommended seating template"}
 				onClick={() => setRecommendedSeating()}
