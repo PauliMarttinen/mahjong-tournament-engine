@@ -25,6 +25,17 @@ const defaultScore: Score = {
 	penalty: 0
 }
 
+enum SeatingTemplateTypes {
+	Recommended,
+	Custom,
+	Randomized
+}
+
+type SeatingTemplateHistoryItem = {
+	template: number[][],
+	type: SeatingTemplateTypes
+}
+
 const SeatingTemplateEntry = () => {
 	const tournament = useTournament();
 	const dispatch = useDispatch();
@@ -33,14 +44,36 @@ const SeatingTemplateEntry = () => {
 	const {addGames} = bindActionCreators(tournamentActionCreators, dispatch);
 	
 	const recommendedExists = `r${tournament.info.rounds}p${tournament.playerList.length}` in recommendedSeatingTemplates;
+
+	const getFirstTemplate = (): SeatingTemplateHistoryItem => {
+		if (recommendedExists) {
+			return {
+				template: recommendedSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`],
+				type: SeatingTemplateTypes.Recommended
+			};
+		}
+
+		return {
+			template: generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds),
+			type: SeatingTemplateTypes.Randomized
+		};
+	};
+
 	const [showPreview, setShowPreview] = useState<boolean>(false);
 	const [showUploadPopup, setShowUploadPopup] = useState<boolean>(false);
-	const [seatingTemplate, setSeatingTemplate] = useState<number[][]>(recommendedExists ? recommendedSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`] : generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds));
+	const [seatingTemplateHistory, setSeatingTemplateHistory] = useState<SeatingTemplateHistoryItem[]>([getFirstTemplate()]);
+	const [currentSeatingTemplateIndex, setCurrentSeatingTemplateIndex] = useState<number>(0);
 	const [selectedFormat, setSelectedFormat] = useState<Formats>(Formats.TableRoundVertical);
 	const [showSeatingBalanceInfo, setShowSeatingBalanceInfo] = useState<boolean>(false);
 	const [showMeetingBalanceInfo, setShowMeetingBalanceInfo] = useState<boolean>(false);
 
-	const seatingTemplateErrors = useMemo(() => findErrors(seatingTemplate), [seatingTemplate]);
+	const seatingTemplateErrors = useMemo(() => findErrors(seatingTemplateHistory[currentSeatingTemplateIndex].template), [currentSeatingTemplateIndex, seatingTemplateHistory]);
+
+	const addSeatingTemplateToHistory = (template: number[][], type: SeatingTemplateTypes): void => {
+		const newHistory = [...seatingTemplateHistory, {template, type}];
+		setSeatingTemplateHistory(newHistory);
+		setCurrentSeatingTemplateIndex(newHistory.length - 1);
+	};
 
 	const createGamesData = (seatingTemplate: number[][]): Game[] => {
 		return generateArray(tournament.info.rounds).map((roundId: number): Game[] => (
@@ -71,10 +104,8 @@ const SeatingTemplateEntry = () => {
 	};
 
 	const confirmSeating = (): void => {
-		//TODO: Validate seating template before proceeding.
-
-		if (seatingTemplate === null) return;
-		addGames(createGamesData(seatingTemplate));
+		if (seatingTemplateHistory === null) return;
+		addGames(createGamesData(seatingTemplateHistory[currentSeatingTemplateIndex].template));
 		navigate(Routes.Overview);
 	};
 
@@ -82,18 +113,18 @@ const SeatingTemplateEntry = () => {
 		if (files === null) return;
 
 		readXlsxFile(files[0]).then((excelRows: Row[]) => {
-			setSeatingTemplate(convertTemplate(excelRows, tournament.info.rounds, tournament.playerList.length));
+			addSeatingTemplateToHistory(convertTemplate(excelRows, tournament.info.rounds, tournament.playerList.length), SeatingTemplateTypes.Custom);
 			setShowUploadPopup(false);
 		});
 	};
 
 	const randomizeSeating = (): void => {
-		setSeatingTemplate(generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds));
+		addSeatingTemplateToHistory(generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds), SeatingTemplateTypes.Randomized);
 	};
 
 	const setRecommendedSeating = (): void => {
 		if (!recommendedExists) return;
-		setSeatingTemplate(recommendedSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`]);
+		setCurrentSeatingTemplateIndex(0);
 	};
 
 	const confirmDisabled = seatingTemplateErrors.missing.length > 0 || seatingTemplateErrors.duplicates.length > 0 || seatingTemplateErrors.outsideRange.length > 0;
@@ -146,15 +177,31 @@ const SeatingTemplateEntry = () => {
 				</Popup>
 			}
 			<h1>Seating</h1>
-			<FormatSelector
-				format={selectedFormat}
-				onFormatChange={(format: Formats) => setSelectedFormat(format)}
+			<h2>Seating Template</h2>
+			<Button
+				label={"Previous Seating"}
+				onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex - 1)}
+				disabled={currentSeatingTemplateIndex === 0}
 			/>
+			<Button
+				label={"Next Seating"}
+				onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex + 1)}
+				disabled={currentSeatingTemplateIndex === seatingTemplateHistory.length - 1}
+			/>
+			<Button
+				label={"Try New Random Seating"}
+				onClick={() => randomizeSeating()}
+			/>
+			<p>Showing seating template {currentSeatingTemplateIndex + 1} of {seatingTemplateHistory.length} (Type: {SeatingTemplateTypes[seatingTemplateHistory[currentSeatingTemplateIndex].type]})</p>
 			<SeatingTemplateTable
-				seatingTemplate={seatingTemplate}
+				seatingTemplate={seatingTemplateHistory[currentSeatingTemplateIndex].template}
 				errors={seatingTemplateErrors}
 				format={selectedFormat}
 				preview={showPreview}
+			/>
+			<FormatSelector
+				format={selectedFormat}
+				onFormatChange={(format: Formats) => setSelectedFormat(format)}
 			/>
 			{
 				!recommendedExists &&
@@ -165,7 +212,7 @@ const SeatingTemplateEntry = () => {
 				<tbody>
 					<tr>
 						<td>Seating Balance Score</td>
-						<td>{evaluateSeatingBalance(seatingTemplate).toFixed(2)}/100.00</td>
+						<td>{evaluateSeatingBalance(seatingTemplateHistory[currentSeatingTemplateIndex].template).toFixed(2)}/100.00</td>
 						<td>
 							<Button
 								label={"?"}
@@ -175,7 +222,7 @@ const SeatingTemplateEntry = () => {
 					</tr>
 					<tr>
 						<td>Meeting Balance Score</td>
-						<td>{evaluateMeetingBalance(seatingTemplate).toFixed(2)}/100.00</td>
+						<td>{evaluateMeetingBalance(seatingTemplateHistory[currentSeatingTemplateIndex].template).toFixed(2)}/100.00</td>
 						<td>
 							<Button
 								label={"?"}
@@ -215,10 +262,6 @@ const SeatingTemplateEntry = () => {
 				label={"Use recommended seating template"}
 				onClick={() => setRecommendedSeating()}
 				disabled={!recommendedExists}
-			/>
-			<Button
-				label={"Randomize Seating"}
-				onClick={() => randomizeSeating()}
 			/>
 			<Button
 				label={"Open Seating Template File"}
