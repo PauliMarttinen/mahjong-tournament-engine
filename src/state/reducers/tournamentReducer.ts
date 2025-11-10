@@ -36,15 +36,6 @@ const reducer = (state: Tournament = initialState, action: Action): Tournament =
 			localStorage.setItem("mahjong-tournament", JSON.stringify(newState));
 			return newState;
 		}
-		/* case ActionTypes.AddSeatingTemplate:
-		{  
-			const newState: Tournament = {
-				...state,
-				seatingTemplate: action.payload
-			};
-			localStorage.setItem("mahjong-tournament", JSON.stringify(newState));
-			return newState;
-		} */
 		case ActionTypes.AddGames:
 		{
 			const newState: Tournament = {
