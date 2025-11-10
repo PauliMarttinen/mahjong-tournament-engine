@@ -10,7 +10,6 @@ import Button from "../../../components/Button";
 import Popup from "../../../components/Popup";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../../../utils/routeUtils";
-import FormatSelector, {Formats} from "./SeatingTemplateTable/FormatSelector/FormatSelector";
 import SeatingTemplateTable from "./SeatingTemplateTable";
 import { generateRandomizedSeating } from "./utils/generateRandomizedSeating";
 import FileUpload from "../../../components/FileUpload";
@@ -64,7 +63,6 @@ const SeatingTemplateEntry = () => {
 	const [showUploadPopup, setShowUploadPopup] = useState<boolean>(false);
 	const [seatingTemplateHistory, setSeatingTemplateHistory] = useState<SeatingTemplateHistoryItem[]>([getFirstTemplate()]);
 	const [currentSeatingTemplateIndex, setCurrentSeatingTemplateIndex] = useState<number>(0);
-	const [selectedFormat, setSelectedFormat] = useState<Formats>(Formats.TableRoundVertical);
 
 	const seatingTemplateErrors = useMemo(() => findErrors(seatingTemplateHistory[currentSeatingTemplateIndex].template), [currentSeatingTemplateIndex, seatingTemplateHistory]);
 
@@ -173,7 +171,6 @@ const SeatingTemplateEntry = () => {
 			<SeatingTemplateTable
 				seatingTemplate={seatingTemplateHistory[currentSeatingTemplateIndex].template}
 				errors={seatingTemplateErrors}
-				/* format={selectedFormat} */
 				preview={showPreview}
 			/>
 			{
