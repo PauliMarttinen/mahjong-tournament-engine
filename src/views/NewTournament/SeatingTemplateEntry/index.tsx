@@ -10,7 +10,7 @@ import Button from "../../../components/Button";
 import Popup from "../../../components/Popup";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../../../utils/routeUtils";
-import FormatSelector, {Formats} from "./FormatSelector/FormatSelector";
+import FormatSelector, {Formats} from "./SeatingTemplateTable/FormatSelector/FormatSelector";
 import SeatingTemplateTable from "./SeatingTemplateTable";
 import { generateRandomizedSeating } from "./utils/generateRandomizedSeating";
 import FileUpload from "../../../components/FileUpload";
@@ -150,6 +150,12 @@ const SeatingTemplateEntry = () => {
 			<h1>Seating</h1>
 			<h2>Seating Template</h2>
 			<Button
+				label={"Use recommended seating template"}
+				onClick={() => setRecommendedSeating()}
+				disabled={!recommendedExists}
+				disabledTooltip={!recommendedExists ? "No recommended seating template exists for this number of players and rounds." : undefined}
+			/>
+			<Button
 				label={"Previous Seating"}
 				onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex - 1)}
 				disabled={currentSeatingTemplateIndex === 0}
@@ -167,12 +173,8 @@ const SeatingTemplateEntry = () => {
 			<SeatingTemplateTable
 				seatingTemplate={seatingTemplateHistory[currentSeatingTemplateIndex].template}
 				errors={seatingTemplateErrors}
-				format={selectedFormat}
+				/* format={selectedFormat} */
 				preview={showPreview}
-			/>
-			<FormatSelector
-				format={selectedFormat}
-				onFormatChange={(format: Formats) => setSelectedFormat(format)}
 			/>
 			{
 				!recommendedExists &&
@@ -181,11 +183,6 @@ const SeatingTemplateEntry = () => {
 			<SeatingTemplateEvaluations
 				template={seatingTemplateHistory[currentSeatingTemplateIndex].template}
 				errors={seatingTemplateErrors}
-			/>
-			<Button
-				label={"Use recommended seating template"}
-				onClick={() => setRecommendedSeating()}
-				disabled={!recommendedExists}
 			/>
 			<Button
 				label={"Open Seating Template File"}

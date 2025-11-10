@@ -1,4 +1,5 @@
-import { Formats } from "../FormatSelector/FormatSelector"
+import { useState } from "react";
+import FormatSelector, { Formats } from "./FormatSelector/FormatSelector"
 import TableRoundVerticalTable from "./TableRoundVerticalTable";
 import TableRoundHorizontalTable from "./TableRoundHorizontalTable";
 import RoundTableVerticalTable from "./RoundTableVerticalTable";
@@ -7,16 +8,18 @@ import { SeatingTemplateErrors } from "../utils/seatingTemplateEvaluation";
 
 type SeatingTemplateTableProps = {
 	seatingTemplate: number[][],
-	format: Formats,
+	/* format: Formats, */
 	preview: boolean,
 	errors: SeatingTemplateErrors,
 }
 
 const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
+	const [selectedFormat, setSelectedFormat] = useState<Formats>(Formats.TableRoundVertical);
+
 	return (
 		<div>
 			{
-				props.format === Formats.TableRoundVertical &&
+				selectedFormat === Formats.TableRoundVertical &&
 				<TableRoundVerticalTable
 					seatingTemplate={props.seatingTemplate}
 					errors={props.errors}
@@ -24,7 +27,7 @@ const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
 				/>
 			}
 			{
-				props.format === Formats.TableRoundHorizontal &&
+				selectedFormat === Formats.TableRoundHorizontal &&
 				<TableRoundHorizontalTable
 					seatingTemplate={props.seatingTemplate}
 					errors={props.errors}
@@ -32,7 +35,7 @@ const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
 				/>
 			}
 			{
-				props.format === Formats.RoundTableVertical &&
+				selectedFormat === Formats.RoundTableVertical &&
 				<RoundTableVerticalTable
 					seatingTemplate={props.seatingTemplate}
 					errors={props.errors}
@@ -40,13 +43,17 @@ const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
 				/>
 			}
 			{
-				props.format === Formats.RoundTableHorizontal &&
+				selectedFormat === Formats.RoundTableHorizontal &&
 				<RoundTableHorizontalTable
 					seatingTemplate={props.seatingTemplate}
 					errors={props.errors}
 					preview={props.preview}
 				/>
 			}
+			<FormatSelector
+				format={selectedFormat}
+				onFormatChange={(format: Formats) => setSelectedFormat(format)}
+			/>
 		</div>
 	);
 };

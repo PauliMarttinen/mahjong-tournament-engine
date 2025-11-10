@@ -1,4 +1,4 @@
-import { Formats } from "../FormatSelector/FormatSelector"
+import { Formats } from "../SeatingTemplateTable/FormatSelector/FormatSelector"
 
 export const determineTemplateFormat = (template: number[][], roundCount: number, playerCount: number): Formats|undefined => {
 	//First try to determine template format by the dimensions of the template
