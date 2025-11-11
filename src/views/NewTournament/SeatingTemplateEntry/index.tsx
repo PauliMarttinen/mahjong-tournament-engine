@@ -1,9 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Game, Score } from "../../../data-types/tournament-data-types";
 import { generateArray } from "../../../utils/generateArray";
-import useTournament from "../../../utils/hooks/useTournament";
+import useNewTournament from "../../../utils/hooks/useNewTournament";
 import { bindActionCreators } from "redux";
 import { tournamentActionCreators } from "../../../state";
+import { newTournamentActionCreators } from "../../../state";
 import { useDispatch } from "react-redux";
 import { recommendedSeatingTemplates } from "./recommendedSeatingTemplates/recommendedSeatingTemplates";
 import Button from "../../../components/Button";
@@ -18,6 +19,7 @@ import { Row } from "read-excel-file/types";
 import { convertTemplate } from "../../../utils/convertTemplate";
 import { findErrors } from "./utils/seatingTemplateEvaluation";
 import SeatingTemplateEvaluations from "./SeatingTemplateEvaluation";
+import { SeatingTemplateHistoryItem, SeatingTemplateTypes } from "../../../data-types/new-tournament-data-types";
 
 const defaultScore: Score = {
 	raw: 0,
@@ -25,46 +27,47 @@ const defaultScore: Score = {
 	penalty: 0
 }
 
-enum SeatingTemplateTypes {
-	Recommended,
-	Custom,
-	Randomized
-}
-
-type SeatingTemplateHistoryItem = {
-	template: number[][],
-	type: SeatingTemplateTypes
-}
-
 const SeatingTemplateEntry = () => {
-	const tournament = useTournament();
+	const newTournament = useNewTournament();
+	const {seatingTemplateHistory, currentSeatingTemplateIndex, seatingTemplateErrors} = newTournament;
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const {addGames} = bindActionCreators(tournamentActionCreators, dispatch);
+	const {editTournamentInfo, addPlayers, addGames} = bindActionCreators(tournamentActionCreators, dispatch);
+	const {setSeatingTemplateHistory, setCurrentSeatingTemplateIndex, setSeatingTemplateErrors, clearNewTournament} = bindActionCreators(newTournamentActionCreators, dispatch);
 	
-	const recommendedExists = `r${tournament.info.rounds}p${tournament.playerList.length}` in recommendedSeatingTemplates;
+	const recommendedExists = `r${newTournament.info.rounds}p${newTournament.playerList.length}` in recommendedSeatingTemplates;
 
 	const getFirstTemplate = (): SeatingTemplateHistoryItem => {
 		if (recommendedExists) {
 			return {
-				template: recommendedSeatingTemplates[`r${tournament.info.rounds}p${tournament.playerList.length}`],
+				template: recommendedSeatingTemplates[`r${newTournament.info.rounds}p${newTournament.playerList.length}`],
 				type: SeatingTemplateTypes.Recommended
 			};
 		}
 
 		return {
-			template: generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds),
+			template: generateRandomizedSeating(newTournament.playerList.length, newTournament.info.rounds),
 			type: SeatingTemplateTypes.Randomized
 		};
 	};
+	
+	useEffect(() => {
+		if (seatingTemplateHistory.length === 0)
+		{
+			setSeatingTemplateHistory([getFirstTemplate()]);
+		}
+	}, []);
 
 	const [showPreview, setShowPreview] = useState<boolean>(false);
 	const [showUploadPopup, setShowUploadPopup] = useState<boolean>(false);
-	const [seatingTemplateHistory, setSeatingTemplateHistory] = useState<SeatingTemplateHistoryItem[]>([getFirstTemplate()]);
-	const [currentSeatingTemplateIndex, setCurrentSeatingTemplateIndex] = useState<number>(0);
 
-	const seatingTemplateErrors = useMemo(() => findErrors(seatingTemplateHistory[currentSeatingTemplateIndex].template), [currentSeatingTemplateIndex, seatingTemplateHistory]);
+	useEffect(() => {
+		if (seatingTemplateHistory.length > 0)
+		{
+			setSeatingTemplateErrors(findErrors(seatingTemplateHistory[currentSeatingTemplateIndex].template));
+		}
+	}, [currentSeatingTemplateIndex, seatingTemplateHistory]);
 
 	const addSeatingTemplateToHistory = (template: number[][], type: SeatingTemplateTypes): void => {
 		const newHistory = [...seatingTemplateHistory, {template, type}];
@@ -73,8 +76,8 @@ const SeatingTemplateEntry = () => {
 	};
 
 	const createGamesData = (seatingTemplate: number[][]): Game[] => {
-		return generateArray(tournament.info.rounds).map((roundId: number): Game[] => (
-			generateArray(tournament.playerList.length / 4).map((tableId: number): Game => ({
+		return generateArray(newTournament.info.rounds).map((roundId: number): Game[] => (
+			generateArray(newTournament.playerList.length / 4).map((tableId: number): Game => ({
 				round: roundId,
 				table: tableId,
 				finished: false,
@@ -101,8 +104,10 @@ const SeatingTemplateEntry = () => {
 	};
 
 	const confirmSeating = (): void => {
-		if (seatingTemplateHistory === null) return;
+		editTournamentInfo(newTournament.info);
+		addPlayers(newTournament.playerList);
 		addGames(createGamesData(seatingTemplateHistory[currentSeatingTemplateIndex].template));
+		clearNewTournament();
 		navigate(Routes.Overview);
 	};
 
@@ -110,13 +115,13 @@ const SeatingTemplateEntry = () => {
 		if (files === null) return;
 
 		readXlsxFile(files[0]).then((excelRows: Row[]) => {
-			addSeatingTemplateToHistory(convertTemplate(excelRows, tournament.info.rounds, tournament.playerList.length), SeatingTemplateTypes.Custom);
+			addSeatingTemplateToHistory(convertTemplate(excelRows, newTournament.info.rounds, newTournament.playerList.length), SeatingTemplateTypes.Custom);
 			setShowUploadPopup(false);
 		});
 	};
 
 	const randomizeSeating = (): void => {
-		addSeatingTemplateToHistory(generateRandomizedSeating(tournament.playerList.length, tournament.info.rounds), SeatingTemplateTypes.Randomized);
+		addSeatingTemplateToHistory(generateRandomizedSeating(newTournament.playerList.length, newTournament.info.rounds), SeatingTemplateTypes.Randomized);
 	};
 
 	const setRecommendedSeating = (): void => {
@@ -125,6 +130,10 @@ const SeatingTemplateEntry = () => {
 	};
 
 	const confirmDisabled = seatingTemplateErrors.missing.length > 0 || seatingTemplateErrors.duplicates.length > 0 || seatingTemplateErrors.outsideRange.length > 0;
+
+	if (seatingTemplateHistory.length === 0) {
+		return <></>;
+	};
 
 	return (
 		<div>
@@ -169,18 +178,13 @@ const SeatingTemplateEntry = () => {
 			/>
 			<p>Showing seating template {currentSeatingTemplateIndex + 1} of {seatingTemplateHistory.length} (Type: {SeatingTemplateTypes[seatingTemplateHistory[currentSeatingTemplateIndex].type]})</p>
 			<SeatingTemplateTable
-				seatingTemplate={seatingTemplateHistory[currentSeatingTemplateIndex].template}
-				errors={seatingTemplateErrors}
 				preview={showPreview}
 			/>
 			{
 				!recommendedExists &&
 				<p>Note: The Engine does not have a recommended seating template for this number of round and players, so this seating is randomly generated.</p>
 			}
-			<SeatingTemplateEvaluations
-				template={seatingTemplateHistory[currentSeatingTemplateIndex].template}
-				errors={seatingTemplateErrors}
-			/>
+			<SeatingTemplateEvaluations/>
 			<Button
 				label={"Open Seating Template File"}
 				onClick={() => setShowUploadPopup(true)}

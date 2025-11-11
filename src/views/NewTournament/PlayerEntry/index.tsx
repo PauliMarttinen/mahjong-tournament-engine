@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import Button from "../../../components/Button";
 import Popup from "../../../components/Popup";
-import { tournamentActionCreators } from "../../../state";
+import { newTournamentActionCreators } from "../../../state";
 import { Routes } from "../../../utils/routeUtils";
 import styles from "./PlayerEntryView.module.css";
 
@@ -15,7 +15,7 @@ const PlayerEntryView = () => {
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const {addPlayers} = bindActionCreators(tournamentActionCreators, dispatch);
+	const {addPlayers} = bindActionCreators(newTournamentActionCreators, dispatch);
 
 	const players: string[] = playersInput.split("\n").filter(name => name !== "");
 	const rightAmount = players.length > 0 && players.length % 4 === 0;

@@ -2,16 +2,19 @@ import { useState } from "react";
 import { evaluateMeetingBalance, evaluateSeatingBalance, findErrors } from "../utils/seatingTemplateEvaluation";
 import Button from "../../../../components/Button";
 import Popup from "../../../../components/Popup";
-import useTournament from "../../../../utils/hooks/useTournament";
-import { SeatingTemplateErrors } from "../utils/seatingTemplateEvaluation";
+import useNewTournament from "../../../../utils/hooks/useNewTournament";
+import { SeatingTemplateErrors } from "../../../../data-types/new-tournament-data-types";
 
 type SeatingTemplateEvaluationsProps = {
-	template: number[][],
-	errors: SeatingTemplateErrors,
+	/* template: number[][],
+	errors: SeatingTemplateErrors, */
 };
 
 const SeatingTemplateEvaluations = (props: SeatingTemplateEvaluationsProps) => {
-	const tournament = useTournament();
+	const newTournament = useNewTournament();
+	const template = newTournament.seatingTemplateHistory[newTournament.currentSeatingTemplateIndex].template;
+	const errors = newTournament.seatingTemplateErrors;
+
 	const [showSeatingBalanceInfo, setShowSeatingBalanceInfo] = useState(false);
 	const [showMeetingBalanceInfo, setShowMeetingBalanceInfo] = useState(false);
 
@@ -50,7 +53,7 @@ const SeatingTemplateEvaluations = (props: SeatingTemplateEvaluationsProps) => {
 				<tbody>
 					<tr>
 						<td>Seating Balance Score</td>
-						<td>{evaluateSeatingBalance(props.template).toFixed(2)}/100.00</td>
+						<td>{evaluateSeatingBalance(template).toFixed(2)}/100.00</td>
 						<td>
 							<Button
 								label={"?"}
@@ -60,7 +63,7 @@ const SeatingTemplateEvaluations = (props: SeatingTemplateEvaluationsProps) => {
 					</tr>
 					<tr>
 						<td>Meeting Balance Score</td>
-						<td>{evaluateMeetingBalance(props.template).toFixed(2)}/100.00</td>
+						<td>{evaluateMeetingBalance(template).toFixed(2)}/100.00</td>
 						<td>
 							<Button
 								label={"?"}
@@ -71,11 +74,11 @@ const SeatingTemplateEvaluations = (props: SeatingTemplateEvaluationsProps) => {
 				</tbody>
 			</table>
 			{
-				props.errors.missing.length > 0 &&
+				errors.missing.length > 0 &&
 				<>
 					<h3>Missing players in rounds:</h3>
 					<ul>
-						{props.errors.missing.map((missingPlayer) => (
+						{errors.missing.map((missingPlayer) => (
 							<li key={`missing-player-${missingPlayer.playerId}-round-${missingPlayer.roundId}`}>
 								Player {missingPlayer.playerId} is missing from Round {missingPlayer.roundId + 1}
 							</li>
@@ -84,11 +87,11 @@ const SeatingTemplateEvaluations = (props: SeatingTemplateEvaluationsProps) => {
 				</>
 			}
 			{
-				props.errors.outsideRange.length > 0 &&
+				errors.outsideRange.length > 0 &&
 				<>
-					<h3>Player IDs outside valid range (0-{tournament.playerList.length-1}):</h3>
+					<h3>Player IDs outside valid range (0-{newTournament.playerList.length-1}):</h3>
 					<ul>
-						{props.errors.outsideRange.map((outsideRangeEntry, index) => (
+						{errors.outsideRange.map((outsideRangeEntry, index) => (
 							<li key={`outside-range-${index}`}>
 								Player ID {outsideRangeEntry.playerId} at Table {outsideRangeEntry.tableId + 1}, Round {outsideRangeEntry.roundId + 1} is outside the valid range
 							</li>

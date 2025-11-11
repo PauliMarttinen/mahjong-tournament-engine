@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { generateArray } from "../../../../../utils/generateArray";
-import useTournament from "../../../../../utils/hooks/useTournament";
+import useNewTournament from "../../../../../utils/hooks/useNewTournament";
 import styles from "../SeatingTemplateTable.module.css";
-import { SeatingTemplateErrors } from "../../utils/seatingTemplateEvaluation";
 
 type SeatingTemplateTableProps = {
-	seatingTemplate: number[][],
 	preview: boolean,
-	errors: SeatingTemplateErrors,
 };
 
 const RoundTableVerticalTable = (props: SeatingTemplateTableProps) => {
-	const tournament = useTournament();
+	const newTournament = useNewTournament();
+	const {seatingTemplateErrors} = newTournament;
+	const seatingTemplate = newTournament.seatingTemplateHistory[newTournament.currentSeatingTemplateIndex].template;
 	
 	const [highlightedRow, setHighlightedRow] = useState<number | null>(null);
 	const [highlightedColumn, setHighlightedColumn] = useState<number | null>(null);
@@ -24,11 +23,11 @@ const RoundTableVerticalTable = (props: SeatingTemplateTableProps) => {
 	};
 
 	const getClassNames = (rowId: number, columnId: number, playerId: number) => {
-		const isDuplicate = props.errors.duplicates.some((duplicate) => duplicate.roundId === Math.floor(rowId) && duplicate.playerId === playerId);
+		const isDuplicate = seatingTemplateErrors.duplicates.some((duplicate) => duplicate.roundId === Math.floor(rowId) && duplicate.playerId === playerId);
 		if (isDuplicate)
 			return styles.duplicate;
 
-		const isOutsideRange = playerId < 0 || playerId >= tournament.playerList.length;
+		const isOutsideRange = playerId < 0 || playerId >= newTournament.playerList.length;
 		const playerLight = highlightedPlayerId === playerId;
 		const throughLight = highlightedRow === rowId || highlightedColumn === columnId;
 		
@@ -40,56 +39,56 @@ const RoundTableVerticalTable = (props: SeatingTemplateTableProps) => {
 			<thead>
 				<tr>
 					<th>Round \ Table</th>
-					{generateArray(tournament.playerList.length/4).map((tableId: number) => (
+					{generateArray(newTournament.playerList.length/4).map((tableId: number) => (
 						<th key={`th-${tableId}`}>Table {tableId + 1}</th>
 					))}
 				</tr>
 			</thead>
 			<tbody>
-				{generateArray(tournament.info.rounds).map((roundId: number) => (
+				{generateArray(newTournament.info.rounds).map((roundId: number) => (
 					<>
 						<tr key={`tr-table-${roundId}-e`}>
 							<td rowSpan={4}>Round {roundId + 1}</td>
-							{generateArray(tournament.playerList.length/4).map((tableId: number) => (
+							{generateArray(newTournament.playerList.length/4).map((tableId: number) => (
 								<td
-									onMouseOver={() => setHighlights(roundId, tableId, props.seatingTemplate[tableId*4][roundId])}
+									onMouseOver={() => setHighlights(roundId, tableId, seatingTemplate[tableId*4][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
-									className={getClassNames(roundId, tableId, props.seatingTemplate[tableId*4][roundId])}
+									className={getClassNames(roundId, tableId, seatingTemplate[tableId*4][roundId])}
 								 	key={`td-${roundId}-e-td-${tableId}`}>
-									{props.seatingTemplate[tableId*4][roundId]}
+									{seatingTemplate[tableId*4][roundId]}
 								</td>
 							))}
 						</tr>
 						<tr key={`tr-table-${roundId}-s`}>
-							{generateArray(tournament.playerList.length/4).map((tableId: number) => (
+							{generateArray(newTournament.playerList.length/4).map((tableId: number) => (
 								<td
-									onMouseOver={() => setHighlights(roundId+0.1, tableId, props.seatingTemplate[tableId*4+1][roundId])}
+									onMouseOver={() => setHighlights(roundId+0.1, tableId, seatingTemplate[tableId*4+1][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
-									className={getClassNames(roundId+0.1, tableId, props.seatingTemplate[tableId*4+1][roundId])}
+									className={getClassNames(roundId+0.1, tableId, seatingTemplate[tableId*4+1][roundId])}
 									key={`td-${roundId}-s-td-${tableId}`}>
-									{props.seatingTemplate[tableId*4+1][roundId]}
+									{seatingTemplate[tableId*4+1][roundId]}
 								</td>
 							))}
 						</tr>
 						<tr key={`tr-table-${roundId}-w`}>
-							{generateArray(tournament.playerList.length/4).map((tableId: number) => (
+							{generateArray(newTournament.playerList.length/4).map((tableId: number) => (
 								<td
-									onMouseOver={() => setHighlights(roundId+0.2, tableId, props.seatingTemplate[tableId*4+2][roundId])}
+									onMouseOver={() => setHighlights(roundId+0.2, tableId, seatingTemplate[tableId*4+2][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
-									className={getClassNames(roundId+0.2, tableId, props.seatingTemplate[tableId*4+2][roundId])}
+									className={getClassNames(roundId+0.2, tableId, seatingTemplate[tableId*4+2][roundId])}
 									key={`td-${roundId}-w-td-${tableId}`}>
-									{props.seatingTemplate[tableId*4+2][roundId]}
+									{seatingTemplate[tableId*4+2][roundId]}
 								</td>
 							))}
 						</tr>
 						<tr key={`tr-table-${roundId}-n`}>
-							{generateArray(tournament.playerList.length/4).map((tableId: number) => (
+							{generateArray(newTournament.playerList.length/4).map((tableId: number) => (
 								<td
-									onMouseOver={() => setHighlights(roundId+0.3, tableId, props.seatingTemplate[tableId*4+3][roundId])}
+									onMouseOver={() => setHighlights(roundId+0.3, tableId, seatingTemplate[tableId*4+3][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
-									className={getClassNames(roundId+0.3, tableId, props.seatingTemplate[tableId*4+3][roundId])}
+									className={getClassNames(roundId+0.3, tableId, seatingTemplate[tableId*4+3][roundId])}
 								 	key={`td-${roundId}-n-td-${tableId}`}>
-									{props.seatingTemplate[tableId*4+3][roundId]}
+									{seatingTemplate[tableId*4+3][roundId]}
 								</td>
 							))}
 						</tr>

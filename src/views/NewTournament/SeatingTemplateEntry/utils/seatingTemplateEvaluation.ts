@@ -1,30 +1,9 @@
+import { DuplicatePlayerSeating, MissingPlayer, PlayerIdOutsideRange, SeatingTemplateErrors } from "../../../../data-types/new-tournament-data-types";
 import { generateArray } from "../../../../utils/generateArray";
 
 /**
  * findErrors finds duplicate players, missing players and player IDs that are outside of the expected range.
  */
-export type DuplicatePlayerSeating = {
-	roundId: number,
-	playerId: number,
-};
-
-export type MissingPlayer = {
-	playerId: number,
-	roundId: number,
-};
-
-export type PlayerIdOutsideRange = {
-	roundId: number,
-	tableId: number,
-	playerId: number
-};
-
-export type SeatingTemplateErrors = {
-	duplicates: DuplicatePlayerSeating[],
-	missing: MissingPlayer[],
-	outsideRange: PlayerIdOutsideRange[],
-};
-
 export const findErrors = (template: number[][]): SeatingTemplateErrors => {
 	const playerCount = template.length;
 	const duplicates: DuplicatePlayerSeating[] = [];
