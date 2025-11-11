@@ -180,10 +180,6 @@ const SeatingTemplateEntry = () => {
 			<SeatingTemplateTable
 				preview={showPreview}
 			/>
-			{
-				!recommendedExists &&
-				<p>Note: The Engine does not have a recommended seating template for this number of round and players, so this seating is randomly generated.</p>
-			}
 			<SeatingTemplateEvaluations/>
 			<Button
 				label={"Open Seating Template File"}
