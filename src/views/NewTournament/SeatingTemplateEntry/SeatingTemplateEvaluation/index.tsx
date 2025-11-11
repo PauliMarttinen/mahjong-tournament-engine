@@ -3,14 +3,8 @@ import { evaluateMeetingBalance, evaluateSeatingBalance, findErrors } from "../u
 import Button from "../../../../components/Button";
 import Popup from "../../../../components/Popup";
 import useNewTournament from "../../../../utils/hooks/useNewTournament";
-import { SeatingTemplateErrors } from "../../../../data-types/new-tournament-data-types";
 
-type SeatingTemplateEvaluationsProps = {
-	/* template: number[][],
-	errors: SeatingTemplateErrors, */
-};
-
-const SeatingTemplateEvaluations = (props: SeatingTemplateEvaluationsProps) => {
+const SeatingTemplateEvaluations = () => {
 	const newTournament = useNewTournament();
 	const template = newTournament.seatingTemplateHistory[newTournament.currentSeatingTemplateIndex].template;
 	const errors = newTournament.seatingTemplateErrors;
