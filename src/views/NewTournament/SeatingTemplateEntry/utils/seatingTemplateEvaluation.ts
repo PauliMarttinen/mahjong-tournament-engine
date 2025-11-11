@@ -23,22 +23,22 @@ export const findErrors = (template: number[][]): SeatingTemplateErrors => {
 		});
 
 		generateArray(playerCount)
-			.forEach((playerId: number, seatId: number) => {
-			const thisPlayerInRound = playersInRound.filter((pid) => pid === playerId);
+			.forEach((playerIdToSearch: number, rowIndex: number) => {
+			const thisPlayerInRound = playersInRound.filter((currentPlayerId) => currentPlayerId === playerIdToSearch);
 			if (thisPlayerInRound.length > 1) {
 				// Find all seats where this player is seated in this round
-				playersInRound.forEach((pid, seatIdx) => {
-					if (pid === playerId && seatIdx !== seatId) {
+				playersInRound.forEach((currentPlayerId, seatId) => {
+					if (currentPlayerId === playerIdToSearch && seatId !== rowIndex) {
 						duplicates.push({
 							roundId,
-							playerId
+							playerId: playerIdToSearch
 						});
 					}
 				});
 			}
 			if (thisPlayerInRound.length === 0) {
 				missing.push({
-					playerId,
+					playerId: playerIdToSearch,
 					roundId,
 				});
 			}
