@@ -3,6 +3,7 @@ import useTournament from "./utils/hooks/useTournament";
 import useAppState from "./utils/hooks/useAppState";
 import TournametInfoEntry from "./views/NewTournament/TournamentInfoEntry";
 import PlayerEntry from "./views/NewTournament/PlayerEntry";
+import SeatingTemplateEntry from "./views/NewTournament/SeatingTemplateEntry";
 import Overview from "./views/Tournament/Overview";
 import Standings from "./views/Tournament/Standings";
 import StandingsPopup from "./views/Tournament/Standings/StandingsPopup";
@@ -43,7 +44,7 @@ const App = () => {
 		);
 	}
 
-	if (tournament.playerList.length === 0)
+	if (tournament.games.length === 0)
 	{
 		return (
 			<div className={"mahjongTournamentEngine"}>
@@ -54,6 +55,7 @@ const App = () => {
 							<Route index element={<TournametInfoEntry/>}/>
 							<Route path={"basic"} element={<TournametInfoEntry/>}/>
 							<Route path={"players"} element={<PlayerEntry/>}/>
+							<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
 						</Route>
 					</Routes>
 				</BrowserRouter>

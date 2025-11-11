@@ -6,6 +6,7 @@ type ButtonProps = {
 	subLabel?: string,
 	disabled?: boolean,
 	onClick: () => void
+	disabledTooltip?: string,
 };
 
 const Button = (props: ButtonProps) => {
@@ -16,7 +17,8 @@ const Button = (props: ButtonProps) => {
 	return (
 		<button
 			className={className}
-			onClick={onClick}>
+			onClick={onClick}
+			title={props.disabled && props.disabledTooltip ? props.disabledTooltip : ""}>
 			<strong className={styles.mainLabel}>
 				{props.label}
 			</strong>

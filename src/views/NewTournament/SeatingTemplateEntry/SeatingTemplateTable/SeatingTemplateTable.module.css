@@ -1,0 +1,34 @@
+.SeatingTemplateTable {
+	border-collapse: collapse;
+}
+
+.SeatingTemplateTable td, .SeatingTemplateTable th {
+	border: 1px solid black;
+	text-align: center;
+}
+
+.SeatingTemplateTable td.throughlight {
+	background-color: lightblue;
+}
+
+.SeatingTemplateTable td.playerlight {
+	background-color: yellow;
+}
+
+.SeatingTemplateTable td.duplicate {
+	background-color: pink;
+}
+
+.SeatingTemplateTable td.outsideRange {
+	outline: 4px solid red;
+}
+
+.SeatingTemplateTable td input {
+	font-size: inherit;
+	font-family: inherit;
+	width: 4em;
+	box-sizing: border-box;
+	border: none;
+	background-color: inherit;
+	text-align: inherit;
+}
