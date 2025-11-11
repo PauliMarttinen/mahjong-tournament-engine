@@ -57,12 +57,11 @@ export const setSeatingTemplateErrors = (errors: SeatingTemplateErrors) => {
 	};
 };
 
-export const editTemplateField = (templateId: number, tableId: number, roundId: number, seatId: number, playerId: number) => {
+export const editTemplateField = (tableId: number, roundId: number, seatId: number, playerId: number) => {
 	return (dispatch: Dispatch<EditTemplateFieldAction>) => {
 		dispatch({
 			type: ActionTypes.EditTemplateField,
 			payload: {
-				templateId,
 				tableId,
 				roundId,
 				seatId,

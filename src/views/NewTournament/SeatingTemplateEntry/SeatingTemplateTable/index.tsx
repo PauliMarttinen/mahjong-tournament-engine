@@ -38,10 +38,10 @@ const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
 					preview={props.preview}
 				/>
 			}
-			<FormatSelector
+			{/* <FormatSelector
 				format={selectedFormat}
 				onFormatChange={(format: Formats) => setSelectedFormat(format)}
-			/>
+			/> */}
 		</div>
 	);
 };

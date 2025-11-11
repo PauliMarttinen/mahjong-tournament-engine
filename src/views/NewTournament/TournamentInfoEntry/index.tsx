@@ -2,7 +2,7 @@ import { useState } from "react";
 import { GeneralInfo } from "../../../data-types/tournament-data-types";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { tournamentActionCreators, newTournamentActionCreators } from "../../../state";
+import { newTournamentActionCreators } from "../../../state";
 import TextInput from "../../../components/TextInput";
 import NumberInput from "../../../components/NumberInput";
 import { initialState } from "../../../state/reducers/tournamentReducer";

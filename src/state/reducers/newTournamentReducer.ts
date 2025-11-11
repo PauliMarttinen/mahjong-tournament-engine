@@ -1,6 +1,6 @@
 import Action from "../actions/new-tournament-actions";
 import ActionTypes from "../action-types/new-tournament-action-types";
-import { NewTournament } from "../../data-types/new-tournament-data-types";
+import { NewTournament, SeatingTemplateHistoryItem } from "../../data-types/new-tournament-data-types";
 
 export const initialState: NewTournament = {
 	info: {
@@ -62,18 +62,16 @@ const reducer = (state: NewTournament = initialState, action: Action): NewTourna
 		}
 		case ActionTypes.EditTemplateField:
 		{
-			const { tableId, roundId, seatId, playerId } = action.payload;
-			const updatedTemplate = state.seatingTemplateHistory[state.seatingTemplateHistory.length - 1].template.map((table, tIndex) => {
-				if (tIndex !== tableId) return table;
-				return table.map((seat, sIndex) => {
-					if (sIndex !== seatId) return seat;
-					return playerId;
-				});
+			const {tableId, roundId, seatId, playerId} = action.payload;
+			const templateToUpdate = state.seatingTemplateHistory[state.currentSeatingTemplateIndex];
+			templateToUpdate.template[tableId*4+seatId][roundId] = playerId;
+
+			const newSeatingTemplateHistory = state.seatingTemplateHistory.map((item: SeatingTemplateHistoryItem, index: number) => {
+				if (index === state.currentSeatingTemplateIndex) return templateToUpdate;
+
+				return item;
 			});
-			const newSeatingTemplateHistory = state.seatingTemplateHistory.slice(0, -1).concat([{
-				template: updatedTemplate,
-				type: state.seatingTemplateHistory[state.seatingTemplateHistory.length - 1].type
-			}]);
+
 			const newState: NewTournament = {
 				...state,
 				seatingTemplateHistory: newSeatingTemplateHistory

@@ -30,7 +30,6 @@ export type SetSeatingTemplateErrorsAction = {
 export type EditTemplateFieldAction = {
 	type: ActionTypes.EditTemplateField,
 	payload: {
-		templateId: number,
 		tableId: number,
 		roundId: number,
 		seatId: number,

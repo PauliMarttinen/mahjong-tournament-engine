@@ -106,15 +106,14 @@ export const evaluateMeetingBalance = (template: number[][]): number => {
 			const northPlayerId = template[index + 3][roundId];
 		
 			//Skip invalid player IDs
-			if (southPlayerId >= playerCount || westPlayerId >= playerCount || northPlayerId >= playerCount) {
+			if (eastPlayerId >= playerCount || southPlayerId >= playerCount || westPlayerId >= playerCount || northPlayerId >= playerCount) {
 				return;
 			}
-			if (southPlayerId < 0 || westPlayerId < 0 || northPlayerId < 0) {
+			if (eastPlayerId < 0 || southPlayerId < 0 || westPlayerId < 0 || northPlayerId < 0) {
 				return;
 			}
 
 			// Increment meetings for all combinations at the table
-
 			meetingMatrix[eastPlayerId][southPlayerId] += 1;
 			meetingMatrix[eastPlayerId][westPlayerId] += 1;
 			meetingMatrix[eastPlayerId][northPlayerId] += 1;
