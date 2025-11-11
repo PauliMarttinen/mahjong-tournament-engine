@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { evaluateMeetingBalance, evaluateSeatingBalance, findErrors } from "../utils/seatingTemplateEvaluation";
+import { evaluateMeetingBalance, evaluateWindBalance } from "../utils/seatingTemplateEvaluation";
 import Button from "../../../../components/Button";
 import Popup from "../../../../components/Popup";
 import useNewTournament from "../../../../utils/hooks/useNewTournament";
@@ -9,22 +9,22 @@ const SeatingTemplateEvaluations = () => {
 	const template = newTournament.seatingTemplateHistory[newTournament.currentSeatingTemplateIndex].template;
 	const errors = newTournament.seatingTemplateErrors;
 
-	const [showSeatingBalanceInfo, setShowSeatingBalanceInfo] = useState(false);
+	const [showWindBalanceInfo, setShowWindBalanceInfo] = useState(false);
 	const [showMeetingBalanceInfo, setShowMeetingBalanceInfo] = useState(false);
 
 	return (
 		<>
 			{
-				showSeatingBalanceInfo &&
+				showWindBalanceInfo &&
 				<Popup
-					title={"Seating Balance Score"}
+					title={"Wind Balance Score"}
 					cancelText={"Close"}
-					onCancel={() => setShowSeatingBalanceInfo(false)}
+					onCancel={() => setShowWindBalanceInfo(false)}
 					confirmText={""}
 					onConfirm={() => {}}
 					confirmHidden={true}
 				>
-					<p>Seating Balance Score measures how perfectly players are seated into the four seat winds over the course of the tournament. The score is on the scale of 0-100 where 100 is perfect balance.</p>
+					<p>Wind Balance Score measures how perfectly players are seated into the four seat winds over the course of the tournament. The score is on the scale of 0-100 where 100 is perfect balance.</p>
 					<p>Perfect balance can be impossible with certain combinations of number of players and number of rounds.</p>
 				</Popup>
 			}
@@ -46,12 +46,12 @@ const SeatingTemplateEvaluations = () => {
 			<table>
 				<tbody>
 					<tr>
-						<td>Seating Balance Score</td>
-						<td>{evaluateSeatingBalance(template).toFixed(2)}/100.00</td>
+						<td>Wind Balance Score</td>
+						<td>{evaluateWindBalance(template).toFixed(2)}/100.00</td>
 						<td>
 							<Button
 								label={"?"}
-								onClick={() => setShowSeatingBalanceInfo(true)}
+								onClick={() => setShowWindBalanceInfo(true)}
 							/>
 						</td>
 					</tr>

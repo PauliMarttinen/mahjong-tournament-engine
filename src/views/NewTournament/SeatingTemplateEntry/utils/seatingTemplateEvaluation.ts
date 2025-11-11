@@ -53,30 +53,30 @@ export const findErrors = (template: number[][]): SeatingTemplateErrors => {
 };
 
 /**
- * evaluateSeatingBalance gives a score indicating how balanced the seating is on the scale of 0-100 where 100 is perfect.
+ * evaluateWindBalance gives a score indicating how balanced the winds are on the scale of 0-100 where 100 is perfect.
  * 
- * Perfect balance means that each player has an equal distribution of seats (East, South, West, North) across all rounds.
+ * Perfect balance means that each player has an equal distribution of winds across all rounds.
  * 
  * Perfect balance may be impossible to achieve depending on the number of players and rounds.
  */
-export const evaluateSeatingBalance = (template: number[][]): number => {
-	const seatValues = [1000, 10, 100, 1];
+export const evaluateWindBalance = (template: number[][]): number => {
+	const windValues = [1000, 10, 100, 1];
 	const playerCount = template.length;
 	const roundCount = template[0].length;
-	const perfectSeatingScore = (roundCount / 4) * seatValues.reduce((a, b) => a + b, 0);
+	const perfectWindScore = (roundCount / 4) * windValues.reduce((a, b) => a + b, 0);
 
-	const seatSums: number[] = generateArray(playerCount).map(() => 0);
+	const windSums: number[] = generateArray(playerCount).map(() => 0);
 	template.forEach((row: number[], rowIndex: number) => {
 		row.forEach((playerId: number) => {
-			seatSums[playerId] += seatValues[rowIndex%4];
+			windSums[playerId] += windValues[rowIndex%4];
 		});
 	});
 	
-	const seatSumPerfection: number[] = seatSums.map((sum: number) => Math.abs(perfectSeatingScore - sum));
-	const totalImbalance = seatSumPerfection.reduce((a, b) => a + b, 0);
+	const windSumPerfection: number[] = windSums.map((sum: number) => Math.abs(perfectWindScore - sum));
+	const totalImbalance = windSumPerfection.reduce((a, b) => a + b, 0);
 
 	// Normalize the score to a range between 0 and 1
-	const maxPossibleImbalance = playerCount * perfectSeatingScore;
+	const maxPossibleImbalance = playerCount * perfectWindScore;
 	const normalizedScore = totalImbalance / maxPossibleImbalance;
 
 	// Scale to 0-100
