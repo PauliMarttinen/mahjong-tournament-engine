@@ -13,6 +13,9 @@ const Ribbon = () => {
 				<Link className={styles.link} to={Routes.Overview}>Overview</Link>
 			</div>
 			<div className={styles.ribbonItem}>
+				<Link className={styles.link} to={Routes.HanchanResults}>Hanchan results</Link>
+			</div>
+			<div className={styles.ribbonItem}>
 				<Link className={styles.link} to={Routes.Standings}>Standings</Link>
 			</div>
 			<div className={styles.ribbonItem}>

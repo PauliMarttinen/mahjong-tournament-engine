@@ -1,0 +1,38 @@
+
+.hanchanResultsBody {
+	max-width: 45em;
+	margin: 0 auto;
+}
+
+.roundSelector {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 200%;
+}
+
+.roundSelector div {
+	margin: 1em;
+}
+
+.roundSelector .roundButton {
+	font-size: 100%;
+}
+
+.accordionLabel {
+	display: flex;
+	justify-content: space-between;
+}
+
+.tableLabel {
+	font-weight: bold;
+	margin-right: 1em;
+}
+
+.statusLabel {
+	font-weight: bold;
+}
+
+.statusLabel.unfinished {
+	visibility: hidden;
+}

@@ -5,6 +5,7 @@ import TournametInfoEntry from "./views/NewTournament/TournamentInfoEntry";
 import PlayerEntry from "./views/NewTournament/PlayerEntry";
 import SeatingTemplateEntry from "./views/NewTournament/SeatingTemplateEntry";
 import Overview from "./views/Tournament/Overview";
+import HanchanResults from "./views/Tournament/HanchanResults";
 import Standings from "./views/Tournament/Standings";
 import StandingsPopup from "./views/Tournament/Standings/StandingsPopup";
 import PrintOuts from "./views/Tournament/PrintOuts";
@@ -71,6 +72,7 @@ const App = () => {
 					<Route path={"/tournament"}>
 						<Route index element={<Overview/>}/>
 						<Route path={"overview"} element={<Overview/>}/>
+						<Route path={"hanchan-results"} element={<HanchanResults/>}/>
 						<Route path={"standings"} element={<Standings/>}/>
 						<Route path={"print-outs"} element={<PrintOuts/>}/>
 						<Route path={"edit-players"} element={<EditPlayers/>}/>

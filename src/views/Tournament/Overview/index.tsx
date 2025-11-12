@@ -8,7 +8,7 @@ import styles from "./Overview.module.css";
 import Toggle from "../../../components/Toggle";
 import useTournament from "../../../utils/hooks/useTournament";
 
-type ResultsCoordinate = {
+/* type ResultsCoordinate = {
 	round: number,
 	table: number
 };
@@ -16,13 +16,13 @@ type ResultsCoordinate = {
 const notEditingResults: ResultsCoordinate = {
 	round: -1,
 	table: -1
-};
+}; */
 
 const Overview = () => {
-	const [editingResults, setEditingResults] = useState<ResultsCoordinate>(notEditingResults);
+	/* const [editingResults, setEditingResults] = useState<ResultsCoordinate>(notEditingResults); */
 	const [hilight, setHilight] = useState<string>("");
-	const [resultsEnterMode, setResultsEnterMode] = useState<boolean>(true);
-
+	/* const [resultsEnterMode, setResultsEnterMode] = useState<boolean>(true); */
+	const resultsEnterMode = false;
 	const tournament = useTournament();
 
 	const rounds = generateArray(tournament.info.rounds);
@@ -36,12 +36,12 @@ const Overview = () => {
 					value={hilight}
 					onChange={(newValue: string): void => setHilight(newValue)}
 				/>
-				<Toggle
+				{/* <Toggle
 					false={"Selection mode"}
 					true={"Results enter mode"}
 					value={resultsEnterMode}
 					onSwitch={() => setResultsEnterMode(!resultsEnterMode)}
-				/>
+				/> */}
 			</div>
 			<div className={styles.seatingTable}>
 				<table className={styles.table}>
@@ -71,7 +71,7 @@ const Overview = () => {
 														north={tournament.playerList[game.participants[3].playerId].name}
 														finished={game.finished}
 														hilight={hilight}
-														onClick={() => setEditingResults({round: roundId, table: tableId})}
+														/* onClick={() => setEditingResults({round: roundId, table: tableId})} */
 														clickable={resultsEnterMode}
 													/>
 												</td>
@@ -87,12 +87,12 @@ const Overview = () => {
 				</table>
 			</div>
 			{
-				editingResults.round !== -1 &&
+				/* editingResults.round !== -1 &&
 				<EditResult
 					round={editingResults.round}
 					table={editingResults.table}
 					onFinish={() => setEditingResults(notEditingResults)}
-				/>
+				/> */
 			}
 		</div>
 	);
