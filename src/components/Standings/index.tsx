@@ -4,6 +4,7 @@ import Table from "./Table";
 type StandingsProps = {
 	className?: string,
 	plainText?: boolean,
+	singleColumn?: boolean,
 	afterRound: number
 };
 
@@ -20,6 +21,7 @@ const Standings = (props: StandingsProps) => {
 
 	return (
 		<Table
+			singleColumn={props.singleColumn}
 			className={props.className}
 			afterRound={props.afterRound}
 		/>

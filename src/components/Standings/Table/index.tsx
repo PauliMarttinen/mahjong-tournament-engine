@@ -5,6 +5,7 @@ import useTournament from "../../../utils/hooks/useTournament";
 
 type StandingsProps = {
 	className?: string,
+	singleColumn?: boolean,
 	afterRound: number
 };
 
@@ -13,7 +14,7 @@ const Table = (props: StandingsProps) => {
 	const playerCount = tournament.playerList.length;
 
 	const columnSplitLimit = 24;
-	const playersPerColumn = 16;
+	const playersPerColumn = props.singleColumn ? playerCount : 16;
 	const columns =
 		playerCount >= columnSplitLimit
 		?
