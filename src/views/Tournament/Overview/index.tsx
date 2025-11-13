@@ -1,29 +1,16 @@
 import { useState } from "react";
 import { Game } from "../../../data-types/tournament-data-types";
-import TextInput from "../../../components/TextInput";
-import EditResult from "./EditResult";
 import Hanchan from "./Hanchan";
 import { generateArray } from "../../../utils/generateArray";
 import styles from "./Overview.module.css";
-import Toggle from "../../../components/Toggle";
 import useTournament from "../../../utils/hooks/useTournament";
-import {Layout} from "antd";
+import {Input} from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import LayoutHeader from "../../../components/LayoutHeader";
-
-/* type ResultsCoordinate = {
-	round: number,
-	table: number
-};
-
-const notEditingResults: ResultsCoordinate = {
-	round: -1,
-	table: -1
-}; */
+import LayoutContent from "../../../components/LayoutContent";
 
 const Overview = () => {
-	/* const [editingResults, setEditingResults] = useState<ResultsCoordinate>(notEditingResults); */
-	const [hilight, setHilight] = useState<string>("");
-	/* const [resultsEnterMode, setResultsEnterMode] = useState<boolean>(true); */
+	const [highlight, setHighlight] = useState<string>("");
 	const resultsEnterMode = false;
 	const tournament = useTournament();
 
@@ -32,21 +19,17 @@ const Overview = () => {
 
 	return (
 		<>
-			<LayoutHeader>Overview</LayoutHeader>
-			<Layout.Content>
-				<div className={styles.toolbar}>
-					<TextInput
-						label={"Hilight"}
-						value={hilight}
-						onChange={(newValue: string): void => setHilight(newValue)}
-					/>
-					{/* <Toggle
-						false={"Selection mode"}
-						true={"Results enter mode"}
-						value={resultsEnterMode}
-						onSwitch={() => setResultsEnterMode(!resultsEnterMode)}
-					/> */}
-				</div>
+			<LayoutHeader>
+				Overview
+			</LayoutHeader>
+			<LayoutContent>
+				<Input
+					value={highlight}
+					prefix={<SearchOutlined/>}
+					onChange={(e) => setHighlight(e.target.value)}
+					className={styles.highlight}
+					placeholder={"Search for player"}
+				/>
 				<div className={styles.seatingTable}>
 					<table className={styles.table}>
 						<tbody>
@@ -74,8 +57,7 @@ const Overview = () => {
 															west={tournament.playerList[game.participants[2].playerId].name}
 															north={tournament.playerList[game.participants[3].playerId].name}
 															finished={game.finished}
-															hilight={hilight}
-															/* onClick={() => setEditingResults({round: roundId, table: tableId})} */
+															hilight={highlight}
 															clickable={resultsEnterMode}
 														/>
 													</td>
@@ -90,15 +72,7 @@ const Overview = () => {
 						</tbody>
 					</table>
 				</div>
-				{
-					/* editingResults.round !== -1 &&
-					<EditResult
-						round={editingResults.round}
-						table={editingResults.table}
-						onFinish={() => setEditingResults(notEditingResults)}
-					/> */
-				}
-			</Layout.Content>
+			</LayoutContent>
 		</>
 	);
 };

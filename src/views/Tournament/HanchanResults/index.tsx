@@ -6,8 +6,8 @@ import type { CollapseProps } from "antd";
 import { Collapse, Button } from "antd";
 import AccordionLabel from "./AccordionLabel";
 import ResultEditor from "./ResultEditor";
-import {Layout} from "antd";
 import LayoutHeader from "../../../components/LayoutHeader";
+import LayoutContent from "../../../components/LayoutContent";
 
 const HanchanResults = () => {
 	const tournament = useTournament();
@@ -38,7 +38,7 @@ const HanchanResults = () => {
 	return (
 		<>
 			<LayoutHeader>Hanchan Results</LayoutHeader>
-			<Layout.Content>
+			<LayoutContent>
 				<div className={styles.body}>
 					<div className={styles.roundSelector}>
 						<Button
@@ -63,7 +63,7 @@ const HanchanResults = () => {
 						items={items}
 					/>
 				</div>
-			</Layout.Content>
+			</LayoutContent>
 		</>
 	);
 };
