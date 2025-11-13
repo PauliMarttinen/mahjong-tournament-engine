@@ -46,7 +46,7 @@ const Navigation = () => {
 			icon: <TeamOutlined/>
 		},
 		{
-			label: "Print-outs",
+			label: "Print-outs/PDFs",
 			key: Routes.PrintOuts,
 			icon: <PrinterOutlined/>
 		},
