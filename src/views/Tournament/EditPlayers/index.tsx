@@ -8,6 +8,8 @@ import Button from "../../../components/Button";
 import useTournament from "../../../utils/hooks/useTournament";
 import { Player } from "../../../data-types/tournament-data-types";
 import Toggle from "../../../components/Toggle";
+import {Layout} from "antd";
+import LayoutHeader from "../../../components/LayoutHeader";
 
 const EditPlayers = () => {
 	const dispatch = useDispatch();
@@ -39,7 +41,7 @@ const EditPlayers = () => {
 	};
 
 	return (
-		<div>
+		<>
 			{
 				duplicates.length > 0 &&
 				<Popup
@@ -57,56 +59,58 @@ const EditPlayers = () => {
 					</ul>
 				</Popup>
 			}
-			<h1>Edit player names</h1>
-			<table>
-				<thead>
-					<tr>
-						<th>Previous name</th>
-						<th>New name</th>
-						<th>{null}</th>
-						<th>Substitute</th>
-					</tr>
-				</thead>
-				<tbody>
-					{
-						tournament.playerList.map((player: Player, playerId: number) => (
-							<tr key={`editname-${playerId}`}>
-								<td>
-									{player.name}
-								</td>
-								<td>
-									<TextInput
-										label={""}
-										value={newList[playerId].name}
-										onChange={(newValue: string) => changeName({newName: newValue, playerId: playerId})}
-									/>
-								</td>
-								<td>
-									{
-										player.name !== newList[playerId].name &&
-										"*"
-									}
-								</td>
-								<td>
-									<Toggle
-										true={"Yes"}
-										false={"No"}
-										value={newList[playerId].substitute}
-										onSwitch={() => {
-											switchSubstitute(playerId);
-										}}
-									/>
-								</td>
-							</tr>
-						))
-					}
-				</tbody>
-			</table>
-			<Button
-				label={"Save changes"}
-				onClick={() => saveNames()}
-			/>
-		</div>
+			<LayoutHeader>Edit players</LayoutHeader>
+			<Layout.Content>
+				<table>
+					<thead>
+						<tr>
+							<th>Previous name</th>
+							<th>New name</th>
+							<th>{null}</th>
+							<th>Substitute</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							tournament.playerList.map((player: Player, playerId: number) => (
+								<tr key={`editname-${playerId}`}>
+									<td>
+										{player.name}
+									</td>
+									<td>
+										<TextInput
+											label={""}
+											value={newList[playerId].name}
+											onChange={(newValue: string) => changeName({newName: newValue, playerId: playerId})}
+										/>
+									</td>
+									<td>
+										{
+											player.name !== newList[playerId].name &&
+											"*"
+										}
+									</td>
+									<td>
+										<Toggle
+											true={"Yes"}
+											false={"No"}
+											value={newList[playerId].substitute}
+											onSwitch={() => {
+												switchSubstitute(playerId);
+											}}
+										/>
+									</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+				<Button
+					label={"Save changes"}
+					onClick={() => saveNames()}
+				/>
+			</Layout.Content>
+		</>
 	)
 };
 

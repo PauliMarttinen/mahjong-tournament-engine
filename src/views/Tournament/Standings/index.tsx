@@ -7,6 +7,8 @@ import Toggle from "../../../components/Toggle";
 import Button from "../../../components/Button";
 import useTournament from "../../../utils/hooks/useTournament";
 import { Routes } from "../../../utils/routeUtils";
+import { Layout } from "antd";
+import LayoutHeader from "../../../components/LayoutHeader";
 
 const Standings = () => {
 	const getLastFinishedRound = (tournament: Tournament): number => {
@@ -44,29 +46,32 @@ const Standings = () => {
 	}));
 
 	return (
-		<div>
-			<Toggle
-				true={"Plain text"}
-				false={"Formatted table"}
-				value={plainText}
-				onSwitch={() => setPlainText(!plainText)}
-			/>
-			<Dropdown
-				id={"roundSelection"}
-				label={"Show standings after round"}
-				items={roundOptions}
-				value={afterRound}
-				onChange={(newValue) => setAfterRound(newValue)}
-			/>
-			<Button
-				label={"Open in popup"}
-				onClick={() => openWindow()}
-			/>
-			<StandingsDisplay
-				afterRound={afterRound}
-				plainText={plainText}
-			/>
-		</div>
+		<>
+			<LayoutHeader>Standings</LayoutHeader>
+			<Layout.Content>
+				<Toggle
+					true={"Plain text"}
+					false={"Formatted table"}
+					value={plainText}
+					onSwitch={() => setPlainText(!plainText)}
+				/>
+				<Dropdown
+					id={"roundSelection"}
+					label={"Show standings after round"}
+					items={roundOptions}
+					value={afterRound}
+					onChange={(newValue) => setAfterRound(newValue)}
+				/>
+				<Button
+					label={"Open in popup"}
+					onClick={() => openWindow()}
+				/>
+				<StandingsDisplay
+					afterRound={afterRound}
+					plainText={plainText}
+				/>
+			</Layout.Content>
+		</>
 	);
 };
 

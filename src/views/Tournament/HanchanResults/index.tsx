@@ -6,6 +6,8 @@ import type { CollapseProps } from "antd";
 import { Collapse, Button } from "antd";
 import AccordionLabel from "./AccordionLabel";
 import ResultEditor from "./ResultEditor";
+import {Layout} from "antd";
+import LayoutHeader from "../../../components/LayoutHeader";
 
 const HanchanResults = () => {
 	const tournament = useTournament();
@@ -34,30 +36,35 @@ const HanchanResults = () => {
 	}));
 
 	return (
-		<div className={styles.hanchanResultsBody}>
-			<div className={styles.roundSelector}>
-				<Button
-					type={"text"}
-					onClick={() => setRound(round-1)}
-					disabled={round === 0}
-					className={styles.roundButton}>
-					←
-				</Button>
-				<div>Round {round+1}</div>
-				<Button
-					type={"text"}
-					onClick={() => setRound(round+1)}
-					disabled={round === tournament.info.rounds-1}
-					className={styles.roundButton}>
-					→
-				</Button>
-			</div>
-			<Collapse
-				key={round}
-				accordion={true}
-				items={items}
-			/>
-		</div>
+		<>
+			<LayoutHeader>Hanchan Results</LayoutHeader>
+			<Layout.Content>
+				<div className={styles.body}>
+					<div className={styles.roundSelector}>
+						<Button
+							type={"text"}
+							onClick={() => setRound(round-1)}
+							disabled={round === 0}
+							className={styles.roundButton}>
+							←
+						</Button>
+						<div>Round {round+1}</div>
+						<Button
+							type={"text"}
+							onClick={() => setRound(round+1)}
+							disabled={round === tournament.info.rounds-1}
+							className={styles.roundButton}>
+							→
+						</Button>
+					</div>
+					<Collapse
+						key={round}
+						accordion={true}
+						items={items}
+					/>
+				</div>
+			</Layout.Content>
+		</>
 	);
 };
 

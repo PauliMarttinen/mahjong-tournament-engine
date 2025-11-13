@@ -18,11 +18,16 @@ import PrintFullSchedule from "./views/Print/PrintFullSchedule";
 import FinalResults from "./views/Tournament/FinalResults";
 import FinalResultsPopup from "./views/Tournament/FinalResults/FinalResultsPopup";
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
-import Ribbon from "./views/Tournament/Ribbon";
+/* import Ribbon from "./views/Tournament/Ribbon"; */
+import Navigation from "./views/Tournament/Navigation";
+import { Layout } from "antd";
+import bodyNoMargin from "./utils/bodyNoMargin";
+import styles from "./App.module.css";
 
 const App = () => {
 	const appState = useAppState();
 	const tournament = useTournament();
+	bodyNoMargin();
 
 	if (!appState.tournamentLoaded)
 	{
@@ -67,19 +72,26 @@ const App = () => {
 	return (
 		<div className={"mahjongTournamentEngine"}>
 			<BrowserRouter>
-				<Ribbon/>
-				<Routes>
-					<Route path={"/tournament"}>
-						<Route index element={<Overview/>}/>
-						<Route path={"overview"} element={<Overview/>}/>
-						<Route path={"hanchan-results"} element={<HanchanResults/>}/>
-						<Route path={"standings"} element={<Standings/>}/>
-						<Route path={"print-outs"} element={<PrintOuts/>}/>
-						<Route path={"edit-players"} element={<EditPlayers/>}/>
-						<Route path={"final-results"} element={<FinalResults/>}/>
-						<Route path={"player-performance"} element={<PlayerPerformance/>}/>
-					</Route>
-				</Routes>
+				<Layout hasSider className={styles.layout}>
+					<Layout.Sider collapsible>
+						<Navigation/>
+					</Layout.Sider>
+					<Layout>
+							<Routes>
+								<Route path={"/tournament"}>
+									<Route index element={<Overview/>}/>
+									<Route path={"overview"} element={<Overview/>}/>
+									<Route path={"hanchan-results"} element={<HanchanResults/>}/>
+									<Route path={"standings"} element={<Standings/>}/>
+									<Route path={"print-outs"} element={<PrintOuts/>}/>
+									<Route path={"edit-players"} element={<EditPlayers/>}/>
+									<Route path={"final-results"} element={<FinalResults/>}/>
+									<Route path={"player-performance"} element={<PlayerPerformance/>}/>
+								</Route>
+							</Routes>
+						<Layout.Footer>Mahjong Tournament Engine</Layout.Footer>
+					</Layout>
+				</Layout>
 			</BrowserRouter>
 		</div>
 	);
