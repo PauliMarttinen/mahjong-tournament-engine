@@ -10,7 +10,7 @@ const PlayerSchedules = () => {
 		<>
 			<LayoutHeader>Print-outs/PDFs</LayoutHeader>
 			<LayoutContent>
-				<Space direction={"vertical"} size={35}>
+				<Space direction={"vertical"}>
 				<Card
 					className={styles.card}
 					title={"Full schedule"}>
