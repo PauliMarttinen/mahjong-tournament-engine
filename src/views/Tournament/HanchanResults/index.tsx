@@ -3,7 +3,8 @@ import { Game } from "../../../data-types/tournament-data-types";
 import styles from "./HanchanResults.module.css";
 import useTournament from "../../../utils/hooks/useTournament";
 import type { CollapseProps } from "antd";
-import { Collapse, Button } from "antd";
+import { Collapse } from "antd";
+import RoundSelector from "../../../components/RoundSelector";
 import AccordionLabel from "./AccordionLabel";
 import ResultEditor from "./ResultEditor";
 import LayoutHeader from "../../../components/LayoutHeader";
@@ -12,8 +13,8 @@ import LayoutContent from "../../../components/LayoutContent";
 const HanchanResults = () => {
 	const tournament = useTournament();
 
-	const [round, setRound] = useState<number>(0);
-	const games = tournament.games.filter((game: Game) => game.round === round);
+	const [roundId, setRoundId] = useState<number>(0);
+	const games = tournament.games.filter((game: Game) => game.round === roundId);
 
 	const items: CollapseProps["items"] = games.map((game: Game) => ({
 		key: ""+game.table,
@@ -38,31 +39,19 @@ const HanchanResults = () => {
 	return (
 		<>
 			<LayoutHeader>Hanchan Results</LayoutHeader>
-			<LayoutContent>
-				<div className={styles.body}>
-					<div className={styles.roundSelector}>
-						<Button
-							type={"text"}
-							onClick={() => setRound(round-1)}
-							disabled={round === 0}
-							className={styles.roundButton}>
-							←
-						</Button>
-						<div>Round {round+1}</div>
-						<Button
-							type={"text"}
-							onClick={() => setRound(round+1)}
-							disabled={round === tournament.info.rounds-1}
-							className={styles.roundButton}>
-							→
-						</Button>
-					</div>
+			<LayoutContent className={styles.body}>
+					<RoundSelector
+						round={roundId+1}
+						previousDisabled={roundId === 0}
+						onPrevious={() => setRoundId(roundId-1)}
+						nextDisabled={roundId === tournament.info.rounds-1}
+						onNext={() => setRoundId(roundId+1)}
+					/>
 					<Collapse
-						key={round}
+						key={roundId}
 						accordion={true}
 						items={items}
 					/>
-				</div>
 			</LayoutContent>
 		</>
 	);

@@ -1,21 +1,6 @@
 .body {
-	max-width: 55em;
+	width: 65em;
 	margin: 0 auto;
-}
-
-.roundSelector {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 200%;
-}
-
-.roundSelector div {
-	margin: 1em;
-}
-
-.roundSelector .roundButton {
-	font-size: 100%;
 }
 
 .accordionLabel {

@@ -1,0 +1,14 @@
+.roundSelector {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 200%;
+}
+
+.roundSelector div {
+	margin: 1em;
+}
+
+.roundSelector .roundButton {
+	font-size: 100%;
+}
