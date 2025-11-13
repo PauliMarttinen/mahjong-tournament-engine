@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import Popup from "../../../components/Popup";
-import TextInput from "../../../components/TextInput";
 import { tournamentActionCreators } from "../../../state";
 import { bindActionCreators } from "redux";
-import Button from "../../../components/Button";
 import useTournament from "../../../utils/hooks/useTournament";
 import { Player } from "../../../data-types/tournament-data-types";
-import Toggle from "../../../components/Toggle";
-import {Layout} from "antd";
+import {Input, Switch, Button, Modal} from "antd";
 import LayoutHeader from "../../../components/LayoutHeader";
+import LayoutContent from "../../../components/LayoutContent";
+import styles from "./EditPlayers.module.css";
 
 const EditPlayers = () => {
 	const dispatch = useDispatch();
@@ -28,7 +26,7 @@ const EditPlayers = () => {
 		setNewList(newList.map((oldPlayer: Player, index: number) => index === playerId ? {...oldPlayer, substitute: !oldPlayer.substitute} : oldPlayer))
 	};
 
-	const saveNames = (): void => {
+	const saveChanges = (): void => {
 		const duplicatesFromInput = newList.map((player: Player) => player.name).filter((name: string, index: number, newNames: string[]) => newNames.indexOf(name) !== index);
 
 		if (duplicatesFromInput.length > 0)
@@ -42,26 +40,23 @@ const EditPlayers = () => {
 
 	return (
 		<>
-			{
-				duplicates.length > 0 &&
-				<Popup
-					title={"Duplicate players"}
-					cancelHidden={true}
-					cancelText={""}
-					onCancel={() => {}}
-					confirmText={"Ok"}
-					onConfirm={(): void => setDuplicates([])}>
-					<p>Please add some uniqueness (e.g. middle initial, nickname or city) to the names of these players:</p>
-					<ul>
-						{
-							duplicates.map((name: string) => <li key={`duplicate-${name}`}>{name}</li>)
-						}
-					</ul>
-				</Popup>
-			}
+			<Modal
+				title={"Duplicate player names"}
+				open={duplicates.length > 0}
+				centered={true}
+				footer={[
+					<Button type={"primary"} onClick={() => setDuplicates([])}>Close</Button>
+				]}>
+				<p>Please add some uniqueness (e.g. middle initial, nickname or city) to the names of these players:</p>
+				<ul>
+					{
+						duplicates.map((name: string) => <li key={`duplicate-${name}`}>{name}</li>)
+					}
+				</ul>
+			</Modal>
 			<LayoutHeader>Edit players</LayoutHeader>
-			<Layout.Content>
-				<table>
+			<LayoutContent>
+				<table className={styles.editPlayersTable}>
 					<thead>
 						<tr>
 							<th>Previous name</th>
@@ -78,10 +73,9 @@ const EditPlayers = () => {
 										{player.name}
 									</td>
 									<td>
-										<TextInput
-											label={""}
+										<Input
 											value={newList[playerId].name}
-											onChange={(newValue: string) => changeName({newName: newValue, playerId: playerId})}
+											onChange={(e) => changeName({newName: e.target.value, playerId})}
 										/>
 									</td>
 									<td>
@@ -90,14 +84,11 @@ const EditPlayers = () => {
 											"*"
 										}
 									</td>
-									<td>
-										<Toggle
-											true={"Yes"}
-											false={"No"}
+									<td className={styles.substituteCell}>
+										<Switch
 											value={newList[playerId].substitute}
-											onSwitch={() => {
-												switchSubstitute(playerId);
-											}}
+											onChange={() => switchSubstitute(playerId)}
+											size={"small"}
 										/>
 									</td>
 								</tr>
@@ -106,10 +97,11 @@ const EditPlayers = () => {
 					</tbody>
 				</table>
 				<Button
-					label={"Save changes"}
-					onClick={() => saveNames()}
-				/>
-			</Layout.Content>
+					type={"primary"}
+					onClick={() => saveChanges()}>
+					Save changes
+				</Button>
+			</LayoutContent>
 		</>
 	)
 };

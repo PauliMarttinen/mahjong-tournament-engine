@@ -1,0 +1,7 @@
+.editPlayersTable td {
+	min-width: 1em;
+}
+
+.substituteCell {
+	text-align: center;
+}
