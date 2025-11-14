@@ -205,7 +205,17 @@ const ResultEditor = (props: ResultEditorPros) => {
 	const northPenaltyMod = northScore.penalty != game.participants[3].score.penalty;
 	const northModified = northRawMod || northUmaMod || northPenaltyMod;
 	
-	const modified = eastModified || southModified || westModified || northModified;
+	/**
+	 * It's possible (although ridiculously unlikely) for a game to end in a complete tie,
+	 * so we need to allow saving and finishing when every field is 0.
+	 */
+	const everythingIsZero =
+		eastScore.raw === 0 && eastScore.uma === 0 &&
+		southScore.raw === 0 && southScore.uma === 0 &&
+		westScore.raw === 0 && westScore.uma === 0 &&
+		northScore.raw === 0 && northScore.uma === 0;
+
+	const modified = everythingIsZero || eastModified || southModified || westModified || northModified;
 
 	return (
 		<div className={styles.resultEditor}>
