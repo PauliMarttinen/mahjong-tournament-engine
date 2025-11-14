@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
-import Button from "../../../../components/Button";
 import PrintableIframe from "../../../../components/PrintableIframe";
 import { generateArray } from "../../../../utils/generateArray";
 import useTournament from "../../../../utils/hooks/useTournament";
 import { Routes } from "../../../../utils/routeUtils";
 import alphabetizer from "../../../../utils/alphabetizer";
 import { Player } from "../../../../data-types/tournament-data-types";
+import {Button, Space, Checkbox} from "antd";
 
 type PlayerOption = {
 	playerName: string,
@@ -35,32 +35,26 @@ const ReportCards = () => {
 	};
 
 	return (
-		<div>
-			<h2>Player report cards</h2>
-			<p>You can print or export to PDF (requires a print-to-PDF thingy) sheets that have graphs of players' performance.</p>
-
-			<p>Select players whose report cards you want to print.</p>
-			<Button
-				label={"Select all"}
-				onClick={() => setPlayerIds(generateArray(tournament.playerList.length))}
-			/>
-			<Button
-				label={"Deselect all"}
-				onClick={() => setPlayerIds([])}
-			/>
+		<>
+			<Space>
+				<Button onClick={() => setPlayerIds(generateArray(tournament.playerList.length))}>
+					Select all
+				</Button>
+				<Button onClick={() => setPlayerIds([])}>
+					Deselect all
+				</Button>
+			</Space>
 			{
 				playerOptions.map((player: PlayerOption) => (
 					<div key={`player-${player.playerId}`}>
-						<input
+						<Checkbox
 							type={"checkbox"}
 							name={"players"}
 							id={player.playerId.toString()}
 							checked={playerIds.some((playerId: number) => playerId === player.playerId)}
-							onChange={(e) => togglePlayer(+e.target.id)}
-						/>
-						<label htmlFor={player.playerId.toString()}>
+							onChange={(e) => togglePlayer(player.playerId)}>
 							{player.playerName}
-						</label>
+						</Checkbox>
 					</div>
 				))
 			}
@@ -69,7 +63,7 @@ const ReportCards = () => {
 				id={"reportcards"}
 				src={`${Routes.PrintReportCards}?players=${playerIds.join(",")}`}
 			/>
-		</div>
+		</>
 	);
 };
 

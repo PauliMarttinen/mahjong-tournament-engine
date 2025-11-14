@@ -1,6 +1,7 @@
-import { useMemo } from "react";
-import { Game, Score, Seat, Tournament } from "../../../data-types/tournament-data-types";
-import { generateArray } from "../../../utils/generateArray";
+import {useMemo} from "react";
+import useTournament from "../../utils/hooks/useTournament";
+import { generateArray } from "../../utils/generateArray";
+import { Game, Score, Seat } from "../../data-types/tournament-data-types";
 import {
 	LineChart,
 	Line,
@@ -9,13 +10,12 @@ import {
 	CartesianGrid,
 	Legend
 } from "recharts";
-import useTournament from "../../../utils/hooks/useTournament";
 
-type CumulativePointsProps = {
-	playerId: number
+type CumulativePointsChartProps = {
+	playerId: number,
 };
 
-const CumulativePoints = (props: CumulativePointsProps) => {
+const CumulativePointsChart = (props: CumulativePointsChartProps) => {
 	const tournament = useTournament();
 	//For cumulative points chart, reduce game of that round and earlier rounds into a score sum.
 	const cumulativePoints = useMemo(() => generateArray(tournament.info.rounds).map((round: number): Score => (
@@ -42,43 +42,40 @@ const CumulativePoints = (props: CumulativePointsProps) => {
 	})), [props.playerId]);
 
 	return (
-		<div>
-			<h3>Cumulative points</h3>
-			<LineChart
-				width={700}
-				height={350}
-				data={cumulativePoints}>
-				<CartesianGrid strokeDasharray="3 3" />
-				<XAxis dataKey="name" />
-				<YAxis/>
-				<Legend/>
-				<Line
-					dataKey={"raw"}
-					stroke={"#00aa00"}
-					dot={true}
-					isAnimationActive={false}
-				/>
-				<Line
-					dataKey={"uma"}
-					stroke={"#0000ff"}
-					dot={true}
-					isAnimationActive={false}
-				/>
-				<Line
-					dataKey={"penalty"}
-					stroke={"#000000"}
-					dot={true}
-					isAnimationActive={false}
-				/>
-				<Line
-					dataKey={"total"}
-					stroke={"#ff0000"}
-					dot={true}
-					isAnimationActive={false}
-				/>
-			</LineChart>
-		</div>
+		<LineChart
+			width={700}
+			height={350}
+			data={cumulativePoints}>
+			<CartesianGrid strokeDasharray="3 3" />
+			<XAxis dataKey="name" />
+			<YAxis/>
+			<Legend/>
+			<Line
+				dataKey={"raw"}
+				stroke={"#00aa00"}
+				dot={true}
+				isAnimationActive={false}
+			/>
+			<Line
+				dataKey={"uma"}
+				stroke={"#0000ff"}
+				dot={true}
+				isAnimationActive={false}
+			/>
+			<Line
+				dataKey={"penalty"}
+				stroke={"#000000"}
+				dot={true}
+				isAnimationActive={false}
+			/>
+			<Line
+				dataKey={"total"}
+				stroke={"#ff0000"}
+				dot={true}
+				isAnimationActive={false}
+			/>
+		</LineChart>
 	);
 };
 
-export default CumulativePoints;
+export default CumulativePointsChart;

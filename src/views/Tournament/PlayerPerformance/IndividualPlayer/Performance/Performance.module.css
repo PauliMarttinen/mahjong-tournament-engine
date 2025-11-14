@@ -1,0 +1,16 @@
+.columns
+{
+	display: flex;
+	align-items: start;
+}
+
+.games
+{
+	margin-left: 2em;
+}
+
+.subtitle
+{
+	font-variant: small-caps;
+	text-align: center;
+}

@@ -1,16 +1,15 @@
-import { useMemo } from "react";
-import { Game, Score, Seat, Tournament } from "../../../data-types/tournament-data-types";
-import { formatPoints } from "../../../utils/formatPoints";
+import {useMemo} from "react";
+import useTournament from "../../utils/hooks/useTournament";
+import { Game, Score, Seat } from "../../data-types/tournament-data-types";
+import { formatPoints } from "../../utils/formatPoints";
+import styles from "./PlayerPerformanceCharts.module.css";
 
-import styles from "./Games.module.css";
-import useTournament from "../../../utils/hooks/useTournament";
-
-type GamesProps = {
+type GamesChartProps = {
 	playerId: number,
 	anonymize: boolean
 };
 
-const Games = (props: GamesProps) => {
+const GamesChart = (props: GamesChartProps) => {
 	const tournament = useTournament();
 
 	const games = useMemo(() => tournament.games
@@ -52,40 +51,38 @@ const Games = (props: GamesProps) => {
 	};
 
 	return (
-		<div>
-			<table className={styles.table}>
-			{
-				games.map((game: Game, round: number) => (
-					<tbody key={`games-round-${round}`}>
-						<tr>
-							<th className={styles.roundHeader} colSpan={4}>Round {round + 1}</th>
-						</tr>
-						<tr>
-							<td>East</td>
-							<td>{getName({game, seatNumber: 0})}</td>
-							<td>{getTotal(game.participants[0].score)}</td>
-						</tr>
-						<tr>
-							<td>South</td>
-							<td>{getName({game, seatNumber: 1})}</td>
-							<td>{getTotal(game.participants[1].score)}</td>
-						</tr>
-						<tr>
-							<td>West</td>
-							<td>{getName({game, seatNumber: 2})}</td>
-							<td>{getTotal(game.participants[2].score)}</td>
-						</tr>
-						<tr>
-							<td>North</td>
-							<td>{getName({game, seatNumber: 3})}</td>
-							<td>{getTotal(game.participants[3].score)}</td>
-						</tr>
-					</tbody>
-				))
-			}
+		<table className={styles.games}>
+		{
+			games.map((game: Game, round: number) => (
+				<tbody key={`games-round-${round}`}>
+					<tr>
+						<th className={styles.roundHeader} colSpan={4}>Round {round + 1}</th>
+					</tr>
+					<tr>
+						<td>East</td>
+						<td>{getName({game, seatNumber: 0})}</td>
+						<td>{getTotal(game.participants[0].score)}</td>
+					</tr>
+					<tr>
+						<td>South</td>
+						<td>{getName({game, seatNumber: 1})}</td>
+						<td>{getTotal(game.participants[1].score)}</td>
+					</tr>
+					<tr>
+						<td>West</td>
+						<td>{getName({game, seatNumber: 2})}</td>
+						<td>{getTotal(game.participants[2].score)}</td>
+					</tr>
+					<tr>
+						<td>North</td>
+						<td>{getName({game, seatNumber: 3})}</td>
+						<td>{getTotal(game.participants[3].score)}</td>
+					</tr>
+				</tbody>
+			))
+		}
 		</table>
-		</div>
 	);
 };
 
-export default Games;
+export default GamesChart;

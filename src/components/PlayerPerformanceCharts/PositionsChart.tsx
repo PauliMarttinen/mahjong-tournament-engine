@@ -1,6 +1,7 @@
-import { useMemo } from "react";
-import { Game, Seat, Tournament } from "../../../data-types/tournament-data-types";
-import { generateArray } from "../../../utils/generateArray";
+import {useMemo} from "react";
+import useTournament from "../../utils/hooks/useTournament";
+import { generateArray } from "../../utils/generateArray";
+import { Game, Seat } from "../../data-types/tournament-data-types";
 import {
 	LineChart,
 	Line,
@@ -9,7 +10,6 @@ import {
 	CartesianGrid,
 	ReferenceLine
 } from "recharts";
-import useTournament from "../../../utils/hooks/useTournament";
 
 type PositionDataPoint = {
 	name: string,
@@ -21,11 +21,11 @@ type PositionData = {
 	mean: number
 };
 
-type PositionsProps = {
-	playerId: number
+type PositionsChartProps = {
+	playerId: number,
 };
 
-const Positions = (props: PositionsProps) => {
+const PositionsChart = (props: PositionsChartProps) => {
 	const tournament = useTournament();
 
 	// Data format for recharts: Array of objects for each round. Object contains round label ("name") and 
@@ -53,25 +53,22 @@ const Positions = (props: PositionsProps) => {
 	}, [props.playerId]);
 
 	return (
-		<div>
-			<h3>Positions</h3>
-			<LineChart
-				width={700}
-				height={200}
-				data={positions.evolution}>
-				<CartesianGrid strokeDasharray="3 3" />
-				<XAxis dataKey="name" />
-				<YAxis reversed={true} domain={[0, 4]}/>
-				<ReferenceLine y={positions.mean} stroke="#7777ff" />
-				<Line
-					dataKey={"position"}
-					stroke={"#ff0000"}
-					dot={true}
-					isAnimationActive={false}
-				/>
-			</LineChart>
-		</div>
+		<LineChart
+			width={700}
+			height={200}
+			data={positions.evolution}>
+			<CartesianGrid strokeDasharray="3 3" />
+			<XAxis dataKey="name" />
+			<YAxis reversed={true} domain={[0, 4]}/>
+			<ReferenceLine y={positions.mean} stroke="#7777ff" />
+			<Line
+				dataKey={"position"}
+				stroke={"#ff0000"}
+				dot={true}
+				isAnimationActive={false}
+			/>
+		</LineChart>
 	);
 };
 
-export default Positions;
+export default PositionsChart;

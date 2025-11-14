@@ -1,8 +1,8 @@
-import { useMemo } from "react";
-import { Game, Score, Seat } from "../../../data-types/tournament-data-types";
-import { formatPoints } from "../../../utils/formatPoints";
-import styles from "./Statistics.module.css";
-import useTournament from "../../../utils/hooks/useTournament";
+import {useMemo} from "react";
+import useTournament from "../../utils/hooks/useTournament";
+import { Game, Score, Seat } from "../../data-types/tournament-data-types";
+import styles from "./PlayerPerformanceCharts.module.css";
+import { formatPoints } from "../../utils/formatPoints";
 
 type PointStatistics = {
 	highestSingle: number,
@@ -42,11 +42,11 @@ const initialStatistics: StatisticsType = {
 	gamesPlayed: 0
 };
 
-type StatisticsProps = {
+type StatisticsGraphProps = {
 	playerId: number
-}
+};
 
-const Statistics = (props: StatisticsProps) => {
+const StatisticsChart = (props: StatisticsGraphProps) => {
 	const games = useTournament().games;
 
 	const getTotal = (score: Score): number => score.raw + score.uma + score.penalty;
@@ -86,49 +86,46 @@ const Statistics = (props: StatisticsProps) => {
 	}, initialStatistics), [props.playerId]);
 
 	return (
-		<div>
-			<h3>Statistics</h3>
-			<table>
-				<tbody>
-					<tr>
-						<td>{null}</td>
-						<th className={styles.columnHeader}>Sum</th>
-						<th className={styles.columnHeader}>Highest</th>
-						<th className={styles.columnHeader}>Lowest</th>
-						<th className={styles.columnHeader}>Mean</th>
-					</tr>
-					<tr>
-						<th className={styles.rowHeader}>Raw</th>
-						<td className={styles.cell}>{formatPoints({points: statistics.raw.sum, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.raw.highestSingle, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.raw.lowestSingle, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.raw.sum / statistics.gamesPlayed, sign: true})}</td>
-					</tr>
-					<tr>
-						<th className={styles.rowHeader}>Uma</th>
-						<td className={styles.cell}>{formatPoints({points: statistics.uma.sum, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.uma.highestSingle, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.uma.lowestSingle, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.uma.sum / statistics.gamesPlayed, sign: true})}</td>
-					</tr>
-					<tr>
-						<th className={styles.rowHeader}>Penalty</th>
-						<td className={styles.cell}>{formatPoints({points: statistics.penalty.sum, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.penalty.highestSingle, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.penalty.lowestSingle, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.penalty.sum / statistics.gamesPlayed, sign: true})}</td>
-					</tr>
-					<tr>
-						<th className={styles.rowHeader}>Total</th>
-						<td className={styles.cell}>{formatPoints({points: statistics.total.sum, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.total.highestSingle, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.total.lowestSingle, sign: true})}</td>
-						<td className={styles.cell}>{formatPoints({points: statistics.total.sum / statistics.gamesPlayed, sign: true})}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<table className={styles.statistics}>
+			<tbody>
+				<tr>
+					<td>{null}</td>
+					<th className={styles.columnHeader}>Sum</th>
+					<th className={styles.columnHeader}>Highest</th>
+					<th className={styles.columnHeader}>Lowest</th>
+					<th className={styles.columnHeader}>Mean</th>
+				</tr>
+				<tr>
+					<th className={styles.rowHeader}>Raw</th>
+					<td className={styles.cell}>{formatPoints({points: statistics.raw.sum, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.raw.highestSingle, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.raw.lowestSingle, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.raw.sum / statistics.gamesPlayed, sign: true})}</td>
+				</tr>
+				<tr>
+					<th className={styles.rowHeader}>Uma</th>
+					<td className={styles.cell}>{formatPoints({points: statistics.uma.sum, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.uma.highestSingle, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.uma.lowestSingle, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.uma.sum / statistics.gamesPlayed, sign: true})}</td>
+				</tr>
+				<tr>
+					<th className={styles.rowHeader}>Penalty</th>
+					<td className={styles.cell}>{formatPoints({points: statistics.penalty.sum, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.penalty.highestSingle, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.penalty.lowestSingle, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.penalty.sum / statistics.gamesPlayed, sign: true})}</td>
+				</tr>
+				<tr>
+					<th className={styles.rowHeader}>Total</th>
+					<td className={styles.cell}>{formatPoints({points: statistics.total.sum, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.total.highestSingle, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.total.lowestSingle, sign: true})}</td>
+					<td className={styles.cell}>{formatPoints({points: statistics.total.sum / statistics.gamesPlayed, sign: true})}</td>
+				</tr>
+			</tbody>
+		</table>
 	);
 };
 
-export default Statistics;
+export default StatisticsChart;

@@ -2,9 +2,11 @@
 {
 	break-after: page;
 	margin: 0 auto;
+	page-break-inside: avoid;
 }
 
-.title
+.card h1, .card h2, .card p
 {
 	text-align: center;
+	margin: 0;
 }

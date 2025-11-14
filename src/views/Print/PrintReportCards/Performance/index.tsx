@@ -4,6 +4,7 @@ import Positions from "./Positions";
 import RankingEvolution from "./RankingEvolution";
 import Statistics from "./Statistics";
 import styles from "./Performance.module.css";
+import {Space} from "antd";
 
 type PerformanceProps = {
 	playerId: number,
@@ -12,32 +13,25 @@ type PerformanceProps = {
 
 const Performance = (props: PerformanceProps) => {
 	return (
-		<div className={styles.card}>
-			<div className={styles.columns}>
-				<div>
-					<RankingEvolution
-						playerId={props.playerId}
-					/>
-					<Positions
-						playerId={props.playerId}
-					/>
-					<CumulativePoints
-						playerId={props.playerId}
-					/>
-				</div>
-				<div className={styles.games}>
-					<Games
-						anonymize={props.anonymize}
-						playerId={props.playerId}
-					/>
-				</div>
-			</div>
-			<div>
+		<Space className={styles.columns}>
+			<Space direction={"vertical"}>
+				<RankingEvolution
+					playerId={props.playerId}
+				/>
+				<Positions
+					playerId={props.playerId}
+				/>
+				<CumulativePoints
+					playerId={props.playerId}
+				/>
 				<Statistics
 					playerId={props.playerId}
 				/>
-			</div>
-		</div>
+			</Space>
+			<Games
+				playerId={props.playerId}
+			/>
+		</Space>
 	);
 };
 

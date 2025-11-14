@@ -1,37 +1,44 @@
 import { useMemo, useState } from "react";
-import SelectionList, {SelectionListItem} from "../../../../components/SelectionList";
+import {Menu, Space} from "antd";
+import type {MenuProps} from "antd";
+import {MenuInfo} from "rc-menu/lib/interface";
 import useTournament from "../../../../utils/hooks/useTournament";
 import alphabetizer from "../../../../utils/alphabetizer";
-import Performance from "../../../../components/Performance";
+import Performance from "./Performance";
 import styles from "./IndividualPlayer.module.css";
 import { Player } from "../../../../data-types/tournament-data-types";
+
+type MenuItem = Required<MenuProps>["items"][number];
 
 const IndividualPlayer = () => {
 	const tournament = useTournament();
 	const [selectedPlayer, setSelectedPlayer] = useState<number>(0);
 
-	const playerOptions: SelectionListItem[] = useMemo(() => tournament.playerList
+	const playerOptions: MenuItem[] = useMemo(() => tournament.playerList
 		.map((player: Player) => player.name)
 		.sort(alphabetizer)
-		.map((playerName: string, _: number) => ({
-			text: playerName,
-			value: tournament.playerList.findIndex((player: Player) => player.name === playerName)
+		.map((playerName: string) => ({
+			label: playerName,
+			key: tournament.playerList.findIndex((player: Player) => player.name === playerName)
 		})), []);
 
+	const onClick = (e: MenuInfo) => {
+		setSelectedPlayer(parseInt(e.key));
+	};
+
 	return (
-		<div className={styles.individualPlayer}>
-			<SelectionList
-				id={"individual-player"}
-				label={"See player"}
-				value={selectedPlayer}
+		<Space
+			className={styles.individualPlayer}
+			size={25}>
+			<Menu
 				items={playerOptions}
-				onChange={(newValue: number) => setSelectedPlayer(newValue)}
+				onClick={onClick}
 			/>
 			<Performance
 				anonymize={false}
 				playerId={selectedPlayer}
 			/>
-		</div>
+		</Space>
 	);
 };
 
