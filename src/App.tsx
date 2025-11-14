@@ -1,3 +1,4 @@
+import {useEffect} from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useTournament from "./utils/hooks/useTournament";
 import useAppState from "./utils/hooks/useAppState";
@@ -18,7 +19,6 @@ import PrintFullSchedule from "./views/Print/PrintFullSchedule";
 import FinalResults from "./views/Tournament/FinalResults";
 import FinalResultsPopup from "./views/Tournament/FinalResults/FinalResultsPopup";
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
-/* import Ribbon from "./views/Tournament/Ribbon"; */
 import Navigation from "./views/Tournament/Navigation";
 import { Layout } from "antd";
 import bodyNoMargin from "./utils/bodyNoMargin";
@@ -27,7 +27,10 @@ import styles from "./App.module.css";
 const App = () => {
 	const appState = useAppState();
 	const tournament = useTournament();
-	bodyNoMargin();
+
+	useEffect(() => {
+		bodyNoMargin();
+	}, []);
 
 	if (!appState.tournamentLoaded)
 	{
