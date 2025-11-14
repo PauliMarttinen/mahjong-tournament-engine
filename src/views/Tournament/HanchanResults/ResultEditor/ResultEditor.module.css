@@ -1,13 +1,7 @@
-.resultEditor .windColumn {
-	width: 5em;
-}
-
-.resultEditor th.name {
-	text-align: left;
-}
-
 .resultEditor .name {
-	margin-left: 1em;
+	text-align: left;
+	padding-left: 1em;
+	padding-right: 1em;
 }
 
 .resultEditor .final {

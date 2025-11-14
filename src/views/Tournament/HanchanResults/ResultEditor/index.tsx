@@ -245,7 +245,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 					<tbody>
 						<tr>
 							<td>East</td>
-							<td>{tournament.playerList[game.participants[0].playerId].name}</td>
+							<td className={styles.name}>{tournament.playerList[game.participants[0].playerId].name}</td>
 							<td>
 								<PointInput
 									className={styles.pointInput}
@@ -280,7 +280,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 						</tr>
 						<tr>
 							<td>South</td>
-							<td>{tournament.playerList[game.participants[1].playerId].name}</td>
+							<td className={styles.name}>{tournament.playerList[game.participants[1].playerId].name}</td>
 							<td>
 								<PointInput
 									className={styles.pointInput}
@@ -315,7 +315,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 						</tr>
 						<tr>
 							<td>West</td>
-							<td>{tournament.playerList[game.participants[2].playerId].name}</td>
+							<td className={styles.name}>{tournament.playerList[game.participants[2].playerId].name}</td>
 							<td>
 								<PointInput
 									className={styles.pointInput}
@@ -350,7 +350,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 						</tr>
 						<tr>
 							<td>North</td>
-							<td>{tournament.playerList[game.participants[3].playerId].name}</td>
+							<td className={styles.name}>{tournament.playerList[game.participants[3].playerId].name}</td>
 							<td>
 								<PointInput
 									className={styles.pointInput}
