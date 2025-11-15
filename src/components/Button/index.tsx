@@ -8,6 +8,7 @@ type ButtonProps = {
 	disabled?: boolean,
 	onClick: () => void
 	disabledTooltip?: string,
+	type?: "default"|"primary"|"dashed"|"link"|"text"
 };
 
 const Button = (props: ButtonProps) => {
