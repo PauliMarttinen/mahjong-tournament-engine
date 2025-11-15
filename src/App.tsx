@@ -61,17 +61,19 @@ const App = () => {
 	{
 		return (
 			<div className={"mahjongTournamentEngine"}>
-				<BrowserRouter>
-					<Routes>
-						<Route index element={<TournametInfoEntry/>}/>
-						<Route path={"/new"}>
+				<Layout className={styles.layout}>
+					<BrowserRouter>
+						<Routes>
 							<Route index element={<TournametInfoEntry/>}/>
-							<Route path={"basic"} element={<TournametInfoEntry/>}/>
-							<Route path={"players"} element={<PlayerEntry/>}/>
-							<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
-						</Route>
-					</Routes>
-				</BrowserRouter>
+							<Route path={"/new"}>
+								<Route index element={<TournametInfoEntry/>}/>
+								<Route path={"basic"} element={<TournametInfoEntry/>}/>
+								<Route path={"players"} element={<PlayerEntry/>}/>
+								<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
+							</Route>
+						</Routes>
+					</BrowserRouter>
+				</Layout>
 			</div>
 		);
 	}

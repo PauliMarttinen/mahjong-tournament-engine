@@ -1,40 +1,35 @@
 import Button from "../Button";
-import TextInput from "../TextInput";
+import { InputNumber } from "antd";
 import styles from "./NumberInput.module.css";
 
 type NumberInputProps = {
-	className?: string,
-	label: string,
+	className?: string
+	minimum?: number,
+	maximum?: number,
 	value: number,
 	onChange: (newValue: number) => void
 };
 
 const NumberInput = (props: NumberInputProps) => {
-	const className = `${props.className ? props.className : ""}`;
+	const className = `${styles.NumberInput} ${props.className ? props.className : ""}`;
 
 	return (
 		<div className={className}>
-			<label className={styles.label}>
-				{props.label}
-			</label>
-			<div className={styles.numberInput}>
-				<Button
-					key={`numberinput-${props.label}-minus}`}
-					onClick={() => props.onChange(props.value - 1)}>
-					-1
-				</Button>
-				<TextInput
-					className={styles.input}
-					value={props.value.toString()}
-					onChange={(_) => {}}
-					disabled={true}
-				/>
-				<Button
-					key={`numberinput-${props.label}-plus`}
-					onClick={() => props.onChange(props.value + 1)}>
-					+1
-				</Button>
-			</div>
+			<Button
+				disabled={props.minimum ? props.value === props.minimum : false}
+				onClick={() => props.onChange(props.value - 1)}>
+				-1
+			</Button>
+			<InputNumber
+				className={styles.input}
+				value={props.value}
+				disabled={true}
+			/>
+			<Button
+				disabled={props.maximum ? props.value === props.maximum : false}
+				onClick={() => props.onChange(props.value + 1)}>
+				+1
+			</Button>
 		</div>
 	);
 };

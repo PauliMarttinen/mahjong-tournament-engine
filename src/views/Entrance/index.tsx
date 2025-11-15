@@ -55,9 +55,7 @@ const Entrance = () => {
 
 	return (
 		<div className={styles.entrance}>
-			<Space
-				className={styles.entrance}
-				direction={"vertical"}>
+			<Space direction={"vertical"}>
 				<h1>Mahjong Tournament Engine</h1>
 				<Card>
 					<Space
