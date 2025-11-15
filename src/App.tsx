@@ -46,7 +46,11 @@ const App = () => {
 						</Route>
 						<Route path={"/tournament/standings/popup"} element={<StandingsPopup/>}/>
 						<Route path={"/tournament/final-results/popup"} element={<FinalResultsPopup/>}/>
-						<Route path={"*"} element={<Entrance/>}/>
+						<Route path={"*"} element={
+							<Layout className={styles.layout}>
+								<Entrance/>
+							</Layout>
+						}/>
 					</Routes>
 				</BrowserRouter>
 			</div>

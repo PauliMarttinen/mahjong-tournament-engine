@@ -20,9 +20,9 @@ const NumberInput = (props: NumberInputProps) => {
 			<div className={styles.numberInput}>
 				<Button
 					key={`numberinput-${props.label}-minus}`}
-					label={"-1"}
-					onClick={() => props.onChange(props.value - 1)}
-				/>
+					onClick={() => props.onChange(props.value - 1)}>
+					-1
+				</Button>
 				<TextInput
 					className={styles.input}
 					value={props.value.toString()}
@@ -31,9 +31,9 @@ const NumberInput = (props: NumberInputProps) => {
 				/>
 				<Button
 					key={`numberinput-${props.label}-plus`}
-					label={"+1"}
-					onClick={() => props.onChange(props.value + 1)}
-				/>
+					onClick={() => props.onChange(props.value + 1)}>
+					+1
+				</Button>
 			</div>
 		</div>
 	);

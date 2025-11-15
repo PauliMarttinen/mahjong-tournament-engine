@@ -157,43 +157,43 @@ const SeatingTemplateEntry = () => {
 			<h1>Seating</h1>
 			<h2>Seating Template</h2>
 			<Button
-				label={"Use recommended seating template"}
 				onClick={() => setRecommendedSeating()}
 				disabled={!recommendedExists}
-				disabledTooltip={!recommendedExists ? "No recommended seating template exists for this number of players and rounds." : undefined}
-			/>
+				disabledTooltip={!recommendedExists ? "No recommended seating template exists for this number of players and rounds." : undefined}>
+				Use recommended seating template
+			</Button>
 			<Button
-				label={"Previous Seating"}
 				onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex - 1)}
-				disabled={currentSeatingTemplateIndex === 0}
-			/>
+				disabled={currentSeatingTemplateIndex === 0}>
+				Previous Seating
+			</Button>
 			<Button
-				label={"Next Seating"}
 				onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex + 1)}
-				disabled={currentSeatingTemplateIndex === seatingTemplateHistory.length - 1}
-			/>
+				disabled={currentSeatingTemplateIndex === seatingTemplateHistory.length - 1}>
+				Next Seating
+			</Button>
 			<Button
-				label={"Try New Random Seating"}
-				onClick={() => randomizeSeating()}
-			/>
+				onClick={() => randomizeSeating()}>
+				Try New Random Seatings
+			</Button>
 			<p>Showing seating template {currentSeatingTemplateIndex + 1} of {seatingTemplateHistory.length} (Type: {SeatingTemplateTypes[seatingTemplateHistory[currentSeatingTemplateIndex].type]})</p>
 			<SeatingTemplateTable
 				preview={showPreview}
 			/>
 			<SeatingTemplateEvaluations/>
 			<Button
-				label={"Open Seating Template File"}
-				onClick={() => setShowUploadPopup(true)}
-			/>
+				onClick={() => setShowUploadPopup(true)}>
+				Open Seating Template File
+			</Button>
 			<Button
-				label={"Preview With Names"}
-				onClick={() => setShowPreview(true)}
-			/>
+				onClick={() => setShowPreview(true)}>
+				Preview With Names
+			</Button>
 			<Button
-				label={"Confirm Seating"}
 				onClick={() => confirmSeating()}
-				disabled={confirmDisabled}
-			/>
+				disabled={confirmDisabled}>
+					Confirm Seating
+			</Button>
 			{
 				confirmDisabled &&
 				<p>Cannot confirm seating while there are errors in the seating template.</p>

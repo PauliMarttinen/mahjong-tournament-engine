@@ -31,17 +31,17 @@ const Popup = (props: PopupProps) => {
 					{
 						showCancel &&
 						<Button
-							label={props.cancelText}
-							onClick={() => props.onCancel()}
-						/>
+							onClick={() => props.onCancel()}>
+							{props.cancelText}
+						</Button>
 					}
 					{
 						showConfirm &&
 						<Button
-							label={props.confirmText}
 							onClick={() => props.onConfirm()}
-							disabled={props.confirmDisabled}
-						/>
+							disabled={props.confirmDisabled}>
+							{props.confirmText}
+						</Button>
 					}
 				</div>
 			</div>

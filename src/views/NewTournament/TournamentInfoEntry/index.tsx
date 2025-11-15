@@ -37,9 +37,9 @@ const TournamentInfoView = () => {
 				onChange={(newValue: number): void => setCurrentInfo({...currentInfo, rounds: newValue})}
 			/>
 			<Button
-				label={"Ready"}
-				onClick={() => onSave()}
-			/>
+				onClick={() => onSave()}>
+				Next
+			</Button>
 		</div>
 	);
 };

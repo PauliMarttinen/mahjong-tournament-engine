@@ -50,9 +50,9 @@ const SeatingTemplateEvaluations = () => {
 						<td>{evaluateWindBalance(template).toFixed(2)}/100.00</td>
 						<td>
 							<Button
-								label={"?"}
-								onClick={() => setShowWindBalanceInfo(true)}
-							/>
+								onClick={() => setShowWindBalanceInfo(true)}>
+								?
+							</Button>
 						</td>
 					</tr>
 					<tr>
@@ -60,9 +60,9 @@ const SeatingTemplateEvaluations = () => {
 						<td>{evaluateMeetingBalance(template).toFixed(2)}/100.00</td>
 						<td>
 							<Button
-								label={"?"}
-								onClick={() => setShowMeetingBalanceInfo(true)}
-							/>
+								onClick={() => setShowMeetingBalanceInfo(true)}>
+								?
+							</Button>
 						</td>
 					</tr>
 				</tbody>

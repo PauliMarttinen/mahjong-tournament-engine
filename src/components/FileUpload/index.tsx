@@ -7,7 +7,6 @@ import fileInputOnChange from "./utils/fileInputOnChange";
 type FileUploadProps = {
 	className?: string,
 	label: string,
-	subLabel?: string,
 	onUpload: (files: FileList | null) => void
 };
 
@@ -18,10 +17,9 @@ const FileUpload = (props: FileUploadProps) => {
 		<div className={styles.fileUpload}>
 			<Button
 				className={props.className}
-				label={props.label}
-				subLabel={props.subLabel}
-				onClick={() => openFileSelection(fileInputRef)}
-			/>
+				onClick={() => openFileSelection(fileInputRef)}>
+				{props.label}
+			</Button>
 			<div className={styles.input}>
 				<input
 					ref={fileInputRef}

@@ -75,10 +75,10 @@ const PlayerEntryView = () => {
 			</p>
 			<p>
 				<Button
-					label={"Save players"}
 					onClick={() => save()}
-					disabled={!rightAmount}
-				/>
+					disabled={!rightAmount}>
+					Save players
+				</Button>
 				{
 					!rightAmount &&
 					"Must have a number of players that is divisible by 4."
