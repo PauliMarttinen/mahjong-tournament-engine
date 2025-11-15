@@ -4,6 +4,8 @@ import styles from "./Navigation.module.css";
 import { MenuInfo } from "rc-menu/lib/interface";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../../../utils/routeUtils";
+import { useLocation } from "react-router-dom";
+import useTournament from "../../../utils/hooks/useTournament";
 import {
 	LineChartOutlined,
 	OrderedListOutlined,
@@ -14,17 +16,20 @@ import {
 	FormOutlined,
 	SaveOutlined
 } from "@ant-design/icons";
+import saveTournamentFile from "../../../utils/saveTournamentFile";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-enum NonNavigationActions {
+enum Actions {
 	SaveTournamentFile = "SaveTournamentFile"
 };
 
 const Navigation = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
+	const tournament = useTournament();
 
-	const items: MenuItem[] = [
+	const navigationItems: MenuItem[] = [
 		{
 			label: "Overview",
 			key: Routes.Overview,
@@ -59,30 +64,47 @@ const Navigation = () => {
 			label: "Player Performance",
 			key: Routes.PlayerPerformance,
 			icon: <LineChartOutlined/>
-		},
+		}		
+	];
+
+	const actionItems: MenuItem[] = [
 		{
 			label: "Save tournament file",
-			key: NonNavigationActions.SaveTournamentFile,
+			key: Actions.SaveTournamentFile,
 			icon: <SaveOutlined/> 
 		}
 	];
 
-	const onClick = (e: MenuInfo) => {
-		if (e.key === NonNavigationActions.SaveTournamentFile) {
-			console.log("save file")
-			return;
-		};
-
+	const onClickNavigation = (e: MenuInfo) => {
 		navigate(e.key);
 	};
 
+	const onClickAction = (e: MenuInfo) => {
+		switch (e.key)
+		{
+			case Actions.SaveTournamentFile:
+				saveTournamentFile(tournament);
+				break;
+		}
+	};
+
 	return (
+		<>
 		<Menu
 			className={styles.navigation}
-			items={items}
+			items={navigationItems}
 			theme={"dark"}
-			onClick={onClick}
+			onClick={onClickNavigation}
+			selectedKeys={[location.pathname]}
 		/>
+		<Menu
+			className={styles.actions}
+			items={actionItems}
+			theme={"dark"}
+			onClick={onClickAction}
+			selectedKeys={[]}
+		/>
+		</>
 	);
 };
 

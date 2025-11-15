@@ -1,6 +1,6 @@
 import { Tournament } from "../data-types/tournament-data-types";
 
-const download = (state: Tournament) => {  
+const saveTournamentFile = (state: Tournament) => {  
 	const tournamentTitle = state.info.title;
 
 	const blob = new Blob([JSON.stringify(state)], {type: "application/json"});
@@ -16,4 +16,4 @@ const download = (state: Tournament) => {
 	a.remove();
 }
 
-export default download;
+export default saveTournamentFile;

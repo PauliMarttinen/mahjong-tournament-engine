@@ -7,7 +7,7 @@ import Button from "../../components/Button";
 import styles from "./Entrance.module.css";
 import { findRoute, Routes } from "../../utils/routeUtils";
 import React from "react";
-import download from "../../utils/download";
+import saveTournamentFile from "../../utils/saveTournamentFile";
 import FileUpload from "../../components/FileUpload";
 import shouldOfferStoredGame from "./utils/shouldOfferStoredGame";
 import updateTournamentFormat from "../../data-types/updateTournamentFormat/updateTournamentFormat";
@@ -50,7 +50,7 @@ const Entrance = () => {
 	};
 
 	const saveTournamentToFile = () => {
-		download(JSON.parse(localStorage.getItem("mahjong-tournament") as string));
+		saveTournamentFile(JSON.parse(localStorage.getItem("mahjong-tournament") as string));
 	};
 
 	return (
