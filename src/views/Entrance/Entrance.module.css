@@ -19,9 +19,6 @@
 	display: block;
 	width: 100%;
 	min-height: 64px;
-	/* border: 1px solid rgb(184, 122, 141);
-	background: linear-gradient(0deg, rgba(255,170,195,1) 0%, rgba(252,168,255,1) 100%);
-	border-radius: 3px; */
 	font-weight: bold;
 }
 
