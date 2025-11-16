@@ -7,6 +7,7 @@ import {Modal, Alert, Switch, Card, Space, Input} from "antd";
 import { newTournamentActionCreators } from "../../../state";
 import { Routes } from "../../../utils/routeUtils";
 import styles from "./PlayerEntryView.module.css";
+import NewTournamentSteps from "../../../components/NewTournamentSteps";
 
 const PlayerEntryView = () => {
 	const [playersInput, setPlayersInput] = useState<string>("");
@@ -38,6 +39,7 @@ const PlayerEntryView = () => {
 
 	return (
 		<>
+			<NewTournamentSteps key={"newTournamentSteps"} current={1}/>
 			<Modal
 				open={duplicates.length > 0}
 				title={"Duplicate players"}

@@ -1,7 +1,10 @@
 .playerEntry {
-	margin-top: 3em;
 	display: flex;
 	justify-content: space-around;
+}
+
+.playerEntry h1 {
+	margin-top: 0;
 }
 
 .playerEntry p {

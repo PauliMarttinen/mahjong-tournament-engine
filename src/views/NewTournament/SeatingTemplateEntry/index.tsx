@@ -22,6 +22,7 @@ import { SeatingTemplateHistoryItem, SeatingTemplateTypes } from "../../../data-
 import styles from "./SeatingTemplateEntry.module.css";
 import {Modal, Space, Card, Alert} from "antd";
 import FormatSelector, {Formats} from "./SeatingTemplateTable/FormatSelector/FormatSelector";
+import NewTournamentSteps from "../../../components/NewTournamentSteps";
 
 const defaultScore: Score = {
 	raw: 0,
@@ -136,11 +137,14 @@ const SeatingTemplateEntry = () => {
 	const confirmDisabled = seatingTemplateErrors.missing.length > 0 || seatingTemplateErrors.duplicates.length > 0 || seatingTemplateErrors.outsideRange.length > 0;
 
 	if (seatingTemplateHistory.length === 0) {
-		return <></>;
+		return (
+			<NewTournamentSteps key={"newTournamentSteps"} current={2}/>
+		);
 	};
 
 	return (
 		<>
+			<NewTournamentSteps key={"newTournamentSteps"} current={2}/>
 			<Modal
 				open={showUploadModal}
 				title={"Open Seating Template File"}
