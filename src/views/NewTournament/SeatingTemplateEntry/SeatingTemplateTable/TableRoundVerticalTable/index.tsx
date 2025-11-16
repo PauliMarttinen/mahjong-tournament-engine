@@ -59,16 +59,16 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 		setEditValue(+newValue);
 	};
 
-	const getClassNames = (rowId: number, columnId: number, playerId: number) => {
+	const getClassNames = (rowId: number, columnId: number, playerId: number, seat: "east"|"south"|"west"|"north") => {
 		const isDuplicate = seatingTemplateErrors.duplicates.some((duplicate) => duplicate.roundId === columnId && duplicate.playerId === playerId);
 		if (isDuplicate)
-			return styles.duplicate;
+			return `${styles[seat]} ${styles.duplicate}`;
 
 		const isOutsideRange = playerId < 0 || playerId >= newTournament.playerList.length;
 		const playerLight = highlightedPlayerId === playerId;
 		const throughLight = highlightedRow === rowId || highlightedColumn === columnId;
 		
-		return `${isOutsideRange ? styles.outsideRange : ""} ${playerLight ? styles.playerlight : ""} ${throughLight ? styles.throughlight : ""}`.trim();
+		return `${styles[seat]} ${isOutsideRange ? styles.outsideRange : ""} ${playerLight ? styles.playerlight : ""} ${throughLight ? styles.throughlight : ""}`.trim();
 	};
 
 	return (
@@ -90,14 +90,14 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 								<td
 									onMouseOver={() => setHighlights(tableId, roundId, seatingTemplate[tableId*4][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
-									className={getClassNames(tableId, roundId, seatingTemplate[tableId*4][roundId])}
+									className={getClassNames(tableId, roundId, seatingTemplate[tableId*4][roundId], "east")}
 								 	key={`td-${tableId}-e-td-${roundId}`}>
 									<input
 										type={"text"}
 										value={isEditingThis(roundId, tableId, 0) ? ""+editValue : ""+seatingTemplate[tableId*4][roundId]}
 										onFocus={() => startEditing(roundId, tableId, 0, seatingTemplate[tableId*4][roundId])}
-										onChange={(e: ChangeEvent<HTMLInputElement>) => changeEditValue(e.target.value)}
-										onBlur={() => endEditing()}
+										onChange={(e) => changeEditValue(e.target.value)}
+										onBlur={endEditing}
 									/>
 								</td>
 							))}
@@ -107,14 +107,14 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 								<td
 									onMouseOver={() => setHighlights(tableId+0.1, roundId, seatingTemplate[tableId*4+1][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
-									className={getClassNames(tableId+0.1, roundId, seatingTemplate[tableId*4+1][roundId])}
+									className={getClassNames(tableId+0.1, roundId, seatingTemplate[tableId*4+1][roundId], "south")}
 								 	key={`td-${tableId}-s-td-${roundId}`}>
 									<input
 										type={"text"}
 										value={isEditingThis(roundId, tableId, 1) ? ""+editValue : ""+seatingTemplate[tableId*4+1][roundId]}
 										onFocus={() => startEditing(roundId, tableId, 1, seatingTemplate[tableId*4+1][roundId])}
 										onChange={(e: ChangeEvent<HTMLInputElement>) => changeEditValue(e.target.value)}
-										onBlur={() => endEditing()}
+										onBlur={endEditing}
 									/>
 								</td>
 							))}
@@ -124,14 +124,14 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 								<td
 									onMouseOver={() => setHighlights(tableId+0.2, roundId, seatingTemplate[tableId*4+2][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
-									className={getClassNames(tableId+0.2, roundId, seatingTemplate[tableId*4+2][roundId])}
+									className={getClassNames(tableId+0.2, roundId, seatingTemplate[tableId*4+2][roundId], "west")}
 								 	key={`td-${tableId}-w-td-${roundId}`}>
 									<input
 										type={"text"}
 										value={isEditingThis(roundId, tableId, 2) ? ""+editValue : ""+seatingTemplate[tableId*4+2][roundId]}
 										onFocus={() => startEditing(roundId, tableId, 2, seatingTemplate[tableId*4+2][roundId])}
 										onChange={(e: ChangeEvent<HTMLInputElement>) => changeEditValue(e.target.value)}
-										onBlur={() => endEditing()}
+										onBlur={endEditing}
 									/>
 								</td>
 							))}
@@ -141,14 +141,14 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 								<td
 									onMouseOver={() => setHighlights(tableId+0.3, roundId, seatingTemplate[tableId*4+3][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
-									className={getClassNames(tableId+0.3, roundId, seatingTemplate[tableId*4+3][roundId])}
+									className={getClassNames(tableId+0.3, roundId, seatingTemplate[tableId*4+3][roundId], "north")}
 								 	key={`td-${tableId}-n-td-${roundId}`}>
 									<input
 										type={"text"}
 										value={isEditingThis(roundId, tableId, 3) ? ""+editValue : ""+seatingTemplate[tableId*4+3][roundId]}
 										onFocus={() => startEditing(roundId, tableId, 3, seatingTemplate[tableId*4+3][roundId])}
 										onChange={(e: ChangeEvent<HTMLInputElement>) => changeEditValue(e.target.value)}
-										onBlur={() => endEditing()}
+										onBlur={endEditing}
 									/>
 								</td>
 							))}

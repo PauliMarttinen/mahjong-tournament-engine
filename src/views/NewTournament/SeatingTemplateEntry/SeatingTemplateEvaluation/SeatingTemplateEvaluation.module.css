@@ -1,0 +1,3 @@
+.evaluationTable td:not(:first-child) {
+	padding-left: 1em;;
+}

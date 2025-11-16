@@ -20,7 +20,8 @@ const Button = (props: ButtonProps) => {
 			className={className}
 			disabled={props.disabled}
 			onClick={onClick}
-			title={props.disabledTooltip ? props.disabledTooltip : ""}>
+			title={props.disabledTooltip ? props.disabledTooltip : ""}
+			type={props.type}>
 			{props.children}
 		</AntButton>
 	);

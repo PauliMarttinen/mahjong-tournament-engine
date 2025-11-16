@@ -1,47 +1,27 @@
-import { useState } from "react";
-import FormatSelector, { Formats } from "./FormatSelector/FormatSelector"
+import { Formats } from "./FormatSelector/FormatSelector"
 import TableRoundVerticalTable from "./TableRoundVerticalTable";
-import TableRoundHorizontalTable from "./TableRoundHorizontalTable";
 import RoundTableVerticalTable from "./RoundTableVerticalTable";
-import RoundTableHorizontalTable from "./RoundTableHorizontalTable";
 
 type SeatingTemplateTableProps = {
+	format: Formats,
 	preview: boolean,
 }
 
 const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
-	const [selectedFormat, setSelectedFormat] = useState<Formats>(Formats.TableRoundVertical);
-
 	return (
 		<div>
 			{
-				selectedFormat === Formats.TableRoundVertical &&
+				props.format === Formats.TableRoundVertical &&
 				<TableRoundVerticalTable
 					preview={props.preview}
 				/>
 			}
 			{
-				selectedFormat === Formats.TableRoundHorizontal &&
-				<TableRoundHorizontalTable
-					preview={props.preview}
-				/>
-			}
-			{
-				selectedFormat === Formats.RoundTableVertical &&
+				props.format === Formats.RoundTableVertical &&
 				<RoundTableVerticalTable
 					preview={props.preview}
 				/>
 			}
-			{
-				selectedFormat === Formats.RoundTableHorizontal &&
-				<RoundTableHorizontalTable
-					preview={props.preview}
-				/>
-			}
-			{/* <FormatSelector
-				format={selectedFormat}
-				onFormatChange={(format: Formats) => setSelectedFormat(format)}
-			/> */}
 		</div>
 	);
 };
