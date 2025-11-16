@@ -160,7 +160,10 @@ const SeatingTemplateEntry = () => {
 						<Space
 							className={styles.toolbar}
 							direction={"vertical"}>
-							<Alert message={"A recommended template for this number of rounds and players is available."}/>
+							{
+								recommendedExists &&
+								<Alert message={"A recommended template for this number of rounds and players is available."}/>
+							}
 							<Card title={"Template stack"}>
 								<Space direction={"vertical"}>
 									<p>Template {currentSeatingTemplateIndex + 1} of {seatingTemplateHistory.length}</p>
