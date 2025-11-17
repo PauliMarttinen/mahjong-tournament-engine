@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {Menu, Space} from "antd";
 import type {MenuProps} from "antd";
 import {MenuInfo} from "rc-menu/lib/interface";
@@ -7,6 +7,8 @@ import alphabetizer from "../../../../utils/alphabetizer";
 import Performance from "./Performance";
 import styles from "./IndividualPlayer.module.css";
 import { Player } from "../../../../data-types/tournament-data-types";
+import PrintableIframe from "../../../../components/PrintableIframe";
+import { Routes } from "../../../../utils/routeUtils";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -26,14 +28,31 @@ const IndividualPlayer = () => {
 		setSelectedPlayer(parseInt(e.key));
 	};
 
+	useEffect(() => {
+		if (!playerOptions) return;
+		if (!playerOptions[0]) return;
+		if (!playerOptions[0].key) return;
+
+		setSelectedPlayer(+playerOptions[0].key);
+	}, []);
+
 	return (
 		<Space
 			className={styles.individualPlayer}
 			size={25}>
-			<Menu
-				items={playerOptions}
-				onClick={onClick}
-			/>
+			<Space direction={"vertical"}>
+				<PrintableIframe
+					className={styles.printExportPdf}
+					label={"Print/Export PDF"}
+					id={"reportCard"}
+					src={`${Routes.PrintReportCards}?players=${selectedPlayer}`}
+				/>
+				<Menu
+					items={playerOptions}
+					selectedKeys={[""+selectedPlayer]}
+					onClick={onClick}
+				/>
+			</Space>
 			<Performance
 				anonymize={false}
 				playerId={selectedPlayer}

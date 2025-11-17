@@ -4,3 +4,8 @@
 	justify-content: left;
 	align-items: start;
 }
+
+.individualPlayer .printExportPdf button
+{
+	width: 100%;
+}

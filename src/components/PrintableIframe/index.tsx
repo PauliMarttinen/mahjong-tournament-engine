@@ -3,6 +3,7 @@ import print from "./utils/print";
 import styles from "./PrintableIframe.module.css";
 
 type PrintableIframeProps = {
+	className?: string,
 	label: string,
 	id: string,
 	src: string
@@ -10,7 +11,7 @@ type PrintableIframeProps = {
 
 const PrintableIframe = (props: PrintableIframeProps) => {
 	return (
-		<div>
+		<div className={`${props.className ? props.className : ""}`}>
 			<Button
 				type={"default"}
 				onClick={() => print(props.id)}>
