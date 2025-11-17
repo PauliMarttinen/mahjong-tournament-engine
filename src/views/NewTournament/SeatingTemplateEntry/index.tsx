@@ -228,6 +228,13 @@ const SeatingTemplateEntry = () => {
 								/>
 							</Card>
 							<SeatingTemplateEvaluations/>
+							{
+								confirmDisabled &&
+								<Alert
+									type={"error"}
+									message={"Cannot advance while there are errors in the seating template."}
+								/>
+							}
 							<div className={styles.button}>
 								<Button
 									type={"primary"}
@@ -236,13 +243,6 @@ const SeatingTemplateEntry = () => {
 										Finish creating the tournament
 								</Button>
 							</div>
-							{
-								confirmDisabled &&
-								<Alert
-									type={"error"}
-									message={"Cannot confirm seating while there are errors in the seating template."}
-								/>
-							}
 						</Space>
 					</Space>
 				</Space>

@@ -71,28 +71,30 @@ const SeatingTemplateEvaluations = () => {
 					</tbody>
 				</table>
 				{
-					errors.missing.length > 0 &&
+					(errors.missing.length > 0 || errors.outsideRange.length > 0) &&
 					<>
-						<h3>Missing players in rounds:</h3>
+						<h3>Errors</h3>
 						<ul>
-							{errors.missing.map((missingPlayer) => (
-								<li key={`missing-player-${missingPlayer.playerId}-round-${missingPlayer.roundId}`}>
-									Player {missingPlayer.playerId} is missing from Round {missingPlayer.roundId + 1}
-								</li>
-							))}
-						</ul>
-					</>
-				}
-				{
-					errors.outsideRange.length > 0 &&
-					<>
-						<h3>Player IDs outside valid range (0-{newTournament.playerList.length-1}):</h3>
-						<ul>
-							{errors.outsideRange.map((outsideRangeEntry, index) => (
-								<li key={`outside-range-${index}`}>
-									Player ID {outsideRangeEntry.playerId} at Table {outsideRangeEntry.tableId + 1}, Round {outsideRangeEntry.roundId + 1} is outside the valid range
-								</li>
-							))}
+						{
+							errors.missing.length > 0 &&
+							<>
+								{errors.missing.map((missingPlayer) => (
+									<li key={`missing-player-${missingPlayer.playerId}-round-${missingPlayer.roundId}`}>
+										Player {missingPlayer.playerId} is missing from Round {missingPlayer.roundId + 1}
+									</li>
+								))}
+							</>
+						}
+						{
+							errors.outsideRange.length > 0 &&
+							<>
+								{errors.outsideRange.map((outsideRangeEntry, index) => (
+									<li key={`outside-range-${index}`}>
+										Player ID {outsideRangeEntry.playerId} at Table {outsideRangeEntry.tableId + 1}, Round {outsideRangeEntry.roundId + 1} is outside the valid range (0-{newTournament.playerList.length-1})
+									</li>
+								))}
+							</>
+						}
 						</ul>
 					</>
 				}
