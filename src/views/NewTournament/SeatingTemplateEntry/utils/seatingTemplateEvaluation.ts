@@ -1,4 +1,4 @@
-import { DuplicatePlayerSeating, MissingPlayer, PlayerIdOutsideRange, SeatingTemplateErrors } from "../../../../data-types/new-tournament-data-types";
+import type { DuplicatePlayerSeating, MissingPlayer, PlayerIdOutsideRange, SeatingTemplateErrors } from "../../../../data-types/new-tournament-data-types";
 import { generateArray } from "../../../../utils/generateArray";
 
 /**

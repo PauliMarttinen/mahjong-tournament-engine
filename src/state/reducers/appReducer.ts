@@ -1,5 +1,5 @@
-import { App } from "../../data-types/app-data-types";
-import Action from "../actions/app-actions";
+import type { App } from "../../data-types/app-data-types";
+import type Action from "../actions/app-actions";
 import ActionTypes from "../action-types/app-action-types";
 
 const initialState: App = {

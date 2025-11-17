@@ -1,7 +1,7 @@
 import { useState } from "react";
 import StandingsDisplay from "../../../components/Standings";
 import { generateArray } from "../../../utils/generateArray";
-import { Game, Tournament } from "../../../data-types/tournament-data-types";
+import type { Game, Tournament } from "../../../data-types/tournament-data-types";
 import {Button, Switch, Space} from "antd";
 import {ExportOutlined} from "@ant-design/icons";
 import useTournament from "../../../utils/hooks/useTournament";

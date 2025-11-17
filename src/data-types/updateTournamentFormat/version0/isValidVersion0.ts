@@ -1,6 +1,5 @@
-import { Game, GeneralInfo } from "../../tournament-data-types";
 import areGamesValid from "../utils/areGamesValid";
-import { Version0 } from "./Version0";
+import type { Version0 } from "./Version0";
 
 const isValidVersion0 = (data: any): data is Version0 => {
 	const infoExists = "info" in data;

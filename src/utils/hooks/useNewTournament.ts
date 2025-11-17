@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { NewTournament } from "../../data-types/new-tournament-data-types";
-import { State } from "../../state";
+import type { NewTournament } from "../../data-types/new-tournament-data-types";
+import type { State } from "../../state";
 import useAppState from "./useAppState";
 import { initialState } from "../../state/reducers/newTournamentReducer";
 

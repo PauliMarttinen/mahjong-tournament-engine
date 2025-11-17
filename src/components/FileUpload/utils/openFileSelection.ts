@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import type { RefObject } from "react";
 
 const openFileSelection = (fileInputRef: RefObject<HTMLInputElement>) => {
 	if (fileInputRef !== null && fileInputRef.current !== null)

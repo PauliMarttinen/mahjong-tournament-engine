@@ -1,7 +1,7 @@
 import {useMemo} from "react";
 import useTournament from "../../utils/hooks/useTournament";
 import { generateArray } from "../../utils/generateArray";
-import { Game, Seat } from "../../data-types/tournament-data-types";
+import type { Game, Seat } from "../../data-types/tournament-data-types";
 import {
 	LineChart,
 	Line,

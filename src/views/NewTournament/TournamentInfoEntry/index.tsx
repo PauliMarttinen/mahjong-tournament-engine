@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GeneralInfo } from "../../../data-types/tournament-data-types";
+import type { GeneralInfo } from "../../../data-types/tournament-data-types";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { newTournamentActionCreators } from "../../../state";

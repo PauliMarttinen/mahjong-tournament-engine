@@ -1,5 +1,5 @@
 import Round from "./Round/";
-import { Game } from "../../../data-types/tournament-data-types";
+import type { Game } from "../../../data-types/tournament-data-types";
 import { generateArray } from "../../../utils/generateArray";
 import useTournament from "../../../utils/hooks/useTournament";
 import bodyNoMargin from "../../../utils/bodyNoMargin";

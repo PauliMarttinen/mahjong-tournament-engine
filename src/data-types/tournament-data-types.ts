@@ -1,6 +1,6 @@
 import * as versionValidators from "./updateTournamentFormat/versionValidators";
-import { Version0 } from "./updateTournamentFormat/version0/Version0";
-import { Version1 } from "./updateTournamentFormat/version1/Version1";
+import type { Version0 } from "./updateTournamentFormat/version0/Version0";
+import type { Version1 } from "./updateTournamentFormat/version1/Version1";
 
 export type GeneralInfo = {
 	title: string,

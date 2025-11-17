@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Game } from "../../../data-types/tournament-data-types";
+import type { Game } from "../../../data-types/tournament-data-types";
 import styles from "./HanchanResults.module.css";
 import useTournament from "../../../utils/hooks/useTournament";
 import type { CollapseProps } from "antd";

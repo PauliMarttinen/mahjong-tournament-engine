@@ -1,5 +1,5 @@
-import { Tournament } from "../../data-types/tournament-data-types";
-import Action from "../actions/tournament-actions";
+import type { Tournament } from "../../data-types/tournament-data-types";
+import type Action from "../actions/tournament-actions";
 import ActionTypes from "../action-types/tournament-action-types";
 import updateTournamentFormat, { CURRENT_DATA_VERSION } from "../../data-types/updateTournamentFormat/updateTournamentFormat";
 

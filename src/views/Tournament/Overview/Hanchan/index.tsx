@@ -28,10 +28,6 @@ const Hanchan = (props: HanchanProps) => {
 
 	return (
 		<div className={hanchanClassName}>
-			{
-				/* props.clickable &&
-				<div className={styles.clickable} onClick={() => props.onClick()}>{null}</div> */
-			}
 			<table>
 				<tbody>
 					<tr>

@@ -1,4 +1,4 @@
-import { Game } from "../../tournament-data-types";
+import type { Game } from "../../tournament-data-types";
 
 const gamesValid = (games: Game[]): boolean => {
 	return Array.isArray(games) &&

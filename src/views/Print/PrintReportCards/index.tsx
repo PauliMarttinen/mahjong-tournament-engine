@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import useTournament from "../../../utils/hooks/useTournament";
 import alphabetizer from "../../../utils/alphabetizer";
 import styles from "./PrintReportCards.module.css";
-import { Player } from "../../../data-types/tournament-data-types";
+import type { Player } from "../../../data-types/tournament-data-types";
 import bodyNoMargin from "../../../utils/bodyNoMargin";
 import { useEffect } from "react";
 

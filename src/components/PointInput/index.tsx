@@ -1,8 +1,7 @@
 import { formatPoints } from "../../utils/formatPoints";
-import { KeyboardEvent } from "react";
-import styles from "./PointInput.module.css";
+import type { KeyboardEvent } from "react";
 import onKeyDown from "./utils/onKeyDown";
-import { PointInputType } from "../../data-types/tournament-data-types";
+import type { PointInputType } from "../../data-types/tournament-data-types";
 import { getNumericValue } from "../../utils/getNumericValue";
 import { Input } from "antd";
 

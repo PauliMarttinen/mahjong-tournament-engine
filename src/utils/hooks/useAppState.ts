@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { App } from "../../data-types/app-data-types";
-import { State } from "../../state";
+import type { App } from "../../data-types/app-data-types";
+import type { State } from "../../state";
 
 const useAppState = (): App => {
 	return useSelector((state: State) => state.app);

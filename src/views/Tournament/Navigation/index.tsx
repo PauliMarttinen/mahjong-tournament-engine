@@ -1,7 +1,7 @@
 import {Menu} from "antd";
 import type {MenuProps} from "antd";
 import styles from "./Navigation.module.css";
-import { MenuInfo } from "rc-menu/lib/interface";
+import type { MenuInfo } from "rc-menu/lib/interface";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../../../utils/routeUtils";
 import { useLocation } from "react-router-dom";

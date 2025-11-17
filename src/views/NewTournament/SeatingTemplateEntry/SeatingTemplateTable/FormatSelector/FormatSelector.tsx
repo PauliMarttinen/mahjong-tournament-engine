@@ -1,4 +1,4 @@
-import { Switch, Space, Radio } from "antd";
+import { Radio } from "antd";
 import styles from "./FormatSelector.module.css";
 
 /**

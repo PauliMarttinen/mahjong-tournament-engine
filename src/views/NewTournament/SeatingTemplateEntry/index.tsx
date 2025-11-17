@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Game, Score } from "../../../data-types/tournament-data-types";
+import type { Game, Score } from "../../../data-types/tournament-data-types";
 import { generateArray } from "../../../utils/generateArray";
 import useNewTournament from "../../../utils/hooks/useNewTournament";
 import { bindActionCreators } from "redux";
@@ -13,11 +13,12 @@ import SeatingTemplateTable from "./SeatingTemplateTable";
 import { generateRandomizedSeating } from "./utils/generateRandomizedSeating";
 import FileUpload from "../../../components/FileUpload";
 import readXlsxFile from "read-excel-file";
-import { Row } from "read-excel-file/types";
+import type { Row } from "read-excel-file/types";
 import { convertTemplate } from "../../../utils/convertTemplate";
 import { findErrors } from "./utils/seatingTemplateEvaluation";
 import SeatingTemplateEvaluations from "./SeatingTemplateEvaluation";
-import { SeatingTemplateHistoryItem, SeatingTemplateTypes } from "../../../data-types/new-tournament-data-types";
+import type { SeatingTemplateHistoryItem } from "../../../data-types/new-tournament-data-types";
+import {SeatingTemplateTypes} from "../../../data-types/new-tournament-data-types";
 import styles from "./SeatingTemplateEntry.module.css";
 import {Modal, Space, Card, Alert, Button} from "antd";
 import FormatSelector, {Formats} from "./SeatingTemplateTable/FormatSelector/FormatSelector";
@@ -63,7 +64,6 @@ const SeatingTemplateEntry = () => {
 
 	const [showPreview, setShowPreview] = useState<boolean>(false);
 	const [showUploadModal, setShowUploadModal] = useState<boolean>(false);
-	const [showStackInfoModal, setShowStackInfoModal] = useState<boolean>(false);
 	const [format, setFormat] = useState<Formats>(Formats.TableRoundVertical);
 
 	useEffect(() => {

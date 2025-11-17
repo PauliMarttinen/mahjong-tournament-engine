@@ -1,4 +1,4 @@
-import { Standing } from "../../../../../data-types/tournament-data-types";
+import type { Standing } from "../../../../../data-types/tournament-data-types";
 import { formatPoints } from "../../../../../utils/formatPoints";
 import useTournament from "../../../../../utils/hooks/useTournament";
 import Comparison from "./Comparison";

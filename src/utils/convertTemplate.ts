@@ -1,4 +1,4 @@
-import { Row, Cell } from "read-excel-file/types";
+import type { Row, Cell } from "read-excel-file/types";
 import { determineTemplateFormat } from "../views/NewTournament/SeatingTemplateEntry/utils/determineTemplateFormat";
 import { Formats } from "../views/NewTournament/SeatingTemplateEntry/SeatingTemplateTable/FormatSelector/FormatSelector";
 import { generateArray } from "./generateArray";

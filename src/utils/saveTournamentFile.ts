@@ -1,4 +1,4 @@
-import { Tournament } from "../data-types/tournament-data-types";
+import type { Tournament } from "../data-types/tournament-data-types";
 
 const saveTournamentFile = (state: Tournament) => {  
 	const tournamentTitle = state.info.title;

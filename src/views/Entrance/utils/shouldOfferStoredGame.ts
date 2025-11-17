@@ -1,4 +1,5 @@
-import { isTournamentDataValid, Tournament } from "../../../data-types/tournament-data-types";
+import { isTournamentDataValid } from "../../../data-types/tournament-data-types";
+import type { Tournament } from "../../../data-types/tournament-data-types";
 
 const shouldOfferStoredGame = () => {
 	if (localStorage.getItem("mahjong-tournament") !== null)

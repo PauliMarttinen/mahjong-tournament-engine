@@ -1,6 +1,6 @@
 import PrintableIframe from "../../../components/PrintableIframe";
 import { Routes } from "../../../utils/routeUtils";
-import {Card, Space, Alert} from "antd";
+import {Card, Space} from "antd";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import styles from "./PrintOuts.module.css";

@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import useTournament from "../../../../utils/hooks/useTournament";
 import { getNumericValue } from "../../../../utils/getNumericValue";
 import PointInput from "../../../../components/PointInput";
-import { Game, PointInputType } from "../../../../data-types/tournament-data-types";
+import type { Game, PointInputType } from "../../../../data-types/tournament-data-types";
 import { Alert, Switch, Space, Button, Input } from "antd";
 import { tournamentActionCreators } from "../../../../state";
 import {formatPoints} from "../../../../utils/formatPoints";

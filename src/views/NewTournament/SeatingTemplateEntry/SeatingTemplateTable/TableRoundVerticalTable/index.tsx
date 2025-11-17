@@ -2,7 +2,7 @@ import { useState } from "react";
 import { generateArray } from "../../../../../utils/generateArray";
 import useNewTournament from "../../../../../utils/hooks/useNewTournament";
 import styles from "../SeatingTemplateTable.module.css";
-import { ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
 import { newTournamentActionCreators } from "../../../../../state";
 import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";

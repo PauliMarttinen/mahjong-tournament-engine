@@ -1,4 +1,4 @@
-import { Version0 } from "./version0/Version0";
+import type { Version0 } from "./version0/Version0";
 import getFileVersion from "./utils/getFileVersion";
 import convert0to1 from "./version1/convert0to1";
 

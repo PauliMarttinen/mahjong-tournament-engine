@@ -1,6 +1,6 @@
 import ActionTypes from "../action-types/tournament-action-types";
-import {GeneralInfo, Tournament} from "../../data-types/tournament-data-types";
-import {Game, Player} from "../../data-types/tournament-data-types";
+import type {GeneralInfo, Tournament} from "../../data-types/tournament-data-types";
+import type {Game, Player} from "../../data-types/tournament-data-types";
 
 export type EditTournamentInfoAction = {
 	type: ActionTypes.EditTournamentInfo,

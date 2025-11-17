@@ -1,4 +1,4 @@
-import { Game, Player } from "../../../../data-types/tournament-data-types";
+import type { Game, Player } from "../../../../data-types/tournament-data-types";
 import Games from "./Games";
 import styles from "./Round.module.css";
 

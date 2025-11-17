@@ -1,12 +1,12 @@
 import { useMemo, useState, useEffect } from "react";
 import {Menu, Space} from "antd";
 import type {MenuProps} from "antd";
-import {MenuInfo} from "rc-menu/lib/interface";
+import type {MenuInfo} from "rc-menu/lib/interface";
 import useTournament from "../../../../utils/hooks/useTournament";
 import alphabetizer from "../../../../utils/alphabetizer";
 import Performance from "./Performance";
 import styles from "./IndividualPlayer.module.css";
-import { Player } from "../../../../data-types/tournament-data-types";
+import type { Player } from "../../../../data-types/tournament-data-types";
 import PrintableIframe from "../../../../components/PrintableIframe";
 import { Routes } from "../../../../utils/routeUtils";
 

@@ -1,4 +1,4 @@
-import { AllVersions } from "../../tournament-data-types";
+import type { AllVersions } from "../../tournament-data-types";
 
 const getFileVersion = (data: AllVersions): number => {
 	if (data && "meta" in data && data.meta && "dataFormatVersion" in data.meta) {

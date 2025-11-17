@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import type { ReactNode } from "react"
 import {Layout} from "antd";
 import styles from "./LayoutHeader.module.css";
 

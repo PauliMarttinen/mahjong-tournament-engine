@@ -1,4 +1,4 @@
-import { Game, Seat, Standing, Player } from "../../data-types/tournament-data-types";
+import type { Game, Seat, Standing, Player } from "../../data-types/tournament-data-types";
 import { generateArray } from "../generateArray";
 import useTournament from "./useTournament";
 

@@ -1,8 +1,8 @@
-import {Dispatch} from "redux";
-import { GeneralInfo, Player } from "../../data-types/tournament-data-types";
-import { SeatingTemplateErrors, SeatingTemplateHistoryItem } from "../../data-types/new-tournament-data-types";
+import type {Dispatch} from "redux";
+import type { GeneralInfo, Player } from "../../data-types/tournament-data-types";
+import type { SeatingTemplateErrors, SeatingTemplateHistoryItem } from "../../data-types/new-tournament-data-types";
 import ActionTypes from "../action-types/new-tournament-action-types";
-import {
+import type {
 	AddGeneralInfoAction,
 	AddPlayersAction,
 	SetSeatingTemplateHistoryAction,

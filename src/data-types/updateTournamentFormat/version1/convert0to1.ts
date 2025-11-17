@@ -1,5 +1,5 @@
-import { Version0 } from "../version0/Version0";
-import { Version1 } from "./Version1";
+import type { Version0 } from "../version0/Version0";
+import type { Version1 } from "./Version1";
 
 const convert0to1 = (oldData: Version0): Version1 => {
 	const newData: Version1 = {
