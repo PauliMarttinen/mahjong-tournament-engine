@@ -7,9 +7,8 @@ import NumberInput from "../../../components/NumberInput";
 import { initialState } from "../../../state/reducers/tournamentReducer";
 import { Routes } from "../../../utils/routeUtils";
 import { useNavigate } from "react-router-dom";
-import Button from "../../../components/Button";
 import styles from "./TournamentInfoEntry.module.css";
-import {Input, Space, Card} from "antd";
+import {Input, Space, Card, Button} from "antd";
 import MandatoryAsterisk from "../../../components/MandatoryAsterisk";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 
@@ -48,6 +47,7 @@ const TournamentInfoView = () => {
 					</Card>
 					<div className={styles.button}>
 						<Button
+							type={"primary"}
 							disabled={currentInfo.title.trim() === ""}
 							onClick={() => onSave()}>
 							Next

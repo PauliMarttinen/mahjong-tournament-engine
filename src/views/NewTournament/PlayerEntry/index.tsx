@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import Button from "../../../components/Button";
-import {Modal, Alert, Switch, Card, Space, Input} from "antd";
+import {Modal, Alert, Switch, Card, Space, Input, Button} from "antd";
 import { newTournamentActionCreators } from "../../../state";
 import { Routes } from "../../../utils/routeUtils";
 import styles from "./PlayerEntryView.module.css";
@@ -41,6 +40,7 @@ const PlayerEntryView = () => {
 		<>
 			<NewTournamentSteps key={"newTournamentSteps"} current={1}/>
 			<Modal
+				centered={true}
 				open={duplicates.length > 0}
 				title={"Duplicate players"}
 				footer={[
@@ -74,13 +74,6 @@ const PlayerEntryView = () => {
 						<label htmlFor={"randomize"}>Randomize the order of names.</label>
 					</Space>
 				</Card>
-				<div className={styles.button}>
-					<Button
-						onClick={() => save()}
-						disabled={!rightAmount}>
-						Save players
-					</Button>
-				</div>
 				{
 					!rightAmount &&
 					<Alert
@@ -88,6 +81,14 @@ const PlayerEntryView = () => {
 						message={"Must have a number of players that is divisible by 4."}
 					/>
 				}
+				<div className={styles.button}>
+					<Button
+						type={"primary"}
+						onClick={() => save()}
+						disabled={!rightAmount}>
+						Save players
+					</Button>
+				</div>
 				</Space>
 			</div>
 		</>

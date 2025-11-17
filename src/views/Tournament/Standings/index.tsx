@@ -65,9 +65,9 @@ const Standings = () => {
 							<label htmlFor={"plainTextSwitch"}>Plain Text</label>
 						</Space>
 						<Button
+							type={"default"}
 							icon={<ExportOutlined/>}
-							onClick={() => openWindow()}
-							type={"default"}>
+							onClick={() => openWindow()}>
 							Open in popup
 						</Button>
 					</Space>

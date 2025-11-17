@@ -7,7 +7,6 @@ import { tournamentActionCreators } from "../../../state";
 import { newTournamentActionCreators } from "../../../state";
 import { useDispatch } from "react-redux";
 import { recommendedSeatingTemplates } from "./recommendedSeatingTemplates/recommendedSeatingTemplates";
-import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../../../utils/routeUtils";
 import SeatingTemplateTable from "./SeatingTemplateTable";
@@ -20,7 +19,7 @@ import { findErrors } from "./utils/seatingTemplateEvaluation";
 import SeatingTemplateEvaluations from "./SeatingTemplateEvaluation";
 import { SeatingTemplateHistoryItem, SeatingTemplateTypes } from "../../../data-types/new-tournament-data-types";
 import styles from "./SeatingTemplateEntry.module.css";
-import {Modal, Space, Card, Alert} from "antd";
+import {Modal, Space, Card, Alert, Button} from "antd";
 import FormatSelector, {Formats} from "./SeatingTemplateTable/FormatSelector/FormatSelector";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 
@@ -146,6 +145,7 @@ const SeatingTemplateEntry = () => {
 		<>
 			<NewTournamentSteps key={"newTournamentSteps"} current={2}/>
 			<Modal
+				centered={true}
 				open={showUploadModal}
 				title={"Open Seating Template File"}
 				footer={[
@@ -173,18 +173,22 @@ const SeatingTemplateEntry = () => {
 									<p>Template {currentSeatingTemplateIndex + 1} of {seatingTemplateHistory.length}</p>
 									<p>Kind: {SeatingTemplateTypes[seatingTemplateHistory[currentSeatingTemplateIndex].type]}</p>
 									<Button
+										type={"default"}
 										onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex - 1)}
 										disabled={currentSeatingTemplateIndex === 0}>
 										Previous Seating
 									</Button>
 									<Button
+										type={"default"}
 										onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex + 1)}
 										disabled={currentSeatingTemplateIndex === seatingTemplateHistory.length - 1}>
 										Next Seating
 									</Button>
 									{
 										recommendedExists &&
-										<Button onClick={() => setRecommendedSeating()}>
+										<Button
+											type={"default"}
+											onClick={() => setRecommendedSeating()}>
 											Recommended
 										</Button>
 									}
@@ -193,10 +197,12 @@ const SeatingTemplateEntry = () => {
 							<Card title={"Add template"}>
 								<Space direction={"vertical"}>
 									<Button
+										type={"default"}
 										onClick={() => randomizeSeating()}>
 										Randomized
 									</Button>
 									<Button
+										type={"default"}
 										onClick={() => setShowUploadModal(true)}>
 										Open from file
 									</Button>	
@@ -204,6 +210,7 @@ const SeatingTemplateEntry = () => {
 							</Card>
 							<Card title={"View options"}>
 								<Button
+									type={"default"}
 									onClick={() => setShowPreview(true)}>
 									Preview With Names
 								</Button>
@@ -223,6 +230,7 @@ const SeatingTemplateEntry = () => {
 							<SeatingTemplateEvaluations/>
 							<div className={styles.button}>
 								<Button
+									type={"primary"}
 									onClick={() => confirmSeating()}
 									disabled={confirmDisabled}>
 										Finish creating the tournament

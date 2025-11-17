@@ -37,10 +37,14 @@ const ReportCards = () => {
 	return (
 		<>
 			<Space>
-				<Button onClick={() => setPlayerIds(generateArray(tournament.playerList.length))}>
+				<Button
+					type={"default"}
+					onClick={() => setPlayerIds(generateArray(tournament.playerList.length))}>
 					Select all
 				</Button>
-				<Button onClick={() => setPlayerIds([])}>
+				<Button
+					type={"default"}
+					onClick={() => setPlayerIds([])}>
 					Deselect all
 				</Button>
 			</Space>

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { evaluateMeetingBalance, evaluateWindBalance } from "../utils/seatingTemplateEvaluation";
-import Button from "../../../../components/Button";
 import useNewTournament from "../../../../utils/hooks/useNewTournament";
-import {Modal, Alert, Card, Space} from "antd";
+import {Modal, Alert, Card, Button} from "antd";
 import {QuestionCircleOutlined} from "@ant-design/icons";
 import styles from "./SeatingTemplateEvaluation.module.css";
 
@@ -17,6 +16,7 @@ const SeatingTemplateEvaluations = () => {
 	return (
 		<>
 			<Modal
+				centered={true}
 				open={showWindBalanceInfo}
 				title={"Wind Balance Score"}
 				footer={[
@@ -30,6 +30,7 @@ const SeatingTemplateEvaluations = () => {
 				/>
 			</Modal>
 			<Modal
+				centered={true}
 				open={showMeetingBalanceInfo}
 				title={"Meeting Balance Score"}
 				footer={[
@@ -49,7 +50,9 @@ const SeatingTemplateEvaluations = () => {
 							<td>Wind Balance Score</td>
 							<td>{evaluateWindBalance(template).toFixed(2)}/100.00</td>
 							<td>
-								<Button onClick={() => setShowWindBalanceInfo(true)}>
+								<Button
+									type={"default"}
+									onClick={() => setShowWindBalanceInfo(true)}>
 									<QuestionCircleOutlined/>
 								</Button>
 							</td>
@@ -58,7 +61,9 @@ const SeatingTemplateEvaluations = () => {
 							<td>Meeting Balance Score</td>
 							<td>{evaluateMeetingBalance(template).toFixed(2)}/100.00</td>
 							<td>
-								<Button onClick={() => setShowMeetingBalanceInfo(true)}>
+								<Button
+									type={"default"}
+									onClick={() => setShowMeetingBalanceInfo(true)}>
 									<QuestionCircleOutlined/>
 								</Button>
 							</td>

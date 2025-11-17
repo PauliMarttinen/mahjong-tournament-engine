@@ -3,14 +3,13 @@ import { bindActionCreators } from "redux";
 import { tournamentActionCreators, appActionCreators } from "../../state";
 import { Tournament } from "../../data-types/tournament-data-types";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
 import styles from "./Entrance.module.css";
 import { findRoute, Routes } from "../../utils/routeUtils";
 import saveTournamentFile from "../../utils/saveTournamentFile";
 import FileUpload from "../../components/FileUpload";
 import shouldOfferStoredGame from "./utils/shouldOfferStoredGame";
 import updateTournamentFormat from "../../data-types/updateTournamentFormat/updateTournamentFormat";
-import { Space, Card, Alert } from "antd";
+import { Space, Card, Alert, Button } from "antd";
 
 const Entrance = () => {
 	const navigate = useNavigate();
@@ -62,6 +61,7 @@ const Entrance = () => {
 						direction={"vertical"}
 						className={styles.space}>
 						<Button
+							type={"default"}
 							onClick={startNewTournament}
 							className={styles.button}>
 							Start new tournament
@@ -92,11 +92,13 @@ const Entrance = () => {
 									message={"There seems to be a tournament stored in your browser storage."}
 								/>
 								<Button
+									type={"default"}
 									onClick={loadFromLocalStorage}
 									className={styles.button}>
 									Load tournament from storage
 								</Button>
 								<Button
+									type={"default"}
 									onClick={saveTournamentToFile}
 									className={styles.button}>
 									Save tournament from storage to file

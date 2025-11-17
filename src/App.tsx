@@ -86,7 +86,9 @@ const App = () => {
 				<ConfigProvider
 					theme={{algorithm: darkmode ? theme.darkAlgorithm : theme.defaultAlgorithm}}>
 					<Affix>
-						<Button onClick={() => setDarkmode(!darkmode)}>
+						<Button
+							type={"default"}
+							onClick={() => setDarkmode(!darkmode)}>
 							Dark mode {darkmode ? "on" : "off"}
 						</Button>
 					</Affix>

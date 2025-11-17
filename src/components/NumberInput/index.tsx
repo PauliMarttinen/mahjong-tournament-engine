@@ -1,5 +1,4 @@
-import Button from "../Button";
-import { InputNumber } from "antd";
+import { Button, InputNumber } from "antd";
 import styles from "./NumberInput.module.css";
 
 type NumberInputProps = {
@@ -16,6 +15,7 @@ const NumberInput = (props: NumberInputProps) => {
 	return (
 		<div className={className}>
 			<Button
+				type={"default"}
 				disabled={props.minimum ? props.value === props.minimum : false}
 				onClick={() => props.onChange(props.value - 1)}>
 				-1
@@ -26,6 +26,7 @@ const NumberInput = (props: NumberInputProps) => {
 				disabled={true}
 			/>
 			<Button
+				type={"default"}
 				disabled={props.maximum ? props.value === props.maximum : false}
 				onClick={() => props.onChange(props.value + 1)}>
 				+1
