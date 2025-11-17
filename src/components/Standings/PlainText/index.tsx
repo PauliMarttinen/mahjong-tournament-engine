@@ -16,9 +16,13 @@ const PlainText = (props: StandingsProps) => {
 		<div>
 			<pre>
 				{
-					standings[tournament.info.rounds - 1].map((standing: Standing, rank: number) => (
-						`${rank + 1}.\t${tournament.playerList[standing.playerId].name}\t${formatPoints({points: standing.points, sign: true})}\n`
-					))
+					standings[props.afterRound].map((standing: Standing, rank: number) => {
+						const player = tournament.playerList[standing.playerId];
+						const displayRank = player.substitute ? "--" : rank + 1;
+						const name = player.name;
+						const points = formatPoints({points: standing.points, sign: true});
+						return `${displayRank}.\t${name}\t${points}\n`
+					})
 				}
 			</pre>
 		</div>

@@ -1,4 +1,12 @@
-.tournamentInfoEntry
-{
-	width: 10em;
+.tournamentInfoEntry {
+	display: flex;
+	justify-content: space-around;
+}
+
+.tournamentInfoEntry h1 {
+	margin-top: 0;
+}
+
+.tournamentInfoEntry .button {
+	text-align: right;
 }

@@ -1,0 +1,30 @@
+.games
+{
+	min-width: 15em;
+}
+
+.games .roundHeader
+{
+	text-align: left;
+}
+
+.games .anonymized
+{
+	font-variant: small-caps;
+}
+
+.statistics .columnHeader
+{
+	text-align: right;
+	min-width: 6em;
+}
+
+.statistics .cell
+{
+	text-align: right;
+}
+
+.statistics .rowHeader
+{
+	text-align: left;
+}

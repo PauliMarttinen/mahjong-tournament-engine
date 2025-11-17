@@ -1,0 +1,24 @@
+.resultEditor .name {
+	text-align: left;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+.resultEditor .final {
+	padding-left: 1em;
+}
+
+.resultEditor .pointInput {
+	width: 7em;
+}
+
+.resultEditor .sumField {
+	background: white;
+	color: black;
+	cursor: default;
+}
+
+.resultEditor .sumField.wrong {
+	background: #fff2f0;
+	border: 1px solid #ffccc7;
+}

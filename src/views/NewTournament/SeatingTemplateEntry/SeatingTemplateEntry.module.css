@@ -1,0 +1,28 @@
+.seatingTemplateEntry {
+	display: flex;
+	justify-content: space-around;
+}
+
+.seatingTemplateEntry h1 {
+	margin-top: 0;
+}
+
+.seatingTemplateEntry p {
+	margin-top: 0;
+}
+
+.seatingTemplateEntry .button {
+	text-align: right;
+}
+
+.seatingTemplateEntry .workspace {
+	align-items: start;
+}
+
+.seatingTemplateEntry .toolbar {
+	width: 15vw;
+}
+
+.seatingTemplateEntry .toolbar button {
+	width: 100%;
+}

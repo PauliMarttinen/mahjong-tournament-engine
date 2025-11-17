@@ -3,14 +3,13 @@ import { bindActionCreators } from "redux";
 import { tournamentActionCreators, appActionCreators } from "../../state";
 import { Tournament } from "../../data-types/tournament-data-types";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
 import styles from "./Entrance.module.css";
 import { findRoute, Routes } from "../../utils/routeUtils";
-import React from "react";
-import download from "../../utils/download";
+import saveTournamentFile from "../../utils/saveTournamentFile";
 import FileUpload from "../../components/FileUpload";
 import shouldOfferStoredGame from "./utils/shouldOfferStoredGame";
 import updateTournamentFormat from "../../data-types/updateTournamentFormat/updateTournamentFormat";
+import { Space, Card, Alert, Button } from "antd";
 
 const Entrance = () => {
 	const navigate = useNavigate();
@@ -50,49 +49,65 @@ const Entrance = () => {
 	};
 
 	const saveTournamentToFile = () => {
-		download(JSON.parse(localStorage.getItem("mahjong-tournament") as string));
+		saveTournamentFile(JSON.parse(localStorage.getItem("mahjong-tournament") as string));
 	};
 
 	return (
 		<div className={styles.entrance}>
-			<div>
-				<div className={styles.buttonContainer}>
-					<Button
-						className={styles.button}
-						label={"Start new tournament"}
-						subLabel={`${offerStoredGame ? "Tournament stored in memory will be wiped out." : ""}`}
-						onClick={() => startNewTournament()}
-					/>
-				</div>
-				<div className={styles.buttonContainer}>
+			<Space direction={"vertical"}>
+				<h1>Mahjong Tournament Engine</h1>
+				<Card>
+					<Space
+						direction={"vertical"}
+						className={styles.space}>
+						<Button
+							type={"default"}
+							onClick={startNewTournament}
+							className={styles.button}>
+							Start new tournament
+						</Button>
+						{
+							offerStoredGame &&
+							<Alert
+								type={"warning"}
+								message={"Tournament stored in browser storage will be wiped out."}
+							/>
+						}
+					</Space>
+				</Card>
+				<Card>
 					<FileUpload
 						className={styles.button}
 						label={"Open tournament file"}
 						onUpload={(content) => loadFromFile(content)}
 					/>
-				</div>
+				</Card>
 				{
 					offerStoredGame &&
-					<React.Fragment>
-						<div className={styles.buttonContainer}>
-							<Button
-								className={styles.button}
-								label={"Load tournament from memory"}
-								subLabel={"There seems to be a tournament stored in browser storage."}
-								onClick={() => loadFromLocalStorage()}
-							/>
-						</div>
-						<div className={styles.buttonContainer}>
-							<Button
-								className={styles.button}
-								label={"Save tournament to file"}
-								subLabel={"The tournament stored in browser storage."}
-								onClick={() => saveTournamentToFile()}
-							/>
-						</div>
-					</React.Fragment>
+					<>
+						<Card>
+							<Space direction={"vertical"}>
+								<Alert
+									type={"info"}
+									message={"There seems to be a tournament stored in your browser storage."}
+								/>
+								<Button
+									type={"default"}
+									onClick={loadFromLocalStorage}
+									className={styles.button}>
+									Load tournament from storage
+								</Button>
+								<Button
+									type={"default"}
+									onClick={saveTournamentToFile}
+									className={styles.button}>
+									Save tournament from storage to file
+								</Button>
+							</Space>
+						</Card>
+					</>
 				}
-			</div>
+			</Space>
 		</div>
 	);
 };

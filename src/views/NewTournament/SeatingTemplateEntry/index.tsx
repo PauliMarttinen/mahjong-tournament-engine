@@ -7,8 +7,6 @@ import { tournamentActionCreators } from "../../../state";
 import { newTournamentActionCreators } from "../../../state";
 import { useDispatch } from "react-redux";
 import { recommendedSeatingTemplates } from "./recommendedSeatingTemplates/recommendedSeatingTemplates";
-import Button from "../../../components/Button";
-import Popup from "../../../components/Popup";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../../../utils/routeUtils";
 import SeatingTemplateTable from "./SeatingTemplateTable";
@@ -20,6 +18,10 @@ import { convertTemplate } from "../../../utils/convertTemplate";
 import { findErrors } from "./utils/seatingTemplateEvaluation";
 import SeatingTemplateEvaluations from "./SeatingTemplateEvaluation";
 import { SeatingTemplateHistoryItem, SeatingTemplateTypes } from "../../../data-types/new-tournament-data-types";
+import styles from "./SeatingTemplateEntry.module.css";
+import {Modal, Space, Card, Alert, Button} from "antd";
+import FormatSelector, {Formats} from "./SeatingTemplateTable/FormatSelector/FormatSelector";
+import NewTournamentSteps from "../../../components/NewTournamentSteps";
 
 const defaultScore: Score = {
 	raw: 0,
@@ -60,7 +62,9 @@ const SeatingTemplateEntry = () => {
 	}, []);
 
 	const [showPreview, setShowPreview] = useState<boolean>(false);
-	const [showUploadPopup, setShowUploadPopup] = useState<boolean>(false);
+	const [showUploadModal, setShowUploadModal] = useState<boolean>(false);
+	const [showStackInfoModal, setShowStackInfoModal] = useState<boolean>(false);
+	const [format, setFormat] = useState<Formats>(Formats.TableRoundVertical);
 
 	useEffect(() => {
 		if (seatingTemplateHistory.length > 0)
@@ -116,7 +120,7 @@ const SeatingTemplateEntry = () => {
 
 		readXlsxFile(files[0]).then((excelRows: Row[]) => {
 			addSeatingTemplateToHistory(convertTemplate(excelRows, newTournament.info.rounds, newTournament.playerList.length), SeatingTemplateTypes.Custom);
-			setShowUploadPopup(false);
+			setShowUploadModal(false);
 		});
 	};
 
@@ -132,73 +136,118 @@ const SeatingTemplateEntry = () => {
 	const confirmDisabled = seatingTemplateErrors.missing.length > 0 || seatingTemplateErrors.duplicates.length > 0 || seatingTemplateErrors.outsideRange.length > 0;
 
 	if (seatingTemplateHistory.length === 0) {
-		return <></>;
+		return (
+			<NewTournamentSteps key={"newTournamentSteps"} current={2}/>
+		);
 	};
 
 	return (
-		<div>
-			{
-				showUploadPopup &&
-				<Popup
-					title={"Upload Seating Template"}
-					cancelText={"Cancel"}
-					onCancel={() => setShowUploadPopup(false)}
-					confirmText={""}
-					onConfirm={() => {}}
-					confirmHidden={true}
-				>
-					<p>You can open your own seating template as an Excel file.</p>
-					<FileUpload
-						label={"Open custom seating template file"}
-						onUpload={(content) => readTemplateFile(content)}
-					/>
-				</Popup>
-			}
-			<h1>Seating</h1>
-			<h2>Seating Template</h2>
-			<Button
-				label={"Use recommended seating template"}
-				onClick={() => setRecommendedSeating()}
-				disabled={!recommendedExists}
-				disabledTooltip={!recommendedExists ? "No recommended seating template exists for this number of players and rounds." : undefined}
-			/>
-			<Button
-				label={"Previous Seating"}
-				onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex - 1)}
-				disabled={currentSeatingTemplateIndex === 0}
-			/>
-			<Button
-				label={"Next Seating"}
-				onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex + 1)}
-				disabled={currentSeatingTemplateIndex === seatingTemplateHistory.length - 1}
-			/>
-			<Button
-				label={"Try New Random Seating"}
-				onClick={() => randomizeSeating()}
-			/>
-			<p>Showing seating template {currentSeatingTemplateIndex + 1} of {seatingTemplateHistory.length} (Type: {SeatingTemplateTypes[seatingTemplateHistory[currentSeatingTemplateIndex].type]})</p>
-			<SeatingTemplateTable
-				preview={showPreview}
-			/>
-			<SeatingTemplateEvaluations/>
-			<Button
-				label={"Open Seating Template File"}
-				onClick={() => setShowUploadPopup(true)}
-			/>
-			<Button
-				label={"Preview With Names"}
-				onClick={() => setShowPreview(true)}
-			/>
-			<Button
-				label={"Confirm Seating"}
-				onClick={() => confirmSeating()}
-				disabled={confirmDisabled}
-			/>
-			{
-				confirmDisabled &&
-				<p>Cannot confirm seating while there are errors in the seating template.</p>
-			}
-		</div>
+		<>
+			<NewTournamentSteps key={"newTournamentSteps"} current={2}/>
+			<Modal
+				centered={true}
+				open={showUploadModal}
+				title={"Open Seating Template File"}
+				footer={[
+					<Button type={"primary"} onClick={() => setShowUploadModal(false)}>Close</Button>
+				]}>
+				<p>You can open your own seating template as an Excel file.</p>
+				<FileUpload
+					label={"Open custom seating template file"}
+					onUpload={(content) => readTemplateFile(content)}
+				/>
+			</Modal>
+			<div className={styles.seatingTemplateEntry}>
+				<Space direction={"vertical"}>
+					<h1>Seating template</h1>
+					<Space className={styles.workspace}>
+						<Space
+							className={styles.toolbar}
+							direction={"vertical"}>
+							{
+								recommendedExists &&
+								<Alert message={"A recommended template for this number of rounds and players is available."}/>
+							}
+							<Card title={"Template stack"}>
+								<Space direction={"vertical"}>
+									<p>Template {currentSeatingTemplateIndex + 1} of {seatingTemplateHistory.length}</p>
+									<p>Kind: {SeatingTemplateTypes[seatingTemplateHistory[currentSeatingTemplateIndex].type]}</p>
+									<Button
+										type={"default"}
+										onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex - 1)}
+										disabled={currentSeatingTemplateIndex === 0}>
+										Previous Seating
+									</Button>
+									<Button
+										type={"default"}
+										onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex + 1)}
+										disabled={currentSeatingTemplateIndex === seatingTemplateHistory.length - 1}>
+										Next Seating
+									</Button>
+									{
+										recommendedExists &&
+										<Button
+											type={"default"}
+											onClick={() => setRecommendedSeating()}>
+											Recommended
+										</Button>
+									}
+								</Space>
+							</Card>
+							<Card title={"Add template"}>
+								<Space direction={"vertical"}>
+									<Button
+										type={"default"}
+										onClick={() => randomizeSeating()}>
+										Randomized
+									</Button>
+									<Button
+										type={"default"}
+										onClick={() => setShowUploadModal(true)}>
+										Open from file
+									</Button>	
+								</Space>
+							</Card>
+							<Card title={"View options"}>
+								<Button
+									type={"default"}
+									onClick={() => setShowPreview(true)}>
+									Preview With Names
+								</Button>
+								<FormatSelector
+									format={format}
+									onFormatChange={setFormat}
+								/>								
+							</Card>
+						</Space>
+						<Space direction={"vertical"}>
+							<Card>
+								<SeatingTemplateTable
+									format={format}
+									preview={showPreview}
+								/>
+							</Card>
+							<SeatingTemplateEvaluations/>
+							{
+								confirmDisabled &&
+								<Alert
+									type={"error"}
+									message={"Cannot advance while there are errors in the seating template."}
+								/>
+							}
+							<div className={styles.button}>
+								<Button
+									type={"primary"}
+									onClick={() => confirmSeating()}
+									disabled={confirmDisabled}>
+										Finish creating the tournament
+								</Button>
+							</div>
+						</Space>
+					</Space>
+				</Space>
+			</div>
+		</>
 	);
 };
 

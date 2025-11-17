@@ -4,6 +4,7 @@ import styles from "./PointInput.module.css";
 import onKeyDown from "./utils/onKeyDown";
 import { PointInputType } from "../../data-types/tournament-data-types";
 import { getNumericValue } from "../../utils/getNumericValue";
+import { Input } from "antd";
 
 type PointInputProps = {
 	value: PointInputType,
@@ -11,7 +12,9 @@ type PointInputProps = {
 	unflippable?: boolean,
 	tabIndex?: number
 	short: boolean,
-	uma?: boolean
+	uma?: boolean,
+	disabled?: boolean,
+	className?: string
 };
 
 const PointInput = (props: PointInputProps) => {
@@ -25,8 +28,8 @@ const PointInput = (props: PointInputProps) => {
 
 	return (
 		<div>
-			<input
-				className={styles.pointInput}
+			<Input
+				className={props.className}
 				type={"text"}
 				value={displayValue}
 				onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => props.onChange(onKeyDown({
@@ -38,6 +41,7 @@ const PointInput = (props: PointInputProps) => {
 				}))}
 				onChange={() => {}}
 				tabIndex={props.tabIndex}
+				disabled={props.disabled}
 			/>
 		</div>
 	);

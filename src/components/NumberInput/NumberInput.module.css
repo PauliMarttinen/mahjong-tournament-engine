@@ -1,16 +1,5 @@
-.label
-{
-	display: block;
-	font-weight: bold;
-}
-
-.numberInput
-{
-	display: flex;
-}
-
-.input
-{
-	flex-grow: 1;
-	text-align: center;
+.NumberInput .input {
+	background-color: white;
+	color: black;
+	cursor: default;
 }

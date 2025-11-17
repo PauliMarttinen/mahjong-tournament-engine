@@ -1,3 +1,4 @@
+import {useEffect, useState} from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useTournament from "./utils/hooks/useTournament";
 import useAppState from "./utils/hooks/useAppState";
@@ -5,6 +6,7 @@ import TournametInfoEntry from "./views/NewTournament/TournamentInfoEntry";
 import PlayerEntry from "./views/NewTournament/PlayerEntry";
 import SeatingTemplateEntry from "./views/NewTournament/SeatingTemplateEntry";
 import Overview from "./views/Tournament/Overview";
+import HanchanResults from "./views/Tournament/HanchanResults";
 import Standings from "./views/Tournament/Standings";
 import StandingsPopup from "./views/Tournament/Standings/StandingsPopup";
 import PrintOuts from "./views/Tournament/PrintOuts";
@@ -17,11 +19,20 @@ import PrintFullSchedule from "./views/Print/PrintFullSchedule";
 import FinalResults from "./views/Tournament/FinalResults";
 import FinalResultsPopup from "./views/Tournament/FinalResults/FinalResultsPopup";
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
-import Ribbon from "./views/Tournament/Ribbon";
+import Navigation from "./views/Tournament/Navigation";
+import { Layout, ConfigProvider, theme, Button } from "antd";
+import bodyNoMargin from "./utils/bodyNoMargin";
+import styles from "./App.module.css";
+import Affix from "./components/Affix";
 
 const App = () => {
 	const appState = useAppState();
 	const tournament = useTournament();
+	const [darkmode, setDarkmode] = useState<boolean>(false);
+
+	useEffect(() => {
+		bodyNoMargin();
+	}, []);
 
 	if (!appState.tournamentLoaded)
 	{
@@ -37,7 +48,11 @@ const App = () => {
 						</Route>
 						<Route path={"/tournament/standings/popup"} element={<StandingsPopup/>}/>
 						<Route path={"/tournament/final-results/popup"} element={<FinalResultsPopup/>}/>
-						<Route path={"*"} element={<Entrance/>}/>
+						<Route path={"*"} element={
+							<Layout className={styles.layout}>
+								<Entrance/>
+							</Layout>
+						}/>
 					</Routes>
 				</BrowserRouter>
 			</div>
@@ -49,15 +64,17 @@ const App = () => {
 		return (
 			<div className={"mahjongTournamentEngine"}>
 				<BrowserRouter>
-					<Routes>
-						<Route index element={<TournametInfoEntry/>}/>
-						<Route path={"/new"}>
+					<Layout className={styles.layout}>
+						<Routes>
 							<Route index element={<TournametInfoEntry/>}/>
-							<Route path={"basic"} element={<TournametInfoEntry/>}/>
-							<Route path={"players"} element={<PlayerEntry/>}/>
-							<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
-						</Route>
-					</Routes>
+							<Route path={"/new"}>
+								<Route index element={<TournametInfoEntry/>}/>
+								<Route path={"basic"} element={<TournametInfoEntry/>}/>
+								<Route path={"players"} element={<PlayerEntry/>}/>
+								<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
+							</Route>
+						</Routes>
+					</Layout>
 				</BrowserRouter>
 			</div>
 		);
@@ -66,18 +83,35 @@ const App = () => {
 	return (
 		<div className={"mahjongTournamentEngine"}>
 			<BrowserRouter>
-				<Ribbon/>
-				<Routes>
-					<Route path={"/tournament"}>
-						<Route index element={<Overview/>}/>
-						<Route path={"overview"} element={<Overview/>}/>
-						<Route path={"standings"} element={<Standings/>}/>
-						<Route path={"print-outs"} element={<PrintOuts/>}/>
-						<Route path={"edit-players"} element={<EditPlayers/>}/>
-						<Route path={"final-results"} element={<FinalResults/>}/>
-						<Route path={"player-performance"} element={<PlayerPerformance/>}/>
-					</Route>
-				</Routes>
+				<ConfigProvider
+					theme={{algorithm: darkmode ? theme.darkAlgorithm : theme.defaultAlgorithm}}>
+					<Affix>
+						<Button
+							type={"default"}
+							onClick={() => setDarkmode(!darkmode)}>
+							Dark mode {darkmode ? "on" : "off"}
+						</Button>
+					</Affix>
+					<Layout hasSider className={styles.layout}>
+						<Layout.Sider collapsible>
+							<Navigation/>
+						</Layout.Sider>
+						<Layout>
+							<Routes>
+								<Route path={"/tournament"}>
+									<Route index element={<Overview/>}/>
+									<Route path={"overview"} element={<Overview/>}/>
+									<Route path={"hanchan-results"} element={<HanchanResults/>}/>
+									<Route path={"standings"} element={<Standings/>}/>
+									<Route path={"print-outs"} element={<PrintOuts/>}/>
+									<Route path={"edit-players"} element={<EditPlayers/>}/>
+									<Route path={"final-results"} element={<FinalResults/>}/>
+									<Route path={"player-performance"} element={<PlayerPerformance/>}/>
+								</Route>
+							</Routes>
+						</Layout>
+					</Layout>
+				</ConfigProvider>
 			</BrowserRouter>
 		</div>
 	);

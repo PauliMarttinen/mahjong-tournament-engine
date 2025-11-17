@@ -3,7 +3,7 @@ import curlArray from "../../../utils/curlArray";
 import useTournament from "../../../utils/hooks/useTournament";
 import HanchanScoreForm, {Form} from "./HanchanScoreForm";
 import styles from "./PrintScoreForms.module.css";
-import bodyNoMargin from "../utils/bodyNoMargin";
+import bodyNoMargin from "../../../utils/bodyNoMargin";
 import { useEffect } from "react";
 
 const PrintScoreForms = () => {

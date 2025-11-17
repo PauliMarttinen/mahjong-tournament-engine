@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import Button from "../../../components/Button";
-import Popup from "../../../components/Popup";
+import {Modal, Alert, Switch, Card, Space, Input, Button} from "antd";
 import { newTournamentActionCreators } from "../../../state";
 import { Routes } from "../../../utils/routeUtils";
 import styles from "./PlayerEntryView.module.css";
+import NewTournamentSteps from "../../../components/NewTournamentSteps";
 
 const PlayerEntryView = () => {
 	const [playersInput, setPlayersInput] = useState<string>("");
@@ -37,54 +37,61 @@ const PlayerEntryView = () => {
 	};
 
 	return (
-		<div>
-			<h1>Enter players</h1>
-			{
-				duplicates.length > 0 &&
-				<Popup
-					title={"Duplicate players"}
-					cancelHidden={true}
-					cancelText={""}
-					onCancel={() => {}}
-					confirmText={"Ok"}
-					onConfirm={(): void => setDuplicates([])}>
-					<p>Please add some uniqueness (e.g. middle initial, nickname or city) to the names of these players:</p>
-					<ul>
-					{
-						duplicates.map((name: string) => <li key={`duplicate-${name}`}>{name}</li>)
-					}
-					</ul>
-				</Popup>
-			}
-			<p>Enter players, one per line. Currently {players.length} players.</p>
-			<textarea
-				className={styles.playerEntry}
-				value={playersInput}
-				onChange={(e) => setPlayersInput(e.target.value)}
-			/>
-			
-			<p>
-				<input
-					type={"checkbox"}
-					checked={randomize}
-					name={"randomize"}
-					id={"randomize"}
-					onChange={() => setRandomize(!randomize)}
-				/>
-				<label htmlFor={"randomize"}>Randomize the order of names.</label>
-			</p>
-			<p>
-				<Button
-					label={"Save players"}
-					onClick={() => save()}
-					disabled={!rightAmount}
-				/>
+		<>
+			<NewTournamentSteps key={"newTournamentSteps"} current={1}/>
+			<Modal
+				centered={true}
+				open={duplicates.length > 0}
+				title={"Duplicate players"}
+				footer={[
+					<Button type={"primary"} onClick={() => setDuplicates([])}>Close</Button>
+				]}>
+				<p>Please add some uniqueness (e.g. middle initial, nickname or city) to the names of these players:</p>
+				<ul>
+				{
+					duplicates.map((name: string) => <li key={`duplicate-${name}`}>{name}</li>)
+				}
+				</ul>
+			</Modal>
+			<div className={styles.playerEntry}>
+				<Space direction={"vertical"}>
+				<h1>Enter players</h1>
+				<Card>
+					<p>Enter players, one per line. Currently {players.length} players.</p>
+					<Input.TextArea
+						value={playersInput}
+						onChange={(e) => setPlayersInput(e.target.value)}
+					/>
+				</Card>
+				<Card>
+					<Space>
+						<Switch
+							checked={randomize}
+							id={"randomize"}
+							onChange={() => setRandomize(!randomize)}
+							size={"small"}
+						/>
+						<label htmlFor={"randomize"}>Randomize the order of names.</label>
+					</Space>
+				</Card>
 				{
 					!rightAmount &&
-					"Must have a number of players that is divisible by 4."
+					<Alert
+						type={"error"}
+						message={"Must have a number of players that is divisible by 4."}
+					/>
 				}
-			</p>
-		</div>
+				<div className={styles.button}>
+					<Button
+						type={"primary"}
+						onClick={() => save()}
+						disabled={!rightAmount}>
+						Save players
+					</Button>
+				</div>
+				</Space>
+			</div>
+		</>
 	);
 };
 

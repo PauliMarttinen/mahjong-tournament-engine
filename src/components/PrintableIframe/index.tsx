@@ -1,10 +1,9 @@
-import Button from "../Button";
+import {Button} from "antd";
 import print from "./utils/print";
 import styles from "./PrintableIframe.module.css";
 
 type PrintableIframeProps = {
 	label: string,
-	subLabel?: string,
 	id: string,
 	src: string
 };
@@ -13,10 +12,10 @@ const PrintableIframe = (props: PrintableIframeProps) => {
 	return (
 		<div>
 			<Button
-				label={props.label}
-				subLabel={props.subLabel}
-				onClick={() => print(props.id)}
-			/>
+				type={"default"}
+				onClick={() => print(props.id)}>
+				{props.label}
+			</Button>
 			<iframe
 				id={props.id}
 				className={styles.iframe}

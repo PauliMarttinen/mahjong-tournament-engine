@@ -10,12 +10,13 @@ type RowProps = {
 
 const Row = (props: RowProps) => {
 	const tournament = useTournament();
+	const rank = tournament.playerList[props.standing.playerId].substitute ? "—" : props.standing.rank;
 	const playerName = tournament.playerList[props.standing.playerId].name;
 	const points = formatPoints({points: props.standing.points, sign: true});
 
 	return (
 		<tr key={`player-standing-${props.standing.playerId}`}>
-			<td className={styles.cell}>{props.standing.rank}.</td>
+			<td className={styles.cell}>{rank}.</td>
 			<td className={styles.cell}>{playerName}</td>
 			<td className={styles.cell}>{points}</td>
 			{

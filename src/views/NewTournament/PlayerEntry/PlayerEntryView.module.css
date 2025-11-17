@@ -1,10 +1,22 @@
-.playerEntry
+.playerEntry {
+	display: flex;
+	justify-content: space-around;
+}
+
+.playerEntry h1 {
+	margin-top: 0;
+}
+
+.playerEntry p {
+	margin-top: 0;
+}
+
+.playerEntry textarea
 {
 	width: 35em;
 	height: 35em;
 }
 
-.fileInput
-{
-	display: none;
+.button {
+	text-align: right;
 }

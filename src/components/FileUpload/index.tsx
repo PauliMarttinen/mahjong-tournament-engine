@@ -1,5 +1,5 @@
 import { ChangeEvent, useRef } from "react";
-import Button from "../Button";
+import { Button } from "antd";
 import styles from "./FileUpload.module.css";
 import openFileSelection from "./utils/openFileSelection";
 import fileInputOnChange from "./utils/fileInputOnChange";
@@ -7,7 +7,6 @@ import fileInputOnChange from "./utils/fileInputOnChange";
 type FileUploadProps = {
 	className?: string,
 	label: string,
-	subLabel?: string,
 	onUpload: (files: FileList | null) => void
 };
 
@@ -17,11 +16,11 @@ const FileUpload = (props: FileUploadProps) => {
 	return (
 		<div className={styles.fileUpload}>
 			<Button
+				type={"default"}
 				className={props.className}
-				label={props.label}
-				subLabel={props.subLabel}
-				onClick={() => openFileSelection(fileInputRef)}
-			/>
+				onClick={() => openFileSelection(fileInputRef)}>
+				{props.label}
+			</Button>
 			<div className={styles.input}>
 				<input
 					ref={fileInputRef}

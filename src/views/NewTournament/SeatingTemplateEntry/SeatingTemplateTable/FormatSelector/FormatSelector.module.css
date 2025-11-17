@@ -1,0 +1,4 @@
+.formatSelector {
+	display: flex;
+	flex-direction: column;
+}

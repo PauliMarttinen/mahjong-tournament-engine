@@ -1,12 +1,15 @@
 import { useState } from "react";
-import Dropdown, {DropdownItem} from "../../../components/Dropdown";
 import StandingsDisplay from "../../../components/Standings";
 import { generateArray } from "../../../utils/generateArray";
 import { Game, Tournament } from "../../../data-types/tournament-data-types";
-import Toggle from "../../../components/Toggle";
-import Button from "../../../components/Button";
+import {Button, Switch, Space} from "antd";
+import {ExportOutlined} from "@ant-design/icons";
 import useTournament from "../../../utils/hooks/useTournament";
 import { Routes } from "../../../utils/routeUtils";
+import LayoutHeader from "../../../components/LayoutHeader";
+import LayoutContent from "../../../components/LayoutContent";
+import RoundSelector from "../../../components/RoundSelector";
+import styles from "./Standings.module.css";
 
 const Standings = () => {
 	const getLastFinishedRound = (tournament: Tournament): number => {
@@ -38,35 +41,44 @@ const Standings = () => {
 		));
 	};
 
-	const roundOptions = generateArray(tournament.info.rounds).map((roundId: number): DropdownItem => ({
-		value: roundId,
-		text: `Round ${roundId + 1}`
-	}));
-
 	return (
-		<div>
-			<Toggle
-				true={"Plain text"}
-				false={"Formatted table"}
-				value={plainText}
-				onSwitch={() => setPlainText(!plainText)}
-			/>
-			<Dropdown
-				id={"roundSelection"}
-				label={"Show standings after round"}
-				items={roundOptions}
-				value={afterRound}
-				onChange={(newValue) => setAfterRound(newValue)}
-			/>
-			<Button
-				label={"Open in popup"}
-				onClick={() => openWindow()}
-			/>
-			<StandingsDisplay
-				afterRound={afterRound}
-				plainText={plainText}
-			/>
-		</div>
+		<>
+			<LayoutHeader>Standings</LayoutHeader>
+			<LayoutContent className={styles.standingsLayout}>
+				<RoundSelector
+					round={afterRound+1}
+					previousDisabled={afterRound === 0}
+					onPrevious={() => setAfterRound(afterRound-1)}
+					nextDisabled={afterRound === tournament.info.rounds - 1}
+					onNext={() => setAfterRound(afterRound+1)}
+				/>
+				<Space size={30} direction={"vertical"}>
+					<Space size={50}>
+						<Space>
+							<label htmlFor={"plainTextSwitch"}>Table</label>
+							<Switch
+								id={"plainTextSwitch"}
+								checked={plainText}
+								onChange={() => setPlainText(!plainText)}
+								size={"small"}
+							/>
+							<label htmlFor={"plainTextSwitch"}>Plain Text</label>
+						</Space>
+						<Button
+							type={"default"}
+							icon={<ExportOutlined/>}
+							onClick={() => openWindow()}>
+							Open in popup
+						</Button>
+					</Space>
+					<StandingsDisplay
+						singleColumn={true}
+						afterRound={afterRound}
+						plainText={plainText}
+					/>
+				</Space>
+			</LayoutContent>
+		</>
 	);
 };
 

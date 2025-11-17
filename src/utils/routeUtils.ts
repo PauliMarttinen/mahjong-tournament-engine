@@ -5,6 +5,7 @@ export enum Routes {
 	PlayerEntry = "/new/players",
 	SeatingTemplateEntry = "/new/seating-template",
 	Overview = "/tournament/overview",
+	HanchanResults = "/tournament/hanchan-results",
 	Standings = "/tournament/standings",
 	StandingsPopup = "/tournament/standings/popup",
 	PrintOuts = "/tournament/print-outs",
