@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useTournament from "./utils/hooks/useTournament";
 import useAppState from "./utils/hooks/useAppState";
@@ -20,13 +20,15 @@ import FinalResults from "./views/Tournament/FinalResults";
 import FinalResultsPopup from "./views/Tournament/FinalResults/FinalResultsPopup";
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
 import Navigation from "./views/Tournament/Navigation";
-import { Layout } from "antd";
+import { Layout, ConfigProvider, theme, Button } from "antd";
 import bodyNoMargin from "./utils/bodyNoMargin";
 import styles from "./App.module.css";
+import Affix from "./components/Affix";
 
 const App = () => {
 	const appState = useAppState();
 	const tournament = useTournament();
+	const [darkmode, setDarkmode] = useState<boolean>(false);
 
 	useEffect(() => {
 		bodyNoMargin();
@@ -61,8 +63,8 @@ const App = () => {
 	{
 		return (
 			<div className={"mahjongTournamentEngine"}>
-				<Layout className={styles.layout}>
-					<BrowserRouter>
+				<BrowserRouter>
+					<Layout className={styles.layout}>
 						<Routes>
 							<Route index element={<TournametInfoEntry/>}/>
 							<Route path={"/new"}>
@@ -72,8 +74,8 @@ const App = () => {
 								<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
 							</Route>
 						</Routes>
-					</BrowserRouter>
-				</Layout>
+					</Layout>
+				</BrowserRouter>
 			</div>
 		);
 	}
@@ -81,11 +83,18 @@ const App = () => {
 	return (
 		<div className={"mahjongTournamentEngine"}>
 			<BrowserRouter>
-				<Layout hasSider className={styles.layout}>
-					<Layout.Sider collapsible>
-						<Navigation/>
-					</Layout.Sider>
-					<Layout>
+				<ConfigProvider
+					theme={{algorithm: darkmode ? theme.darkAlgorithm : theme.defaultAlgorithm}}>
+					<Affix>
+						<Button onClick={() => setDarkmode(!darkmode)}>
+							Dark mode {darkmode ? "on" : "off"}
+						</Button>
+					</Affix>
+					<Layout hasSider className={styles.layout}>
+						<Layout.Sider collapsible>
+							<Navigation/>
+						</Layout.Sider>
+						<Layout>
 							<Routes>
 								<Route path={"/tournament"}>
 									<Route index element={<Overview/>}/>
@@ -98,9 +107,9 @@ const App = () => {
 									<Route path={"player-performance"} element={<PlayerPerformance/>}/>
 								</Route>
 							</Routes>
-						<Layout.Footer>Mahjong Tournament Engine</Layout.Footer>
+						</Layout>
 					</Layout>
-				</Layout>
+				</ConfigProvider>
 			</BrowserRouter>
 		</div>
 	);
