@@ -14,7 +14,7 @@ import { generateRandomizedSeating } from "./utils/generateRandomizedSeating";
 import FileUpload from "../../../components/FileUpload";
 import readXlsxFile from "read-excel-file";
 import type { Row } from "read-excel-file/types";
-import { convertTemplate } from "../../../utils/convertTemplate";
+import { convertTemplateFromCsv, convertTemplateFromExcel } from "../../../utils/convertTemplate";
 import { findErrors } from "./utils/seatingTemplateEvaluation";
 import SeatingTemplateEvaluations from "./SeatingTemplateEvaluation";
 import type { SeatingTemplateHistoryItem } from "../../../data-types/new-tournament-data-types";
@@ -119,8 +119,15 @@ const SeatingTemplateEntry = () => {
 		if (files === null) return;
 
 		readXlsxFile(files[0]).then((excelRows: Row[]) => {
-			addSeatingTemplateToHistory(convertTemplate(excelRows, newTournament.info.rounds, newTournament.playerList.length), SeatingTemplateTypes.Custom);
+			addSeatingTemplateToHistory(convertTemplateFromExcel(excelRows, newTournament.info.rounds, newTournament.playerList.length), SeatingTemplateTypes.Custom);
 			setShowUploadModal(false);
+		}).catch((e) => {
+			const fileReader = new FileReader();
+			fileReader.onload = () => {
+				if (fileReader.result === null) return;
+				addSeatingTemplateToHistory(convertTemplateFromCsv(fileReader.result as string, newTournament.info.rounds, newTournament.playerList.length), SeatingTemplateTypes.Custom);
+			};
+			fileReader.readAsText(files[0]);
 		});
 	};
 
@@ -151,7 +158,7 @@ const SeatingTemplateEntry = () => {
 				footer={[
 					<Button type={"primary"} onClick={() => setShowUploadModal(false)}>Close</Button>
 				]}>
-				<p>You can open your own seating template as an Excel file.</p>
+				<p>You can open your own seating template as an Excel or CSV file.</p>
 				<FileUpload
 					label={"Open custom seating template file"}
 					onUpload={(content) => readTemplateFile(content)}
