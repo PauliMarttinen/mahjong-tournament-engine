@@ -17,11 +17,13 @@ import {
 	SaveOutlined
 } from "@ant-design/icons";
 import saveTournamentFile from "../../../utils/saveTournamentFile";
+import saveSeatingFile from "../../../utils/saveSeatingFile";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
 enum Actions {
-	SaveTournamentFile = "SaveTournamentFile"
+	SaveTournamentFile = "SaveTournamentFile",
+	SaveSeatingFile = "SaveSeatingFile",
 };
 
 const Navigation = () => {
@@ -72,6 +74,11 @@ const Navigation = () => {
 			label: "Save tournament file",
 			key: Actions.SaveTournamentFile,
 			icon: <SaveOutlined/> 
+		},
+		{
+			label: "Save seating file",
+			key: Actions.SaveSeatingFile,
+			icon: <SaveOutlined/>
 		}
 	];
 
@@ -84,6 +91,9 @@ const Navigation = () => {
 		{
 			case Actions.SaveTournamentFile:
 				saveTournamentFile(tournament);
+				break;
+			case Actions.SaveSeatingFile:
+				saveSeatingFile(tournament);
 				break;
 		}
 	};

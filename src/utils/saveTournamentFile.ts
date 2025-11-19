@@ -1,9 +1,9 @@
 import type { Tournament } from "../data-types/tournament-data-types";
 
-const saveTournamentFile = (state: Tournament) => {  
-	const tournamentTitle = state.info.title;
+const saveTournamentFile = (tournament: Tournament) => {  
+	const tournamentTitle = tournament.info.title;
 
-	const blob = new Blob([JSON.stringify(state)], {type: "application/json"});
+	const blob = new Blob([JSON.stringify(tournament)], {type: "application/json"});
 	const href = URL.createObjectURL(blob);
 	const a = Object.assign(document.createElement("a"), {
 		href,
