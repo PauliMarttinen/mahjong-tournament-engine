@@ -9,6 +9,8 @@ import Overview from "./views/Tournament/Overview";
 import HanchanResults from "./views/Tournament/HanchanResults";
 import Standings from "./views/Tournament/Standings";
 import StandingsPopup from "./views/Tournament/Standings/StandingsPopup";
+import BigScreen from "./views/Tournament/BigScreen";
+import BigScreenPopup from "./views/Tournament/BigScreen/BigScreenPopup";
 import PrintOuts from "./views/Tournament/PrintOuts";
 import Entrance from "./views/Entrance";
 import EditPlayers from "./views/Tournament/EditPlayers";
@@ -48,6 +50,7 @@ const App = () => {
 						</Route>
 						<Route path={"/tournament/standings/popup"} element={<StandingsPopup/>}/>
 						<Route path={"/tournament/final-results/popup"} element={<FinalResultsPopup/>}/>
+						<Route path={"/tournament/big-screen/popup"} element={<BigScreenPopup/>}/>
 						<Route path={"*"} element={
 							<Layout className={styles.layout}>
 								<Entrance/>
@@ -103,6 +106,7 @@ const App = () => {
 									<Route path={"overview"} element={<Overview/>}/>
 									<Route path={"hanchan-results"} element={<HanchanResults/>}/>
 									<Route path={"standings"} element={<Standings/>}/>
+									<Route path={"big-screen"} element={<BigScreen/>}/>
 									<Route path={"print-outs"} element={<PrintOuts/>}/>
 									<Route path={"edit-players"} element={<EditPlayers/>}/>
 									<Route path={"final-results"} element={<FinalResults/>}/>

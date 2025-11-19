@@ -14,7 +14,8 @@ import {
 	TableOutlined,
 	TeamOutlined,
 	FormOutlined,
-	SaveOutlined
+	SaveOutlined,
+	ExportOutlined
 } from "@ant-design/icons";
 import saveTournamentFile from "../../../utils/saveTournamentFile";
 import saveSeatingFile from "../../../utils/saveSeatingFile";
@@ -46,6 +47,11 @@ const Navigation = () => {
 			label: "Standings",
 			key: Routes.Standings,
 			icon: <OrderedListOutlined/>
+		},
+		{
+			label: "Big Screen",
+			key: Routes.BigScreen,
+			icon: <ExportOutlined/>
 		},
 		{
 			label: "Edit Players",
