@@ -3,6 +3,7 @@ import useTournament from "../../../../utils/hooks/useTournament";
 import { getSteps } from "../utils/getSteps";
 import { STATE_MESSAGE_ID, BigScreenStates } from "../utils/setBigScreenState";
 import Standings from "./Standings";
+import FinalResults from "../../FinalResults/FinalResultsPopup";
 
 const BigScreenPopup = () => {
 	const tournament = useTournament();
@@ -63,7 +64,7 @@ const BigScreenPopup = () => {
 	if (state === BigScreenStates.Final)
 	{
 		return (
-			<h1>final results</h1>
+			<FinalResults/>
 		);
 	}
 
