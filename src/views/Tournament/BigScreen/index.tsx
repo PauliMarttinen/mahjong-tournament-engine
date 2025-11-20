@@ -6,7 +6,7 @@ import { ExportOutlined } from "@ant-design/icons";
 import useTournament from "../../../utils/hooks/useTournament";
 import { getSteps } from "./utils/getSteps";
 import { Routes } from "../../../utils/routeUtils";
-import {messageToBigScreen, Messages} from "./utils/messageToBigScreen";
+import { setBigScreenState } from "./utils/setBigScreenState";
 
 const BigScreen = () => {
 	const tournament = useTournament();
@@ -24,7 +24,7 @@ const BigScreen = () => {
 
 	const changeStep = (step: number) => {
 		setCurrentStep(step);
-		messageToBigScreen(Messages.JumpToStep, step.toString());
+		setBigScreenState(steps[step].stateChange);
 	};
 
 	return (
