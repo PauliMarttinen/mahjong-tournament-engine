@@ -4,6 +4,8 @@ import { getSteps } from "../utils/getSteps";
 import { STATE_MESSAGE_ID, BigScreenStates } from "../utils/setBigScreenState";
 import Standings from "./Standings";
 import FinalResults from "../../FinalResults/FinalResultsPopup";
+import Welcome from "./Welcome";
+import Timer from "./Timer";
 
 const BigScreenPopup = () => {
 	const tournament = useTournament();
@@ -48,7 +50,9 @@ const BigScreenPopup = () => {
 	if (state === BigScreenStates.Timer)
 	{
 		return (
-			<h1>timer for round {currentRoundId+1}</h1>
+			<Timer
+				roundId={currentRoundId}
+			/>
 		);
 	}
 
@@ -69,7 +73,7 @@ const BigScreenPopup = () => {
 	}
 
 	return (
-		<h1>prööt</h1>
+		<Welcome/>
 	);
 };
 
