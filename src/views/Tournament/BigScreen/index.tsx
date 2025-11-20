@@ -6,22 +6,25 @@ import { ExportOutlined } from "@ant-design/icons";
 import useTournament from "../../../utils/hooks/useTournament";
 import { getSteps } from "./utils/getSteps";
 import { Routes } from "../../../utils/routeUtils";
+import {messageToBigScreen, Messages} from "./utils/messageToBigScreen";
 
 const BigScreen = () => {
 	const tournament = useTournament();
 	const [bigScreen, setBigScreen] = useState<WindowProxy | null>(null);
+	const [currentStep, setCurrentStep] = useState<number>(0);
 	const steps = useMemo(() => getSteps(tournament.info.rounds), []);
-
-	const changeStep = (step: number) => {
-		console.log("new step:", step)
-	};
 
 	const openWindow = () => {
 		setBigScreen(window.open(
-			Routes.BigScreenPopup,
+			`${Routes.BigScreenPopup}?step=${currentStep}`,
 			"bigScreen",
 			"width=500,height=500"
 		));
+	};
+
+	const changeStep = (step: number) => {
+		setCurrentStep(step);
+		messageToBigScreen(Messages.JumpToStep, step.toString());
 	};
 
 	return (
@@ -37,7 +40,7 @@ const BigScreen = () => {
 					<Steps
 						onChange={changeStep}
 						direction={"vertical"}
-						current={0}
+						current={currentStep}
 						items={steps}
 					/>
 				</Space>
