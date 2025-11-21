@@ -1,0 +1,10 @@
+.timerWrapper {
+	height: 100%;
+	margin: 0 auto;
+	padding: 3em;
+	text-align: center;
+}
+
+.timer {
+	height: 100%;
+}

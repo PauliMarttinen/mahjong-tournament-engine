@@ -38,6 +38,7 @@ const BigScreen = () => {
 						Open Big Screen Popup
 					</Button>
 					<Steps
+						progressDot={true}
 						onChange={changeStep}
 						direction={"vertical"}
 						current={currentStep}
