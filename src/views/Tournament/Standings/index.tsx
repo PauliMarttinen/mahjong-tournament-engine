@@ -1,7 +1,5 @@
 import { useState } from "react";
 import StandingsDisplay from "../../../components/Standings";
-import { generateArray } from "../../../utils/generateArray";
-import type { Game, Tournament } from "../../../data-types/tournament-data-types";
 import {Button, Switch, Space} from "antd";
 import {ExportOutlined} from "@ant-design/icons";
 import useTournament from "../../../utils/hooks/useTournament";
@@ -10,23 +8,9 @@ import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import RoundSelector from "../../../components/RoundSelector";
 import styles from "./Standings.module.css";
+import { getLastFinishedRound } from "../../../utils/getLastFinishedRound";
 
 const Standings = () => {
-	const getLastFinishedRound = (tournament: Tournament): number => {
-		const getGamesOfRound = (roundId: number) => tournament.games.filter((game: Game) => game.round === roundId);
-		const isRoundUnfinished = (roundId: number) => getGamesOfRound(roundId).some((game: Game): boolean => !game.finished);
-
-		const rounds = generateArray(tournament.info.rounds);
-		const firstUnfinishedRound = rounds.findIndex((roundId: number): boolean => isRoundUnfinished(roundId));
-
-		if (firstUnfinishedRound === 0)
-		{
-			return 0;
-		}
-
-		return (firstUnfinishedRound === -1 ? tournament.info.rounds : firstUnfinishedRound) - 1;    
-	};
-
 	const [standingsWindow, setStandingsWindow] = useState<WindowProxy | null>(null);
 	const tournament = useTournament();
 

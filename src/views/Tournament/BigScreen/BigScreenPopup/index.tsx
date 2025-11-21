@@ -13,7 +13,7 @@ const BigScreenPopup = () => {
 	const [state, setState] = useState<BigScreenStates|null>(null);
 	const [currentRoundId, setCurrentRoundId] = useState<number>(0);
 	
-	const steps = useMemo(() => getSteps(tournament.info.rounds), []);
+	const steps = useMemo(() => getSteps(tournament), []);
 
 	const receiveAction = () => {
 		if (localStorage.getItem(STATE_MESSAGE_ID) === null) return;

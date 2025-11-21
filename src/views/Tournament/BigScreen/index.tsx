@@ -12,7 +12,7 @@ const BigScreen = () => {
 	const tournament = useTournament();
 	const [bigScreen, setBigScreen] = useState<WindowProxy | null>(null);
 	const [currentStep, setCurrentStep] = useState<number>(0);
-	const steps = useMemo(() => getSteps(tournament.info.rounds), []);
+	const steps = useMemo(() => getSteps(tournament), []);
 
 	const openWindow = () => {
 		setBigScreen(window.open(
