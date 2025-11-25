@@ -1,4 +1,4 @@
-export const STATE_MESSAGE_ID = "mahjong-tournament-engine-bigscreen-state-change";
+export const STATE_MESSAGE_IDENTIFIER = "mahjong-tournament-engine-bigscreen-state-change";
 
 export enum BigScreenStates {
 	Welcome = "Welcome",
@@ -8,5 +8,5 @@ export enum BigScreenStates {
 };
 
 export const setBigScreenState = (state: object) => {
-	localStorage.setItem(STATE_MESSAGE_ID, JSON.stringify(state));
+	localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify(state));
 };

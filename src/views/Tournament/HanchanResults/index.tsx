@@ -9,11 +9,12 @@ import AccordionLabel from "./AccordionLabel";
 import ResultEditor from "./ResultEditor";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
+import { getLastFinishedRound } from "../../../utils/getLastFinishedRound";
 
 const HanchanResults = () => {
 	const tournament = useTournament();
 
-	const [roundId, setRoundId] = useState<number>(0);
+	const [roundId, setRoundId] = useState<number>(Math.min(getLastFinishedRound(tournament) + 1, tournament.info.rounds-1));
 	const games = tournament.games.filter((game: Game) => game.round === roundId);
 
 	const items: CollapseProps["items"] = games.map((game: Game) => ({
@@ -30,8 +31,8 @@ const HanchanResults = () => {
 		),
 		children: (
 			<ResultEditor
-				round={game.round}
-				table={game.table}
+				roundId={game.round}
+				tableId={game.table}
 			/>
 		)
 	}));
@@ -40,18 +41,18 @@ const HanchanResults = () => {
 		<>
 			<LayoutHeader>Hanchan Results</LayoutHeader>
 			<LayoutContent className={styles.body}>
-					<RoundSelector
-						round={roundId+1}
-						previousDisabled={roundId === 0}
-						onPrevious={() => setRoundId(roundId-1)}
-						nextDisabled={roundId === tournament.info.rounds-1}
-						onNext={() => setRoundId(roundId+1)}
-					/>
-					<Collapse
-						key={roundId}
-						accordion={true}
-						items={items}
-					/>
+				<RoundSelector
+					round={roundId+1}
+					previousDisabled={roundId === 0}
+					onPrevious={() => setRoundId(roundId-1)}
+					nextDisabled={roundId === tournament.info.rounds-1}
+					onNext={() => setRoundId(roundId+1)}
+				/>
+				<Collapse
+					key={roundId}
+					accordion={true}
+					items={items}
+				/>
 			</LayoutContent>
 		</>
 	);

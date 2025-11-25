@@ -106,20 +106,20 @@ const Navigation = () => {
 
 	return (
 		<>
-		<Menu
-			className={styles.navigation}
-			items={navigationItems}
-			theme={"dark"}
-			onClick={onClickNavigation}
-			selectedKeys={[location.pathname]}
-		/>
-		<Menu
-			className={styles.actions}
-			items={actionItems}
-			theme={"dark"}
-			onClick={onClickAction}
-			selectedKeys={[]}
-		/>
+			<Menu
+				className={styles.navigation}
+				items={navigationItems}
+				theme={"dark"}
+				onClick={onClickNavigation}
+				selectedKeys={[location.pathname]}
+			/>
+			<Menu
+				className={styles.actions}
+				items={actionItems}
+				theme={"dark"}
+				onClick={onClickAction}
+				selectedKeys={[]}
+			/>
 		</>
 	);
 };

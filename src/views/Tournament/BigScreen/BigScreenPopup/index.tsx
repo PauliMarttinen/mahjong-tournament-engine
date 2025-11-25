@@ -1,7 +1,7 @@
 import {useMemo, useState, useEffect} from "react";
 import useTournament from "../../../../utils/hooks/useTournament";
 import { getSteps } from "../utils/getSteps";
-import { STATE_MESSAGE_ID, BigScreenStates } from "../utils/setBigScreenState";
+import { STATE_MESSAGE_IDENTIFIER, BigScreenStates } from "../utils/setBigScreenState";
 import Standings from "./Standings";
 import FinalResults from "../../FinalResults/FinalResultsPopup";
 import Welcome from "./Welcome";
@@ -10,15 +10,20 @@ import Timer from "./Timer";
 const BigScreenPopup = () => {
 	const tournament = useTournament();
 	const [actionReceiver, setActionReceiver] = useState<number | null>(null);
+	const [pinger, setPinger] = useState<number | null>(null);
 	const [state, setState] = useState<BigScreenStates|null>(null);
 	const [currentRoundId, setCurrentRoundId] = useState<number>(0);
 	
 	const steps = useMemo(() => getSteps(tournament), []);
 
-	const receiveAction = () => {
-		if (localStorage.getItem(STATE_MESSAGE_ID) === null) return;
+	const collectGarbage = () => {
+		localStorage.removeItem(STATE_MESSAGE_IDENTIFIER);
+	};
 
-		const stateChange = JSON.parse(localStorage.getItem(STATE_MESSAGE_ID) as string);
+	const receiveAction = () => {
+		if (localStorage.getItem(STATE_MESSAGE_IDENTIFIER) === null) return;
+
+		const stateChange = JSON.parse(localStorage.getItem(STATE_MESSAGE_IDENTIFIER) as string);
 		setState(stateChange.type);
 		switch (stateChange.type)
 		{
@@ -35,16 +40,28 @@ const BigScreenPopup = () => {
 				setCurrentRoundId(0);
 				break;
 		}
-		localStorage.removeItem(STATE_MESSAGE_ID);
+		localStorage.removeItem(STATE_MESSAGE_IDENTIFIER);
+	};
+
+	const onClose = () => {
+		collectGarbage();
 	};
 
 	useEffect(() => {
-		const id = window.setInterval(receiveAction, 1000);
-		setActionReceiver(id);
-
 		//Make sure there aren't any leftover messages from earlier
-		localStorage.removeItem(STATE_MESSAGE_ID);
-		return () => window.clearInterval(id);
+		collectGarbage();
+
+		const actionReceiverId = window.setInterval(receiveAction, 1000);
+		setActionReceiver(actionReceiverId);
+
+		window.addEventListener("beforeunload", onClose);
+		window.addEventListener("unload", onClose);
+
+		return () => {
+			window.clearInterval(actionReceiverId);
+			collectGarbage();
+			onClose();
+		};
 	}, []);
 
 	if (state === BigScreenStates.Timer)

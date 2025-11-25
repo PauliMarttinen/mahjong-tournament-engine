@@ -13,7 +13,7 @@ const EditPlayers = () => {
 	const dispatch = useDispatch();
 	const tournament = useTournament();
 
-	const {addPlayers} = bindActionCreators(tournamentActionCreators, dispatch)
+	const {addPlayers} = bindActionCreators(tournamentActionCreators, dispatch);
 
 	const [newList, setNewList] = useState<Player[]>([...tournament.playerList])
 	const [duplicates, setDuplicates] = useState<string[]>([]);
