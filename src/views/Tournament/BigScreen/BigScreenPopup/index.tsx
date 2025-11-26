@@ -48,9 +48,8 @@ const BigScreenPopup = () => {
 	};
 
 	useEffect(() => {
-		//Make sure there aren't any leftover messages from earlier
-		collectGarbage();
-
+		receiveAction();
+		
 		const actionReceiverId = window.setInterval(receiveAction, 1000);
 		setActionReceiver(actionReceiverId);
 
@@ -64,34 +63,19 @@ const BigScreenPopup = () => {
 		};
 	}, []);
 
-	if (state === BigScreenStates.Timer)
+	switch (state)
 	{
-		return (
-			<Timer
-				roundId={currentRoundId}
-			/>
-		);
-	}
-
-	if (state === BigScreenStates.Standings)
-	{
-		return (
-			<Standings
-				roundId={currentRoundId}
-			/>
-		);
-	}
-
-	if (state === BigScreenStates.Final)
-	{
-		return (
-			<FinalResults/>
-		);
-	}
-
-	return (
-		<Welcome/>
-	);
+		case BigScreenStates.Timer:
+			return <Timer roundId={currentRoundId} />;
+		case BigScreenStates.Standings:
+			return <Standings roundId={currentRoundId} />;
+		case BigScreenStates.Final:
+			return <FinalResults/>;
+		case BigScreenStates.Welcome:
+			return <Welcome/>;
+		default:
+			return <></>;
+	};
 };
 
 export default BigScreenPopup;

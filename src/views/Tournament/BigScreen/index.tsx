@@ -7,6 +7,7 @@ import useTournament from "../../../utils/hooks/useTournament";
 import { getSteps } from "./utils/getSteps";
 import { Routes } from "../../../utils/routeUtils";
 import { setBigScreenState } from "./utils/setBigScreenState";
+import { STATE_MESSAGE_IDENTIFIER } from "./utils/setBigScreenState";
 
 const BigScreen = () => {
 	const tournament = useTournament();
@@ -15,6 +16,9 @@ const BigScreen = () => {
 	const steps = useMemo(() => getSteps(tournament), []);
 
 	const openWindow = () => {
+		if (currentStep > 0)
+			localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify(steps[currentStep].stateChange));
+		
 		setBigScreen(window.open(
 			Routes.BigScreenPopup,
 			"bigScreen",
