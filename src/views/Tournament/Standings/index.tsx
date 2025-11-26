@@ -14,7 +14,7 @@ const Standings = () => {
 	const [standingsWindow, setStandingsWindow] = useState<WindowProxy | null>(null);
 	const tournament = useTournament();
 
-	const [afterRound, setAfterRound] = useState<number>(getLastFinishedRound(tournament));
+	const [afterRound, setAfterRound] = useState<number>(Math.max(getLastFinishedRound(tournament), 0));
 	const [plainText, setPlainText] = useState<boolean>(false);
 
 	const openWindow = () => {

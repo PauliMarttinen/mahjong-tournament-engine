@@ -16,7 +16,7 @@ const BigScreen = () => {
 
 	const openWindow = () => {
 		setBigScreen(window.open(
-			`${Routes.BigScreenPopup}?step=${currentStep}`,
+			Routes.BigScreenPopup,
 			"bigScreen",
 			"width=500,height=500"
 		));
