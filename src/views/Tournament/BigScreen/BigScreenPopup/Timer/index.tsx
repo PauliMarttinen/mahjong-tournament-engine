@@ -1,8 +1,9 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useMemo} from "react";
 import { Progress, Space, Button } from "antd";
 import styles from "./Timer.module.css";
 import NumberInput from "../../../../../components/NumberInput";
 import {PlayCircleOutlined, PauseCircleOutlined, TrademarkCircleOutlined} from "@ant-design/icons";
+import alarmAudio from "./alarm.wav";
 
 type TimerProps = {
 	roundId: number,
@@ -17,14 +18,11 @@ const Timer = (props: TimerProps) => {
 		typeof window !== "undefined" ? window.innerHeight : 0
 	);
 
+	const alarm = useMemo(() => new Audio(alarmAudio), []);
+	alarm.loop = true;
+	
 	const passTime = () => {
 		setTimePassed(prevTime => prevTime+1);
-
-		if (timePassed >= roundLength && timer !== null)
-		{
-			window.clearInterval(timer);
-			setTimer(null);
-		}
 	};
 
 	const pauseTimer = () => {
@@ -42,6 +40,8 @@ const Timer = (props: TimerProps) => {
 
 	const resetTimer = () => {
 		setTimePassed(0);
+		alarm.pause();
+		alarm.currentTime = 0;
 	};
 
 	useEffect(() => {
@@ -54,6 +54,16 @@ const Timer = (props: TimerProps) => {
 		window.addEventListener("resize", updateSize);
 		return () => window.removeEventListener("resize", updateSize);
 	}, []);
+
+	useEffect(() => {
+		if (timePassed >= roundLength && timer !== null)
+		{
+			window.clearInterval(timer);
+			setTimer(null);
+
+			alarm.play();
+		}
+	}, [timePassed])
 
 	const formatTime = (seconds: number): string => {
 		if (seconds <= 0)
