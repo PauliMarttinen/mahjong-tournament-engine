@@ -20,8 +20,14 @@ const BigScreenPopup = () => {
 		localStorage.removeItem(STATE_MESSAGE_IDENTIFIER);
 	};
 
-	const receiveAction = () => {
-		if (localStorage.getItem(STATE_MESSAGE_IDENTIFIER) === null) return;
+	const receiveAction = (initial?: boolean) => {
+		if (localStorage.getItem(STATE_MESSAGE_IDENTIFIER) === null)
+		{
+			if (!initial)	return;
+			setState(BigScreenStates.Welcome);
+			setCurrentRoundId(0);
+			return;
+		}
 
 		const stateChange = JSON.parse(localStorage.getItem(STATE_MESSAGE_IDENTIFIER) as string);
 		setState(stateChange.type);
@@ -48,7 +54,7 @@ const BigScreenPopup = () => {
 	};
 
 	useEffect(() => {
-		receiveAction();
+		receiveAction(true);
 		
 		const actionReceiverId = window.setInterval(receiveAction, 1000);
 		setActionReceiver(actionReceiverId);
