@@ -8,3 +8,7 @@
 .timer {
 	height: 100%;
 }
+
+.timerWrapper small {
+	font-size: 70%;
+}

@@ -1,4 +1,4 @@
-import {useState, useEffect, useMemo} from "react";
+import {useState, useEffect, useMemo, ReactNode} from "react";
 import { Progress, Space, Button } from "antd";
 import styles from "./Timer.module.css";
 import NumberInput from "../../../../../components/NumberInput";
@@ -65,15 +65,22 @@ const Timer = (props: TimerProps) => {
 		}
 	}, [timePassed])
 
-	const formatTime = (seconds: number): string => {
+	const formatTime = (seconds: number): ReactNode => {
 		if (seconds <= 0)
 		{
-			return "One More Hand!";
+			return <>One More Hand!</>;
 		}
 
 		const minutes = Math.floor(seconds/60);
 		const remainder = seconds%60;
-		return `${minutes}:${remainder.toString().padStart(2, "0")}`;
+		
+		return (
+			<>
+				<small>Round {props.roundId+1}</small>
+				<br/>
+				{minutes}:{remainder.toString().padStart(2, "0")}
+			</>
+		);
 	};
 
 	return (
