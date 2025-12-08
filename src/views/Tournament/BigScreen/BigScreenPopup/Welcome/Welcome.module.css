@@ -1,7 +1,13 @@
-.header
+.header, .note
 {
 	font-size: 200%;
 	font-weight: bold;
 	text-align: center;
 	margin: 20px 0;
+}
+
+.popupMessage input
+{
+	text-align: center;
+	font-size: 100%;
 }

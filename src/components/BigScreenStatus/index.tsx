@@ -11,7 +11,6 @@ const BigScreenStatus = () => {
 	const [bigScreenOn, setBigScreenOn] = useState<boolean>(false);
 
 	const off = () => {
-		console.log("turning off")
 		setBigScreenOn(false);
 	};
 

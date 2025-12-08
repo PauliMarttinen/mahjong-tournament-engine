@@ -34,29 +34,28 @@ const BigScreenPopup = () => {
 		}
 	};
 
-	const receiveAction = (event?: StorageEvent) => {
-		//If event is not defined, this is called manually to initialize state
-		if (!event)
-		{
-			try {
-				const stateChange = JSON.parse(localStorage.getItem(STATE_MESSAGE_IDENTIFIER) as string);
-				applyAction(stateChange);
-			}
-			catch (e) {
-				setState(BigScreenStates.Welcome);
-				setCurrentRoundId(0);
-			}
-			return;
+	const initialAction = () => {
+		try {
+			const stateChange = JSON.parse(localStorage.getItem(STATE_MESSAGE_IDENTIFIER) as string);
+			applyAction(stateChange);
 		}
+		catch (e) {
+			setState(BigScreenStates.Welcome);
+			setCurrentRoundId(0);
+		}
+	};
 
-		 if (event.key === STATE_MESSAGE_IDENTIFIER && event.newValue)
-		 {
+	const receiveAction = (event: StorageEvent) => {
+		if (event.key === STATE_MESSAGE_IDENTIFIER && event.newValue)
+		{
 			try {
 				const stateChange = JSON.parse(event.newValue);
 				applyAction(stateChange);
 			}
 			catch (e) {}
-		 }
+		}
+
+		localStorage.removeItem(STATE_MESSAGE_IDENTIFIER);
 	};
 
 	const ping = () => {
@@ -69,7 +68,7 @@ const BigScreenPopup = () => {
 	};
 
 	useEffect(() => {
-		receiveAction();
+		initialAction();
 
 		window.addEventListener("storage", receiveAction);
 
