@@ -12,3 +12,7 @@
 .timerWrapper small {
 	font-size: 70%;
 }
+
+.hidden {
+	visibility: hidden;
+}

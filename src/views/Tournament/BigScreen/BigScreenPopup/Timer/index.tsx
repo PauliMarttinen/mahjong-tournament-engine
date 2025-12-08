@@ -38,10 +38,14 @@ const Timer = (props: TimerProps) => {
 		setTimer(id);
 	};
 
-	const resetTimer = () => {
-		setTimePassed(0);
+	const stopAlarm = () => {
 		alarm.pause();
 		alarm.currentTime = 0;
+	};
+
+	const resetTimer = () => {
+		setTimePassed(0);
+		stopAlarm();
 	};
 
 	useEffect(() => {
@@ -94,7 +98,7 @@ const Timer = (props: TimerProps) => {
 					format={(_) => formatTime(roundLength-timePassed)}
 				/>
 				<NumberInput
-					disabled={timer !== null}
+					className={timer !== null ? styles.hidden : ""}
 					value={(roundLength/60)}
 					onChange={(newValue) => setRoundLength(newValue*60)}
 				/>
@@ -118,6 +122,12 @@ const Timer = (props: TimerProps) => {
 						Reset
 					</Button>
 				</Space>
+				<Button
+					type={"text"}
+					onClick={stopAlarm}
+					className={timePassed < roundLength ? styles.hidden : ""}>
+					Stop the music
+				</Button>
 			</Space>
 		</div>
 	);
