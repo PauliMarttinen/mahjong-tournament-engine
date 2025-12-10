@@ -16,7 +16,6 @@ import { bindActionCreators } from "redux";
 import { appActionCreators } from "../../../state";
 
 const Standings = () => {
-	const [bigScreenPopup, setBigScreenPopup] = useState<WindowProxy | null>(null);
 	const tournament = useTournament();
 	const appState = useAppState();
 
@@ -24,7 +23,7 @@ const Standings = () => {
 	const [plainText, setPlainText] = useState<boolean>(false);
 
 	const dispatch = useDispatch();
-	const { setBigScreenOn } = bindActionCreators(appActionCreators, dispatch);
+	const { setBigScreen } = bindActionCreators(appActionCreators, dispatch);
 
 	const openWindow = () => {
 		localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify({
@@ -32,10 +31,9 @@ const Standings = () => {
 			roundId: afterRound
 		}));
 
-		if (!appState.bigScreenOn)
+		if (!appState.bigScreen || appState.bigScreen.closed)
 		{
-			setBigScreenOn(true);
-			setBigScreenPopup(window.open(
+			setBigScreen(window.open(
 				Routes.BigScreenPopup,
 				"standingsWindow",
 				"width=500,height=500"

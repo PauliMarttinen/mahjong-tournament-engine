@@ -1,4 +1,6 @@
+export type BigScreen = WindowProxy|null;
+
 export type App = {
 	tournamentLoaded: boolean,
-	bigScreenOn: boolean
+	bigScreen: BigScreen
 };

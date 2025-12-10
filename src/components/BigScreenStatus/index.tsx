@@ -15,23 +15,24 @@ const BigScreenStatus = () => {
 	const appState = useAppState();
 	const dispatch = useDispatch();
 
-	const {setBigScreenOn} = bindActionCreators(appActionCreators, dispatch);
+	const {setBigScreen} = bindActionCreators(appActionCreators, dispatch);
 
 	const off = () => {
-		setBigScreenOn(false);
+		setBigScreen(null);
 	};
 
 	const handleStorageEvent = (event: StorageEvent) => {
-		if (event.key === PING_MESSAGE_IDENTIFIER && event.newValue) {
-			setBigScreenOn(true);
-
-			if (timeoutRef.current !== null) {
+		if (event.key === PING_MESSAGE_IDENTIFIER && event.newValue)
+		{
+			if (timeoutRef.current !== null)
+				{
 				window.clearTimeout(timeoutRef.current);
 			}
 			timeoutRef.current = window.setTimeout(off, PING_INTERVAL + 500);
 		}
 
-		if (event.key === STATE_MESSAGE_IDENTIFIER && event.newValue) {
+		if (event.key === STATE_MESSAGE_IDENTIFIER && event.newValue)
+		{
 			try {
 				const stateChange = JSON.parse(event.newValue);
 				if (stateChange.type === BigScreenStates.Off)
@@ -52,11 +53,11 @@ const BigScreenStatus = () => {
 				window.clearInterval(timeoutRef.current);
 			}
 		};
-	}, [appState.bigScreenOn]);
+	}, []);
 
 	return (
 		<div style={{background: "white"}}>
-			Big Screen Status: {appState.bigScreenOn ? "on" : "off"}
+			Big Screen Status: {appState.bigScreen && !appState.bigScreen.closed ? "on" : "off"}
 		</div>
 	);
 };

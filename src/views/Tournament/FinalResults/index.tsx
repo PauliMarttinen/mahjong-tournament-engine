@@ -11,20 +11,18 @@ import { appActionCreators } from "../../../state";
 
 const FinalResults = () => {
 	const appState = useAppState();
-	const [finalResultsPopup, setFinalResultsPopup] = useState<WindowProxy | null>(null);
 
 	const dispatch = useDispatch();
-	const { setBigScreenOn } = bindActionCreators(appActionCreators, dispatch);
+	const { setBigScreen } = bindActionCreators(appActionCreators, dispatch);
 
 	const openWindow = () => {
 		localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify({
 			type: BigScreenStates.Final
 		}));
 
-		if (!appState.bigScreenOn)
+		if (!appState.bigScreen || appState.bigScreen.closed)
 		{
-			setBigScreenOn(true);
-			setFinalResultsPopup(window.open(
+			setBigScreen(window.open(
 				Routes.BigScreenPopup,
 				"finalResultsPopup",
 				"width=500,height=500"

@@ -8,12 +8,17 @@ import { getSteps } from "./utils/getSteps";
 import { Routes } from "../../../utils/routeUtils";
 import { setBigScreenState } from "./utils/setBigScreenState";
 import { STATE_MESSAGE_IDENTIFIER } from "./utils/setBigScreenState";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { appActionCreators } from "../../../state";
 
 const BigScreen = () => {
 	const tournament = useTournament();
-	const [bigScreen, setBigScreen] = useState<WindowProxy | null>(null);
+	const dispatch = useDispatch();
 	const [currentStep, setCurrentStep] = useState<number>(0);
 	const steps = useMemo(() => getSteps(tournament), []);
+	
+	const {setBigScreen} = bindActionCreators(appActionCreators, dispatch);
 
 	const openWindow = () => {
 		if (currentStep > 0)

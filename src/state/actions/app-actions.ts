@@ -1,3 +1,4 @@
+import type { BigScreen } from "../../data-types/app-data-types";
 import ActionTypes from "../action-types/app-action-types";
 
 export type MarkTournamentLoaded = {
@@ -5,11 +6,11 @@ export type MarkTournamentLoaded = {
 	payload: boolean
 };
 
-export type SetBigScreenOn = {
-	type: ActionTypes.SetBigScreenOn,
-	payload: boolean
+export type SetBigScreen = {
+	type: ActionTypes.SetBigScreen,
+	payload: BigScreen
 };
 
-type Action = MarkTournamentLoaded | SetBigScreenOn;
+type Action = MarkTournamentLoaded | SetBigScreen;
 
 export default Action;

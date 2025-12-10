@@ -1,8 +1,9 @@
 import type { Dispatch } from "redux";
+import type { BigScreen } from "../../data-types/app-data-types";
 import ActionTypes from "../action-types/app-action-types";
 import type {
 	MarkTournamentLoaded,
-	SetBigScreenOn
+	SetBigScreen
 } from "../actions/app-actions";
 
 export const markTournamentLoaded = (newValue: boolean) => {
@@ -14,10 +15,10 @@ export const markTournamentLoaded = (newValue: boolean) => {
 	}
 };
 
-export const setBigScreenOn = (newValue: boolean) => {
-	return (dispatch: Dispatch<SetBigScreenOn>) => {
+export const setBigScreen = (newValue: BigScreen) => {
+	return (dispatch: Dispatch<SetBigScreen>) => {
 		dispatch({
-			type: ActionTypes.SetBigScreenOn,
+			type: ActionTypes.SetBigScreen,
 			payload: newValue
 		});
 	};
