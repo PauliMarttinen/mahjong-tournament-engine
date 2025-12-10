@@ -5,10 +5,17 @@ import {
 	PING_INTERVAL,
 	BigScreenStates
 } from "../../views/Tournament/BigScreen/utils/setBigScreenState";
+import useAppState from "../../utils/hooks/useAppState";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { appActionCreators } from "../../state";
 
 const BigScreenStatus = () => {
 	const timeoutRef = useRef<number | null>(null);
-	const [bigScreenOn, setBigScreenOn] = useState<boolean>(false);
+	const appState = useAppState();
+	const dispatch = useDispatch();
+
+	const {setBigScreenOn} = bindActionCreators(appActionCreators, dispatch);
 
 	const off = () => {
 		setBigScreenOn(false);
@@ -45,11 +52,11 @@ const BigScreenStatus = () => {
 				window.clearInterval(timeoutRef.current);
 			}
 		};
-	}, []);
+	}, [appState.bigScreenOn]);
 
 	return (
 		<div style={{background: "white"}}>
-			Big Screen Status: {bigScreenOn ? "on" : "off"}
+			Big Screen Status: {appState.bigScreenOn ? "on" : "off"}
 		</div>
 	);
 };

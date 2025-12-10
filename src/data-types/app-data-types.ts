@@ -1,3 +1,4 @@
 export type App = {
-	tournamentLoaded: boolean
+	tournamentLoaded: boolean,
+	bigScreenOn: boolean
 };

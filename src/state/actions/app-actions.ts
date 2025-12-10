@@ -5,6 +5,11 @@ export type MarkTournamentLoaded = {
 	payload: boolean
 };
 
-type Action = MarkTournamentLoaded;
+export type SetBigScreenOn = {
+	type: ActionTypes.SetBigScreenOn,
+	payload: boolean
+};
+
+type Action = MarkTournamentLoaded | SetBigScreenOn;
 
 export default Action;

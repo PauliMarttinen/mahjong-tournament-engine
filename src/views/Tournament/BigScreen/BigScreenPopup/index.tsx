@@ -6,7 +6,7 @@ import {
 	BigScreenStates
 } from "../utils/setBigScreenState";
 import Standings from "./Standings";
-import FinalResults from "../../FinalResults/FinalResultsPopup";
+import FinalResults from "./FinalResults";
 import Welcome from "./Welcome";
 import Timer from "./Timer";
 

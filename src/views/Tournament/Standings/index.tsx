@@ -9,20 +9,38 @@ import LayoutContent from "../../../components/LayoutContent";
 import RoundSelector from "../../../components/RoundSelector";
 import styles from "./Standings.module.css";
 import { getLastFinishedRound } from "../../../utils/getLastFinishedRound";
+import useAppState from "../../../utils/hooks/useAppState";
+import { BigScreenStates, STATE_MESSAGE_IDENTIFIER } from "../BigScreen/utils/setBigScreenState";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { appActionCreators } from "../../../state";
 
 const Standings = () => {
-	const [standingsWindow, setStandingsWindow] = useState<WindowProxy | null>(null);
+	const [bigScreenPopup, setBigScreenPopup] = useState<WindowProxy | null>(null);
 	const tournament = useTournament();
+	const appState = useAppState();
 
 	const [afterRound, setAfterRound] = useState<number>(Math.max(getLastFinishedRound(tournament), 0));
 	const [plainText, setPlainText] = useState<boolean>(false);
 
+	const dispatch = useDispatch();
+	const { setBigScreenOn } = bindActionCreators(appActionCreators, dispatch);
+
 	const openWindow = () => {
-		setStandingsWindow(window.open(
-			`${Routes.StandingsPopup}?afterRound=${afterRound}&plainText=${plainText.toString()}`,
-			"standingsWindow",
-			"width=500,height=500"
-		));
+		localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify({
+			type: BigScreenStates.Standings,
+			roundId: afterRound
+		}));
+
+		if (!appState.bigScreenOn)
+		{
+			setBigScreenOn(true);
+			setBigScreenPopup(window.open(
+				Routes.BigScreenPopup,
+				"standingsWindow",
+				"width=500,height=500"
+			));
+		}
 	};
 
 	return (

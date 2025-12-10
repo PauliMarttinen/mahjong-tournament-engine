@@ -8,7 +8,6 @@ import SeatingTemplateEntry from "./views/NewTournament/SeatingTemplateEntry";
 import Overview from "./views/Tournament/Overview";
 import HanchanResults from "./views/Tournament/HanchanResults";
 import Standings from "./views/Tournament/Standings";
-import StandingsPopup from "./views/Tournament/Standings/StandingsPopup";
 import BigScreen from "./views/Tournament/BigScreen";
 import BigScreenPopup from "./views/Tournament/BigScreen/BigScreenPopup";
 import PrintOuts from "./views/Tournament/PrintOuts";
@@ -19,7 +18,6 @@ import PrintReportCards from "./views/Print/PrintReportCards";
 import PrintScoreForms from "./views/Print/PrintScoreForms";
 import PrintFullSchedule from "./views/Print/PrintFullSchedule";
 import FinalResults from "./views/Tournament/FinalResults";
-import FinalResultsPopup from "./views/Tournament/FinalResults/FinalResultsPopup";
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
 import Navigation from "./views/Tournament/Navigation";
 import { Layout, ConfigProvider, theme, Button } from "antd";
@@ -48,8 +46,6 @@ const App = () => {
 							<Route path={"score-forms"} element={<PrintScoreForms/>}/>
 							<Route path={"full-schedule"} element={<PrintFullSchedule/>}/>
 						</Route>
-						<Route path={"/tournament/standings/popup"} element={<StandingsPopup/>}/>
-						<Route path={"/tournament/final-results/popup"} element={<FinalResultsPopup/>}/>
 						<Route path={"/tournament/big-screen/popup"} element={<BigScreenPopup/>}/>
 						<Route path={"*"} element={
 							<Layout className={styles.layout}>

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import type { Standing } from "../../../../data-types/tournament-data-types";
+import type { Standing } from "../../../../../data-types/tournament-data-types";
 import Confetti from "react-confetti";
 import styles from "./FinalResultsPopup.module.css";
 import Name from "./Name";
-import { generateArray } from "../../../../utils/generateArray";
-import useTournament from "../../../../utils/hooks/useTournament";
-import useStandings from "../../../../utils/hooks/useStandings";
+import { generateArray } from "../../../../../utils/generateArray";
+import useTournament from "../../../../../utils/hooks/useTournament";
+import useStandings from "../../../../../utils/hooks/useStandings";
 
 const FinalResultsPopup = () => {
 	const tournament = useTournament();

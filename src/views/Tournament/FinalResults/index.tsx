@@ -3,16 +3,33 @@ import { Routes } from "../../../utils/routeUtils";
 import { Button, Card, Space, Alert } from "antd";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
+import useAppState from "../../../utils/hooks/useAppState";
+import { BigScreenStates, STATE_MESSAGE_IDENTIFIER } from "../BigScreen/utils/setBigScreenState";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { appActionCreators } from "../../../state";
 
 const FinalResults = () => {
+	const appState = useAppState();
 	const [finalResultsPopup, setFinalResultsPopup] = useState<WindowProxy | null>(null);
 
+	const dispatch = useDispatch();
+	const { setBigScreenOn } = bindActionCreators(appActionCreators, dispatch);
+
 	const openWindow = () => {
-		setFinalResultsPopup(window.open(
-			Routes.FinalResultsPopup,
-			"finalResultsPopup",
-			"width=500,height=500"
-		));
+		localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify({
+			type: BigScreenStates.Final
+		}));
+
+		if (!appState.bigScreenOn)
+		{
+			setBigScreenOn(true);
+			setFinalResultsPopup(window.open(
+				Routes.BigScreenPopup,
+				"finalResultsPopup",
+				"width=500,height=500"
+			));
+		}
 	};
 
 	return (

@@ -3,7 +3,8 @@ import type Action from "../actions/app-actions";
 import ActionTypes from "../action-types/app-action-types";
 
 const initialState: App = {
-	tournamentLoaded: false
+	tournamentLoaded: false,
+	bigScreenOn: false
 };
 
 const reducer = (state: App = initialState, action: Action): App => {
@@ -14,6 +15,11 @@ const reducer = (state: App = initialState, action: Action): App => {
 				...state,
 				tournamentLoaded: action.payload
 			};
+		case ActionTypes.SetBigScreenOn:
+			return {
+				...state,
+				bigScreenOn: action.payload
+			}
 		default:
 			return state;
 	}
