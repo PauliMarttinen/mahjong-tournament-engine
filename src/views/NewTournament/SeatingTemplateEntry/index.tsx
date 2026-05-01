@@ -144,13 +144,13 @@ const SeatingTemplateEntry = () => {
 
 	if (seatingTemplateHistory.length === 0) {
 		return (
-			<NewTournamentSteps key={"newTournamentSteps"} current={2}/>
+			<NewTournamentSteps key={"newTournamentSteps"} current={3}/>
 		);
 	};
 
 	return (
 		<>
-			<NewTournamentSteps key={"newTournamentSteps"} current={2}/>
+			<NewTournamentSteps key={"newTournamentSteps"} current={3}/>
 			<Modal
 				centered={true}
 				open={showUploadModal}

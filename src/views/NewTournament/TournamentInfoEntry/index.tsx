@@ -22,14 +22,18 @@ const TournamentInfoView = () => {
 
 	const onSave = (): void => {
 		addGeneralInfo(currentInfo);
-		navigate(Routes.PlayerEntry);
+		navigate(Routes.ScheduleEntry);
 	};
 
 	const setRounds = (count: number): void => {
 		const newRoundsArray = Array(count).fill(emptyRound);
+		const now = new Date().toISOString();
 		setCurrentInfo({
 			...currentInfo,
-			rounds: newRoundsArray
+			rounds: newRoundsArray.map((_: Round) => ({
+				scheduledStart: now,
+				realStart: ""
+			}))
 		});
 	};
 
@@ -47,11 +51,18 @@ const TournamentInfoView = () => {
 							onChange={(e): void => setCurrentInfo({...currentInfo, title: e.target.value})}
 						/>
 					</Card>
-					<Card title={"Number of rounds"}>
+					<Card title={"Rounds"}>
+						<label>Number of rounds</label>
 						<NumberInput
 							minimum={1}
 							value={currentInfo.rounds.length}
 							onChange={(newValue: number): void => setRounds(newValue)}
+						/>
+						<label>Round length (minutes)</label>
+						<NumberInput
+							minimum={1}
+							value={currentInfo.roundLength}
+							onChange={(newValue: number): void => setCurrentInfo({...currentInfo, roundLength: newValue})}
 						/>
 					</Card>
 					<div className={styles.button}>

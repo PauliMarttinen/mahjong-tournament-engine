@@ -11,6 +11,9 @@ const NewTournamentSteps = (props: NewTournamentStepsProps) => {
 			title: "Basic information"
 		},
 		{
+			title: "Schedule"
+		},
+		{
 			title: "Enter players"
 		},
 		{

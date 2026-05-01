@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useTournament from "./utils/hooks/useTournament";
 import useAppState from "./utils/hooks/useAppState";
 import TournametInfoEntry from "./views/NewTournament/TournamentInfoEntry";
+import ScheduleEntry from "./views/NewTournament/ScheduleEntry";
 import PlayerEntry from "./views/NewTournament/PlayerEntry";
 import SeatingTemplateEntry from "./views/NewTournament/SeatingTemplateEntry";
 import Overview from "./views/Tournament/Overview";
@@ -69,6 +70,7 @@ const App = () => {
 							<Route path={"/new"}>
 								<Route index element={<TournametInfoEntry/>}/>
 								<Route path={"basic"} element={<TournametInfoEntry/>}/>
+								<Route path={"schedule"} element={<ScheduleEntry/>}/>
 								<Route path={"players"} element={<PlayerEntry/>}/>
 								<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
 							</Route>
