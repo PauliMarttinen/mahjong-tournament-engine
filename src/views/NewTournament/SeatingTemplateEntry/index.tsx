@@ -50,7 +50,7 @@ const SeatingTemplateEntry = () => {
 		}
 
 		return {
-			template: generateRandomizedSeating(newTournament.playerList.length, newTournament.info.rounds),
+			template: generateRandomizedSeating(newTournament.playerList.length, newTournament.info.rounds.length),
 			type: SeatingTemplateTypes.Randomized
 		};
 	};
@@ -80,7 +80,7 @@ const SeatingTemplateEntry = () => {
 	};
 
 	const createGamesData = (seatingTemplate: number[][]): Game[] => {
-		return generateArray(newTournament.info.rounds).map((roundId: number): Game[] => (
+		return generateArray(newTournament.info.rounds.length).map((roundId: number): Game[] => (
 			generateArray(newTournament.playerList.length / 4).map((tableId: number): Game => ({
 				round: roundId,
 				table: tableId,
@@ -119,20 +119,20 @@ const SeatingTemplateEntry = () => {
 		if (files === null) return;
 
 		readXlsxFile(files[0]).then((excelRows: Row[]) => {
-			addSeatingTemplateToHistory(convertTemplateFromExcel(excelRows, newTournament.info.rounds, newTournament.playerList.length), SeatingTemplateTypes.Custom);
+			addSeatingTemplateToHistory(convertTemplateFromExcel(excelRows, newTournament.info.rounds.length, newTournament.playerList.length), SeatingTemplateTypes.Custom);
 			setShowUploadModal(false);
 		}).catch((e) => {
 			const fileReader = new FileReader();
 			fileReader.onload = () => {
 				if (fileReader.result === null) return;
-				addSeatingTemplateToHistory(convertTemplateFromCsv(fileReader.result as string, newTournament.info.rounds, newTournament.playerList.length), SeatingTemplateTypes.Custom);
+				addSeatingTemplateToHistory(convertTemplateFromCsv(fileReader.result as string, newTournament.info.rounds.length, newTournament.playerList.length), SeatingTemplateTypes.Custom);
 			};
 			fileReader.readAsText(files[0]);
 		});
 	};
 
 	const randomizeSeating = (): void => {
-		addSeatingTemplateToHistory(generateRandomizedSeating(newTournament.playerList.length, newTournament.info.rounds), SeatingTemplateTypes.Randomized);
+		addSeatingTemplateToHistory(generateRandomizedSeating(newTournament.playerList.length, newTournament.info.rounds.length), SeatingTemplateTypes.Randomized);
 	};
 
 	const setRecommendedSeating = (): void => {

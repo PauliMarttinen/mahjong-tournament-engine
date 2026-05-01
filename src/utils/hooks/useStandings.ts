@@ -4,7 +4,7 @@ import useTournament from "./useTournament";
 
 const useStandings = (): Standing[][] => {
 	const tournament = useTournament();
-	return generateArray(tournament.info.rounds).reduce((carry: Standing[][], roundIndex: number) => {
+	return generateArray(tournament.info.rounds.length).reduce((carry: Standing[][], roundIndex: number) => {
 		const byThisRound = tournament.playerList.map((_: Player, playerId: number): Standing => ({
 			rank: 0,
 			playerId: playerId,

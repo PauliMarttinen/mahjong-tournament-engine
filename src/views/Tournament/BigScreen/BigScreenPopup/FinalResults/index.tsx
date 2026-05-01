@@ -9,7 +9,7 @@ import useStandings from "../../../../../utils/hooks/useStandings";
 
 const FinalResults = () => {
 	const tournament = useTournament();
-	const standings = useStandings()[tournament.info.rounds - 1];
+	const standings = useStandings()[tournament.info.rounds.length - 1];
 
 	const [windowSize, setWindowSize] = useState<{width: number, height: number}>({
 		width: window.innerWidth,

@@ -1,7 +1,8 @@
-import type { Game, GeneralInfo, Meta, Player } from "../../tournament-data-types";
+import type { Game, Meta, Player } from "../../tournament-data-types";
+import type { GeneralInfoBeforeVersion2 } from "../version0/Version0";
 
 export type Version1 = {
-	info: GeneralInfo,
+	info: GeneralInfoBeforeVersion2,
 	playerList: Player[],
 	games: Game[],
 	meta: Meta

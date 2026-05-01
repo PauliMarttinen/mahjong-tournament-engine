@@ -8,7 +8,7 @@ import { useEffect } from "react";
 const PrintFullSchedule = () => {
 	const tournament = useTournament();
 
-	const rounds = generateArray(tournament.info.rounds);
+	const rounds = generateArray(tournament.info.rounds.length);
 
 	useEffect(() => {
 		bodyNoMargin();

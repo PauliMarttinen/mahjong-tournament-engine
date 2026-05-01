@@ -42,7 +42,7 @@ export const getSteps = (tournament: Tournament) => {
 			},
 			disabled: false
 		},
-		...generateArray(tournament.info.rounds).map((roundId: number) => {
+		...generateArray(tournament.info.rounds.length).map((roundId: number) => {
 			const roundSteps = [{
 				title: `Round ${roundId+1} Timer`,
 				stateChange: {
@@ -52,7 +52,7 @@ export const getSteps = (tournament: Tournament) => {
 				disabled: roundId !== lastFinishedRound+1,
 				description: getTimerDescription(roundId, lastFinishedRound)
 			}];
-			if (roundId < tournament.info.rounds-1)
+			if (roundId < tournament.info.rounds.length-1)
 			{
 				roundSteps.push({
 					title: `Round ${roundId+1} Standings`,
@@ -71,8 +71,8 @@ export const getSteps = (tournament: Tournament) => {
 			stateChange: {
 				type: BigScreenStates.Final
 			},
-			disabled: lastFinishedRound !== tournament.info.rounds-1,
-			description: getFinalDescription(tournament.info.rounds, lastFinishedRound)
+			disabled: lastFinishedRound !== tournament.info.rounds.length-1,
+			description: getFinalDescription(tournament.info.rounds.length, lastFinishedRound)
 		}
 	];
 };

@@ -49,7 +49,7 @@ const Standings = () => {
 					round={afterRound+1}
 					previousDisabled={afterRound === 0}
 					onPrevious={() => setAfterRound(afterRound-1)}
-					nextDisabled={afterRound === tournament.info.rounds - 1}
+					nextDisabled={afterRound === tournament.info.rounds.length - 1}
 					onNext={() => setAfterRound(afterRound+1)}
 				/>
 				<Space size={30} direction={"vertical"}>

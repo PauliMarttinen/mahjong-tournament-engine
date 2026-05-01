@@ -14,7 +14,7 @@ import { getLastFinishedRound } from "../../../utils/getLastFinishedRound";
 const HanchanResults = () => {
 	const tournament = useTournament();
 
-	const [roundId, setRoundId] = useState<number>(Math.min(getLastFinishedRound(tournament) + 1, tournament.info.rounds-1));
+	const [roundId, setRoundId] = useState<number>(Math.min(getLastFinishedRound(tournament) + 1, tournament.info.rounds.length-1));
 	const games = tournament.games.filter((game: Game) => game.round === roundId);
 
 	const items: CollapseProps["items"] = games.map((game: Game) => ({
@@ -45,7 +45,7 @@ const HanchanResults = () => {
 					round={roundId+1}
 					previousDisabled={roundId === 0}
 					onPrevious={() => setRoundId(roundId-1)}
-					nextDisabled={roundId === tournament.info.rounds-1}
+					nextDisabled={roundId === tournament.info.rounds.length-1}
 					onNext={() => setRoundId(roundId+1)}
 				/>
 				<Collapse

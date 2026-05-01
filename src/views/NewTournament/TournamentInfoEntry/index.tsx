@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { GeneralInfo } from "../../../data-types/tournament-data-types";
+import type { GeneralInfo, Round } from "../../../data-types/tournament-data-types";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { newTournamentActionCreators } from "../../../state";
@@ -11,6 +11,7 @@ import styles from "./TournamentInfoEntry.module.css";
 import {Input, Space, Card, Button} from "antd";
 import MandatoryAsterisk from "../../../components/MandatoryAsterisk";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
+import { emptyRound } from "../../../state/reducers/newTournamentReducer";
 
 const TournamentInfoView = () => {
 	const navigate = useNavigate();
@@ -22,6 +23,14 @@ const TournamentInfoView = () => {
 	const onSave = (): void => {
 		addGeneralInfo(currentInfo);
 		navigate(Routes.PlayerEntry);
+	};
+
+	const setRounds = (count: number): void => {
+		const newRoundsArray = Array(count).fill(emptyRound);
+		setCurrentInfo({
+			...currentInfo,
+			rounds: newRoundsArray
+		});
 	};
 
 	return (
@@ -41,8 +50,8 @@ const TournamentInfoView = () => {
 					<Card title={"Number of rounds"}>
 						<NumberInput
 							minimum={1}
-							value={currentInfo.rounds}
-							onChange={(newValue: number): void => setCurrentInfo({...currentInfo, rounds: newValue})}
+							value={currentInfo.rounds.length}
+							onChange={(newValue: number): void => setRounds(newValue)}
 						/>
 					</Card>
 					<div className={styles.button}>

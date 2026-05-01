@@ -76,7 +76,7 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 			<thead>
 				<tr>
 					<th>Table \ Round</th>
-					{generateArray(newTournament.info.rounds).map((roundId: number) => (
+					{generateArray(newTournament.info.rounds.length).map((roundId: number) => (
 						<th key={`th-${roundId}`}>Round {roundId + 1}</th>
 					))}
 				</tr>
@@ -86,7 +86,7 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 					<>
 						<tr key={`tr-table-${tableId}-e`}>
 							<td rowSpan={4}>Table {tableId + 1}</td>
-							{generateArray(newTournament.info.rounds).map((roundId: number) => (
+							{generateArray(newTournament.info.rounds.length).map((roundId: number) => (
 								<td
 									onMouseOver={() => setHighlights(tableId, roundId, seatingTemplate[tableId*4][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
@@ -103,7 +103,7 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 							))}
 						</tr>
 						<tr key={`tr-table-${tableId}-s`}>
-							{generateArray(newTournament.info.rounds).map((roundId: number) => (
+							{generateArray(newTournament.info.rounds.length).map((roundId: number) => (
 								<td
 									onMouseOver={() => setHighlights(tableId+0.1, roundId, seatingTemplate[tableId*4+1][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
@@ -120,7 +120,7 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 							))}
 						</tr>
 						<tr key={`tr-table-${tableId}-w`}>
-							{generateArray(newTournament.info.rounds).map((roundId: number) => (
+							{generateArray(newTournament.info.rounds.length).map((roundId: number) => (
 								<td
 									onMouseOver={() => setHighlights(tableId+0.2, roundId, seatingTemplate[tableId*4+2][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
@@ -137,7 +137,7 @@ const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 							))}
 						</tr>
 						<tr key={`tr-table-${tableId}-n`}>
-							{generateArray(newTournament.info.rounds).map((roundId: number) => (
+							{generateArray(newTournament.info.rounds.length).map((roundId: number) => (
 								<td
 									onMouseOver={() => setHighlights(tableId+0.3, roundId, seatingTemplate[tableId*4+3][roundId])}
 									onMouseOut={() => setHighlights(null, null, null)}
