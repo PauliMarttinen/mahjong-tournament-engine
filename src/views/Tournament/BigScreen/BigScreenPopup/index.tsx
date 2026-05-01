@@ -63,7 +63,7 @@ const BigScreenPopup = () => {
 	};
 
 	const onClose = () => {
-		localStorage.setItem(PING_MESSAGE_IDENTIFIER, JSON.stringify({type: BigScreenStates.Off}))
+		localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify({type: BigScreenStates.Off}))
 		collectGarbage();
 	};
 
