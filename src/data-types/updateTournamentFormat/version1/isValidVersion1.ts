@@ -25,7 +25,7 @@ const isValidVersion1 = (data: any): data is Tournament => {
 	const metaValid = metaExists &&
 		"dataFormatVersion" in data.meta && Number.isInteger(data.meta.dataFormatVersion) && data.meta.dataFormatVersion === 1;
 
-	return infoValid && playerListValid && /* seatingTemplateValid && */ gamesValid && metaValid;
+	return infoValid && playerListValid && gamesValid && metaValid;
 };
 
 export default isValidVersion1;

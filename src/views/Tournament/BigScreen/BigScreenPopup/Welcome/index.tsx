@@ -5,6 +5,7 @@ import TextInput from "../../../../../components/TextInput";
 
 const Welcome = () => {
 	const tournament = useTournament();
+	console.log("tournament", tournament)
 	const [message, setMessage] = useState<string>("");
 
 	return (
