@@ -1,13 +1,15 @@
 import { useState } from "react";
 import StandingsDisplay from "../../../../../components/Standings";
-import TextInput from "../../../../../components/TextInput";
 import styles from "./Standings.module.css";
+import simplifyTime from "../../../../../utils/simplifyTime";
+import useTournament from "../../../../../utils/hooks/useTournament";
 
 type StandingsProps = {
 	roundId: number
 };
 
 const Standings = (props: StandingsProps) => {
+	const tournament = useTournament();
 	const [message, setMessage] = useState<string>("");
 
 	return (
@@ -19,13 +21,12 @@ const Standings = (props: StandingsProps) => {
 					plainText={false}
 				/>
 			</div>
-			<footer className={styles.note}>
-				<TextInput
-					className={styles.popupMessage}
-					value={message}
-					onChange={(newMessage) => setMessage(newMessage)}
-				/>
-			</footer>
+			{
+				props.roundId < tournament.info.rounds.length-1 &&
+				<footer className={styles.note}>
+					Next hanchan starts at {simplifyTime(tournament.info.rounds[props.roundId+1].scheduledStart)}
+				</footer>
+			}
 		</div>
 	);
 };

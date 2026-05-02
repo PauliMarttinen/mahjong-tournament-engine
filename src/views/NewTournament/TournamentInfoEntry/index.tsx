@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { GeneralInfo, Round } from "../../../data-types/tournament-data-types";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -36,6 +36,10 @@ const TournamentInfoView = () => {
 			}))
 		});
 	};
+
+	useEffect(() => {
+		setRounds(initialState.info.rounds.length);
+	}, []);
 
 	return (
 		<>

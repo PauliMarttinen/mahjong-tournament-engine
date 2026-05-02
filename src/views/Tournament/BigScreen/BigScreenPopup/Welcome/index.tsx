@@ -1,23 +1,16 @@
-import {useState} from "react";
 import styles from "./Welcome.module.css";
 import useTournament from "../../../../../utils/hooks/useTournament";
-import TextInput from "../../../../../components/TextInput";
+import simplifyTime from "../../../../../utils/simplifyTime";
 
 const Welcome = () => {
 	const tournament = useTournament();
-	console.log("tournament", tournament)
-	const [message, setMessage] = useState<string>("");
-
+	
 	return (
 		<div>
 			<header className={styles.header}>Welcome to {tournament.info.title}</header>
-			<footer className={styles.note}>
-				<TextInput
-					className={styles.popupMessage}
-					value={message}
-					onChange={(newMessage) => setMessage(newMessage)}
-				/>
-			</footer>
+			<main className={styles.note}>
+				First hanchan starts at {simplifyTime(tournament.info.rounds[0].scheduledStart)}
+			</main>
 		</div>
 	);
 };

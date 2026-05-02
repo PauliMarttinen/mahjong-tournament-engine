@@ -49,7 +49,7 @@ const EditSchedule = () => {
 					<tbody>
 						{
 							currentRounds.map((round: Round, roundId: number) => (
-								<tr>
+								<tr key={`round-${roundId}`}>
 									<th scope={"row"}>Round {roundId+1}</th>
 									<td>
 										<DateTimePicker
