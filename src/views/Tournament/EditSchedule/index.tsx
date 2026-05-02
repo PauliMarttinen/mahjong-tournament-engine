@@ -5,7 +5,7 @@ import useTournament from "../../../utils/hooks/useTournament";
 import { Round } from "../../../data-types/tournament-data-types";
 import DateTimePicker from "../../../components/DateTimePicker";
 import styles from "./EditSchedule.module.css";
-import { Button, Alert } from "antd";
+import { Button } from "antd";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { tournamentActionCreators } from "../../../state";

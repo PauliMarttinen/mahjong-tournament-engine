@@ -127,7 +127,8 @@ const Navigation = () => {
 				onClick={onClickAction}
 				selectedKeys={[]}
 			/>
-			<BigScreenStatus/>
+			{/* Uncomment BigScreenStatus for debugging. */}
+			{/* <BigScreenStatus/> */}
 		</>
 	);
 };
