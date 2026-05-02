@@ -1,9 +1,10 @@
-import {useState, useMemo} from "react";
+import {useState, useMemo, useEffect} from "react";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import { Steps, Button, Space } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
 import useTournament from "../../../utils/hooks/useTournament";
+import useAppState from "../../../utils/hooks/useAppState";
 import { getSteps } from "./utils/getSteps";
 import { Routes } from "../../../utils/routeUtils";
 import { setBigScreenState } from "./utils/setBigScreenState";
@@ -14,6 +15,7 @@ import { appActionCreators } from "../../../state";
 
 const BigScreen = () => {
 	const tournament = useTournament();
+	const app = useAppState();
 	const dispatch = useDispatch();
 	const [currentStep, setCurrentStep] = useState<number>(-1);
 	const steps = useMemo(() => getSteps(tournament), []);
@@ -32,9 +34,14 @@ const BigScreen = () => {
 	};
 
 	const changeStep = (step: number) => {
+		if (!app.bigScreen) openWindow();
 		setCurrentStep(step);
 		setBigScreenState(steps[step].stateChange);
 	};
+
+	useEffect(() => {
+		if (!app.bigScreen) setCurrentStep(-1);
+	}, [app.bigScreen]);
 
 	return (
 		<>
