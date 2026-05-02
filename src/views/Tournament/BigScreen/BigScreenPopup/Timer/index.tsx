@@ -52,8 +52,8 @@ const Timer = (props: TimerProps) => {
 
 	useEffect(() => {
 		const updateSize = () => {
-			const height = window.innerHeight-200;
-			const width = window.innerWidth-200;
+			const height = window.innerHeight-250;
+			const width = window.innerWidth-250;
 			setTimerSize(Math.min(height, width))
 		};
 		updateSize();
