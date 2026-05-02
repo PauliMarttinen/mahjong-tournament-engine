@@ -1,16 +1,18 @@
 import {useState, useEffect, useMemo, ReactNode} from "react";
 import { Progress, Space, Button } from "antd";
 import styles from "./Timer.module.css";
-import NumberInput from "../../../../../components/NumberInput";
 import {PlayCircleOutlined, PauseCircleOutlined, TrademarkCircleOutlined} from "@ant-design/icons";
 import alarmAudio from "./alarm.wav";
+import useTournament from "../../../../../utils/hooks/useTournament";
 
 type TimerProps = {
 	roundId: number,
 };
 
 const Timer = (props: TimerProps) => {
-	const [roundLength, setRoundLength] = useState<number>(75*60);
+	const tournament = useTournament();
+	const roundLength = tournament.info.roundLength*60;
+	
 	const [timePassed, setTimePassed] = useState<number>(0);
 	const [timer, setTimer] = useState<number | null>(null);
 
@@ -50,8 +52,8 @@ const Timer = (props: TimerProps) => {
 
 	useEffect(() => {
 		const updateSize = () => {
-			const height = window.innerHeight-300;
-			const width = window.innerWidth-300;
+			const height = window.innerHeight-200;
+			const width = window.innerWidth-200;
 			setTimerSize(Math.min(height, width))
 		};
 		updateSize();
@@ -96,11 +98,6 @@ const Timer = (props: TimerProps) => {
 					type={"circle"}
 					percent={timePassed/roundLength*100}
 					format={(_) => formatTime(roundLength-timePassed)}
-				/>
-				<NumberInput
-					className={timer !== null ? styles.hidden : ""}
-					value={(roundLength/60)}
-					onChange={(newValue) => setRoundLength(newValue*60)}
 				/>
 				<Space>
 					<Button
