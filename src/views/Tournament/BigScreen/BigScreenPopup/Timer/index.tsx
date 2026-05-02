@@ -1,7 +1,7 @@
 import {useState, useEffect, useMemo, ReactNode} from "react";
 import { Progress, Space, Button } from "antd";
 import styles from "./Timer.module.css";
-import {PlayCircleOutlined, PauseCircleOutlined, TrademarkCircleOutlined} from "@ant-design/icons";
+import {PlayCircleOutlined, /* PauseCircleOutlined, */ TrademarkCircleOutlined} from "@ant-design/icons";
 import alarmAudio from "./alarm.wav";
 import useTournament from "../../../../../utils/hooks/useTournament";
 
@@ -11,7 +11,7 @@ type TimerProps = {
 
 const Timer = (props: TimerProps) => {
 	const tournament = useTournament();
-	const roundLength = tournament.info.roundLength*60;
+	const roundLength = 15;//tournament.info.roundLength*60;
 	
 	const [timePassed, setTimePassed] = useState<number>(0);
 	const [timer, setTimer] = useState<number | null>(null);
@@ -27,13 +27,13 @@ const Timer = (props: TimerProps) => {
 		setTimePassed(prevTime => prevTime+1);
 	};
 
-	const pauseTimer = () => {
+	/* const pauseTimer = () => {
 		if (timer !== null)
 		{
 			window.clearInterval(timer);
 			setTimer(null);
 		}
-	};
+	}; */
 
 	const startTimer = () => {
 		const id = window.setInterval(() => passTime(), 1000);
@@ -106,12 +106,12 @@ const Timer = (props: TimerProps) => {
 						icon={<PlayCircleOutlined/>}>
 						Start
 					</Button>
-					<Button
+					{/* <Button
 						onClick={pauseTimer}
 						disabled={timer === null}
 						icon={<PauseCircleOutlined/>}>
 						Pause
-					</Button>
+					</Button> */}
 					<Button
 						onClick={resetTimer}
 						disabled={timer !== null && timePassed !== 0}
@@ -119,12 +119,14 @@ const Timer = (props: TimerProps) => {
 						Reset
 					</Button>
 				</Space>
-				<Button
-					type={"text"}
-					onClick={stopAlarm}
-					className={timePassed < roundLength ? styles.hidden : ""}>
-					Stop the music
-				</Button>
+				{
+					timePassed >= roundLength &&
+					<Button
+						type={"text"}
+						onClick={stopAlarm}>
+						Stop the music
+					</Button>
+				}
 			</Space>
 		</div>
 	);
