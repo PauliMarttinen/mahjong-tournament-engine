@@ -15,7 +15,7 @@ import { appActionCreators } from "../../../state";
 const BigScreen = () => {
 	const tournament = useTournament();
 	const dispatch = useDispatch();
-	const [currentStep, setCurrentStep] = useState<number>(0);
+	const [currentStep, setCurrentStep] = useState<number>(-1);
 	const steps = useMemo(() => getSteps(tournament), []);
 	
 	const {setBigScreen} = bindActionCreators(appActionCreators, dispatch);
