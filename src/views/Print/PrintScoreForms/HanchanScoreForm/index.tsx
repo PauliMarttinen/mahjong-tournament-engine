@@ -30,12 +30,14 @@ const HanchanScoreForm = (props: HanchanScoreFormProps) => {
 					<th className={styles.cell}>Raw</th>
 					<th className={styles.cell}>Uma</th>
 					<th className={styles.cell}>Penalty</th>
+					<th className={styles.cell}>Signature</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td className={styles.windCell}>東</td>
 					<td className={`${styles.cell} ${styles.nameCell}`}>{nameless ? "" : props.form.eastPlayer}</td>
+					<td className={styles.cell}>{null}</td>
 					<td className={styles.cell}>{null}</td>
 					<td className={styles.cell}>{null}</td>
 					<td className={styles.cell}>{null}</td>
@@ -46,6 +48,7 @@ const HanchanScoreForm = (props: HanchanScoreFormProps) => {
 					<td className={styles.cell}>{null}</td>
 					<td className={styles.cell}>{null}</td>
 					<td className={styles.cell}>{null}</td>
+					<td className={styles.cell}>{null}</td>
 				</tr>
 				<tr>
 					<td className={styles.windCell}>西</td>
@@ -53,10 +56,12 @@ const HanchanScoreForm = (props: HanchanScoreFormProps) => {
 					<td className={styles.cell}>{null}</td>
 					<td className={styles.cell}>{null}</td>
 					<td className={styles.cell}>{null}</td>
+					<td className={styles.cell}>{null}</td>
 				</tr>
 				<tr>
 					<td className={styles.windCell}>北</td>
 					<td className={`${styles.cell} ${styles.nameCell}`}>{nameless ? "" : props.form.northPlayer}</td>
+					<td className={styles.cell}>{null}</td>
 					<td className={styles.cell}>{null}</td>
 					<td className={styles.cell}>{null}</td>
 					<td className={styles.cell}>{null}</td>

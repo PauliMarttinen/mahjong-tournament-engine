@@ -1,14 +1,11 @@
 import Round from "./Round/";
-import type { Game } from "../../../data-types/tournament-data-types";
-import { generateArray } from "../../../utils/generateArray";
+import type { Round as RoundType, Game } from "../../../data-types/tournament-data-types";
 import useTournament from "../../../utils/hooks/useTournament";
 import bodyNoMargin from "../../../utils/bodyNoMargin";
 import { useEffect } from "react";
 
 const PrintFullSchedule = () => {
 	const tournament = useTournament();
-
-	const rounds = generateArray(tournament.info.rounds.length);
 
 	useEffect(() => {
 		bodyNoMargin();
@@ -17,10 +14,11 @@ const PrintFullSchedule = () => {
 	return (
 		<>
 			{
-				rounds.map((roundId: number) => (
+				tournament.info.rounds.map((round: RoundType, roundId: number) => (
 					<Round
 						key={`round-tr-${roundId}`}
 						roundId={roundId}
+						round={round}
 						games={tournament.games.filter((game: Game) => game.round === roundId)}
 						playerList={tournament.playerList}
 					/>
