@@ -27,11 +27,17 @@ const TournamentInfoView = () => {
 
 	const setRounds = (count: number): void => {
 		const newRoundsArray = Array(count).fill(emptyRound);
-		const now = new Date().toISOString();
+		const now = new Date();
+		const year = now.getFullYear().toString();
+		const month = now.getMonth().toString().padStart(2, "0");
+		const day = now.getDate().toString().padStart(2, "0");
+		const hours = now.getHours().toString().padStart(2, "0");
+		const minutes = now.getMinutes().toString().padStart(2, "0");
+
 		setCurrentInfo({
 			...currentInfo,
 			rounds: newRoundsArray.map((_: Round) => ({
-				scheduledStart: now,
+				scheduledStart: `${year}-${month}-${day}T${hours}:${minutes}`,
 				realStart: ""
 			}))
 		});
