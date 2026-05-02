@@ -3,34 +3,6 @@ import { generateArray } from "../../../../utils/generateArray";
 import { BigScreenStates } from "./setBigScreenState";
 import { getLastFinishedRound } from "../../../../utils/getLastFinishedRound";
 
-const getTimerDescription = (roundId: number, lastFinishedRound: number): string => {
-	if (roundId < lastFinishedRound+1)
-	{
-		return `Round ${roundId+1} has passed.`;
-	}
-	if (roundId === lastFinishedRound+1)
-	{
-		return `Round ${roundId+1} is next.`;
-	}
-	return `Timer for round ${roundId+1} won't be accessible until round ${roundId} is finished first.`;
-};
-
-const getStandingsDescription = (roundId: number, lastFinishedRound: number): string => {
-	if (roundId <= lastFinishedRound)
-	{
-		return `Round ${roundId+1} is finished.`;
-	}
-
-	return `Standings for round ${roundId+1} won't be available until the round is finished.`;
-};
-
-const getFinalDescription = (roundCount: number, lastFinishedRound: number): string => {
-	if (lastFinishedRound !== roundCount-1)
-		return `Final results won't be available until round ${roundCount} is finished.`;
-
-	return "Finals results are available!";
-};
-
 export const getSteps = (tournament: Tournament) => {
 	const lastFinishedRound = getLastFinishedRound(tournament);
 
@@ -50,7 +22,7 @@ export const getSteps = (tournament: Tournament) => {
 					roundId
 				},
 				disabled: roundId !== lastFinishedRound+1,
-				description: getTimerDescription(roundId, lastFinishedRound)
+				description: `Round ${roundId+1} is next.`
 			}];
 			if (roundId < tournament.info.rounds.length-1)
 			{
@@ -60,8 +32,8 @@ export const getSteps = (tournament: Tournament) => {
 						type: BigScreenStates.Standings,
 						roundId
 					},
-					disabled: roundId > lastFinishedRound,
-					description: getStandingsDescription(roundId, lastFinishedRound)
+					disabled: roundId !== lastFinishedRound,
+					description: `Round ${roundId+1} is finished.`
 				});
 			}
 			return roundSteps;
@@ -72,7 +44,7 @@ export const getSteps = (tournament: Tournament) => {
 				type: BigScreenStates.Final
 			},
 			disabled: lastFinishedRound !== tournament.info.rounds.length-1,
-			description: getFinalDescription(tournament.info.rounds.length, lastFinishedRound)
+			description: "Final results are available!"
 		}
-	];
+	].filter((step) => !step.disabled);
 };

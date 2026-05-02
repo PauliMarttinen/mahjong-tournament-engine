@@ -1,4 +1,3 @@
-import { useState } from "react";
 import StandingsDisplay from "../../../../../components/Standings";
 import styles from "./Standings.module.css";
 import simplifyTime from "../../../../../utils/simplifyTime";
@@ -10,7 +9,6 @@ type StandingsProps = {
 
 const Standings = (props: StandingsProps) => {
 	const tournament = useTournament();
-	const [message, setMessage] = useState<string>("");
 
 	return (
 		<div>
