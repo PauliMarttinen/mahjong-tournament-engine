@@ -12,6 +12,7 @@ export enum Routes {
 	BigScreenPopup = "/tournament/big-screen/popup",
 	PrintOuts = "/tournament/print-outs",
 	EditPlayers = "/tournament/edit-players",
+	EditSchedule = "/tournament/edit-schedule",
 	FinalResults = "/tournament/final-results",
 	PlayerPerformance = "/tournament/player-performance",
 	FullSchedule = "/print/full-schedule",

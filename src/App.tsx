@@ -14,6 +14,7 @@ import BigScreenPopup from "./views/Tournament/BigScreen/BigScreenPopup";
 import PrintOuts from "./views/Tournament/PrintOuts";
 import Entrance from "./views/Entrance";
 import EditPlayers from "./views/Tournament/EditPlayers";
+import EditSchedule from "./views/Tournament/EditSchedule";
 import PrintPersonalSchedules from "./views/Print/PrintPersonalSchedules";
 import PrintReportCards from "./views/Print/PrintReportCards";
 import PrintScoreForms from "./views/Print/PrintScoreForms";
@@ -107,6 +108,7 @@ const App = () => {
 									<Route path={"big-screen"} element={<BigScreen/>}/>
 									<Route path={"print-outs"} element={<PrintOuts/>}/>
 									<Route path={"edit-players"} element={<EditPlayers/>}/>
+									<Route path={"edit-schedule"} element={<EditSchedule/>}/>
 									<Route path={"final-results"} element={<FinalResults/>}/>
 									<Route path={"player-performance"} element={<PlayerPerformance/>}/>
 								</Route>

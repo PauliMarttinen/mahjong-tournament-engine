@@ -15,7 +15,8 @@ import {
 	TeamOutlined,
 	FormOutlined,
 	SaveOutlined,
-	ExportOutlined
+	ExportOutlined,
+	CalendarOutlined
 } from "@ant-design/icons";
 import saveTournamentFile from "../../../utils/saveTournamentFile";
 import saveSeatingFile from "../../../utils/saveSeatingFile";
@@ -58,6 +59,11 @@ const Navigation = () => {
 			label: "Edit Players",
 			key: Routes.EditPlayers,
 			icon: <TeamOutlined/>
+		},
+		{
+			label: "Edit schedule",
+			key: Routes.EditSchedule,
+			icon: <CalendarOutlined/>
 		},
 		{
 			label: "Print-outs/PDFs",
