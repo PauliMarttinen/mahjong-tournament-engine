@@ -1,4 +1,6 @@
 import styles from "./DateTimePicker.module.css";
+import dayjs from "dayjs";
+import { DatePicker, TimePicker } from "antd";
 
 type DateTimePickerProps = {
 	onChange: (newValue: string) => void,
@@ -14,21 +16,26 @@ const DateTimePicker = (props: DateTimePickerProps) => {
 	const parsedDate = date || currentDate;
 	const parsedTime = time?.slice(0, 5) || currentTime;
 
-	const handleChange = (newDate: string, newTime: string) => {
-		props.onChange(`${newDate}T${newTime}:00`);
+	const handleDateChange = (newDate: dayjs.Dayjs) => {
+		props.onChange(`${newDate.format("YYYY-MM-DD")}T${parsedTime}`);
+	};
+
+	const handleTimeChange = (newTime: dayjs.Dayjs) => {
+		props.onChange(`${parsedDate}T${newTime.format("HH:mm")}`);
 	};
 
 	return (
 		<div className={styles.DateTimePicker}>
-			<input
-				type={"date"}
-				value={parsedDate}
-				onChange={(e) => handleChange(e.target.value, parsedTime)}
+			<DatePicker
+				allowClear={false}
+				value={dayjs(parsedDate, "YYYY-MM-DD")}
+				onChange={handleDateChange}
 			/>
-			<input
-				type={"time"}
-				value={parsedTime}
-				onChange={(e) => handleChange(parsedDate, e.target.value)}
+			<TimePicker
+				allowClear={false}
+				value={dayjs(parsedTime, "HH:mm")}
+				format={"HH:mm"}
+				onChange={handleTimeChange}
 			/>
 		</div>
 	);
