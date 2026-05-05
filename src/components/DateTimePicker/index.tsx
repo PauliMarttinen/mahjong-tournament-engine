@@ -1,6 +1,7 @@
 import styles from "./DateTimePicker.module.css";
 import dayjs from "dayjs";
 import { DatePicker, TimePicker } from "antd";
+import getSimpleDateISOString from "../../utils/getSimpleDateISOString";
 
 type DateTimePickerProps = {
 	onChange: (newValue: string) => void,
@@ -9,10 +10,8 @@ type DateTimePickerProps = {
 
 const DateTimePicker = (props: DateTimePickerProps) => {
 	const [date, time] = props.value.split("T");
-	const current = new Date().toISOString();
-	const currentDate = current.split("T")[0];
-	const currentTime = current.split("T")[1].slice(0, 5);
 	
+	const [currentDate, currentTime] = getSimpleDateISOString().split("T");
 	const parsedDate = date || currentDate;
 	const parsedTime = time?.slice(0, 5) || currentTime;
 

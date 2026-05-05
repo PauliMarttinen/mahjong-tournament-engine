@@ -28,6 +28,22 @@ const EditSchedule = () => {
 		}))
 	};
 
+	const clearRealStart = (roundId: number) => {
+		const updatedRounds = currentRounds.map((round: Round, index: number) => {
+			if (index === roundId) return {
+				...round,
+				realStart: ""
+			};
+
+			return round;
+		});
+
+		editTournamentInfo({
+			...tournament.info,
+			rounds: updatedRounds
+		});
+	};
+
 	const saveChanges = (): void => {
 		const sortedRounds = [...currentRounds].sort((a, b) => 
 			new Date(a.scheduledStart).getTime() - new Date(b.scheduledStart).getTime()
@@ -47,6 +63,11 @@ const EditSchedule = () => {
 			<LayoutContent className={styles.editSchedule}>
 				<table>
 					<tbody>
+						<th scope={"row"}></th>
+						<th scope={"row"}>Scheduled start time</th>
+						<th scope={"row"}></th>
+						<th scope={"row"}>Actual start time</th>
+						<th scope={"row"}></th>
 						{
 							currentRounds.map((round: Round, roundId: number) => (
 								<tr key={`round-${roundId}`}>
@@ -64,6 +85,17 @@ const EditSchedule = () => {
 											&&
 											"*"
 										}
+									</td>
+									<td>
+										{
+											round.realStart.replace("T", " ")
+										}
+									</td>
+									<td>
+										<Button
+											onClick={() => clearRealStart(roundId)}>
+											Clear actual
+										</Button>
 									</td>
 								</tr>
 							))

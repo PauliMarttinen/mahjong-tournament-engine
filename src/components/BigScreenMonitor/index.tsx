@@ -3,22 +3,44 @@ import {
 	STATE_MESSAGE_IDENTIFIER,
 	PING_MESSAGE_IDENTIFIER,
 	PING_INTERVAL,
-	BigScreenStates
+	BigScreenStates,
+	BigScreenActions
 } from "../../views/Tournament/BigScreen/utils/setBigScreenState";
 import useAppState from "../../utils/hooks/useAppState";
+import useTournament from "../../utils/hooks/useTournament";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { appActionCreators } from "../../state";
+import { appActionCreators, tournamentActionCreators } from "../../state";
+import getSimpleDateISOString from "../../utils/getSimpleDateISOString";
+import { Round } from "../../data-types/tournament-data-types";
 
-const BigScreenStatus = () => {
+const BigScreenMonitor = () => {
 	const timeoutRef = useRef<number | null>(null);
+	const tournament = useTournament();
 	const appState = useAppState();
 	const dispatch = useDispatch();
 
 	const {setBigScreen} = bindActionCreators(appActionCreators, dispatch);
+	const {editTournamentInfo} = bindActionCreators(tournamentActionCreators, dispatch);
 
 	const off = () => {
 		setBigScreen(null);
+	};
+
+	const startRound = (roundId: number) => {
+		const startTime = getSimpleDateISOString(true);
+		const updatedRounds = tournament.info.rounds.map((round: Round, index: number) => {
+			if (index === roundId) return {
+				...round,
+				realStart: startTime
+			};
+			
+			return round;
+		});
+		editTournamentInfo({
+			...tournament.info,
+			rounds: updatedRounds
+		});
 	};
 
 	const handleStorageEvent = (event: StorageEvent) => {
@@ -34,10 +56,15 @@ const BigScreenStatus = () => {
 		if (event.key === STATE_MESSAGE_IDENTIFIER && event.newValue)
 		{
 			try {
-				const stateChange = JSON.parse(event.newValue);
-				if (stateChange.type === BigScreenStates.Off)
+				const message = JSON.parse(event.newValue);
+				switch (message.type)
 				{
-					off();
+					case BigScreenStates.Off:
+						off();
+						break;
+					case BigScreenActions.StartRound:
+						startRound(message.payload);
+						break
 				}
 			}
 			catch (e) {}
@@ -56,15 +83,15 @@ const BigScreenStatus = () => {
 	}, []);
 
 	/**Uncomment for debugging. */
-	/* 
-	return (
+	
+	/* return (
 		<div style={{background: "white"}}>
 			Big Screen Status: {appState.bigScreen && !appState.bigScreen.closed ? "on" : "off"}
 		</div>
-	);
-	*/
+	); */
+	
 
 	return <></>;
 };
 
-export default BigScreenStatus;
+export default BigScreenMonitor;

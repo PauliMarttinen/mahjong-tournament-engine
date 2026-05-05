@@ -10,6 +10,10 @@ export enum BigScreenStates {
 	Off = "Off"
 };
 
+export enum BigScreenActions {
+	StartRound = "StartRound",
+};
+
 export const setBigScreenState = (state: object) => {
 	localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify(state));
 };

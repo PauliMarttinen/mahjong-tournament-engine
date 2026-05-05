@@ -20,7 +20,7 @@ import {
 } from "@ant-design/icons";
 import saveTournamentFile from "../../../utils/saveTournamentFile";
 import saveSeatingFile from "../../../utils/saveSeatingFile";
-import BigScreenStatus from "../../../components/BigScreenStatus";
+import BigScreenMonitor from "../../../components/BigScreenMonitor";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -127,7 +127,7 @@ const Navigation = () => {
 				onClick={onClickAction}
 				selectedKeys={[]}
 			/>
-			<BigScreenStatus/>
+			<BigScreenMonitor/>
 		</>
 	);
 };

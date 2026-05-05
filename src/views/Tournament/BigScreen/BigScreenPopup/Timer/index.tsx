@@ -4,6 +4,8 @@ import styles from "./Timer.module.css";
 import {PlayCircleOutlined, /* PauseCircleOutlined, */ TrademarkCircleOutlined} from "@ant-design/icons";
 import alarmAudio from "./alarm.wav";
 import useTournament from "../../../../../utils/hooks/useTournament";
+import collectGarbage from "../utils/collectGarbage";
+import { STATE_MESSAGE_IDENTIFIER, BigScreenActions } from "../../utils/setBigScreenState";
 
 type TimerProps = {
 	roundId: number,
@@ -11,7 +13,7 @@ type TimerProps = {
 
 const Timer = (props: TimerProps) => {
 	const tournament = useTournament();
-	const roundLength = 15;//tournament.info.roundLength*60;
+	const roundLength = tournament.info.roundLength*60;
 	
 	const [timePassed, setTimePassed] = useState<number>(0);
 	const [timer, setTimer] = useState<number | null>(null);
@@ -35,9 +37,18 @@ const Timer = (props: TimerProps) => {
 		}
 	}; */
 
-	const startTimer = () => {
+	const startTimer = (stopPropagation?: boolean) => {
 		const id = window.setInterval(() => passTime(), 1000);
 		setTimer(id);
+
+		if (!stopPropagation)
+		{
+			localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify({
+				type: BigScreenActions.StartRound,
+				payload: props.roundId
+			}));
+			collectGarbage();
+		}
 	};
 
 	const stopAlarm = () => {
@@ -51,6 +62,7 @@ const Timer = (props: TimerProps) => {
 	};
 
 	useEffect(() => {
+		//Timer resizer
 		const updateSize = () => {
 			const height = window.innerHeight-250;
 			const width = window.innerWidth-250;
@@ -58,6 +70,21 @@ const Timer = (props: TimerProps) => {
 		};
 		updateSize();
 		window.addEventListener("resize", updateSize);
+
+		//See if the round is already ongoing
+		if (tournament.info.rounds[props.roundId].realStart !== "")
+		{
+			const nowMs = new Date().getTime();
+			const roundStartMs = new Date(tournament.info.rounds[props.roundId].realStart).getTime();
+			const difference = Math.floor((nowMs - roundStartMs)/1000);
+			if (difference <= roundLength*60)
+			{
+				setTimePassed(difference);
+				startTimer(true);
+			}
+		}
+
+		//Remove timer resized when leaving the timer
 		return () => window.removeEventListener("resize", updateSize);
 	}, []);
 
@@ -101,7 +128,7 @@ const Timer = (props: TimerProps) => {
 				/>
 				<Space>
 					<Button
-						onClick={startTimer}
+						onClick={() => startTimer()}
 						disabled={timer !== null}
 						icon={<PlayCircleOutlined/>}>
 						Start

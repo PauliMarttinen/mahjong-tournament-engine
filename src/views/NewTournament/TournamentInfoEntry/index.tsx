@@ -12,6 +12,7 @@ import {Input, Space, Card, Button} from "antd";
 import MandatoryAsterisk from "../../../components/MandatoryAsterisk";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 import { emptyRound } from "../../../state/reducers/newTournamentReducer";
+import getSimpleDateISOString from "../../../utils/getSimpleDateISOString";
 
 const TournamentInfoView = () => {
 	const navigate = useNavigate();
@@ -27,17 +28,12 @@ const TournamentInfoView = () => {
 
 	const setRounds = (count: number): void => {
 		const newRoundsArray = Array(count).fill(emptyRound);
-		const now = new Date();
-		const year = now.getFullYear().toString();
-		const month = (now.getMonth() + 1).toString().padStart(2, "0");
-		const day = now.getDate().toString().padStart(2, "0");
-		const hours = now.getHours().toString().padStart(2, "0");
-		const minutes = now.getMinutes().toString().padStart(2, "0");
+		const dateTime = getSimpleDateISOString();
 
 		setCurrentInfo({
 			...currentInfo,
 			rounds: newRoundsArray.map((_: Round) => ({
-				scheduledStart: `${year}-${month}-${day}T${hours}:${minutes}`,
+				scheduledStart: dateTime,
 				realStart: ""
 			}))
 		});

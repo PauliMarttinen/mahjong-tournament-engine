@@ -9,18 +9,14 @@ import Standings from "./Standings";
 import FinalResults from "./FinalResults";
 import Welcome from "./Welcome";
 import Timer from "./Timer";
+import collectGarbage from "./utils/collectGarbage";
 
 const BigScreenPopup = () => {
 	const [pinger, setPinger] = useState<number | null>(null);
 	const [state, setState] = useState<BigScreenStates|null>(null);
 	const [currentRoundId, setCurrentRoundId] = useState<number>(0);
-	
-	const collectGarbage = () => {
-		localStorage.removeItem(STATE_MESSAGE_IDENTIFIER);
-	};
 
 	const applyAction = (action: {type: BigScreenStates, roundId?: number}) => {
-		setState(action.type);
 		switch (action.type)
 		{
 			case BigScreenStates.Welcome:
@@ -32,6 +28,7 @@ const BigScreenPopup = () => {
 				setCurrentRoundId(action.roundId ?? 0);
 				break;
 		}
+		setState(action.type);
 	};
 
 	const initialAction = () => {
@@ -55,7 +52,7 @@ const BigScreenPopup = () => {
 			catch (e) {}
 		}
 
-		localStorage.removeItem(STATE_MESSAGE_IDENTIFIER);
+		collectGarbage();
 	};
 
 	const ping = () => {
