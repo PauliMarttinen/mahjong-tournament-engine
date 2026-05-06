@@ -19,7 +19,7 @@ import PrintPersonalSchedules from "./views/Print/PrintPersonalSchedules";
 import PrintReportCards from "./views/Print/PrintReportCards";
 import PrintScoreForms from "./views/Print/PrintScoreForms";
 import PrintFullSchedule from "./views/Print/PrintFullSchedule";
-import FinalResults from "./views/Tournament/FinalResults";
+/* import FinalResults from "./views/Tournament/FinalResults"; */
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
 import Navigation from "./views/Tournament/Navigation";
 import { Layout, ConfigProvider, theme, Button } from "antd";
@@ -109,7 +109,7 @@ const App = () => {
 									<Route path={"print-outs"} element={<PrintOuts/>}/>
 									<Route path={"edit-players"} element={<EditPlayers/>}/>
 									<Route path={"edit-schedule"} element={<EditSchedule/>}/>
-									<Route path={"final-results"} element={<FinalResults/>}/>
+									{/* <Route path={"final-results"} element={<FinalResults/>}/> */}
 									<Route path={"player-performance"} element={<PlayerPerformance/>}/>
 								</Route>
 							</Routes>

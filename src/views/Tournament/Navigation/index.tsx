@@ -9,7 +9,6 @@ import useTournament from "../../../utils/hooks/useTournament";
 import {
 	LineChartOutlined,
 	OrderedListOutlined,
-	TrophyOutlined,
 	PrinterOutlined,
 	TableOutlined,
 	TeamOutlined,
@@ -34,99 +33,92 @@ const Navigation = () => {
 	const location = useLocation();
 	const tournament = useTournament();
 
-	const navigationItems: MenuItem[] = [
-		{
-			label: "Overview",
-			key: Routes.Overview,
-			icon: <TableOutlined/>
-		},
-		{
-			label: "Hanchan results",
-			key: Routes.HanchanResults,
-			icon: <FormOutlined/>
-		},
-		{
-			label: "Standings",
-			key: Routes.Standings,
-			icon: <OrderedListOutlined/>
-		},
-		{
-			label: "Big Screen",
-			key: Routes.BigScreen,
-			icon: <ExportOutlined/>
-		},
-		{
-			label: "Edit Players",
-			key: Routes.EditPlayers,
-			icon: <TeamOutlined/>
-		},
-		{
-			label: "Edit schedule",
-			key: Routes.EditSchedule,
-			icon: <CalendarOutlined/>
-		},
-		{
-			label: "Print-outs/PDFs",
-			key: Routes.PrintOuts,
-			icon: <PrinterOutlined/>
-		},
-		{
-			label: "Final Results",
-			key: Routes.FinalResults,
-			icon: <TrophyOutlined/>
-		},
-		{
-			label: "Player Performance",
-			key: Routes.PlayerPerformance,
-			icon: <LineChartOutlined/>
-		}		
+	const menus: MenuItem[][] = [
+		[
+			{
+				label: "Overview",
+				key: Routes.Overview,
+				icon: <TableOutlined/>
+			},
+			{
+				label: "Hanchan results",
+				key: Routes.HanchanResults,
+				icon: <FormOutlined/>
+			},
+			{
+				label: "Standings",
+				key: Routes.Standings,
+				icon: <OrderedListOutlined/>
+			},
+			{
+				label: "Edit Players",
+				key: Routes.EditPlayers,
+				icon: <TeamOutlined/>
+			},
+			{
+				label: "Edit schedule",
+				key: Routes.EditSchedule,
+				icon: <CalendarOutlined/>
+			},
+			{
+				label: "Print-outs/PDFs",
+				key: Routes.PrintOuts,
+				icon: <PrinterOutlined/>
+			},
+			{
+				label: "Player Performance",
+				key: Routes.PlayerPerformance,
+				icon: <LineChartOutlined/>
+			}
+		],
+		[
+			{
+				label: "Big Screen",
+				key: Routes.BigScreen,
+				icon: <ExportOutlined/>
+			}
+		],
+		[
+			{
+				label: "Save tournament file",
+				key: Actions.SaveTournamentFile,
+				icon: <SaveOutlined/> 
+			},
+			{
+				label: "Save seating file",
+				key: Actions.SaveSeatingFile,
+				icon: <SaveOutlined/>
+			}
+		]
 	];
 
-	const actionItems: MenuItem[] = [
-		{
-			label: "Save tournament file",
-			key: Actions.SaveTournamentFile,
-			icon: <SaveOutlined/> 
-		},
-		{
-			label: "Save seating file",
-			key: Actions.SaveSeatingFile,
-			icon: <SaveOutlined/>
-		}
-	];
-
-	const onClickNavigation = (e: MenuInfo) => {
-		navigate(e.key);
-	};
-
-	const onClickAction = (e: MenuInfo) => {
-		switch (e.key)
-		{
+	const onClick = (e: MenuInfo) => {
+		switch (e.key) {
 			case Actions.SaveTournamentFile:
 				saveTournamentFile(tournament);
 				break;
 			case Actions.SaveSeatingFile:
 				saveSeatingFile(tournament);
 				break;
-		}
+			default:
+				navigate(e.key);
+				break;
+		};
 	};
 
 	return (
 		<>
-			<Menu
-				className={styles.navigation}
-				items={navigationItems}
-				theme={"dark"}
-				onClick={onClickNavigation}
-				selectedKeys={[location.pathname]}
-			/>
-			<Menu
-				className={styles.actions}
-				items={actionItems}
-				theme={"dark"}
-				onClick={onClickAction}
-				selectedKeys={[]}
-			/>
+			{
+				menus.map((menu: MenuItem[]) => (
+					<Menu
+						className={styles.menu}
+						items={menu}
+						theme={"dark"}
+						onClick={onClick}
+						selectedKeys={[location.pathname]}
+					/>
+				))
+			}
 			<BigScreenMonitor/>
 		</>
 	);

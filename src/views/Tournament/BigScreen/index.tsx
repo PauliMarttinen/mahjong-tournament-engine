@@ -1,7 +1,7 @@
 import {useState, useMemo, useEffect} from "react";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
-import { Steps, Button, Space } from "antd";
+import { Steps, Button, Space, Card } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
 import useTournament from "../../../utils/hooks/useTournament";
 import useAppState from "../../../utils/hooks/useAppState";
@@ -12,6 +12,7 @@ import { STATE_MESSAGE_IDENTIFIER } from "./utils/setBigScreenState";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appActionCreators } from "../../../state";
+import { BigScreenStates } from "./utils/setBigScreenState";
 
 const BigScreen = () => {
 	const tournament = useTournament();
@@ -61,6 +62,16 @@ const BigScreen = () => {
 						items={steps}
 					/>
 				</Space>
+				{
+					steps[steps.length-1].stateChange.type === BigScreenStates.Final &&
+					<Card title={"Instructions for the Final Results screen"}>
+						<p>The Final Results screen will start blank.</p>
+
+						<p>Pressing space on the screen for the first time will reveal players who are placed <strong>6th or lower</strong>.</p>
+
+						<p>After that, pressing space on the screen will reveal the <strong>top 5</strong> players one-by-one, from 5th to 1st.</p>
+					</Card>
+				}
 			</LayoutContent>
 		</>
 	);
