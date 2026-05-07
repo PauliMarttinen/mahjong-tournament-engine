@@ -39,12 +39,13 @@ const SeatingTemplateEntry = () => {
 	const {editTournamentInfo, addPlayers, addGames} = bindActionCreators(tournamentActionCreators, dispatch);
 	const {setSeatingTemplateHistory, setCurrentSeatingTemplateIndex, setSeatingTemplateErrors, clearNewTournament} = bindActionCreators(newTournamentActionCreators, dispatch);
 	
-	const recommendedExists = `r${newTournament.info.rounds}p${newTournament.playerList.length}` in recommendedSeatingTemplates;
+	const recommendedIdentifier = `r${newTournament.info.rounds.length}p${newTournament.playerList.length}`;
+	const recommendedExists = recommendedIdentifier in recommendedSeatingTemplates;
 
 	const getFirstTemplate = (): SeatingTemplateHistoryItem => {
 		if (recommendedExists) {
 			return {
-				template: recommendedSeatingTemplates[`r${newTournament.info.rounds}p${newTournament.playerList.length}`],
+				template: recommendedSeatingTemplates[recommendedIdentifier],
 				type: SeatingTemplateTypes.Recommended
 			};
 		}
