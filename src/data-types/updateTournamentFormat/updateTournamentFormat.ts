@@ -1,5 +1,3 @@
-import type { Version0 } from "./version0/Version0";
-import type { Version1 } from "./version1/Version1";
 import getFileVersion from "./utils/getFileVersion";
 import convert0to1 from "./version1/convert0to1";
 import convert1to2 from "./version2/convert1to2";
@@ -15,18 +13,16 @@ type Data = {
 const updateTournamentFormat = (data: Data): object => {
 	const fileVersion = getFileVersion(data as any);
 
-	switch (fileVersion)
-	{
-		case 0:
-			return convert1to2(convert0to1(data as Version0));
-		case 1:
-			return convert1to2(data as Version1);
-		case CURRENT_DATA_VERSION:
-			return data;
-		default:
-			break;
+	if (fileVersion > CURRENT_DATA_VERSION) {
+		throw new Error("Unsupported data format version");
 	}
-	throw new Error("Unsupported data format version");
+
+	return [
+		convert0to1, convert1to2
+	].reduce((convertedData: any, convert: Function, index: number) => {
+		if (index < fileVersion) return convertedData;
+		return convert(convertedData);
+	}, data);
 };
 
 export default updateTournamentFormat;
