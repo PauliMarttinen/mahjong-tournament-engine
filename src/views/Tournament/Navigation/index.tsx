@@ -109,8 +109,9 @@ const Navigation = () => {
 	return (
 		<>
 			{
-				menus.map((menu: MenuItem[]) => (
+				menus.map((menu: MenuItem[], index: number) => (
 					<Menu
+						key={`menu-${index}`}
 						className={styles.menu}
 						items={menu}
 						theme={"dark"}
