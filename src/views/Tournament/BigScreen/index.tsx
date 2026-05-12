@@ -27,11 +27,14 @@ const BigScreen = () => {
 		if (currentStep > 0)
 			localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify(steps[currentStep].stateChange));
 		
-		setBigScreen(window.open(
-			Routes.BigScreenPopup,
-			"bigScreen",
-			"width=500,height=500"
-		));
+		if (!app.bigScreen)
+		{
+			setBigScreen(window.open(
+				Routes.BigScreenPopup,
+				"bigScreen",
+				"width=500,height=500"
+			));
+		}
 	};
 
 	const changeStep = (step: number) => {
