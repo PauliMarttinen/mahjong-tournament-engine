@@ -5,7 +5,7 @@ import useTournament from "../../../utils/hooks/useTournament";
 import { Round } from "../../../data-types/tournament-data-types";
 import DateTimePicker from "../../../components/DateTimePicker";
 import styles from "./EditSchedule.module.css";
-import { Button } from "antd";
+import { Button, Alert } from "antd";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { tournamentActionCreators } from "../../../state";
@@ -38,10 +38,7 @@ const EditSchedule = () => {
 			return round;
 		});
 
-		editTournamentInfo({
-			...tournament.info,
-			rounds: updatedRounds
-		});
+		setCurrentRounds(updatedRounds);
 	};
 
 	const saveChanges = (): void => {
@@ -107,6 +104,10 @@ const EditSchedule = () => {
 					onClick={() => saveChanges()}>
 					Save changes
 				</Button>
+				<Alert
+					className={styles.alert}
+					message={"Note: If you clear the actual start time of a round, it will be truly cleared only when saving changes."}
+				/>
 			</LayoutContent>
 		</>
 	);
