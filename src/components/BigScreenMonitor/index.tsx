@@ -12,11 +12,12 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appActionCreators, tournamentActionCreators } from "../../state";
 import getSimpleDateISOString from "../../utils/getSimpleDateISOString";
-import { Round } from "../../data-types/tournament-data-types";
+import { Round, Tournament } from "../../data-types/tournament-data-types";
 
 const BigScreenMonitor = () => {
 	const timeoutRef = useRef<number | null>(null);
 	const tournament = useTournament();
+	const tournamentRef = useRef<Tournament>(tournament);
 	const appState = useAppState();
 	const dispatch = useDispatch();
 
@@ -29,7 +30,7 @@ const BigScreenMonitor = () => {
 
 	const startRound = (roundId: number) => {
 		const startTime = getSimpleDateISOString(true);
-		const updatedRounds = tournament.info.rounds.map((round: Round, index: number) => {
+		const updatedRounds = tournamentRef.current.info.rounds.map((round: Round, index: number) => {
 			if (index === roundId) return {
 				...round,
 				realStart: startTime
@@ -41,13 +42,21 @@ const BigScreenMonitor = () => {
 			...tournament.info,
 			rounds: updatedRounds
 		});
+
+		tournamentRef.current = {
+			...tournamentRef.current,
+			info: {
+				...tournamentRef.current.info,
+				rounds: updatedRounds
+			}
+		};
 	};
 
 	const handleStorageEvent = (event: StorageEvent) => {
 		if (event.key === PING_MESSAGE_IDENTIFIER && event.newValue)
 		{
 			if (timeoutRef.current !== null)
-				{
+			{
 				window.clearTimeout(timeoutRef.current);
 			}
 			timeoutRef.current = window.setTimeout(off, PING_INTERVAL + 500);
