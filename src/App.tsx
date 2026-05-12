@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useTournament from "./utils/hooks/useTournament";
 import useAppState from "./utils/hooks/useAppState";
-import TournametInfoEntry from "./views/NewTournament/TournamentInfoEntry";
+import TournamentInfoEntry from "./views/NewTournament/TournamentInfoEntry";
 import ScheduleEntry from "./views/NewTournament/ScheduleEntry";
 import PlayerEntry from "./views/NewTournament/PlayerEntry";
 import SeatingTemplateEntry from "./views/NewTournament/SeatingTemplateEntry";
@@ -19,7 +19,6 @@ import PrintPersonalSchedules from "./views/Print/PrintPersonalSchedules";
 import PrintReportCards from "./views/Print/PrintReportCards";
 import PrintScoreForms from "./views/Print/PrintScoreForms";
 import PrintFullSchedule from "./views/Print/PrintFullSchedule";
-/* import FinalResults from "./views/Tournament/FinalResults"; */
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
 import Navigation from "./views/Tournament/Navigation";
 import { Layout, ConfigProvider, theme, Button } from "antd";
@@ -30,7 +29,8 @@ import Affix from "./components/Affix";
 const App = () => {
 	const appState = useAppState();
 	const tournament = useTournament();
-	const [darkmode, setDarkmode] = useState<boolean>(false);
+	const [darkmode, setDarkmode] = useState<boolean>(true);
+	const config = {algorithm: darkmode ? theme.darkAlgorithm : theme.defaultAlgorithm};
 
 	useEffect(() => {
 		bodyNoMargin();
@@ -50,9 +50,11 @@ const App = () => {
 						</Route>
 						<Route path={"/tournament/big-screen/popup"} element={<BigScreenPopup/>}/>
 						<Route path={"*"} element={
-							<Layout className={styles.layout}>
-								<Entrance/>
-							</Layout>
+							<ConfigProvider theme={config}>
+								<Layout className={styles.layout}>
+									<Entrance/>
+								</Layout>
+							</ConfigProvider>
 						}/>
 					</Routes>
 				</BrowserRouter>
@@ -65,18 +67,20 @@ const App = () => {
 		return (
 			<div className={"mahjongTournamentEngine"}>
 				<BrowserRouter>
-					<Layout className={styles.layout}>
-						<Routes>
-							<Route index element={<TournametInfoEntry/>}/>
-							<Route path={"/new"}>
-								<Route index element={<TournametInfoEntry/>}/>
-								<Route path={"basic"} element={<TournametInfoEntry/>}/>
-								<Route path={"schedule"} element={<ScheduleEntry/>}/>
-								<Route path={"players"} element={<PlayerEntry/>}/>
-								<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
-							</Route>
-						</Routes>
-					</Layout>
+					<ConfigProvider theme={config}>
+						<Layout className={styles.layout}>
+							<Routes>
+								<Route index element={<TournamentInfoEntry/>}/>
+								<Route path={"/new"}>
+									<Route index element={<TournamentInfoEntry/>}/>
+									<Route path={"basic"} element={<TournamentInfoEntry/>}/>
+									<Route path={"schedule"} element={<ScheduleEntry/>}/>
+									<Route path={"players"} element={<PlayerEntry/>}/>
+									<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
+								</Route>
+							</Routes>
+						</Layout>
+					</ConfigProvider>
 				</BrowserRouter>
 			</div>
 		);
@@ -86,7 +90,7 @@ const App = () => {
 		<div className={"mahjongTournamentEngine"}>
 			<BrowserRouter>
 				<ConfigProvider
-					theme={{algorithm: darkmode ? theme.darkAlgorithm : theme.defaultAlgorithm}}>
+					theme={config}>
 					<Affix>
 						<Button
 							type={"default"}

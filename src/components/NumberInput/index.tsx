@@ -13,6 +13,12 @@ type NumberInputProps = {
 const NumberInput = (props: NumberInputProps) => {
 	const className = `${styles.NumberInput} ${props.className ? props.className : ""}`;
 
+	const directChange = (newValue: number|null) => {
+		if (newValue === null) return;
+
+		props.onChange(newValue);
+	};
+
 	return (
 		<div className={className}>
 			<Button
@@ -24,7 +30,8 @@ const NumberInput = (props: NumberInputProps) => {
 			<InputNumber
 				className={styles.input}
 				value={props.value}
-				disabled={true}
+				controls={false}
+				onChange={directChange}
 			/>
 			<Button
 				type={"default"}
