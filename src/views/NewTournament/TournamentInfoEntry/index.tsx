@@ -1,5 +1,5 @@
-import { useState } from "react";
-import type { GeneralInfo } from "../../../data-types/tournament-data-types";
+import { useState, useEffect } from "react";
+import type { GeneralInfo, Round } from "../../../data-types/tournament-data-types";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { newTournamentActionCreators } from "../../../state";
@@ -11,6 +11,8 @@ import styles from "./TournamentInfoEntry.module.css";
 import {Input, Space, Card, Button} from "antd";
 import MandatoryAsterisk from "../../../components/MandatoryAsterisk";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
+import { emptyRound } from "../../../state/reducers/newTournamentReducer";
+import getSimpleDateISOString from "../../../utils/getSimpleDateISOString";
 
 const TournamentInfoView = () => {
 	const navigate = useNavigate();
@@ -21,8 +23,25 @@ const TournamentInfoView = () => {
 
 	const onSave = (): void => {
 		addGeneralInfo(currentInfo);
-		navigate(Routes.PlayerEntry);
+		navigate(Routes.ScheduleEntry);
 	};
+
+	const setRounds = (count: number): void => {
+		const newRoundsArray = Array(count).fill(emptyRound);
+		const dateTime = getSimpleDateISOString();
+
+		setCurrentInfo({
+			...currentInfo,
+			rounds: newRoundsArray.map((_: Round) => ({
+				scheduledStart: dateTime,
+				realStart: ""
+			}))
+		});
+	};
+
+	useEffect(() => {
+		setRounds(initialState.info.rounds.length);
+	}, []);
 
 	return (
 		<>
@@ -38,11 +57,18 @@ const TournamentInfoView = () => {
 							onChange={(e): void => setCurrentInfo({...currentInfo, title: e.target.value})}
 						/>
 					</Card>
-					<Card title={"Number of rounds"}>
+					<Card title={"Rounds"}>
+						<label>Number of rounds</label>
 						<NumberInput
 							minimum={1}
-							value={currentInfo.rounds}
-							onChange={(newValue: number): void => setCurrentInfo({...currentInfo, rounds: newValue})}
+							value={currentInfo.rounds.length}
+							onChange={(newValue: number): void => setRounds(newValue)}
+						/>
+						<label>Round length (minutes)</label>
+						<NumberInput
+							minimum={1}
+							value={currentInfo.roundLength}
+							onChange={(newValue: number): void => setCurrentInfo({...currentInfo, roundLength: newValue})}
 						/>
 					</Card>
 					<div className={styles.button}>

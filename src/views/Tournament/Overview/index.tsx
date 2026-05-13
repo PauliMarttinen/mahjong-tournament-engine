@@ -14,7 +14,7 @@ const Overview = () => {
 	const resultsEnterMode = false;
 	const tournament = useTournament();
 
-	const rounds = generateArray(tournament.info.rounds);
+	const rounds = generateArray(tournament.info.rounds.length);
 	const tables = generateArray(tournament.playerList.length/4);
 
 	return (

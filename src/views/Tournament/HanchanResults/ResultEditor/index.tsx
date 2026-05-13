@@ -11,13 +11,13 @@ import {formatPoints} from "../../../../utils/formatPoints";
 import styles from "./ResultEditor.module.css";
 
 type ResultEditorPros = {
-	round: number,
-	table: number
+	roundId: number,
+	tableId: number
 };
 
 const ResultEditor = (props: ResultEditorPros) => {
 	const tournament = useTournament();
-	const game = tournament.games.find((game: Game): boolean => (game.round === props.round && game.table === props.table));
+	const game = tournament.games.find((game: Game): boolean => (game.round === props.roundId && game.table === props.tableId));
 	const [safeMode, setSafeMode] = useState<boolean>(true);
 
 	const dispatch = useDispatch();
@@ -124,8 +124,8 @@ const ResultEditor = (props: ResultEditorPros) => {
 		if (!game) return;
 
 		const updatedGame: Game = {
-			round: props.round,
-			table: props.table,
+			round: props.roundId,
+			table: props.tableId,
 			finished: true,
 			participants: [
 				{
@@ -148,7 +148,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 		};
 
 		const updatedGames = tournament.games.map((currentGame: Game) => (
-			currentGame.round === props.round && currentGame.table === props.table ? updatedGame : currentGame
+			currentGame.round === props.roundId && currentGame.table === props.tableId ? updatedGame : currentGame
 		));
 
 		addGames(updatedGames);
@@ -185,24 +185,24 @@ const ResultEditor = (props: ResultEditorPros) => {
 
 	const totalsWrong = safeMode && (rawSum !== 0 || umaSum !== 0);
 
-	const eastRawMod = eastScore.raw != game.participants[0].score.raw;
-	const eastUmaMod = eastScore.uma != game.participants[0].score.uma;
-	const eastPenaltyMod = eastScore.penalty != game.participants[0].score.penalty;
+	const eastRawMod = eastScore.raw !== game.participants[0].score.raw;
+	const eastUmaMod = eastScore.uma !== game.participants[0].score.uma;
+	const eastPenaltyMod = eastScore.penalty !== game.participants[0].score.penalty;
 	const eastModified = eastRawMod || eastUmaMod || eastPenaltyMod;
 
-	const southRawMod = southScore.raw != game.participants[1].score.raw;
-	const southUmaMod = southScore.uma != game.participants[1].score.uma;
-	const southPenaltyMod = southScore.penalty != game.participants[1].score.penalty;
+	const southRawMod = southScore.raw !== game.participants[1].score.raw;
+	const southUmaMod = southScore.uma !== game.participants[1].score.uma;
+	const southPenaltyMod = southScore.penalty !== game.participants[1].score.penalty;
 	const southModified = southRawMod || southUmaMod || southPenaltyMod;
 
-	const westRawMod = westScore.raw != game.participants[2].score.raw;
-	const westUmaMod = westScore.uma != game.participants[2].score.uma;
-	const westPenaltyMod = westScore.penalty != game.participants[2].score.penalty;
+	const westRawMod = westScore.raw !== game.participants[2].score.raw;
+	const westUmaMod = westScore.uma !== game.participants[2].score.uma;
+	const westPenaltyMod = westScore.penalty !== game.participants[2].score.penalty;
 	const westModified = westRawMod || westUmaMod || westPenaltyMod;
 
-	const northRawMod = northScore.raw != game.participants[3].score.raw;
-	const northUmaMod = northScore.uma != game.participants[3].score.uma;
-	const northPenaltyMod = northScore.penalty != game.participants[3].score.penalty;
+	const northRawMod = northScore.raw !== game.participants[3].score.raw;
+	const northUmaMod = northScore.uma !== game.participants[3].score.uma;
+	const northPenaltyMod = northScore.penalty !== game.participants[3].score.penalty;
 	const northModified = northRawMod || northUmaMod || northPenaltyMod;
 	
 	/**
@@ -221,14 +221,14 @@ const ResultEditor = (props: ResultEditorPros) => {
 		<div className={styles.resultEditor}>
 			<Space direction={"vertical"}>
 				<Space>
-					<label htmlFor={`safeSwitch-${props.table}`}>Safe mode</label>
+					<label htmlFor={`safeSwitch-${props.tableId}`}>Safe mode</label>
 					<Switch
 						checked={!safeMode}
 						onChange={() => setSafeMode(!safeMode)}
 						size={"small"}
-						id={`safeSwitch-${props.table}`}
+						id={`safeSwitch-${props.tableId}`}
 					/>
-					<label htmlFor={`safeSwitch-${props.table}`}>Danger mode</label>
+					<label htmlFor={`safeSwitch-${props.tableId}`}>Danger mode</label>
 				</Space>
 				<table>
 					<thead>

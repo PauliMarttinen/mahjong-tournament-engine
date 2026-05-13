@@ -1,7 +1,7 @@
-.navigation {
+.menu:first-child {
 	padding-top: 64px;
 }
 
-.actions {
+.menu {
 	padding-top: 32px;
 }

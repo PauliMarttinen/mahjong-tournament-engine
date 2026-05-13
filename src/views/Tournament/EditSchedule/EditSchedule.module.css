@@ -1,0 +1,11 @@
+.editSchedule tr {
+	height: 30px;
+}
+
+.editSchedule th {
+	padding-right: 15px;
+}
+
+.editSchedule .alert {
+	margin: 10px 0;
+}

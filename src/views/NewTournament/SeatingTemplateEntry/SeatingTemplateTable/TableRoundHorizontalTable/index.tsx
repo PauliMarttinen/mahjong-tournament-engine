@@ -39,7 +39,7 @@ const TableRoundHorizontalTable = (props: SeatingTemplateTableProps) => {
 			<thead>
 				<tr>
 					<th>Table \ Round</th>
-					{generateArray(newTournament.info.rounds).map((roundId: number) => (
+					{generateArray(newTournament.info.rounds.length).map((roundId: number) => (
 						<th key={`th-${roundId}`} colSpan={4}>Round {roundId + 1}</th>
 					))}
 				</tr>
@@ -48,7 +48,7 @@ const TableRoundHorizontalTable = (props: SeatingTemplateTableProps) => {
 				{generateArray(newTournament.playerList.length/4).map((tableId: number) => (
 					<tr key={`tr-table-${tableId}-e`}>
 						<td>Table {tableId + 1}</td>
-						{generateArray(newTournament.info.rounds).map((roundId: number) => (
+						{generateArray(newTournament.info.rounds.length).map((roundId: number) => (
 							<>
 								<td
 									onMouseOver={() => setHighlights(tableId, roundId, seatingTemplate[tableId*4][roundId])}

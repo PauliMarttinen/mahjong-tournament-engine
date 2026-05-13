@@ -6,28 +6,36 @@ type NumberInputProps = {
 	minimum?: number,
 	maximum?: number,
 	value: number,
-	onChange: (newValue: number) => void
+	onChange: (newValue: number) => void,
+	disabled?: boolean
 };
 
 const NumberInput = (props: NumberInputProps) => {
 	const className = `${styles.NumberInput} ${props.className ? props.className : ""}`;
 
+	const directChange = (newValue: number|null) => {
+		if (newValue === null) return;
+
+		props.onChange(newValue);
+	};
+
 	return (
 		<div className={className}>
 			<Button
 				type={"default"}
-				disabled={props.minimum ? props.value === props.minimum : false}
+				disabled={props.disabled || (props.minimum ? props.value === props.minimum : false)}
 				onClick={() => props.onChange(props.value - 1)}>
 				-1
 			</Button>
 			<InputNumber
 				className={styles.input}
 				value={props.value}
-				disabled={true}
+				controls={false}
+				onChange={directChange}
 			/>
 			<Button
 				type={"default"}
-				disabled={props.maximum ? props.value === props.maximum : false}
+				disabled={props.disabled || (props.maximum ? props.value === props.maximum : false)}
 				onClick={() => props.onChange(props.value + 1)}>
 				+1
 			</Button>

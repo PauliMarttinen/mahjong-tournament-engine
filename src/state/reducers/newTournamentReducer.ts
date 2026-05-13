@@ -1,11 +1,18 @@
 import type Action from "../actions/new-tournament-actions";
 import ActionTypes from "../action-types/new-tournament-action-types";
 import type { NewTournament, SeatingTemplateHistoryItem } from "../../data-types/new-tournament-data-types";
+import type { Round } from "../../data-types/tournament-data-types";
+
+export const emptyRound: Round = {
+	scheduledStart: "",
+	realStart: "",
+};
 
 export const initialState: NewTournament = {
 	info: {
 		title: "",
-		rounds: 8
+		roundLength: 75,
+		rounds: Array(8).fill(emptyRound)
 	},
 	playerList: [],
 	seatingTemplateHistory: [],

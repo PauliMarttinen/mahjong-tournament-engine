@@ -1,20 +1,24 @@
-import type { Game, Player } from "../../../../data-types/tournament-data-types";
+import type { Round as RoundType, Game, Player } from "../../../../data-types/tournament-data-types";
+import simplifyTime from "../../../../utils/simplifyTime";
 import Games from "./Games";
 import styles from "./Round.module.css";
 
 type RoundProps = {
 	roundId: number,
+	round: RoundType,
 	games: Game[],
 	playerList: Player[]
 };
 
 const Round = (props: RoundProps) => {
+	const [date, time] = props.round.scheduledStart.split("T");
+
 	return (
 		<table className={styles.roundTable}>
 			<thead>
 				<tr>
 					<th colSpan={5}>
-						Round {props.roundId + 1}
+						Round {props.roundId + 1} ({date} - {simplifyTime(time)})
 					</th>
 				</tr>
 				<tr>

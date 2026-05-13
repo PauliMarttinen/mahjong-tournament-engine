@@ -1,7 +1,5 @@
 import { useState } from "react";
 import StandingsDisplay from "../../../components/Standings";
-import { generateArray } from "../../../utils/generateArray";
-import type { Game, Tournament } from "../../../data-types/tournament-data-types";
 import {Button, Switch, Space} from "antd";
 import {ExportOutlined} from "@ant-design/icons";
 import useTournament from "../../../utils/hooks/useTournament";
@@ -10,35 +8,37 @@ import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import RoundSelector from "../../../components/RoundSelector";
 import styles from "./Standings.module.css";
+import { getLastFinishedRound } from "../../../utils/getLastFinishedRound";
+import useAppState from "../../../utils/hooks/useAppState";
+import { BigScreenStates, setBigScreenState } from "../BigScreen/utils/setBigScreenState";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { appActionCreators } from "../../../state";
 
 const Standings = () => {
-	const getLastFinishedRound = (tournament: Tournament): number => {
-		const getGamesOfRound = (roundId: number) => tournament.games.filter((game: Game) => game.round === roundId);
-		const isRoundUnfinished = (roundId: number) => getGamesOfRound(roundId).some((game: Game): boolean => !game.finished);
-
-		const rounds = generateArray(tournament.info.rounds);
-		const firstUnfinishedRound = rounds.findIndex((roundId: number): boolean => isRoundUnfinished(roundId));
-
-		if (firstUnfinishedRound === 0)
-		{
-			return 0;
-		}
-
-		return (firstUnfinishedRound === -1 ? tournament.info.rounds : firstUnfinishedRound) - 1;    
-	};
-
-	const [standingsWindow, setStandingsWindow] = useState<WindowProxy | null>(null);
 	const tournament = useTournament();
+	const appState = useAppState();
 
-	const [afterRound, setAfterRound] = useState<number>(getLastFinishedRound(tournament));
+	const [afterRound, setAfterRound] = useState<number>(Math.max(getLastFinishedRound(tournament), 0));
 	const [plainText, setPlainText] = useState<boolean>(false);
 
+	const dispatch = useDispatch();
+	const { setBigScreen } = bindActionCreators(appActionCreators, dispatch);
+
 	const openWindow = () => {
-		setStandingsWindow(window.open(
-			`${Routes.StandingsPopup}?afterRound=${afterRound}&plainText=${plainText.toString()}`,
-			"standingsWindow",
-			"width=500,height=500"
-		));
+		setBigScreenState({
+			type: BigScreenStates.Standings,
+			roundId: afterRound
+		});
+
+		if (!appState.bigScreen || appState.bigScreen.closed)
+		{
+			setBigScreen(window.open(
+				Routes.BigScreenPopup,
+				"standingsWindow",
+				"width=500,height=500"
+			));
+		}
 	};
 
 	return (
@@ -49,7 +49,7 @@ const Standings = () => {
 					round={afterRound+1}
 					previousDisabled={afterRound === 0}
 					onPrevious={() => setAfterRound(afterRound-1)}
-					nextDisabled={afterRound === tournament.info.rounds - 1}
+					nextDisabled={afterRound === tournament.info.rounds.length - 1}
 					onNext={() => setAfterRound(afterRound+1)}
 				/>
 				<Space size={30} direction={"vertical"}>

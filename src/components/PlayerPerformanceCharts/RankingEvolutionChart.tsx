@@ -23,7 +23,7 @@ const RankingEvolutionChart = (props: RankingEvolutionChartProps) => {
 	//  properties of each line's value for that line.
 
 	//For ranking evolution, generate array of all standings from all rounds. 1) Loop through all rounds.
-	const ranking = useMemo(() => generateArray(tournament.info.rounds).map((round: number) => (
+	const ranking = useMemo(() => generateArray(tournament.info.rounds.length).map((round: number) => (
 		// 2) Get standings for current round.
 		// 3) Reformat standings into recharts data format.
 		standings[round].reduce((carry: any, current: Standing, _: number, array: Standing[]) => ({

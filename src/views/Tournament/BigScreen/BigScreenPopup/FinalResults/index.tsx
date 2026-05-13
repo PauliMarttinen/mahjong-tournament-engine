@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import type { Standing } from "../../../../data-types/tournament-data-types";
+import type { Standing } from "../../../../../data-types/tournament-data-types";
 import Confetti from "react-confetti";
-import styles from "./FinalResultsPopup.module.css";
+import styles from "./FinalResults.module.css";
 import Name from "./Name";
-import { generateArray } from "../../../../utils/generateArray";
-import useTournament from "../../../../utils/hooks/useTournament";
-import useStandings from "../../../../utils/hooks/useStandings";
+import { generateArray } from "../../../../../utils/generateArray";
+import useTournament from "../../../../../utils/hooks/useTournament";
+import useStandings from "../../../../../utils/hooks/useStandings";
 
-const FinalResultsPopup = () => {
+const FinalResults = () => {
 	const tournament = useTournament();
-	const standings = useStandings()[tournament.info.rounds - 1];
+	const standings = useStandings()[tournament.info.rounds.length - 1];
 
 	const [windowSize, setWindowSize] = useState<{width: number, height: number}>({
 		width: window.innerWidth,
@@ -135,4 +135,4 @@ const FinalResultsPopup = () => {
 	);
 };
 
-export default FinalResultsPopup;
+export default FinalResults;

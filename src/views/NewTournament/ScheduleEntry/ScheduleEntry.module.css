@@ -1,0 +1,16 @@
+.scheduleEntry {
+	display: flex;
+	justify-content: space-around;
+}
+
+.scheduleEntry tr {
+	height: 30px;
+}
+
+.scheduleEntry th {
+	padding-right: 15px;
+}
+
+.scheduleEntry .button {
+	text-align: right;
+}

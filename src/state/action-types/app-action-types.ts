@@ -1,5 +1,6 @@
 enum ActionTypes {
-	MarkTournamentLoaded = "App.MarkTournamentLoaded"
+	MarkTournamentLoaded = "App.MarkTournamentLoaded",
+	SetBigScreen = "App.SetBigScreen"
 };
 
 export default ActionTypes;

@@ -1,12 +1,14 @@
-import type { Tournament } from "../../data-types/tournament-data-types";
+import type { Round, Tournament } from "../../data-types/tournament-data-types";
 import type Action from "../actions/tournament-actions";
 import ActionTypes from "../action-types/tournament-action-types";
 import updateTournamentFormat, { CURRENT_DATA_VERSION } from "../../data-types/updateTournamentFormat/updateTournamentFormat";
+import { emptyRound } from "./newTournamentReducer";
 
 export const initialState: Tournament = {
 	info: {
 		title: "",
-		rounds: 8
+		roundLength: 75,
+		rounds: Array(8).fill(emptyRound) as Round[]
 	},
 	playerList: [],
 	games: [],

@@ -18,7 +18,7 @@ type CumulativePointsChartProps = {
 const CumulativePointsChart = (props: CumulativePointsChartProps) => {
 	const tournament = useTournament();
 	//For cumulative points chart, reduce game of that round and earlier rounds into a score sum.
-	const cumulativePoints = useMemo(() => generateArray(tournament.info.rounds).map((round: number): Score => (
+	const cumulativePoints = useMemo(() => generateArray(tournament.info.rounds.length).map((round: number): Score => (
 		tournament.games.reduce((carry: Score, game: Game): Score => {
 			const seat = game.participants.findIndex((seat: Seat): boolean => seat.playerId === props.playerId);
 

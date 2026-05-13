@@ -1,4 +1,4 @@
-import { formatPoints } from "../../../../../utils/formatPoints";
+import { formatPoints } from "../../../../../../utils/formatPoints";
 
 import styles from "./Name.module.css";
 

@@ -38,7 +38,7 @@ const PlayerEntryView = () => {
 
 	return (
 		<>
-			<NewTournamentSteps key={"newTournamentSteps"} current={1}/>
+			<NewTournamentSteps key={"newTournamentSteps"} current={2}/>
 			<Modal
 				centered={true}
 				open={duplicates.length > 0}

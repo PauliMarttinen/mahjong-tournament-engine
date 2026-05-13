@@ -81,7 +81,7 @@ const RoundTableVerticalTable = (props: SeatingTemplateTableProps) => {
 				</tr>
 			</thead>
 			<tbody>
-				{generateArray(newTournament.info.rounds).map((roundId: number) => (
+				{generateArray(newTournament.info.rounds.length).map((roundId: number) => (
 					<>
 						<tr key={`tr-table-${roundId}-e`}>
 							<td rowSpan={4}>Round {roundId + 1}</td>

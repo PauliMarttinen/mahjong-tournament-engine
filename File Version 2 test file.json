@@ -1,0 +1,1031 @@
+{
+	"info": {
+		"title": "File Version 2 test file",
+		"roundLength": 75,
+		"rounds": [
+			{
+				"scheduledStart": "1999-12-31T10:00",
+				"realStart": "1999-12-31T10:00:05"
+			},
+			{
+				"scheduledStart": "1999-12-31T12:00",
+				"realStart": "1999-12-31T12:01:02"
+			},
+			{
+				"scheduledStart": "1999-12-31T15:00",
+				"realStart": "1999-12-31T14:59:49"
+			},
+			{
+				"scheduledStart": "1999-12-31T17:00",
+				"realStart": "1999-12-31T16:58:53"
+			},
+			{
+				"scheduledStart": "2000-01-01T10:00",
+				"realStart": "2000-01-01T10:00:17"
+			},
+			{
+				"scheduledStart": "2000-01-01T12:00",
+				"realStart": "2000-01-01T12:02:13"
+			},
+			{
+				"scheduledStart": "2000-01-01T15:00",
+				"realStart": "2000-01-01T15:00:03"
+			},
+			{
+				"scheduledStart": "2000-01-01T17:00",
+				"realStart": "2000-01-01T16:59:21"
+			}
+		]
+	},
+	"playerList": [
+		{
+			"name": "Ishmael Mayday",
+			"substitute": false
+		},
+		{
+			"name": "Maisie Sunsky",
+			"substitute": false
+		},
+		{
+			"name": "Wilfred Baseball",
+			"substitute": false
+		},
+		{
+			"name": "Noase Paperdoll",
+			"substitute": false
+		},
+		{
+			"name": "Roscoe Clouds",
+			"substitute": false
+		},
+		{
+			"name": "Stella Fabrina",
+			"substitute": false
+		},
+		{
+			"name": "Papshmir Scantily",
+			"substitute": false
+		},
+		{
+			"name": "Penelope Arsenals",
+			"substitute": false
+		},
+		{
+			"name": "Truman Show",
+			"substitute": false
+		},
+		{
+			"name": "Pandora Manucire",
+			"substitute": false
+		},
+		{
+			"name": "Waylen Splendid",
+			"substitute": false
+		},
+		{
+			"name": "Genevieve Crotchet",
+			"substitute": false
+		}
+	],
+	"games": [
+		{
+			"round": 0,
+			"table": 0,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 3,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 0,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 7,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 8,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 0,
+			"table": 1,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 6,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 10,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 1,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 4,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 0,
+			"table": 2,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 2,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 11,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 9,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 5,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 1,
+			"table": 0,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 10,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 3,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 0,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 7,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 1,
+			"table": 1,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 9,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 6,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 2,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 5,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 1,
+			"table": 2,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 8,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 11,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 1,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 4,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 2,
+			"table": 0,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 10,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 11,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 1,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 3,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 2,
+			"table": 1,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 0,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 7,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 9,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 6,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 2,
+			"table": 2,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 2,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 5,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 8,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 4,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 3,
+			"table": 0,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 0,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 3,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 2,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 6,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 3,
+			"table": 1,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 1,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 11,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 9,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 5,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 3,
+			"table": 2,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 7,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 8,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 4,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 10,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 4,
+			"table": 0,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 11,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 9,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 0,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 4,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 4,
+			"table": 1,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 5,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 10,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 6,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 2,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 4,
+			"table": 2,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 3,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 8,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 1,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 7,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 5,
+			"table": 0,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 3,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 11,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 8,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 6,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 5,
+			"table": 1,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 9,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 1,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 0,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 4,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 5,
+			"table": 2,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 7,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 5,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 10,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 2,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 6,
+			"table": 0,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 8,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 7,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 3,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 9,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 6,
+			"table": 1,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 0,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 2,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 10,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 1,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 6,
+			"table": 2,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 4,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 6,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 11,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 5,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 7,
+			"table": 0,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 1,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 4,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 3,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 7,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 7,
+			"table": 1,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 5,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 6,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 9,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 11,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		},
+		{
+			"round": 7,
+			"table": 2,
+			"finished": false,
+			"participants": [
+				{
+					"playerId": 8,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 0,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 2,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				},
+				{
+					"playerId": 10,
+					"score": {
+						"raw": 0,
+						"uma": 0,
+						"penalty": 0
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"dataFormatVersion": 2
+	}
+}

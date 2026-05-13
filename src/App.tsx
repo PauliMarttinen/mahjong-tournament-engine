@@ -2,22 +2,23 @@ import {useEffect, useState} from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useTournament from "./utils/hooks/useTournament";
 import useAppState from "./utils/hooks/useAppState";
-import TournametInfoEntry from "./views/NewTournament/TournamentInfoEntry";
+import TournamentInfoEntry from "./views/NewTournament/TournamentInfoEntry";
+import ScheduleEntry from "./views/NewTournament/ScheduleEntry";
 import PlayerEntry from "./views/NewTournament/PlayerEntry";
 import SeatingTemplateEntry from "./views/NewTournament/SeatingTemplateEntry";
 import Overview from "./views/Tournament/Overview";
 import HanchanResults from "./views/Tournament/HanchanResults";
 import Standings from "./views/Tournament/Standings";
-import StandingsPopup from "./views/Tournament/Standings/StandingsPopup";
+import BigScreen from "./views/Tournament/BigScreen";
+import BigScreenPopup from "./views/Tournament/BigScreen/BigScreenPopup";
 import PrintOuts from "./views/Tournament/PrintOuts";
 import Entrance from "./views/Entrance";
 import EditPlayers from "./views/Tournament/EditPlayers";
+import EditSchedule from "./views/Tournament/EditSchedule";
 import PrintPersonalSchedules from "./views/Print/PrintPersonalSchedules";
 import PrintReportCards from "./views/Print/PrintReportCards";
 import PrintScoreForms from "./views/Print/PrintScoreForms";
 import PrintFullSchedule from "./views/Print/PrintFullSchedule";
-import FinalResults from "./views/Tournament/FinalResults";
-import FinalResultsPopup from "./views/Tournament/FinalResults/FinalResultsPopup";
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
 import Navigation from "./views/Tournament/Navigation";
 import { Layout, ConfigProvider, theme, Button } from "antd";
@@ -29,6 +30,7 @@ const App = () => {
 	const appState = useAppState();
 	const tournament = useTournament();
 	const [darkmode, setDarkmode] = useState<boolean>(false);
+	const config = {algorithm: darkmode ? theme.darkAlgorithm : theme.defaultAlgorithm};
 
 	useEffect(() => {
 		bodyNoMargin();
@@ -46,12 +48,13 @@ const App = () => {
 							<Route path={"score-forms"} element={<PrintScoreForms/>}/>
 							<Route path={"full-schedule"} element={<PrintFullSchedule/>}/>
 						</Route>
-						<Route path={"/tournament/standings/popup"} element={<StandingsPopup/>}/>
-						<Route path={"/tournament/final-results/popup"} element={<FinalResultsPopup/>}/>
+						<Route path={"/tournament/big-screen/popup"} element={<BigScreenPopup/>}/>
 						<Route path={"*"} element={
-							<Layout className={styles.layout}>
-								<Entrance/>
-							</Layout>
+							<ConfigProvider theme={config}>
+								<Layout className={styles.layout}>
+									<Entrance/>
+								</Layout>
+							</ConfigProvider>
 						}/>
 					</Routes>
 				</BrowserRouter>
@@ -64,17 +67,20 @@ const App = () => {
 		return (
 			<div className={"mahjongTournamentEngine"}>
 				<BrowserRouter>
-					<Layout className={styles.layout}>
-						<Routes>
-							<Route index element={<TournametInfoEntry/>}/>
-							<Route path={"/new"}>
-								<Route index element={<TournametInfoEntry/>}/>
-								<Route path={"basic"} element={<TournametInfoEntry/>}/>
-								<Route path={"players"} element={<PlayerEntry/>}/>
-								<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
-							</Route>
-						</Routes>
-					</Layout>
+					<ConfigProvider theme={config}>
+						<Layout className={styles.layout}>
+							<Routes>
+								<Route index element={<TournamentInfoEntry/>}/>
+								<Route path={"/new"}>
+									<Route index element={<TournamentInfoEntry/>}/>
+									<Route path={"basic"} element={<TournamentInfoEntry/>}/>
+									<Route path={"schedule"} element={<ScheduleEntry/>}/>
+									<Route path={"players"} element={<PlayerEntry/>}/>
+									<Route path={"seating-template"} element={<SeatingTemplateEntry/>}/>
+								</Route>
+							</Routes>
+						</Layout>
+					</ConfigProvider>
 				</BrowserRouter>
 			</div>
 		);
@@ -84,7 +90,7 @@ const App = () => {
 		<div className={"mahjongTournamentEngine"}>
 			<BrowserRouter>
 				<ConfigProvider
-					theme={{algorithm: darkmode ? theme.darkAlgorithm : theme.defaultAlgorithm}}>
+					theme={config}>
 					<Affix>
 						<Button
 							type={"default"}
@@ -103,9 +109,11 @@ const App = () => {
 									<Route path={"overview"} element={<Overview/>}/>
 									<Route path={"hanchan-results"} element={<HanchanResults/>}/>
 									<Route path={"standings"} element={<Standings/>}/>
+									<Route path={"big-screen"} element={<BigScreen/>}/>
 									<Route path={"print-outs"} element={<PrintOuts/>}/>
 									<Route path={"edit-players"} element={<EditPlayers/>}/>
-									<Route path={"final-results"} element={<FinalResults/>}/>
+									<Route path={"edit-schedule"} element={<EditSchedule/>}/>
+									{/* <Route path={"final-results"} element={<FinalResults/>}/> */}
 									<Route path={"player-performance"} element={<PlayerPerformance/>}/>
 								</Route>
 							</Routes>

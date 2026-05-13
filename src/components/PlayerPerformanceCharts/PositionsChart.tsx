@@ -33,7 +33,7 @@ const PositionsChart = (props: PositionsChartProps) => {
 
 	//For position graph, get position evolution and mean position.
 	const positions: PositionData = useMemo(() => {
-		const evolution: PositionDataPoint[] = generateArray(tournament.info.rounds).map((round: number): PositionDataPoint => ({
+		const evolution: PositionDataPoint[] = generateArray(tournament.info.rounds.length).map((round: number): PositionDataPoint => ({
 			name: `${round + 1}`,
 			position: 1 + tournament.games
 				//Get the game of current round that the selected player played in
@@ -44,7 +44,7 @@ const PositionsChart = (props: PositionsChartProps) => {
 				.findIndex((seat: Seat) => seat.playerId === props.playerId)
 		}));
 
-		const mean = evolution.reduce((carry: number, point: PositionDataPoint): number => carry+point.position, 0) / tournament.info.rounds;
+		const mean = evolution.reduce((carry: number, point: PositionDataPoint): number => carry+point.position, 0) / tournament.info.rounds.length;
 
 		return {
 			evolution,
