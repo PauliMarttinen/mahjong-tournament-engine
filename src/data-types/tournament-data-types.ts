@@ -2,16 +2,23 @@ import * as versionValidators from "./updateTournamentFormat/versionValidators";
 import type { Version0 } from "./updateTournamentFormat/version0/Version0";
 import type { Version1 } from "./updateTournamentFormat/version1/Version1";
 import type { Version2 } from "./updateTournamentFormat/version2/Version2";
+import type { Version3 } from "./updateTournamentFormat/version3/Version3";
 
 export type Round = {
 	scheduledStart: string,
 	realStart: string
 };
 
+export enum Uma {
+	Manual = "Manual",
+	EMA2025 = "EMA2025"
+};
+
 export type GeneralInfo = {
 	title: string,
 	roundLength: number,
-	rounds: Round[]
+	rounds: Round[],
+	uma: Uma
 };
 
 export type Score = {
@@ -43,9 +50,9 @@ export type Meta = {
 	dataFormatVersion: number
 }
 
-export type AllVersions = Version0|Version1|Version2;
+export type AllVersions = Version0|Version1|Version2|Version3;
 
-export type Tournament = Version2;
+export type Tournament = Version3;
 
 export type Standing = {
 	rank: number,
@@ -62,5 +69,6 @@ export type PointInputType = {
 export const isTournamentDataValid = (data: AllVersions): boolean => {
 	return versionValidators.isValidVersion0(data as Version0)
 		|| versionValidators.isValidVersion1(data as Version1)
-		|| versionValidators.isValidVersion2(data as Version2);
+		|| versionValidators.isValidVersion2(data as Version2)
+		|| versionValidators.isValidVersion3(data as Version3);
 };

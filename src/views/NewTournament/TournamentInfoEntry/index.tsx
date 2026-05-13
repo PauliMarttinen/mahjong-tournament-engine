@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { GeneralInfo, Round } from "../../../data-types/tournament-data-types";
+import { type GeneralInfo, type Round, Uma } from "../../../data-types/tournament-data-types";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { newTournamentActionCreators } from "../../../state";
@@ -8,7 +8,7 @@ import { initialState } from "../../../state/reducers/tournamentReducer";
 import { Routes } from "../../../utils/routeUtils";
 import { useNavigate } from "react-router-dom";
 import styles from "./TournamentInfoEntry.module.css";
-import {Input, Space, Card, Button} from "antd";
+import {Input, Space, Card, Button, Radio, type RadioChangeEvent} from "antd";
 import MandatoryAsterisk from "../../../components/MandatoryAsterisk";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 import { emptyRound } from "../../../state/reducers/newTournamentReducer";
@@ -39,9 +39,21 @@ const TournamentInfoView = () => {
 		});
 	};
 
+	const setUma = (newUma: Uma) => {
+		setCurrentInfo({
+			...currentInfo,
+			uma: newUma
+		});
+	};
+
 	useEffect(() => {
 		setRounds(initialState.info.rounds.length);
 	}, []);
+
+	const umaOptions = [
+		{value: Uma.Manual, label: Uma.Manual},
+		{value: Uma.EMA2025, label: Uma.EMA2025}
+	];
 
 	return (
 		<>
@@ -69,6 +81,13 @@ const TournamentInfoView = () => {
 							minimum={1}
 							value={currentInfo.roundLength}
 							onChange={(newValue: number): void => setCurrentInfo({...currentInfo, roundLength: newValue})}
+						/>
+					</Card>
+					<Card title={"Uma"}>
+						<Radio.Group
+							value={currentInfo.uma}
+							options={umaOptions}
+							onChange={(e: RadioChangeEvent) => setUma(e.target.value)}
 						/>
 					</Card>
 					<div className={styles.button}>

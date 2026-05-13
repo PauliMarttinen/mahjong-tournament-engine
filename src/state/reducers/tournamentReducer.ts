@@ -1,4 +1,4 @@
-import type { Round, Tournament } from "../../data-types/tournament-data-types";
+import { type Round, type Tournament, Uma } from "../../data-types/tournament-data-types";
 import type Action from "../actions/tournament-actions";
 import ActionTypes from "../action-types/tournament-action-types";
 import updateTournamentFormat, { CURRENT_DATA_VERSION } from "../../data-types/updateTournamentFormat/updateTournamentFormat";
@@ -8,7 +8,8 @@ export const initialState: Tournament = {
 	info: {
 		title: "",
 		roundLength: 75,
-		rounds: Array(8).fill(emptyRound) as Round[]
+		rounds: Array(8).fill(emptyRound) as Round[],
+		uma: Uma.Manual
 	},
 	playerList: [],
 	games: [],
