@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { type GeneralInfo, type Round, Uma } from "../../../data-types/tournament-data-types";
+import { type GeneralInfo, PointInputType, type Round, Uma, UmaTiebreak } from "../../../data-types/tournament-data-types";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { newTournamentActionCreators } from "../../../state";
@@ -8,11 +8,12 @@ import { initialState } from "../../../state/reducers/tournamentReducer";
 import { Routes } from "../../../utils/routeUtils";
 import { useNavigate } from "react-router-dom";
 import styles from "./TournamentInfoEntry.module.css";
-import {Input, Space, Card, Button, Radio, type RadioChangeEvent} from "antd";
+import {Input, Space, Card, Button, Checkbox, Radio, RadioChangeEvent} from "antd";
 import MandatoryAsterisk from "../../../components/MandatoryAsterisk";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 import { emptyRound } from "../../../state/reducers/newTournamentReducer";
 import getSimpleDateISOString from "../../../utils/getSimpleDateISOString";
+import PointInput from "../../../components/PointInput";
 
 const TournamentInfoView = () => {
 	const navigate = useNavigate();
@@ -39,65 +40,166 @@ const TournamentInfoView = () => {
 		});
 	};
 
-	const setUma = (newUma: Uma) => {
-		setCurrentInfo({
-			...currentInfo,
-			uma: newUma
-		});
-	};
-
 	useEffect(() => {
 		setRounds(initialState.info.rounds.length);
 	}, []);
 
-	const umaOptions = [
-		{value: Uma.Manual, label: Uma.Manual},
-		{value: Uma.EMA2025, label: Uma.EMA2025}
+	const toggleAutomaticUma = () => {
+		setCurrentInfo({
+			...currentInfo,
+			uma: {
+				...currentInfo.uma,
+				automatic: !currentInfo.uma.automatic
+			}
+		})
+	};
+
+	const setTiebreakStyle = (style: UmaTiebreak) => {
+		setCurrentInfo({
+			...currentInfo,
+			uma: {
+				...currentInfo.uma,
+				tiebreak: style
+			}
+		});
+	};
+
+	const umaTiebreakOptions = [
+		{
+			value: UmaTiebreak.Split,
+			label: "Split"
+		},
+		{
+			value: UmaTiebreak.Headbump,
+			label: "Headbump"
+		}
 	];
+
+	const setUma = (seat: number, newValue: PointInputType) => {
+		const updatedAmounts: [PointInputType, PointInputType, PointInputType, PointInputType] = [
+			...currentInfo.uma.amount
+		];
+		updatedAmounts[seat] = newValue;
+
+		setCurrentInfo({
+			...currentInfo,
+			uma: {
+				...currentInfo.uma,
+				amount: updatedAmounts
+			}
+		});
+	};
 
 	return (
 		<>
 			<NewTournamentSteps key={"newTournamentSteps"} current={0}/>
 			<div className={styles.tournamentInfoEntry}>
-				<Space direction={"vertical"}>
-					<h1>Start new tournament</h1>
-					<Card title={(
-						<p>Tournament Title<MandatoryAsterisk/></p>
-					)}>
-						<Input
-							value={currentInfo.title}
-							onChange={(e): void => setCurrentInfo({...currentInfo, title: e.target.value})}
-						/>
-					</Card>
-					<Card title={"Rounds"}>
-						<label>Number of rounds</label>
-						<NumberInput
-							minimum={1}
-							value={currentInfo.rounds.length}
-							onChange={(newValue: number): void => setRounds(newValue)}
-						/>
-						<label>Round length (minutes)</label>
-						<NumberInput
-							minimum={1}
-							value={currentInfo.roundLength}
-							onChange={(newValue: number): void => setCurrentInfo({...currentInfo, roundLength: newValue})}
-						/>
-					</Card>
+				<Space direction={"horizontal"}>
+					<Space direction={"vertical"}>
+						<h1>Start new tournament</h1>
+						<Card title={(
+							<p>Tournament Title<MandatoryAsterisk/></p>
+						)}>
+							<Input
+								value={currentInfo.title}
+								onChange={(e): void => setCurrentInfo({...currentInfo, title: e.target.value})}
+							/>
+						</Card>
+						<Card title={"Rounds"}>
+							<label>Number of rounds</label>
+							<NumberInput
+								minimum={1}
+								value={currentInfo.rounds.length}
+								onChange={(newValue: number): void => setRounds(newValue)}
+							/>
+							<label>Round length (minutes)</label>
+							<NumberInput
+								minimum={1}
+								value={currentInfo.roundLength}
+								onChange={(newValue: number): void => setCurrentInfo({...currentInfo, roundLength: newValue})}
+							/>
+						</Card>
+						<div className={styles.button}>
+							<Button
+								type={"primary"}
+								disabled={currentInfo.title.trim() === ""}
+								onClick={() => onSave()}>
+								Next
+							</Button>
+						</div>
+					</Space>
 					<Card title={"Uma"}>
-						<Radio.Group
-							value={currentInfo.uma}
-							options={umaOptions}
-							onChange={(e: RadioChangeEvent) => setUma(e.target.value)}
-						/>
+						<Space direction={"vertical"}>
+							<Checkbox
+								checked={currentInfo.uma.automatic}
+								id={"automatic-uma"}
+								onChange={() => toggleAutomaticUma()}>
+								Automatic uma
+							</Checkbox>
+							<table>
+								<tbody>
+									<tr>
+										<td>1st</td>
+										<td>
+											<PointInput
+												className={styles.pointInput}
+												value={currentInfo.uma.amount[0]}
+												onChange={(newValue: PointInputType) => setUma(0, newValue)}
+												short={true}
+												disabled={!currentInfo.uma.automatic}
+												uma
+											/>
+										</td>
+									</tr>
+									<tr>
+										<td>2nd</td>
+										<td>
+											<PointInput
+												className={styles.pointInput}
+												value={currentInfo.uma.amount[1]}
+												onChange={(newValue: PointInputType) => setUma(1, newValue)}
+												short={true}
+												disabled={!currentInfo.uma.automatic}
+												uma
+											/>
+										</td>
+									</tr>
+									<tr>
+										<td>3rd</td>
+										<td>
+											<PointInput
+												className={styles.pointInput}
+												value={currentInfo.uma.amount[2]}
+												onChange={(newValue: PointInputType) => setUma(2, newValue)}
+												short={true}
+												disabled={!currentInfo.uma.automatic}
+												uma
+											/>
+										</td>
+									</tr>
+									<tr>
+										<td>4th</td>
+										<td>
+											<PointInput
+												className={styles.pointInput}
+												value={currentInfo.uma.amount[3]}
+												onChange={(newValue: PointInputType) => setUma(3, newValue)}
+												short={true}
+												disabled={!currentInfo.uma.automatic}
+												uma
+											/>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<Radio.Group
+								disabled={!currentInfo.uma.automatic}
+								options={umaTiebreakOptions}
+								value={currentInfo.uma.tiebreak}
+								onChange={(e: RadioChangeEvent) => setTiebreakStyle(e.target.value)}
+							/>
+						</Space>
 					</Card>
-					<div className={styles.button}>
-						<Button
-							type={"primary"}
-							disabled={currentInfo.title.trim() === ""}
-							onClick={() => onSave()}>
-							Next
-						</Button>
-					</div>
 				</Space>
 			</div>
 		</>

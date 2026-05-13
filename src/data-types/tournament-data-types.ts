@@ -9,9 +9,17 @@ export type Round = {
 	realStart: string
 };
 
-export enum Uma {
-	Manual = "Manual",
-	EMA2025 = "EMA2025"
+export enum UmaTiebreak {
+	Headbump = "headbump",
+	Split = "split"
+};
+
+export type UmaAmount = [PointInputType, PointInputType, PointInputType, PointInputType];
+
+export type Uma = {
+	automatic: boolean,
+	tiebreak: UmaTiebreak,
+	amount: UmaAmount
 };
 
 export type GeneralInfo = {

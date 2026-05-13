@@ -1,4 +1,4 @@
-import { type Round, type Tournament, Uma } from "../../data-types/tournament-data-types";
+import { type Round, type Tournament, UmaTiebreak } from "../../data-types/tournament-data-types";
 import type Action from "../actions/tournament-actions";
 import ActionTypes from "../action-types/tournament-action-types";
 import updateTournamentFormat, { CURRENT_DATA_VERSION } from "../../data-types/updateTournamentFormat/updateTournamentFormat";
@@ -9,7 +9,26 @@ export const initialState: Tournament = {
 		title: "",
 		roundLength: 75,
 		rounds: Array(8).fill(emptyRound) as Round[],
-		uma: Uma.Manual
+		uma: {
+			automatic: false,
+			amount: [{
+				positive: true,
+				value: 15000
+			},
+			{
+				positive: true,
+				value: 5000
+			},
+			{
+				positive: false,
+				value: 5000
+			},
+			{
+				positive: false,
+				value: 15000
+			}],
+			tiebreak: UmaTiebreak.Split
+		}
 	},
 	playerList: [],
 	games: [],
