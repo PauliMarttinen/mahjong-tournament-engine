@@ -5,7 +5,7 @@ import {PlayCircleOutlined, /* PauseCircleOutlined, */ TrademarkCircleOutlined} 
 import alarmAudio from "./alarm.wav";
 import useTournament from "../../../../../utils/hooks/useTournament";
 import collectGarbage from "../utils/collectGarbage";
-import { STATE_MESSAGE_IDENTIFIER, BigScreenActions } from "../../utils/setBigScreenState";
+import { STATE_MESSAGE_IDENTIFIER, BigScreenActions, setBigScreenState } from "../../utils/setBigScreenState";
 
 type TimerProps = {
 	roundId: number,
@@ -43,11 +43,10 @@ const Timer = (props: TimerProps) => {
 
 		if (!stopPropagation)
 		{
-			localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify({
+			setBigScreenState({
 				type: BigScreenActions.StartRound,
 				payload: props.roundId
-			}));
-			collectGarbage();
+			});
 		}
 	};
 

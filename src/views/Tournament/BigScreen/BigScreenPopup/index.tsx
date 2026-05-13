@@ -3,7 +3,8 @@ import {
 	STATE_MESSAGE_IDENTIFIER,
 	PING_MESSAGE_IDENTIFIER,
 	PING_INTERVAL,
-	BigScreenStates
+	BigScreenStates,
+	setBigScreenState
 } from "../utils/setBigScreenState";
 import Standings from "./Standings";
 import FinalResults from "./FinalResults";
@@ -60,8 +61,7 @@ const BigScreenPopup = () => {
 	};
 
 	const onClose = () => {
-		localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify({type: BigScreenStates.Off}))
-		collectGarbage();
+		setBigScreenState({type: BigScreenStates.Off});
 	};
 
 	useEffect(() => {
@@ -84,7 +84,6 @@ const BigScreenPopup = () => {
 			window.removeEventListener("storage", receiveAction);
 			window.removeEventListener("beforeunload", onClose);
 			window.removeEventListener("unload", onClose);
-			collectGarbage();
 			onClose();
 		};
 	}, []);

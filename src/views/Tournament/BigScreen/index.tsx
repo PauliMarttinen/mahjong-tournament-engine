@@ -7,12 +7,10 @@ import useTournament from "../../../utils/hooks/useTournament";
 import useAppState from "../../../utils/hooks/useAppState";
 import { getSteps } from "./utils/getSteps";
 import { Routes } from "../../../utils/routeUtils";
-import { setBigScreenState } from "./utils/setBigScreenState";
-import { STATE_MESSAGE_IDENTIFIER } from "./utils/setBigScreenState";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appActionCreators } from "../../../state";
-import { BigScreenStates } from "./utils/setBigScreenState";
+import { BigScreenStates, setBigScreenState } from "./utils/setBigScreenState";
 
 const BigScreen = () => {
 	const tournament = useTournament();
@@ -25,7 +23,13 @@ const BigScreen = () => {
 
 	const openWindow = () => {
 		if (currentStep > 0)
-			localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify(steps[currentStep].stateChange));
+		{
+			setBigScreenState(steps[currentStep].stateChange);
+		}
+		if (currentStep <= 0)
+		{
+			setBigScreenState(steps[0].stateChange);
+		}
 		
 		if (!app.bigScreen)
 		{

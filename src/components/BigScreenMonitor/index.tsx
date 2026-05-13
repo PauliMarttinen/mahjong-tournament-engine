@@ -6,6 +6,7 @@ import {
 	BigScreenStates,
 	BigScreenActions
 } from "../../views/Tournament/BigScreen/utils/setBigScreenState";
+import collectGarbage from "../../views/Tournament/BigScreen/BigScreenPopup/utils/collectGarbage";
 import useAppState from "../../utils/hooks/useAppState";
 import useTournament from "../../utils/hooks/useTournament";
 import { useDispatch } from "react-redux";
@@ -78,6 +79,8 @@ const BigScreenMonitor = () => {
 			}
 			catch (e) {}
 		}
+
+		collectGarbage();
 	};
 
 	useEffect(() => {

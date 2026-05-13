@@ -10,7 +10,7 @@ import RoundSelector from "../../../components/RoundSelector";
 import styles from "./Standings.module.css";
 import { getLastFinishedRound } from "../../../utils/getLastFinishedRound";
 import useAppState from "../../../utils/hooks/useAppState";
-import { BigScreenStates, STATE_MESSAGE_IDENTIFIER } from "../BigScreen/utils/setBigScreenState";
+import { BigScreenStates, setBigScreenState } from "../BigScreen/utils/setBigScreenState";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appActionCreators } from "../../../state";
@@ -26,10 +26,10 @@ const Standings = () => {
 	const { setBigScreen } = bindActionCreators(appActionCreators, dispatch);
 
 	const openWindow = () => {
-		localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify({
+		setBigScreenState({
 			type: BigScreenStates.Standings,
 			roundId: afterRound
-		}));
+		});
 
 		if (!appState.bigScreen || appState.bigScreen.closed)
 		{
