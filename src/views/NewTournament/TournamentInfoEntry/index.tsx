@@ -8,7 +8,7 @@ import { initialState } from "../../../state/reducers/tournamentReducer";
 import { Routes } from "../../../utils/routeUtils";
 import { useNavigate } from "react-router-dom";
 import styles from "./TournamentInfoEntry.module.css";
-import {Input, Space, Card, Button, Checkbox, Radio, RadioChangeEvent} from "antd";
+import {Input, Space, Card, Button, Checkbox, Radio, RadioChangeEvent, Modal} from "antd";
 import MandatoryAsterisk from "../../../components/MandatoryAsterisk";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 import { emptyRound } from "../../../state/reducers/newTournamentReducer";
@@ -18,6 +18,7 @@ import PointInput from "../../../components/PointInput";
 const TournamentInfoView = () => {
 	const navigate = useNavigate();
 	const [currentInfo, setCurrentInfo] = useState<GeneralInfo>(initialState.info);
+	const [showUmaHelp, setShowUmaHelp] = useState<boolean>(false);
 	const dispatch = useDispatch();
 
 	const {addGeneralInfo} = bindActionCreators(newTournamentActionCreators, dispatch);
@@ -90,8 +91,21 @@ const TournamentInfoView = () => {
 		});
 	};
 
+	const closeUmaHelp = () => setShowUmaHelp(false);
+	const openUmaHelp = () => setShowUmaHelp(true);
+
 	return (
 		<>
+			<Modal
+				centered={true}
+				open={showUmaHelp}
+				title={"Uma settings"}
+				onCancel={closeUmaHelp}
+				footer={[
+					<Button type={"primary"} onClick={closeUmaHelp}>Close</Button>
+				]}>
+				<p>Uma help</p>
+			</Modal>
 			<NewTournamentSteps key={"newTournamentSteps"} current={0}/>
 			<div className={styles.tournamentInfoEntry}>
 				<Space direction={"horizontal"}>

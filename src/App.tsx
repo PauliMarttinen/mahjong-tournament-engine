@@ -29,7 +29,7 @@ import Affix from "./components/Affix";
 const App = () => {
 	const appState = useAppState();
 	const tournament = useTournament();
-	const [darkmode, setDarkmode] = useState<boolean>(false);
+	const [darkmode, setDarkmode] = useState<boolean>(true);
 	const config = {algorithm: darkmode ? theme.darkAlgorithm : theme.defaultAlgorithm};
 
 	useEffect(() => {
