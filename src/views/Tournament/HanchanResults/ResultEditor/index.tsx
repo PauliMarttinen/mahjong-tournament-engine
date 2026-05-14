@@ -9,6 +9,7 @@ import { Alert, Switch, Space, Button, Input } from "antd";
 import { tournamentActionCreators } from "../../../../state";
 import {formatPoints} from "../../../../utils/formatPoints";
 import styles from "./ResultEditor.module.css";
+import getUma from "./utils/getUma";
 
 type ResultEditorPros = {
 	roundId: number,
@@ -172,6 +173,20 @@ const ResultEditor = (props: ResultEditorPros) => {
 		setNorthUma(northUmaOrig);
 		setNorthPenalty(northPenaltyOrig);
 	};
+
+	useEffect(() => {
+		if (!tournament.info.uma.automatic || !automaticUma) return;
+
+		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
+			tournament.info.uma,
+			[eastRaw, southRaw, westRaw, northRaw]
+		);
+
+		setEastUma(updatedEastUma);
+		setSouthUma(updatedSouthUma);
+		setWestUma(updatedWestUma);
+		setNorthUma(updatedNorthUma);
+	}, [eastRaw, southRaw, westRaw, northRaw]);
 
 	if (!game) {
 		return (
