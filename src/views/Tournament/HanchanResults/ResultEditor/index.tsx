@@ -254,6 +254,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 							onChange={() => setAutomaticUma(!automaticUma)}
 							size={"small"}
 							id={`autoUmaSwitch-${props.tableId}`}
+							disabled={!tournament.info.uma.automatic}
 						/>
 						<label htmlFor={`autoUmaSwitch-${props.tableId}`}>Manual uma</label>
 					</Space>
