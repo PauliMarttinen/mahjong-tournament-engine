@@ -25,7 +25,7 @@ const isValidVersion3 = (data: any): data is Tournament => {
 	const gamesValid = gamesExists && areGamesValid(data.games) &&
 		data.games.length >= data.info.rounds.length * (data.playerList.length / 4);
 	const metaValid = metaExists &&
-		"dataFormatVersion" in data.meta && Number.isInteger(data.meta.dataFormatVersion) && data.meta.dataFormatVersion === 2;
+		"dataFormatVersion" in data.meta && Number.isInteger(data.meta.dataFormatVersion) && data.meta.dataFormatVersion === 3;
 
 	return infoValid && playerListValid && gamesValid && metaValid;
 };
