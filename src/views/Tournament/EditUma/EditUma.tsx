@@ -91,6 +91,10 @@ const EditUma = () => {
 		addGames(updatedGames);
 	};
 
+	const cancel = () => {
+		setCurrentUma(tournament.info.uma);
+	};
+
 	return (
 		<>
 			<LayoutHeader>Edit uma</LayoutHeader>
@@ -110,11 +114,12 @@ const EditUma = () => {
 						onClick={saveRetroactive}>
 						Save and update previous games
 					</Button>
+					<Button
+						type={"default"}
+						onClick={cancel}>
+						Cancel changes
+					</Button>
 				</Space>
-				{/* <Alert
-					type={"warning"}
-					message={<>Note: Editing uma will <strong>not</strong> affect those games whose score has already been entered.</>}
-				/> */}
 			</LayoutContent>
 		</>
 	);
