@@ -15,12 +15,3 @@
 .tournamentInfoEntry .button {
 	text-align: right;
 }
-
-.tournamentInfoEntry .pointInput {
-	width: 7em;
-	margin-left: 10px;
-}
-
-.rulesetExamples {
-	width: 100%;
-}
