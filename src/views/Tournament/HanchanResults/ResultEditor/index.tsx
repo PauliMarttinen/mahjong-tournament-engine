@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import useTournament from "../../../../utils/hooks/useTournament";
@@ -174,19 +174,65 @@ const ResultEditor = (props: ResultEditorPros) => {
 		setNorthPenalty(northPenaltyOrig);
 	};
 
-	useEffect(() => {
+	const editEastRaw = (newValue: PointInputType) => {
+		setEastRaw(newValue);
 		if (!tournament.info.uma.automatic || !automaticUma) return;
 
 		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
 			tournament.info.uma,
-			[eastRaw, southRaw, westRaw, northRaw]
+			[newValue, southRaw, westRaw, northRaw]
 		);
 
 		setEastUma(updatedEastUma);
 		setSouthUma(updatedSouthUma);
 		setWestUma(updatedWestUma);
 		setNorthUma(updatedNorthUma);
-	}, [eastRaw, southRaw, westRaw, northRaw]);
+	};
+
+	const editSouthRaw = (newValue: PointInputType) => {
+		setSouthRaw(newValue);
+		if (!tournament.info.uma.automatic || !automaticUma) return;
+
+		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
+			tournament.info.uma,
+			[eastRaw, newValue, westRaw, northRaw]
+		);
+
+		setEastUma(updatedEastUma);
+		setSouthUma(updatedSouthUma);
+		setWestUma(updatedWestUma);
+		setNorthUma(updatedNorthUma);
+	};
+
+	const editWestRaw = (newValue: PointInputType) => {
+		setWestRaw(newValue);
+		if (!tournament.info.uma.automatic || !automaticUma) return;
+
+		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
+			tournament.info.uma,
+			[eastRaw, southRaw, newValue, northRaw]
+		);
+
+		setEastUma(updatedEastUma);
+		setSouthUma(updatedSouthUma);
+		setWestUma(updatedWestUma);
+		setNorthUma(updatedNorthUma);
+	};
+
+	const editNorthRaw = (newValue: PointInputType) => {
+		setNorthRaw(newValue);
+		if (!tournament.info.uma.automatic || !automaticUma) return;
+		
+		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
+			tournament.info.uma,
+			[eastRaw, southRaw, westRaw, newValue]
+		);
+
+		setEastUma(updatedEastUma);
+		setSouthUma(updatedSouthUma);
+		setWestUma(updatedWestUma);
+		setNorthUma(updatedNorthUma);
+	};
 
 	if (!game) {
 		return (
@@ -195,7 +241,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 					type={"error"}
 					message={"It seems that this game is missing from the tournament data for some reason."}
 				/>
-				</div>
+			</div>
 		);
 	};
 
@@ -279,7 +325,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 								<PointInput
 									className={styles.pointInput}
 									value={eastRaw}
-									onChange={(newValue: PointInputType) => setEastRaw(newValue)}
+									onChange={(newValue: PointInputType) => editEastRaw(newValue)}
 									tabIndex={1}
 									short={safeMode}
 								/>
@@ -315,7 +361,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 								<PointInput
 									className={styles.pointInput}
 									value={southRaw}
-									onChange={(newValue: PointInputType) => setSouthRaw(newValue)}
+									onChange={(newValue: PointInputType) => editSouthRaw(newValue)}
 									tabIndex={2}
 									short={safeMode}
 								/>
@@ -351,7 +397,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 								<PointInput
 									className={styles.pointInput}
 									value={westRaw}
-									onChange={(newValue: PointInputType) => setWestRaw(newValue)}
+									onChange={(newValue: PointInputType) => editWestRaw(newValue)}
 									tabIndex={3}
 									short={safeMode}
 								/>
@@ -387,7 +433,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 								<PointInput
 									className={styles.pointInput}
 									value={northRaw}
-									onChange={(newValue: PointInputType) => setNorthRaw(newValue)}
+									onChange={(newValue: PointInputType) => editNorthRaw(newValue)}
 									tabIndex={4}
 									short={safeMode}
 								/>
