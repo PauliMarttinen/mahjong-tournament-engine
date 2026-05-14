@@ -2,8 +2,8 @@ import {useState} from "react";
 import UmaHelp from "./UmaHelp/UmaHelp";
 import { Space, Card, Checkbox, Radio, Button, RadioChangeEvent } from "antd";
 import {QuestionCircleOutlined} from "@ant-design/icons";
-import PointInput from "../../../../components/PointInput";
-import { type Uma as UmaType, UmaTiebreak, type PointInputType } from "../../../../data-types/tournament-data-types";
+import PointInput from "../PointInput";
+import { type Uma as UmaType, UmaTiebreak, type PointInputType } from "../../data-types/tournament-data-types";
 import styles from "./Uma.module.css";
 
 type UmaProps = {
