@@ -35,7 +35,7 @@ const EditUma = () => {
 					<Button
 						type={"primary"}
 						onClick={onSave}>
-						Next
+						Save
 					</Button>
 				</div>
 				<Alert
