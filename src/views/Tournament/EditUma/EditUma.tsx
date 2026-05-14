@@ -2,7 +2,7 @@ import { useState } from "react";
 import useTournament from "../../../utils/hooks/useTournament";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
-import { Button, Alert, Space } from "antd";
+import { Button, Space } from "antd";
 import Uma from "../../../components/Uma/Uma";
 import { Game, PointInputType, type Uma as UmaType } from "../../../data-types/tournament-data-types";
 import styles from "./EditUma.module.css";
