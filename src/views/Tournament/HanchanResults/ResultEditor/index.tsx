@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import useTournament from "../../../../utils/hooks/useTournament";
@@ -19,6 +19,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 	const tournament = useTournament();
 	const game = tournament.games.find((game: Game): boolean => (game.round === props.roundId && game.table === props.tableId));
 	const [safeMode, setSafeMode] = useState<boolean>(true);
+	const [automaticUma, setAutomaticUma] = useState<boolean>(tournament.info.uma.automatic);
 
 	const dispatch = useDispatch();
 	const {addGames} = bindActionCreators(tournamentActionCreators, dispatch)
@@ -221,14 +222,26 @@ const ResultEditor = (props: ResultEditorPros) => {
 		<div className={styles.resultEditor}>
 			<Space direction={"vertical"}>
 				<Space>
-					<label htmlFor={`safeSwitch-${props.tableId}`}>Safe mode</label>
-					<Switch
-						checked={!safeMode}
-						onChange={() => setSafeMode(!safeMode)}
-						size={"small"}
-						id={`safeSwitch-${props.tableId}`}
-					/>
-					<label htmlFor={`safeSwitch-${props.tableId}`}>Danger mode</label>
+					<Space>
+						<label htmlFor={`safeSwitch-${props.tableId}`}>Safe mode</label>
+						<Switch
+							checked={!safeMode}
+							onChange={() => setSafeMode(!safeMode)}
+							size={"small"}
+							id={`safeSwitch-${props.tableId}`}
+						/>
+						<label htmlFor={`safeSwitch-${props.tableId}`}>Danger mode</label>
+					</Space>
+					<Space className={styles.automaticUma}>
+						<label htmlFor={`autoUmaSwitch-${props.tableId}`}>Automatic uma</label>
+						<Switch
+							checked={!automaticUma}
+							onChange={() => setAutomaticUma(!automaticUma)}
+							size={"small"}
+							id={`autoUmaSwitch-${props.tableId}`}
+						/>
+						<label htmlFor={`autoUmaSwitch-${props.tableId}`}>Manual uma</label>
+					</Space>
 				</Space>
 				<table>
 					<thead>
@@ -262,6 +275,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 									onChange={(newValue: PointInputType) => setEastUma(newValue)}
 									tabIndex={5}
 									short={safeMode}
+									disabled={automaticUma}
 									uma
 								/>
 							</td>
@@ -297,6 +311,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 									onChange={(newValue: PointInputType) => setSouthUma(newValue)}
 									tabIndex={6}
 									short={safeMode}
+									disabled={automaticUma}
 									uma
 								/>
 							</td>
@@ -332,6 +347,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 									onChange={(newValue: PointInputType) => setWestUma(newValue)}
 									tabIndex={7}
 									short={safeMode}
+									disabled={automaticUma}
 									uma
 								/>
 							</td>
@@ -367,6 +383,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 									onChange={(newValue: PointInputType) => setNorthUma(newValue)}
 									tabIndex={8}
 									short={safeMode}
+									disabled={automaticUma}
 									uma
 								/>
 							</td>
