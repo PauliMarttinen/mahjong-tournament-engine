@@ -9,6 +9,7 @@ import { Routes } from "../../../utils/routeUtils";
 import { useNavigate } from "react-router-dom";
 import styles from "./TournamentInfoEntry.module.css";
 import {Input, Space, Card, Button, Checkbox, Radio, RadioChangeEvent, Modal} from "antd";
+import {QuestionCircleOutlined} from "@ant-design/icons";
 import MandatoryAsterisk from "../../../components/MandatoryAsterisk";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 import { emptyRound } from "../../../state/reducers/newTournamentReducer";
@@ -104,7 +105,37 @@ const TournamentInfoView = () => {
 				footer={[
 					<Button type={"primary"} onClick={closeUmaHelp}>Close</Button>
 				]}>
-				<p>Uma help</p>
+				<p>To ease the tournament official's burden, you can set uma to be determined automatically when entering hanchan results.</p>
+
+				<p>"Split" and "Headbump" are ways to decide how uma is awarded to players who are tied with points.</p>
+
+				<p>For "split" systems it is highly advisable that the first/last place uma score is 3x the second/third place uma score.</p>
+
+				<p>Ruleset examples:</p>
+				<table className={styles.rulesetExamples}>
+					<tbody>
+						<tr>
+							<td>EMA 2025, WRC 2025</td>
+							<td>+15 / +5 / -5 / -15</td>
+							<td>Split</td>
+						</tr>
+						<tr>
+							<td>M.League</td>
+							<td>+30 / +10 / -10 / -30</td>
+							<td>Split</td>
+						</tr>
+						<tr>
+							<td>Tenhou.net</td>
+							<td>+20 / +10 / -10 / -20</td>
+							<td>Headbump</td>
+						</tr>
+						<tr>
+							<td>Mahjong Soul</td>
+							<td>+15 / +5 / -5 / -15</td>
+							<td>Headbump</td>
+						</tr>
+					</tbody>
+				</table>
 			</Modal>
 			<NewTournamentSteps key={"newTournamentSteps"} current={0}/>
 			<div className={styles.tournamentInfoEntry}>
@@ -212,6 +243,11 @@ const TournamentInfoView = () => {
 								value={currentInfo.uma.tiebreak}
 								onChange={(e: RadioChangeEvent) => setTiebreakStyle(e.target.value)}
 							/>
+							<Button
+								type={"default"}
+								onClick={openUmaHelp}>
+								<QuestionCircleOutlined/>
+							</Button>
 						</Space>
 					</Card>
 				</Space>
