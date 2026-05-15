@@ -69,32 +69,36 @@ const TournamentInfoView = () => {
 		<>
 			<NewTournamentSteps key={"newTournamentSteps"} current={0}/>
 			<div className={styles.tournamentInfoEntry}>
-				<Space direction={"horizontal"}>
-					<Space direction={"vertical"}>
-						<h1>Start new tournament</h1>
-						<Title
-							title={currentInfo.title}
-							onChange={setTitle}
-						/>
-						<Rounds
-							rounds={currentInfo.rounds}
-							roundLength={currentInfo.roundLength}
-							onChangeRoundCount={setRounds}
-							onChangeRoundLength={setRoundLength}
-						/>
-						<div className={styles.button}>
-							<Button
-								type={"primary"}
-								disabled={currentInfo.title.trim() === ""}
-								onClick={() => onSave()}>
-								Next
-							</Button>
-						</div>
+				<h1>Start new tournament</h1>
+				<Space direction={"vertical"}>
+					<Space direction={"horizontal"}>
+						<Space direction={"vertical"} className={styles.titleRounds}>
+							<Title
+								title={currentInfo.title}
+								onChange={setTitle}
+							/>
+							<Rounds
+								rounds={currentInfo.rounds}
+								roundLength={currentInfo.roundLength}
+								onChangeRoundCount={setRounds}
+								onChangeRoundLength={setRoundLength}
+							/>
+						</Space>
+						<Space direction={"vertical"}>
+							<Uma
+								uma={currentInfo.uma}
+								onChange={setUma}
+							/>
+						</Space>
 					</Space>
-					<Uma
-						uma={currentInfo.uma}
-						onChange={setUma}
-					/>
+					<div className={styles.button}>
+						<Button
+							type={"primary"}
+							disabled={currentInfo.title.trim() === ""}
+							onClick={() => onSave()}>
+							Next
+						</Button>
+					</div>
 				</Space>
 			</div>
 		</>
