@@ -19,6 +19,7 @@ const SeatingTemplateEvaluations = () => {
 				centered={true}
 				open={showWindBalanceInfo}
 				title={"Wind Balance Score"}
+				onCancel={() => setShowWindBalanceInfo(false)}
 				footer={[
 					<Button type={"primary"} onClick={() => setShowWindBalanceInfo(false)}>Close</Button>
 				]}>
@@ -33,6 +34,7 @@ const SeatingTemplateEvaluations = () => {
 				centered={true}
 				open={showMeetingBalanceInfo}
 				title={"Meeting Balance Score"}
+				onCancel={() => setShowMeetingBalanceInfo(false)}
 				footer={[
 					<Button type={"primary"} onClick={() => setShowMeetingBalanceInfo(false)}>Close</Button>
 				]}>

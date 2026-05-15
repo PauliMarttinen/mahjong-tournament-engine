@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
-import type { GeneralInfo, Round } from "../../../data-types/tournament-data-types";
+import { type GeneralInfo, type Round, type Uma as UmaType } from "../../../data-types/tournament-data-types";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { newTournamentActionCreators } from "../../../state";
-import NumberInput from "../../../components/NumberInput";
 import { initialState } from "../../../state/reducers/tournamentReducer";
 import { Routes } from "../../../utils/routeUtils";
 import { useNavigate } from "react-router-dom";
 import styles from "./TournamentInfoEntry.module.css";
-import {Input, Space, Card, Button} from "antd";
-import MandatoryAsterisk from "../../../components/MandatoryAsterisk";
+import {Space, Button} from "antd";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 import { emptyRound } from "../../../state/reducers/newTournamentReducer";
 import getSimpleDateISOString from "../../../utils/getSimpleDateISOString";
+import Title from "./Title/Title";
+import Rounds from "./Rounds/Rounds";
+import Uma from "../../../components/Uma/Uma";
 
 const TournamentInfoView = () => {
 	const navigate = useNavigate();
@@ -24,6 +25,13 @@ const TournamentInfoView = () => {
 	const onSave = (): void => {
 		addGeneralInfo(currentInfo);
 		navigate(Routes.ScheduleEntry);
+	};
+
+	const setTitle = (newTitle: string) => {
+		setCurrentInfo({
+			...currentInfo,
+			title: newTitle
+		});
 	};
 
 	const setRounds = (count: number): void => {
@@ -39,6 +47,20 @@ const TournamentInfoView = () => {
 		});
 	};
 
+	const setRoundLength = (length: number) => {
+		setCurrentInfo({
+			...currentInfo,
+			roundLength: length
+		});
+	};
+
+	const setUma = (uma: UmaType) => {
+		setCurrentInfo({
+			...currentInfo,
+			uma: uma
+		});
+	};
+
 	useEffect(() => {
 		setRounds(initialState.info.rounds.length);
 	}, []);
@@ -47,30 +69,28 @@ const TournamentInfoView = () => {
 		<>
 			<NewTournamentSteps key={"newTournamentSteps"} current={0}/>
 			<div className={styles.tournamentInfoEntry}>
+				<h1>Start new tournament</h1>
 				<Space direction={"vertical"}>
-					<h1>Start new tournament</h1>
-					<Card title={(
-						<p>Tournament Title<MandatoryAsterisk/></p>
-					)}>
-						<Input
-							value={currentInfo.title}
-							onChange={(e): void => setCurrentInfo({...currentInfo, title: e.target.value})}
-						/>
-					</Card>
-					<Card title={"Rounds"}>
-						<label>Number of rounds</label>
-						<NumberInput
-							minimum={1}
-							value={currentInfo.rounds.length}
-							onChange={(newValue: number): void => setRounds(newValue)}
-						/>
-						<label>Round length (minutes)</label>
-						<NumberInput
-							minimum={1}
-							value={currentInfo.roundLength}
-							onChange={(newValue: number): void => setCurrentInfo({...currentInfo, roundLength: newValue})}
-						/>
-					</Card>
+					<Space direction={"horizontal"}>
+						<Space direction={"vertical"} className={styles.titleRounds}>
+							<Title
+								title={currentInfo.title}
+								onChange={setTitle}
+							/>
+							<Rounds
+								rounds={currentInfo.rounds}
+								roundLength={currentInfo.roundLength}
+								onChangeRoundCount={setRounds}
+								onChangeRoundLength={setRoundLength}
+							/>
+						</Space>
+						<Space direction={"vertical"}>
+							<Uma
+								uma={currentInfo.uma}
+								onChange={setUma}
+							/>
+						</Space>
+					</Space>
 					<div className={styles.button}>
 						<Button
 							type={"primary"}

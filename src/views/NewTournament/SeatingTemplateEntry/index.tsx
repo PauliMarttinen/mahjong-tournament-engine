@@ -156,6 +156,7 @@ const SeatingTemplateEntry = () => {
 				centered={true}
 				open={showUploadModal}
 				title={"Open Seating Template File"}
+				onCancel={() => setShowUploadModal(false)}
 				footer={[
 					<Button type={"primary"} onClick={() => setShowUploadModal(false)}>Close</Button>
 				]}>

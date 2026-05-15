@@ -44,6 +44,7 @@ const EditPlayers = () => {
 				title={"Duplicate player names"}
 				open={duplicates.length > 0}
 				centered={true}
+				onCancel={() => setDuplicates([])}
 				footer={[
 					<Button type={"primary"} onClick={() => setDuplicates([])}>Close</Button>
 				]}>

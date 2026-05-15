@@ -43,6 +43,7 @@ const PlayerEntryView = () => {
 				centered={true}
 				open={duplicates.length > 0}
 				title={"Duplicate players"}
+				onCancel={() => setDuplicates([])}
 				footer={[
 					<Button type={"primary"} onClick={() => setDuplicates([])}>Close</Button>
 				]}>
