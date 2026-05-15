@@ -36,21 +36,21 @@ const EditUma = () => {
 				value: Math.abs(game.participants[0].score.raw)
 			};
 			const southRaw: PointInputType = {
-				positive: game.participants[0].score.raw >= 0,
-				value: Math.abs(game.participants[0].score.raw)
+				positive: game.participants[1].score.raw >= 0,
+				value: Math.abs(game.participants[1].score.raw)
 			};
 			const westRaw: PointInputType = {
-				positive: game.participants[0].score.raw >= 0,
-				value: Math.abs(game.participants[0].score.raw)
+				positive: game.participants[2].score.raw >= 0,
+				value: Math.abs(game.participants[2].score.raw)
 			};
 			const northRaw: PointInputType = {
-				positive: game.participants[0].score.raw >= 0,
-				value: Math.abs(game.participants[0].score.raw)
+				positive: game.participants[3].score.raw >= 0,
+				value: Math.abs(game.participants[3].score.raw)
 			};
 
 			const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
-				tournament.info.uma,
-				[eastRaw, southRaw, eastRaw, northRaw]
+				currentUma,
+				[eastRaw, southRaw, westRaw, northRaw]
 			);
 
 			return {
