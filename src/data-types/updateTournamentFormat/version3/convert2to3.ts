@@ -30,7 +30,7 @@ const convert2to3 = (oldData: Version2): Version3 => {
 		games: oldData.games,
 		playerList: oldData.playerList,
 		meta: {
-			dataFormatVersion: 2
+			dataFormatVersion: 3
 		}
 	};
 

@@ -103,7 +103,7 @@ const EditUma = () => {
 					uma={currentUma}
 					onChange={setCurrentUma}
 				/>
-				<Space className={styles.button}>
+				<Space className={styles.button} direction={"vertical"}>
 					<Button
 						type={"primary"}
 						onClick={save}>
