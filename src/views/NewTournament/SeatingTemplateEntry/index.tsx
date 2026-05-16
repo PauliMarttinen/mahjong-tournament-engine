@@ -118,12 +118,10 @@ const SeatingTemplateEntry = () => {
 							/>
 						</Space>
 						<Space direction={"vertical"}>
-							<Card>
-								<SeatingTemplateTable
-									format={format}
-									preview={showPreview}
-								/>
-							</Card>
+							<SeatingTemplateTable
+								format={format}
+								preview={showPreview}
+							/>
 							<SeatingTemplateEvaluations/>
 							{
 								confirmDisabled &&
