@@ -19,6 +19,7 @@ import styles from "./SeatingTemplateEntry.module.css";
 import {Space, Card, Alert, Button} from "antd";
 import FormatSelector, {Formats} from "./SeatingTemplateTable/FormatSelector/FormatSelector";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
+import TemplateStack from "./TemplateStack/TemplateStack";
 import AddTemplate from "./AddTemplate/AddTemplate";
 
 const defaultScore: Score = {
@@ -112,11 +113,6 @@ const SeatingTemplateEntry = () => {
 		navigate(Routes.Overview);
 	};
 
-	const setRecommendedSeating = (): void => {
-		if (!recommendedExists) return;
-		setCurrentSeatingTemplateIndex(0);
-	};
-
 	const confirmDisabled = seatingTemplateErrors.missing.length > 0 || seatingTemplateErrors.duplicates.length > 0 || seatingTemplateErrors.outsideRange.length > 0;
 
 	if (seatingTemplateHistory.length === 0) {
@@ -139,32 +135,12 @@ const SeatingTemplateEntry = () => {
 								recommendedExists &&
 								<Alert message={"A recommended template for this number of rounds and players is available."}/>
 							}
-							<Card title={"Template stack"}>
-								<Space direction={"vertical"}>
-									<p>Template {currentSeatingTemplateIndex + 1} of {seatingTemplateHistory.length}</p>
-									<p>Kind: {SeatingTemplateTypes[seatingTemplateHistory[currentSeatingTemplateIndex].type]}</p>
-									<Button
-										type={"default"}
-										onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex - 1)}
-										disabled={currentSeatingTemplateIndex === 0}>
-										Previous Seating
-									</Button>
-									<Button
-										type={"default"}
-										onClick={() => setCurrentSeatingTemplateIndex(currentSeatingTemplateIndex + 1)}
-										disabled={currentSeatingTemplateIndex === seatingTemplateHistory.length - 1}>
-										Next Seating
-									</Button>
-									{
-										recommendedExists &&
-										<Button
-											type={"default"}
-											onClick={() => setRecommendedSeating()}>
-											Recommended
-										</Button>
-									}
-								</Space>
-							</Card>
+							<TemplateStack
+								recommendedExists={recommendedExists}
+								index={currentSeatingTemplateIndex}
+								history={seatingTemplateHistory}
+								onChange={setCurrentSeatingTemplateIndex}
+							/>
 							<AddTemplate
 								newTournament={newTournament}
 								onNewTemplate={addSeatingTemplateToHistory}
