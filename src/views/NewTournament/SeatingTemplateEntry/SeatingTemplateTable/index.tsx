@@ -1,4 +1,4 @@
-import { Formats } from "./FormatSelector/FormatSelector"
+import { Formats } from "../ViewOptions/FormatSelector/FormatSelector"
 import TableRoundVerticalTable from "./TableRoundVerticalTable";
 import RoundTableVerticalTable from "./RoundTableVerticalTable";
 

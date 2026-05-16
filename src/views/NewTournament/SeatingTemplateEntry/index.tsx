@@ -16,7 +16,8 @@ import type { SeatingTemplateStackItem } from "../../../data-types/new-tournamen
 import {SeatingTemplateTypes} from "../../../data-types/new-tournament-data-types";
 import styles from "./SeatingTemplateEntry.module.css";
 import {Space, Card, Alert, Button} from "antd";
-import FormatSelector, {Formats} from "./SeatingTemplateTable/FormatSelector/FormatSelector";
+import {Formats} from "./ViewOptions/FormatSelector/FormatSelector";
+import ViewOptions from "./ViewOptions/ViewOptions";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 import TemplateStack from "./TemplateStack/TemplateStack";
 import AddTemplate from "./AddTemplate/AddTemplate";
@@ -114,17 +115,11 @@ const SeatingTemplateEntry = () => {
 								newTournament={newTournament}
 								onNewTemplate={addSeatingTemplateToStack}
 							/>
-							<Card title={"View options"}>
-								<Button
-									type={"default"}
-									onClick={() => setShowPreview(true)}>
-									Preview With Names
-								</Button>
-								<FormatSelector
-									format={format}
-									onFormatChange={setFormat}
-								/>								
-							</Card>
+							<ViewOptions
+								onPreview={setShowPreview}
+								format={format}
+								onFormat={setFormat}
+							/>
 						</Space>
 						<Space direction={"vertical"}>
 							<Card>

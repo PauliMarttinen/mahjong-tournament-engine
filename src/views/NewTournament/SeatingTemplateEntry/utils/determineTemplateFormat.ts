@@ -1,4 +1,4 @@
-import { Formats } from "../SeatingTemplateTable/FormatSelector/FormatSelector"
+import { Formats } from "../ViewOptions/FormatSelector/FormatSelector"
 import { generateArray } from "../../../../utils/generateArray";
 import {RTHtoTRV, TRHtoTRV, RTVtoTRV} from "../../../../utils/convertTemplate";
 
