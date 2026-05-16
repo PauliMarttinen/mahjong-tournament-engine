@@ -11,18 +11,15 @@ import { useNavigate } from "react-router-dom";
 import { Routes } from "../../../utils/routeUtils";
 import SeatingTemplateTable from "./SeatingTemplateTable";
 import { generateRandomizedSeating } from "./utils/generateRandomizedSeating";
-import FileUpload from "../../../components/FileUpload";
-import readXlsxFile from "read-excel-file";
-import type { Row } from "read-excel-file/types";
-import { convertTemplateFromCsv, convertTemplateFromExcel } from "../../../utils/convertTemplate";
 import { findErrors } from "./utils/seatingTemplateEvaluation";
 import SeatingTemplateEvaluations from "./SeatingTemplateEvaluation";
 import type { SeatingTemplateHistoryItem } from "../../../data-types/new-tournament-data-types";
 import {SeatingTemplateTypes} from "../../../data-types/new-tournament-data-types";
 import styles from "./SeatingTemplateEntry.module.css";
-import {Modal, Space, Card, Alert, Button} from "antd";
+import {Space, Card, Alert, Button} from "antd";
 import FormatSelector, {Formats} from "./SeatingTemplateTable/FormatSelector/FormatSelector";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
+import AddTemplate from "./AddTemplate/AddTemplate";
 
 const defaultScore: Score = {
 	raw: 0,
@@ -64,7 +61,6 @@ const SeatingTemplateEntry = () => {
 	}, []);
 
 	const [showPreview, setShowPreview] = useState<boolean>(false);
-	const [showUploadModal, setShowUploadModal] = useState<boolean>(false);
 	const [format, setFormat] = useState<Formats>(Formats.TableRoundVertical);
 
 	useEffect(() => {
@@ -116,26 +112,6 @@ const SeatingTemplateEntry = () => {
 		navigate(Routes.Overview);
 	};
 
-	const readTemplateFile = (files: FileList | null) => {
-		if (files === null) return;
-
-		readXlsxFile(files[0]).then((excelRows: Row[]) => {
-			addSeatingTemplateToHistory(convertTemplateFromExcel(excelRows, newTournament.info.rounds.length, newTournament.playerList.length), SeatingTemplateTypes.Custom);
-			setShowUploadModal(false);
-		}).catch((e) => {
-			const fileReader = new FileReader();
-			fileReader.onload = () => {
-				if (fileReader.result === null) return;
-				addSeatingTemplateToHistory(convertTemplateFromCsv(fileReader.result as string, newTournament.info.rounds.length, newTournament.playerList.length), SeatingTemplateTypes.Custom);
-			};
-			fileReader.readAsText(files[0]);
-		});
-	};
-
-	const randomizeSeating = (): void => {
-		addSeatingTemplateToHistory(generateRandomizedSeating(newTournament.playerList.length, newTournament.info.rounds.length), SeatingTemplateTypes.Randomized);
-	};
-
 	const setRecommendedSeating = (): void => {
 		if (!recommendedExists) return;
 		setCurrentSeatingTemplateIndex(0);
@@ -152,20 +128,6 @@ const SeatingTemplateEntry = () => {
 	return (
 		<>
 			<NewTournamentSteps key={"newTournamentSteps"} current={3}/>
-			<Modal
-				centered={true}
-				open={showUploadModal}
-				title={"Open Seating Template File"}
-				onCancel={() => setShowUploadModal(false)}
-				footer={[
-					<Button type={"primary"} onClick={() => setShowUploadModal(false)}>Close</Button>
-				]}>
-				<p>You can open your own seating template as an Excel or CSV file.</p>
-				<FileUpload
-					label={"Open custom seating template file"}
-					onUpload={(content) => readTemplateFile(content)}
-				/>
-			</Modal>
 			<div className={styles.seatingTemplateEntry}>
 				<Space direction={"vertical"}>
 					<h1>Seating template</h1>
@@ -203,20 +165,10 @@ const SeatingTemplateEntry = () => {
 									}
 								</Space>
 							</Card>
-							<Card title={"Add template"}>
-								<Space direction={"vertical"}>
-									<Button
-										type={"default"}
-										onClick={() => randomizeSeating()}>
-										Randomized
-									</Button>
-									<Button
-										type={"default"}
-										onClick={() => setShowUploadModal(true)}>
-										Open from file
-									</Button>	
-								</Space>
-							</Card>
+							<AddTemplate
+								newTournament={newTournament}
+								onNewTemplate={addSeatingTemplateToHistory}
+							/>
 							<Card title={"View options"}>
 								<Button
 									type={"default"}

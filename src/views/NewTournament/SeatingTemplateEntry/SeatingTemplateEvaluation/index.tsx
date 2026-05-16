@@ -45,7 +45,7 @@ const SeatingTemplateEvaluations = () => {
 					message={"Note: the algorithm that evaluates the template is experimental and may produce silly numbers."}
 				/>
 			</Modal>
-			<Card title={"Seating evaluations"}>
+			<Card title={"Seating evaluations (experimental)"}>
 				<table className={styles.evaluationTable}>
 					<tbody>
 						<tr>
