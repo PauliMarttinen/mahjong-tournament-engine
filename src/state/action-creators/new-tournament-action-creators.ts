@@ -30,11 +30,11 @@ export const addPlayers = (players: Player[]) => {
 	};
 };
 
-export const setSeatingTemplateStack = (templateHistory: SeatingTemplateStackItem[]) => {
+export const setSeatingTemplateStack = (templateStack: SeatingTemplateStackItem[]) => {
 	return (dispatch: Dispatch<SetSeatingTemplateStackAction>) => {
 		dispatch({
 			type: ActionTypes.SetSeatingTemplateStack,
-			payload: templateHistory
+			payload: templateStack
 		});
 	};
 };
