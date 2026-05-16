@@ -1,6 +1,6 @@
 import type Action from "../actions/new-tournament-actions";
 import ActionTypes from "../action-types/new-tournament-action-types";
-import type { NewTournament, SeatingTemplateHistoryItem } from "../../data-types/new-tournament-data-types";
+import type { NewTournament, SeatingTemplateStackItem } from "../../data-types/new-tournament-data-types";
 import { type Round, UmaTiebreak } from "../../data-types/tournament-data-types";
 
 export const emptyRound: Round = {
@@ -35,7 +35,7 @@ export const initialState: NewTournament = {
 		}
 	},
 	playerList: [],
-	seatingTemplateHistory: [],
+	seatingTemplateStack: [],
 	seatingTemplateErrors: {
 		duplicates: [],
 		missing: [],
@@ -63,11 +63,11 @@ const reducer = (state: NewTournament = initialState, action: Action): NewTourna
 			};
 			return newState;
 		}
-		case ActionTypes.SetSeatingTemplateHistory:
+		case ActionTypes.SetSeatingTemplateStack:
 		{
 			const newState: NewTournament = {
 				...state,
-				seatingTemplateHistory: action.payload
+				seatingTemplateStack: action.payload
 			};
 			return newState;
 		}
@@ -90,10 +90,10 @@ const reducer = (state: NewTournament = initialState, action: Action): NewTourna
 		case ActionTypes.EditTemplateField:
 		{
 			const {tableId, roundId, seatId, playerId} = action.payload;
-			const templateToUpdate = state.seatingTemplateHistory[state.currentSeatingTemplateIndex];
+			const templateToUpdate = state.seatingTemplateStack[state.currentSeatingTemplateIndex];
 			templateToUpdate.template[tableId*4+seatId][roundId] = playerId;
 
-			const newSeatingTemplateHistory = state.seatingTemplateHistory.map((item: SeatingTemplateHistoryItem, index: number) => {
+			const newSeatingTemplateStack = state.seatingTemplateStack.map((item: SeatingTemplateStackItem, index: number) => {
 				if (index === state.currentSeatingTemplateIndex) return templateToUpdate;
 
 				return item;
@@ -101,7 +101,7 @@ const reducer = (state: NewTournament = initialState, action: Action): NewTourna
 
 			const newState: NewTournament = {
 				...state,
-				seatingTemplateHistory: newSeatingTemplateHistory
+				seatingTemplateStack: newSeatingTemplateStack
 			};
 			return newState;
 		}

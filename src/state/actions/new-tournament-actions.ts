@@ -1,6 +1,6 @@
 import ActionTypes from "../action-types/new-tournament-action-types";
 import type { GeneralInfo, Player } from "../../data-types/tournament-data-types";
-import type { SeatingTemplateErrors, SeatingTemplateHistoryItem } from "../../data-types/new-tournament-data-types";
+import type { SeatingTemplateErrors, SeatingTemplateStackItem } from "../../data-types/new-tournament-data-types";
 
 export type AddGeneralInfoAction = {
 	type: ActionTypes.AddGeneralInfo,
@@ -12,9 +12,9 @@ export type AddPlayersAction = {
 	payload: Player[]
 };
 
-export type SetSeatingTemplateHistoryAction = {
-	type: ActionTypes.SetSeatingTemplateHistory,
-	payload: SeatingTemplateHistoryItem[]
+export type SetSeatingTemplateStackAction = {
+	type: ActionTypes.SetSeatingTemplateStack,
+	payload: SeatingTemplateStackItem[]
 };
 
 export type SetCurrentSeatingTemplateIndexAction = {
@@ -44,7 +44,7 @@ export type ClearNewTournamentAction = {
 type Action =
 	AddGeneralInfoAction |
 	AddPlayersAction |
-	SetSeatingTemplateHistoryAction |
+	SetSeatingTemplateStackAction |
 	SetCurrentSeatingTemplateIndexAction |
 	SetSeatingTemplateErrorsAction |
 	EditTemplateFieldAction |

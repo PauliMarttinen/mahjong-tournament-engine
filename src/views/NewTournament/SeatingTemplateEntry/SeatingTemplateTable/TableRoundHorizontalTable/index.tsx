@@ -10,7 +10,7 @@ type SeatingTemplateTableProps = {
 const TableRoundHorizontalTable = (props: SeatingTemplateTableProps) => {
 	const newTournament = useNewTournament();
 	const {seatingTemplateErrors} = newTournament;
-	const seatingTemplate = newTournament.seatingTemplateHistory[newTournament.currentSeatingTemplateIndex].template;
+	const seatingTemplate = newTournament.seatingTemplateStack[newTournament.currentSeatingTemplateIndex].template;
 	
 	const [highlightedRow, setHighlightedRow] = useState<number | null>(null);
 	const [highlightedColumn, setHighlightedColumn] = useState<number | null>(null);

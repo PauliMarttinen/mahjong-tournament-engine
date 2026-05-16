@@ -13,7 +13,7 @@ import SeatingTemplateTable from "./SeatingTemplateTable";
 import { generateRandomizedSeating } from "./utils/generateRandomizedSeating";
 import { findErrors } from "./utils/seatingTemplateEvaluation";
 import SeatingTemplateEvaluations from "./SeatingTemplateEvaluation";
-import type { SeatingTemplateHistoryItem } from "../../../data-types/new-tournament-data-types";
+import type { SeatingTemplateStackItem } from "../../../data-types/new-tournament-data-types";
 import {SeatingTemplateTypes} from "../../../data-types/new-tournament-data-types";
 import styles from "./SeatingTemplateEntry.module.css";
 import {Space, Card, Alert, Button} from "antd";
@@ -30,17 +30,17 @@ const defaultScore: Score = {
 
 const SeatingTemplateEntry = () => {
 	const newTournament = useNewTournament();
-	const {seatingTemplateHistory, currentSeatingTemplateIndex, seatingTemplateErrors} = newTournament;
+	const {seatingTemplateStack, currentSeatingTemplateIndex, seatingTemplateErrors} = newTournament;
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const {editTournamentInfo, addPlayers, addGames} = bindActionCreators(tournamentActionCreators, dispatch);
-	const {setSeatingTemplateHistory, setCurrentSeatingTemplateIndex, setSeatingTemplateErrors, clearNewTournament} = bindActionCreators(newTournamentActionCreators, dispatch);
+	const {setSeatingTemplateStack: setSeatingTemplateStack, setCurrentSeatingTemplateIndex, setSeatingTemplateErrors, clearNewTournament} = bindActionCreators(newTournamentActionCreators, dispatch);
 	
 	const recommendedIdentifier = `r${newTournament.info.rounds.length}p${newTournament.playerList.length}`;
 	const recommendedExists = recommendedIdentifier in recommendedSeatingTemplates;
 
-	const getFirstTemplate = (): SeatingTemplateHistoryItem => {
+	const getFirstTemplate = (): SeatingTemplateStackItem => {
 		if (recommendedExists) {
 			return {
 				template: recommendedSeatingTemplates[recommendedIdentifier],
@@ -55,9 +55,9 @@ const SeatingTemplateEntry = () => {
 	};
 	
 	useEffect(() => {
-		if (seatingTemplateHistory.length === 0)
+		if (seatingTemplateStack.length === 0)
 		{
-			setSeatingTemplateHistory([getFirstTemplate()]);
+			setSeatingTemplateStack([getFirstTemplate()]);
 		}
 	}, []);
 
@@ -65,16 +65,16 @@ const SeatingTemplateEntry = () => {
 	const [format, setFormat] = useState<Formats>(Formats.TableRoundVertical);
 
 	useEffect(() => {
-		if (seatingTemplateHistory.length > 0)
+		if (seatingTemplateStack.length > 0)
 		{
-			setSeatingTemplateErrors(findErrors(seatingTemplateHistory[currentSeatingTemplateIndex].template));
+			setSeatingTemplateErrors(findErrors(seatingTemplateStack[currentSeatingTemplateIndex].template));
 		}
-	}, [currentSeatingTemplateIndex, seatingTemplateHistory]);
+	}, [currentSeatingTemplateIndex, seatingTemplateStack]);
 
-	const addSeatingTemplateToHistory = (template: number[][], type: SeatingTemplateTypes): void => {
-		const newHistory = [...seatingTemplateHistory, {template, type}];
-		setSeatingTemplateHistory(newHistory);
-		setCurrentSeatingTemplateIndex(newHistory.length - 1);
+	const addSeatingTemplateToStack = (template: number[][], type: SeatingTemplateTypes): void => {
+		const newStack = [...seatingTemplateStack, {template, type}];
+		setSeatingTemplateStack(newStack);
+		setCurrentSeatingTemplateIndex(newStack.length - 1);
 	};
 
 	const createGamesData = (seatingTemplate: number[][]): Game[] => {
@@ -108,14 +108,14 @@ const SeatingTemplateEntry = () => {
 	const confirmSeating = (): void => {
 		editTournamentInfo(newTournament.info);
 		addPlayers(newTournament.playerList);
-		addGames(createGamesData(seatingTemplateHistory[currentSeatingTemplateIndex].template));
+		addGames(createGamesData(seatingTemplateStack[currentSeatingTemplateIndex].template));
 		clearNewTournament();
 		navigate(Routes.Overview);
 	};
 
 	const confirmDisabled = seatingTemplateErrors.missing.length > 0 || seatingTemplateErrors.duplicates.length > 0 || seatingTemplateErrors.outsideRange.length > 0;
 
-	if (seatingTemplateHistory.length === 0) {
+	if (seatingTemplateStack.length === 0) {
 		return (
 			<NewTournamentSteps key={"newTournamentSteps"} current={3}/>
 		);
@@ -138,12 +138,12 @@ const SeatingTemplateEntry = () => {
 							<TemplateStack
 								recommendedExists={recommendedExists}
 								index={currentSeatingTemplateIndex}
-								history={seatingTemplateHistory}
+								stack={seatingTemplateStack}
 								onChange={setCurrentSeatingTemplateIndex}
 							/>
 							<AddTemplate
 								newTournament={newTournament}
-								onNewTemplate={addSeatingTemplateToHistory}
+								onNewTemplate={addSeatingTemplateToStack}
 							/>
 							<Card title={"View options"}>
 								<Button

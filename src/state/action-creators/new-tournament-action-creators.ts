@@ -1,11 +1,11 @@
 import type {Dispatch} from "redux";
 import type { GeneralInfo, Player } from "../../data-types/tournament-data-types";
-import type { SeatingTemplateErrors, SeatingTemplateHistoryItem } from "../../data-types/new-tournament-data-types";
+import type { SeatingTemplateErrors, SeatingTemplateStackItem } from "../../data-types/new-tournament-data-types";
 import ActionTypes from "../action-types/new-tournament-action-types";
 import type {
 	AddGeneralInfoAction,
 	AddPlayersAction,
-	SetSeatingTemplateHistoryAction,
+	SetSeatingTemplateStackAction,
 	SetCurrentSeatingTemplateIndexAction,
 	SetSeatingTemplateErrorsAction,
 	EditTemplateFieldAction,
@@ -30,10 +30,10 @@ export const addPlayers = (players: Player[]) => {
 	};
 };
 
-export const setSeatingTemplateHistory = (templateHistory: SeatingTemplateHistoryItem[]) => {
-	return (dispatch: Dispatch<SetSeatingTemplateHistoryAction>) => {
+export const setSeatingTemplateStack = (templateHistory: SeatingTemplateStackItem[]) => {
+	return (dispatch: Dispatch<SetSeatingTemplateStackAction>) => {
 		dispatch({
-			type: ActionTypes.SetSeatingTemplateHistory,
+			type: ActionTypes.SetSeatingTemplateStack,
 			payload: templateHistory
 		});
 	};

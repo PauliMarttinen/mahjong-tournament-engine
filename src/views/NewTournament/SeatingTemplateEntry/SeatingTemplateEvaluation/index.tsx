@@ -7,7 +7,7 @@ import styles from "./SeatingTemplateEvaluation.module.css";
 
 const SeatingTemplateEvaluations = () => {
 	const newTournament = useNewTournament();
-	const template = newTournament.seatingTemplateHistory[newTournament.currentSeatingTemplateIndex].template;
+	const template = newTournament.seatingTemplateStack[newTournament.currentSeatingTemplateIndex].template;
 	const errors = newTournament.seatingTemplateErrors;
 
 	const [showWindBalanceInfo, setShowWindBalanceInfo] = useState(false);

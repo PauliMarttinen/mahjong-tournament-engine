@@ -13,7 +13,7 @@ type SeatingTemplateTableProps = {
 const RoundTableVerticalTable = (props: SeatingTemplateTableProps) => {
 	const newTournament = useNewTournament();
 	const {seatingTemplateErrors} = newTournament;
-	const seatingTemplate = newTournament.seatingTemplateHistory[newTournament.currentSeatingTemplateIndex].template;
+	const seatingTemplate = newTournament.seatingTemplateStack[newTournament.currentSeatingTemplateIndex].template;
 	
 	const dispatch = useDispatch();
 	const {editTemplateField} = bindActionCreators(newTournamentActionCreators, dispatch);
