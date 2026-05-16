@@ -5,11 +5,13 @@ import useTournament from "../../../../utils/hooks/useTournament";
 import { getNumericValue } from "../../../../utils/getNumericValue";
 import PointInput from "../../../../components/PointInput";
 import type { Game, PointInputType } from "../../../../data-types/tournament-data-types";
-import { Alert, Switch, Space, Button, Input } from "antd";
+import { Alert, Space, Button, Input } from "antd";
 import { tournamentActionCreators } from "../../../../state";
 import {formatPoints} from "../../../../utils/formatPoints";
 import styles from "./ResultEditor.module.css";
 import getUma from "./utils/getUma";
+import SafeSwitch from "./SafeSwitch/SafeSwitch";
+import UmaSwitch from "./UmaSwitch/UmaSwitch";
 
 type ResultEditorPros = {
 	roundId: number,
@@ -283,27 +285,17 @@ const ResultEditor = (props: ResultEditorPros) => {
 		<div className={styles.resultEditor}>
 			<Space direction={"vertical"}>
 				<Space>
-					<Space>
-						<label htmlFor={`safeSwitch-${props.tableId}`}>Safe mode</label>
-						<Switch
-							checked={!safeMode}
-							onChange={() => setSafeMode(!safeMode)}
-							size={"small"}
-							id={`safeSwitch-${props.tableId}`}
-						/>
-						<label htmlFor={`safeSwitch-${props.tableId}`}>Danger mode</label>
-					</Space>
-					<Space className={styles.automaticUma}>
-						<label htmlFor={`autoUmaSwitch-${props.tableId}`}>Automatic uma</label>
-						<Switch
-							checked={!automaticUma}
-							onChange={() => setAutomaticUma(!automaticUma)}
-							size={"small"}
-							id={`autoUmaSwitch-${props.tableId}`}
-							disabled={!tournament.info.uma.automatic}
-						/>
-						<label htmlFor={`autoUmaSwitch-${props.tableId}`}>Manual uma</label>
-					</Space>
+					<SafeSwitch
+						safeMode={safeMode}
+						tableId={props.tableId}
+						onClick={setSafeMode}
+					/>
+					<UmaSwitch
+						automaticUma={automaticUma}
+						tournamentAutomaticUma={tournament.info.uma.automatic}
+						tableId={props.tableId}
+						onClick={setAutomaticUma}
+					/>
 				</Space>
 				<table>
 					<thead>
