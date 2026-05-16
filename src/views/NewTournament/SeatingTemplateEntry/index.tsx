@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import type { Game, Score } from "../../../data-types/tournament-data-types";
-import { generateArray } from "../../../utils/generateArray";
+import createGamesData from "./utils/generateGamesData";
 import useNewTournament from "../../../utils/hooks/useNewTournament";
 import { bindActionCreators } from "redux";
 import { tournamentActionCreators } from "../../../state";
@@ -21,12 +20,6 @@ import FormatSelector, {Formats} from "./SeatingTemplateTable/FormatSelector/For
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 import TemplateStack from "./TemplateStack/TemplateStack";
 import AddTemplate from "./AddTemplate/AddTemplate";
-
-const defaultScore: Score = {
-	raw: 0,
-	uma: 0,
-	penalty: 0
-}
 
 const SeatingTemplateEntry = () => {
 	const newTournament = useNewTournament();
@@ -77,38 +70,14 @@ const SeatingTemplateEntry = () => {
 		setCurrentSeatingTemplateIndex(newStack.length - 1);
 	};
 
-	const createGamesData = (seatingTemplate: number[][]): Game[] => {
-		return generateArray(newTournament.info.rounds.length).map((roundId: number): Game[] => (
-			generateArray(newTournament.playerList.length / 4).map((tableId: number): Game => ({
-				round: roundId,
-				table: tableId,
-				finished: false,
-				participants: [
-					{
-						playerId: seatingTemplate[tableId*4+0][roundId],
-						score: defaultScore
-					},
-					{
-						playerId: seatingTemplate[tableId*4+1][roundId],
-						score: defaultScore
-					},
-					{
-						playerId: seatingTemplate[tableId*4+2][roundId],
-						score: defaultScore
-					},
-					{
-						playerId: seatingTemplate[tableId*4+3][roundId],
-						score: defaultScore
-					}
-				]
-			}))
-		)).reduce((combined: Game[], round: Game[]): Game[] => [...combined, ...round], []);
-	};
-
 	const confirmSeating = (): void => {
 		editTournamentInfo(newTournament.info);
 		addPlayers(newTournament.playerList);
-		addGames(createGamesData(seatingTemplateStack[currentSeatingTemplateIndex].template));
+		addGames(createGamesData({
+			seatingTemplate: seatingTemplateStack[currentSeatingTemplateIndex].template,
+			roundCount: newTournament.info.rounds.length,
+			playerCount: newTournament.playerList.length
+		}));
 		clearNewTournament();
 		navigate(Routes.Overview);
 	};
