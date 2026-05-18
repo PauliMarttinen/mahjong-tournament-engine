@@ -9,8 +9,8 @@ import { Alert, Space, Button, Input } from "antd";
 import { tournamentActionCreators } from "../../../../state";
 import {formatPoints} from "../../../../utils/formatPoints";
 import styles from "./ResultEditor.module.css";
-import SafeSwitch from "./SafeSwitch/SafeSwitch";
-import UmaSwitch from "./UmaSwitch/UmaSwitch";
+import SafeSwitch from "./SafeSwitch";
+import UmaSwitch from "./UmaSwitch";
 
 type ResultEditorPros = {
 	roundId: number,

@@ -15,12 +15,12 @@ import SeatingTemplateEvaluations from "./SeatingTemplateEvaluation";
 import type { SeatingTemplateStackItem } from "../../../data-types/new-tournament-data-types";
 import {SeatingTemplateTypes} from "../../../data-types/new-tournament-data-types";
 import styles from "./SeatingTemplateEntry.module.css";
-import {Space, Card, Alert, Button} from "antd";
-import {Formats} from "./ViewOptions/FormatSelector/FormatSelector";
-import ViewOptions from "./ViewOptions/ViewOptions";
+import {Space, Alert, Button} from "antd";
+import {Formats} from "./ViewOptions/FormatSelector";
+import ViewOptions from "./ViewOptions";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
-import TemplateStack from "./TemplateStack/TemplateStack";
-import AddTemplate from "./AddTemplate/AddTemplate";
+import TemplateStack from "./TemplateStack";
+import AddTemplate from "./AddTemplate";
 
 const SeatingTemplateEntry = () => {
 	const newTournament = useNewTournament();

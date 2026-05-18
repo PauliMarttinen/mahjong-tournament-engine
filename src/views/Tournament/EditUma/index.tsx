@@ -3,7 +3,7 @@ import useTournament from "../../../utils/hooks/useTournament";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import { Button, Space } from "antd";
-import Uma from "../../../components/Uma/Uma";
+import Uma from "../../../components/Uma";
 import { type Game, type Uma as UmaType } from "../../../data-types/tournament-data-types";
 import styles from "./EditUma.module.css";
 import { useDispatch } from "react-redux";

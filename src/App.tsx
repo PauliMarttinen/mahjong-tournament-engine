@@ -14,7 +14,7 @@ import BigScreenPopup from "./views/Tournament/BigScreen/BigScreenPopup";
 import PrintOuts from "./views/Tournament/PrintOuts";
 import Entrance from "./views/Entrance";
 import EditPlayers from "./views/Tournament/EditPlayers";
-import EditUma from "./views/Tournament/EditUma/EditUma";
+import EditUma from "./views/Tournament/EditUma";
 import EditSchedule from "./views/Tournament/EditSchedule";
 import PrintPersonalSchedules from "./views/Print/PrintPersonalSchedules";
 import PrintReportCards from "./views/Print/PrintReportCards";

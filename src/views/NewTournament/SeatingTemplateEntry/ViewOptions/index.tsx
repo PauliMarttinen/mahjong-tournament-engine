@@ -1,5 +1,5 @@
 import { Card, Button } from "antd";
-import FormatSelector, {Formats} from "./FormatSelector/FormatSelector";
+import FormatSelector, {Formats} from "./FormatSelector";
 
 type ViewOptionsProps = {
 	onPreview: (newState: boolean) => void,

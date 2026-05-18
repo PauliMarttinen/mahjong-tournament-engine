@@ -13,7 +13,7 @@ import { emptyRound } from "../../../state/reducers/newTournamentReducer";
 import getSimpleDateISOString from "../../../utils/getSimpleDateISOString";
 import Title from "./Title/Title";
 import Rounds from "./Rounds/Rounds";
-import Uma from "../../../components/Uma/Uma";
+import Uma from "../../../components/Uma";
 
 const TournamentInfoView = () => {
 	const navigate = useNavigate();

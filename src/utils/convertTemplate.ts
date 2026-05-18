@@ -1,6 +1,6 @@
 import type { Row, Cell } from "read-excel-file/types";
 import { determineTemplateFormat } from "../views/NewTournament/SeatingTemplateEntry/utils/determineTemplateFormat";
-import { Formats } from "../views/NewTournament/SeatingTemplateEntry/ViewOptions/FormatSelector/FormatSelector";
+import { Formats } from "../views/NewTournament/SeatingTemplateEntry/ViewOptions/FormatSelector";
 import { generateArray } from "./generateArray";
 
 export const convertTemplateFromExcel = (fileContent: Row[], roundCount: number, playerCount: number): number[][] => {

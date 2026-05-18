@@ -1,5 +1,5 @@
 import { Card } from "antd";
-import { Formats } from "../ViewOptions/FormatSelector/FormatSelector"
+import { Formats } from "../ViewOptions/FormatSelector"
 import TableRoundVerticalTable from "./TableRoundVerticalTable";
 import RoundTableVerticalTable from "./RoundTableVerticalTable";
 
