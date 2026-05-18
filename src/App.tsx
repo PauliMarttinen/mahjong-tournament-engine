@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useTournament from "./utils/hooks/useTournament";
 import useAppState from "./utils/hooks/useAppState";

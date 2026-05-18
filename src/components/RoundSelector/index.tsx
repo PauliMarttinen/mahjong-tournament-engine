@@ -1,6 +1,6 @@
-import {Button} from "antd";
+import { Button } from "antd";
 import styles from "./RoundSelector.module.css";
-import {ArrowLeftOutlined, ArrowRightOutlined} from "@ant-design/icons";
+import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
 type RoundSelectorProps = {
 	round: number,

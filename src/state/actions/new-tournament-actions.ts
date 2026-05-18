@@ -1,6 +1,6 @@
 import ActionTypes from "../action-types/new-tournament-action-types";
-import type { GeneralInfo, Player } from "../../data-types/tournament-data-types";
-import type { SeatingTemplateErrors, SeatingTemplateStackItem } from "../../data-types/new-tournament-data-types";
+import { type GeneralInfo, type Player } from "../../data-types/tournament-data-types";
+import { type SeatingTemplateErrors, type SeatingTemplateStackItem } from "../../data-types/new-tournament-data-types";
 
 export type AddGeneralInfoAction = {
 	type: ActionTypes.AddGeneralInfo,

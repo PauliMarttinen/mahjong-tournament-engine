@@ -1,4 +1,4 @@
-import { Score } from "../../../../../data-types/tournament-data-types";
+import { type Score } from "../../../../../data-types/tournament-data-types";
 
 const isModified = (original: [Score, Score, Score, Score], compare: [Score, Score, Score, Score]): boolean => {
 	return (

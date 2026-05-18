@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import {
 	STATE_MESSAGE_IDENTIFIER,
 	PING_MESSAGE_IDENTIFIER,

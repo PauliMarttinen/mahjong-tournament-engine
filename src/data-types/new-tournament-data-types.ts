@@ -1,4 +1,4 @@
-import type { GeneralInfo, Player } from "./tournament-data-types";
+import { type GeneralInfo, type Player } from "./tournament-data-types";
 
 export enum SeatingTemplateTypes {
 	Recommended,

@@ -1,5 +1,5 @@
 import GamesChart from "../../../../../../components/PlayerPerformanceCharts/GamesChart";
-import {Card} from "antd";
+import { Card } from "antd";
 
 type GamesProps = {
 	playerId: number

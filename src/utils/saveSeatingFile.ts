@@ -1,5 +1,5 @@
 import { generateArray } from "./generateArray";
-import type {Tournament, Game} from "../data-types/tournament-data-types";
+import { type Tournament, type Game } from "../data-types/tournament-data-types";
 
 const saveSeatingFile = (tournament: Tournament) => {
 	const filename = `seating-template-${tournament.info.rounds.length}r-${tournament.playerList.length}p.csv`;

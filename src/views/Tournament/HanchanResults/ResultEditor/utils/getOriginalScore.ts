@@ -1,4 +1,4 @@
-import { Game, Score } from "../../../../../data-types/tournament-data-types";
+import { type Game, type Score } from "../../../../../data-types/tournament-data-types";
 
 const getOriginalScore = (game: Game): [Score, Score, Score, Score] => {
 	return [

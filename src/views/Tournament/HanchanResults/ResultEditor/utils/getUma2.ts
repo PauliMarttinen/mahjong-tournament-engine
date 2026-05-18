@@ -1,4 +1,4 @@
-import { Score, UmaTiebreak, type PointInputType, type Uma} from "../../../../../data-types/tournament-data-types";
+import { type Score, UmaTiebreak, type Uma } from "../../../../../data-types/tournament-data-types";
 
 type Player = {
 	seat: number,

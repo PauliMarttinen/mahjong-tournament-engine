@@ -1,4 +1,4 @@
-import type { App } from "../../data-types/app-data-types";
+import { type App } from "../../data-types/app-data-types";
 import type Action from "../actions/app-actions";
 import ActionTypes from "../action-types/app-action-types";
 

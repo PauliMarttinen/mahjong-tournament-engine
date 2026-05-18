@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Standing } from "../../../../../data-types/tournament-data-types";
+import { type Standing } from "../../../../../data-types/tournament-data-types";
 import Confetti from "react-confetti";
 import styles from "./FinalResults.module.css";
 import Name from "./Name";

@@ -1,11 +1,11 @@
-import type {Dispatch} from "redux";
-import type { GeneralInfo, Game, Tournament, Player } from "../../data-types/tournament-data-types";
+import { type Dispatch } from "redux";
+import { type GeneralInfo, type Game, type Tournament, type Player } from "../../data-types/tournament-data-types";
 import ActionTypes from "../action-types/tournament-action-types";
-import type {
-	EditTournamentInfoAction,
-	AddPlayersAction,
-	AddGamesAction,
-	SetTournament
+import {
+	type EditTournamentInfoAction,
+	type AddPlayersAction,
+	type AddGamesAction,
+	type SetTournament
 } from "../actions/tournament-actions";
 
 export const editTournamentInfo = (newInfo: GeneralInfo) => {

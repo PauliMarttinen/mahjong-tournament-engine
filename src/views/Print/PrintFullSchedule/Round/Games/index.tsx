@@ -1,4 +1,4 @@
-import type { Game, Player } from "../../../../../data-types/tournament-data-types";
+import { type Game, type Player } from "../../../../../data-types/tournament-data-types";
 
 type GamesProps = {
 	games: Game[],

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 import {
 	STATE_MESSAGE_IDENTIFIER,
 	PING_MESSAGE_IDENTIFIER,
@@ -7,19 +7,17 @@ import {
 	BigScreenActions
 } from "../../views/Tournament/BigScreen/utils/setBigScreenState";
 import collectGarbage from "../../views/Tournament/BigScreen/BigScreenPopup/utils/collectGarbage";
-import useAppState from "../../utils/hooks/useAppState";
 import useTournament from "../../utils/hooks/useTournament";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appActionCreators, tournamentActionCreators } from "../../state";
 import getSimpleDateISOString from "../../utils/getSimpleDateISOString";
-import { Round, Tournament } from "../../data-types/tournament-data-types";
+import { type Round, type Tournament } from "../../data-types/tournament-data-types";
 
 const BigScreenMonitor = () => {
 	const timeoutRef = useRef<number | null>(null);
 	const tournament = useTournament();
 	const tournamentRef = useRef<Tournament>(tournament);
-	const appState = useAppState();
 	const dispatch = useDispatch();
 
 	const {setBigScreen} = bindActionCreators(appActionCreators, dispatch);
@@ -101,7 +99,6 @@ const BigScreenMonitor = () => {
 			Big Screen Status: {appState.bigScreen && !appState.bigScreen.closed ? "on" : "off"}
 		</div>
 	); */
-	
 
 	return <></>;
 };

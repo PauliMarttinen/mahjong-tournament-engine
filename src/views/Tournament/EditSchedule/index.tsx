@@ -2,7 +2,7 @@ import { useState } from "react";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import useTournament from "../../../utils/hooks/useTournament";
-import { Round } from "../../../data-types/tournament-data-types";
+import { type Round } from "../../../data-types/tournament-data-types";
 import DateTimePicker from "../../../components/DateTimePicker";
 import styles from "./EditSchedule.module.css";
 import { Button, Alert } from "antd";

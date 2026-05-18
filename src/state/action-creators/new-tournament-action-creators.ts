@@ -1,15 +1,15 @@
-import type {Dispatch} from "redux";
-import type { GeneralInfo, Player } from "../../data-types/tournament-data-types";
-import type { SeatingTemplateErrors, SeatingTemplateStackItem } from "../../data-types/new-tournament-data-types";
+import { type Dispatch } from "redux";
+import { type GeneralInfo, type Player } from "../../data-types/tournament-data-types";
+import { type SeatingTemplateErrors, type SeatingTemplateStackItem } from "../../data-types/new-tournament-data-types";
 import ActionTypes from "../action-types/new-tournament-action-types";
-import type {
-	AddGeneralInfoAction,
-	AddPlayersAction,
-	SetSeatingTemplateStackAction,
-	SetCurrentSeatingTemplateIndexAction,
-	SetSeatingTemplateErrorsAction,
-	EditTemplateFieldAction,
-	ClearNewTournamentAction
+import {
+	type AddGeneralInfoAction,
+	type AddPlayersAction,
+	type SetSeatingTemplateStackAction,
+	type SetCurrentSeatingTemplateIndexAction,
+	type SetSeatingTemplateErrorsAction,
+	type EditTemplateFieldAction,
+	type ClearNewTournamentAction
  } from "../actions/new-tournament-actions";
 
  export const addGeneralInfo = (newInfo: GeneralInfo) => {

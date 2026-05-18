@@ -1,4 +1,4 @@
-import type { ChangeEvent } from "react";
+import { type ChangeEvent } from "react";
 import { useRef } from "react";
 import { Button } from "antd";
 import styles from "./FileUpload.module.css";

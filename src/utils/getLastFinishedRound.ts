@@ -1,4 +1,4 @@
-import type { Tournament, Game } from "../data-types/tournament-data-types";
+import { type Tournament, type Game } from "../data-types/tournament-data-types";
 import { generateArray } from "./generateArray";
 
 export const getLastFinishedRound = (tournament: Tournament): number => {

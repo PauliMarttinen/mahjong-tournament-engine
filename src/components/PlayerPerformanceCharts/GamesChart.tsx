@@ -1,6 +1,6 @@
-import {useMemo} from "react";
+import { useMemo } from "react";
 import useTournament from "../../utils/hooks/useTournament";
-import type { Game, Score, Seat } from "../../data-types/tournament-data-types";
+import { type Game, type Score, type Seat } from "../../data-types/tournament-data-types";
 import { formatPoints } from "../../utils/formatPoints";
 import styles from "./PlayerPerformanceCharts.module.css";
 

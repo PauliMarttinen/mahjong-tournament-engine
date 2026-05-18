@@ -1,5 +1,5 @@
-import type { Version1 } from "../version1/Version1";
-import type { Version2 } from "./Version2";
+import { type Version1 } from "../version1/Version1";
+import { type Version2 } from "./Version2";
 import { emptyRound } from "../../../state/reducers/newTournamentReducer";
 
 const convert1to2 = (oldData: Version1): Version2 => {

@@ -1,6 +1,6 @@
 import { Formats } from "../ViewOptions/FormatSelector"
 import { generateArray } from "../../../../utils/generateArray";
-import {RTHtoTRV, TRHtoTRV, RTVtoTRV} from "../../../../utils/convertTemplate";
+import { RTHtoTRV, TRHtoTRV, RTVtoTRV } from "../../../../utils/convertTemplate";
 
 const countDuplicates = (template: number[][]): number => {
 	const playerCount = template.length;

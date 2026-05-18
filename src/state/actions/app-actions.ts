@@ -1,4 +1,4 @@
-import type { BigScreen } from "../../data-types/app-data-types";
+import { type BigScreen } from "../../data-types/app-data-types";
 import ActionTypes from "../action-types/app-action-types";
 
 export type MarkTournamentLoaded = {

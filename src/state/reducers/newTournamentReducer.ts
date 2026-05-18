@@ -1,6 +1,6 @@
 import type Action from "../actions/new-tournament-actions";
 import ActionTypes from "../action-types/new-tournament-action-types";
-import type { NewTournament, SeatingTemplateStackItem } from "../../data-types/new-tournament-data-types";
+import { type NewTournament, type SeatingTemplateStackItem } from "../../data-types/new-tournament-data-types";
 import { type Round, UmaTiebreak } from "../../data-types/tournament-data-types";
 
 export const emptyRound: Round = {

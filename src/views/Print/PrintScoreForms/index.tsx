@@ -1,8 +1,8 @@
-import type { Game } from "../../../data-types/tournament-data-types";
+import { type Game } from "../../../data-types/tournament-data-types";
 import curlArray from "../../../utils/curlArray";
 import useTournament from "../../../utils/hooks/useTournament";
 import HanchanScoreForm from "./HanchanScoreForm";
-import {Form} from "./HanchanScoreForm";
+import { Form } from "./HanchanScoreForm";
 import styles from "./PrintScoreForms.module.css";
 import bodyNoMargin from "../../../utils/bodyNoMargin";
 import { useEffect } from "react";

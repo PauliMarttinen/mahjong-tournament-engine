@@ -1,11 +1,10 @@
-import {useState, useEffect, useMemo, ReactNode} from "react";
+import { useState, useEffect, useMemo, type ReactNode } from "react";
 import { Progress, Space, Button } from "antd";
 import styles from "./Timer.module.css";
-import {PlayCircleOutlined, /* PauseCircleOutlined, */ TrademarkCircleOutlined} from "@ant-design/icons";
+import { PlayCircleOutlined, /* PauseCircleOutlined, */ TrademarkCircleOutlined } from "@ant-design/icons";
 import alarmAudio from "./alarm.wav";
 import useTournament from "../../../../../utils/hooks/useTournament";
-import collectGarbage from "../utils/collectGarbage";
-import { STATE_MESSAGE_IDENTIFIER, BigScreenActions, setBigScreenState } from "../../utils/setBigScreenState";
+import { BigScreenActions, setBigScreenState } from "../../utils/setBigScreenState";
 
 type TimerProps = {
 	roundId: number,

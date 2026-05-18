@@ -4,8 +4,8 @@ import { generateArray } from "../../../../utils/generateArray";
 import useTournament from "../../../../utils/hooks/useTournament";
 import { Routes } from "../../../../utils/routeUtils";
 import alphabetizer from "../../../../utils/alphabetizer";
-import type { Player } from "../../../../data-types/tournament-data-types";
-import {Button, Space, Checkbox} from "antd";
+import { type Player } from "../../../../data-types/tournament-data-types";
+import { Button, Space, Checkbox } from "antd";
 
 type PlayerOption = {
 	playerName: string,

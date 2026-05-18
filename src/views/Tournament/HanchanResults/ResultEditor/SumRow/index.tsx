@@ -1,6 +1,6 @@
 import { Input } from "antd";
 import { formatPoints } from "../../../../../utils/formatPoints";
-import { Score } from "../../../../../data-types/tournament-data-types";
+import { type Score } from "../../../../../data-types/tournament-data-types";
 import styles from "./SumRow.module.css";
 
 type SumRowProps = {

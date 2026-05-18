@@ -1,8 +1,8 @@
-import {useState} from "react";
+import { useState } from "react";
 import { Modal, Button, Card, Space } from "antd";
 import FileUpload from "../../../../components/FileUpload";
 import readXlsxFile from "read-excel-file";
-import type { Row } from "read-excel-file/types";
+import { type Row } from "read-excel-file/types";
 import { convertTemplateFromCsv, convertTemplateFromExcel } from "../../../../utils/convertTemplate";
 import { generateRandomizedSeating } from "../utils/generateRandomizedSeating";
 import { type NewTournament } from "../../../../data-types/new-tournament-data-types";

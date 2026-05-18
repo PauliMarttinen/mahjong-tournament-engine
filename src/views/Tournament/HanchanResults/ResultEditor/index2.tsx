@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import { type Game, type Score } from "../../../../data-types/tournament-data-types";
 import useTournament from "../../../../utils/hooks/useTournament";
 import { useDispatch } from "react-redux";

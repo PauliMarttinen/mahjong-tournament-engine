@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import {Modal, Alert, Switch, Card, Space, Input, Button} from "antd";
+import { Modal, Alert, Switch, Card, Space, Input, Button } from "antd";
 import { newTournamentActionCreators } from "../../../state";
 import { Routes } from "../../../utils/routeUtils";
 import styles from "./PlayerEntryView.module.css";

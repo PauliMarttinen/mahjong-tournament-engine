@@ -1,4 +1,4 @@
-import { Score } from "../../../../../data-types/tournament-data-types";
+import { type Score } from "../../../../../data-types/tournament-data-types";
 
 const areTotalsWrong = (score: [Score, Score, Score, Score]): boolean => {
 	const rawTotal = score[0].raw + score[1].raw + score[2].raw + score[3].raw;

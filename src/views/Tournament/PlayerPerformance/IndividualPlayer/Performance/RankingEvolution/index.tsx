@@ -1,4 +1,4 @@
-import {Card} from "antd";
+import { Card } from "antd";
 import RankingEvolutionChart from "../../../../../../components/PlayerPerformanceCharts/RankingEvolutionChart";
 
 type RankingEvolutionProps = {

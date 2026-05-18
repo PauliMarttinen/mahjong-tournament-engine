@@ -1,5 +1,5 @@
-import type { Version2 } from "../version2/Version2";
-import type { Version3 } from "./Version3";
+import { type Version2 } from "../version2/Version2";
+import { type Version3 } from "./Version3";
 import { UmaTiebreak } from "../../tournament-data-types";
 
 const convert2to3 = (oldData: Version2): Version3 => {

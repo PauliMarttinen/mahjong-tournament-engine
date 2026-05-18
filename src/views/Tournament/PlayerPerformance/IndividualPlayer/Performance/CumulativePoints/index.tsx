@@ -1,5 +1,5 @@
 import CumulativePointsChart from "../../../../../../components/PlayerPerformanceCharts/CumulativePointsChart";
-import {Card} from "antd";
+import { Card } from "antd";
 
 type CumulativePointsProps = {
 	playerId: number

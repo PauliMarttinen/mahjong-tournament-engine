@@ -7,12 +7,12 @@ import { initialState } from "../../../state/reducers/tournamentReducer";
 import { Routes } from "../../../utils/routeUtils";
 import { useNavigate } from "react-router-dom";
 import styles from "./TournamentInfoEntry.module.css";
-import {Space, Button} from "antd";
+import { Space, Button } from "antd";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 import { emptyRound } from "../../../state/reducers/newTournamentReducer";
 import getSimpleDateISOString from "../../../utils/getSimpleDateISOString";
-import Title from "./Title/Title";
-import Rounds from "./Rounds/Rounds";
+import Title from "./Title";
+import Rounds from "./Rounds";
 import Uma from "../../../components/Uma";
 
 const TournamentInfoView = () => {

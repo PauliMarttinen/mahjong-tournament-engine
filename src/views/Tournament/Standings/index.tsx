@@ -1,7 +1,7 @@
 import { useState } from "react";
 import StandingsDisplay from "../../../components/Standings";
-import {Button, Switch, Space} from "antd";
-import {ExportOutlined} from "@ant-design/icons";
+import { Button, Switch, Space } from "antd";
+import { ExportOutlined } from "@ant-design/icons";
 import useTournament from "../../../utils/hooks/useTournament";
 import { Routes } from "../../../utils/routeUtils";
 import LayoutHeader from "../../../components/LayoutHeader";
