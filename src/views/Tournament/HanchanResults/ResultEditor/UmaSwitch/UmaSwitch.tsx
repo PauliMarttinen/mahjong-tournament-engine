@@ -1,4 +1,5 @@
 import { Space, Switch } from "antd";
+import styles from "./UmaSwitch.module.css";
 
 type UmaSwitchProps = {
 	automaticUma: boolean,
@@ -9,7 +10,7 @@ type UmaSwitchProps = {
 
 const UmaSwitch = (props: UmaSwitchProps) => {
 	return (
-		<Space>
+		<Space className={styles.umaSwitch}>
 			<label htmlFor={`autoUmaSwitch-${props.tableId}`}>Automatic uma</label>
 			<Switch
 				checked={!props.automaticUma}

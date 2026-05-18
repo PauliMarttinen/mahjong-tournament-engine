@@ -4,13 +4,12 @@ import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import { Button, Space } from "antd";
 import Uma from "../../../components/Uma/Uma";
-import { Game, PointInputType, type Uma as UmaType } from "../../../data-types/tournament-data-types";
+import { type Game, type Uma as UmaType } from "../../../data-types/tournament-data-types";
 import styles from "./EditUma.module.css";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { tournamentActionCreators } from "../../../state";
-import getUma from "../HanchanResults/ResultEditor/utils/getUma";
-import { getNumericValue } from "../../../utils/getNumericValue";
+import getUma from "../HanchanResults/ResultEditor/utils/getUma2";
 
 const EditUma = () => {
 	const tournament = useTournament();
@@ -31,26 +30,14 @@ const EditUma = () => {
 		const updatedGames = tournament.games.map((game: Game): Game => {
 			if (!game.finished) return game;
 
-			const eastRaw: PointInputType = {
-				positive: game.participants[0].score.raw >= 0,
-				value: Math.abs(game.participants[0].score.raw)
-			};
-			const southRaw: PointInputType = {
-				positive: game.participants[1].score.raw >= 0,
-				value: Math.abs(game.participants[1].score.raw)
-			};
-			const westRaw: PointInputType = {
-				positive: game.participants[2].score.raw >= 0,
-				value: Math.abs(game.participants[2].score.raw)
-			};
-			const northRaw: PointInputType = {
-				positive: game.participants[3].score.raw >= 0,
-				value: Math.abs(game.participants[3].score.raw)
-			};
+			const eastScore = game.participants[0].score;
+			const southScore = game.participants[1].score;
+			const westScore = game.participants[2].score;
+			const northScore = game.participants[3].score;
 
 			const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
 				currentUma,
-				[eastRaw, southRaw, westRaw, northRaw]
+				[eastScore, southScore, westScore, northScore]
 			);
 
 			return {
@@ -60,28 +47,28 @@ const EditUma = () => {
 						...game.participants[0],
 						score: {
 							...game.participants[0].score,
-							uma: getNumericValue(updatedEastUma)
+							uma: updatedEastUma
 						}
 					},
 					{
 						...game.participants[1],
 						score: {
 							...game.participants[1].score,
-							uma: getNumericValue(updatedSouthUma)
+							uma: updatedSouthUma
 						}
 					},
 					{
 						...game.participants[2],
 						score: {
 							...game.participants[2].score,
-							uma: getNumericValue(updatedWestUma)
+							uma: updatedWestUma
 						}
 					},
 					{
 						...game.participants[3],
 						score: {
 							...game.participants[3].score,
-							uma: getNumericValue(updatedNorthUma)
+							uma: updatedNorthUma
 						}
 					}
 				]

@@ -4,9 +4,10 @@ import onKeyDown from "./utils/onKeyDown";
 import type { PointInputType } from "../../data-types/tournament-data-types";
 import { getNumericValue } from "../../utils/getNumericValue";
 import { Input } from "antd";
+import isPositive from "../../views/Tournament/HanchanResults/ResultEditor/utils/isPositive";
 
 type PointInputProps = {
-	value: PointInputType,
+	value: PointInputType|number,
 	onChange: Function,
 	unflippable?: boolean,
 	tabIndex?: number
@@ -17,13 +18,23 @@ type PointInputProps = {
 };
 
 const PointInput = (props: PointInputProps) => {
-	const sign = props.value.positive ? "+" : "-";
+	const value: PointInputType =
+		typeof props.value === "number"
+		?
+		{
+			positive: isPositive(props.value),
+			value: Math.abs(props.value)
+		}
+		:
+		props.value;
+
+	const sign = value.positive ? "+" : "-";
 	const displayValue =
 		props.short
 		?
-		`${sign}${formatPoints({points: Math.abs(getNumericValue(props.value)), sign: false})}`
+		`${sign}${formatPoints({points: Math.abs(getNumericValue(value)), sign: false})}`
 		:
-		`${sign}${Math.abs(getNumericValue(props.value))}`;
+		`${sign}${Math.abs(getNumericValue(value))}`;
 
 	return (
 		<div>
@@ -35,7 +46,7 @@ const PointInput = (props: PointInputProps) => {
 					e: e,
 					unflippable: props.unflippable,
 					short: props.short,
-					value: props.value,
+					value: value,
 					uma: props.uma
 				}))}
 				onChange={() => {}}

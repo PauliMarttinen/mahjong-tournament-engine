@@ -14,7 +14,7 @@ export enum UmaTiebreak {
 	Split = "split"
 };
 
-export type UmaAmount = [PointInputType, PointInputType, PointInputType, PointInputType];
+export type UmaAmount = [number, number, number, number];
 
 export type Uma = {
 	automatic: boolean,

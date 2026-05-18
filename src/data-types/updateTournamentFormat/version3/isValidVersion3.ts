@@ -1,5 +1,6 @@
 import type { Tournament } from "../../tournament-data-types";
 import areGamesValid from "../utils/areGamesValid";
+import { UmaTiebreak } from "../../tournament-data-types";
 
 const isValidVersion3 = (data: any): data is Tournament => {
 	const infoExists = "info" in data;
@@ -15,7 +16,11 @@ const isValidVersion3 = (data: any): data is Tournament => {
 		"title" in data.info && typeof data.info.title === "string" &&
 		"roundLength" in data.info && typeof data.info.roundLength === "number" &&
 		"rounds" in data.info && Array.isArray(data.info.rounds) && data.info.rounds.length > 0 &&
-		"uma" in data.info;
+		"uma" in data.info && typeof data.info.uma === "object" &&
+			"automatic" in data.info.uma && typeof data.info.uma.automatic === "boolean" &&
+			"amount" in data.info.uma && Array.isArray(data.info.uma.amount) && data.info.uma.amount.every((amount: number) => typeof amount === "number") &&
+			"tiebreak" in data.info.uma && (data.info.uma.tiebreak === UmaTiebreak.Headbump || data.info.uma.tiebreak === UmaTiebreak.Split);
+
 	const playerListValid = playerListExists &&
 		Array.isArray(data.playerList) &&
 		data.playerList.every((player: any): boolean =>

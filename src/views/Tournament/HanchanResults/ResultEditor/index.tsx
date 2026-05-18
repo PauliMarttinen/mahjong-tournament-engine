@@ -9,7 +9,6 @@ import { Alert, Space, Button, Input } from "antd";
 import { tournamentActionCreators } from "../../../../state";
 import {formatPoints} from "../../../../utils/formatPoints";
 import styles from "./ResultEditor.module.css";
-import getUma from "./utils/getUma";
 import SafeSwitch from "./SafeSwitch/SafeSwitch";
 import UmaSwitch from "./UmaSwitch/UmaSwitch";
 
@@ -180,7 +179,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 		setEastRaw(newValue);
 		if (!tournament.info.uma.automatic || !automaticUma) return;
 
-		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
+/* 		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
 			tournament.info.uma,
 			[newValue, southRaw, westRaw, northRaw]
 		);
@@ -188,13 +187,13 @@ const ResultEditor = (props: ResultEditorPros) => {
 		setEastUma(updatedEastUma);
 		setSouthUma(updatedSouthUma);
 		setWestUma(updatedWestUma);
-		setNorthUma(updatedNorthUma);
+		setNorthUma(updatedNorthUma); */
 	};
 
 	const editSouthRaw = (newValue: PointInputType) => {
 		setSouthRaw(newValue);
 		if (!tournament.info.uma.automatic || !automaticUma) return;
-
+/* 
 		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
 			tournament.info.uma,
 			[eastRaw, newValue, westRaw, northRaw]
@@ -203,13 +202,13 @@ const ResultEditor = (props: ResultEditorPros) => {
 		setEastUma(updatedEastUma);
 		setSouthUma(updatedSouthUma);
 		setWestUma(updatedWestUma);
-		setNorthUma(updatedNorthUma);
+		setNorthUma(updatedNorthUma); */
 	};
 
 	const editWestRaw = (newValue: PointInputType) => {
 		setWestRaw(newValue);
 		if (!tournament.info.uma.automatic || !automaticUma) return;
-
+/* 
 		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
 			tournament.info.uma,
 			[eastRaw, southRaw, newValue, northRaw]
@@ -218,13 +217,13 @@ const ResultEditor = (props: ResultEditorPros) => {
 		setEastUma(updatedEastUma);
 		setSouthUma(updatedSouthUma);
 		setWestUma(updatedWestUma);
-		setNorthUma(updatedNorthUma);
+		setNorthUma(updatedNorthUma); */
 	};
 
 	const editNorthRaw = (newValue: PointInputType) => {
 		setNorthRaw(newValue);
 		if (!tournament.info.uma.automatic || !automaticUma) return;
-		
+/* 		
 		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
 			tournament.info.uma,
 			[eastRaw, southRaw, westRaw, newValue]
@@ -233,7 +232,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 		setEastUma(updatedEastUma);
 		setSouthUma(updatedSouthUma);
 		setWestUma(updatedWestUma);
-		setNorthUma(updatedNorthUma);
+		setNorthUma(updatedNorthUma); */
 	};
 
 	if (!game) {
