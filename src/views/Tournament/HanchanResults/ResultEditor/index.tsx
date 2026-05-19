@@ -1,284 +1,96 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
+import { type Game, type Score } from "../../../../data-types/tournament-data-types";
 import { useTournament } from "../../../../utils/hooks/useTournament";
-import { getNumericValue } from "../../../../utils/getNumericValue";
-import PointInput from "../../../../components/PointInput";
-import { type Game, type PointInputType } from "../../../../data-types/tournament-data-types";
-import { Alert, Space, Button, Input } from "antd";
+import { useDispatch } from "react-redux";
 import { tournamentActionCreators } from "../../../../state";
-import { formatPoints } from "../../../../utils/formatPoints";
+import { bindActionCreators } from "redux";
 import styles from "./ResultEditor.module.css";
+import { Space, Alert, Button } from "antd";
 import SafeSwitch from "./SafeSwitch";
 import UmaSwitch from "./UmaSwitch";
+import PlayerRow from "./PlayerRow";
+import SumRow from "./SumRow";
+import { Seats } from "../../../../data-types/app-data-types";
+import { getUma } from "./utils/getUma";
+import { getOriginalScore } from "./utils/getOriginalScore";
+import { isModified } from "./utils/isModified";
+import { areTotalsWrong } from "./utils/areTotalsWrong";
+import { disableSave } from "./utils/disableSave";
 
-type ResultEditorPros = {
-	roundId: number,
-	tableId: number
+type ResultEditorProps = {
+	tableId: number,
+	roundId: number
 };
 
-const ResultEditor = (props: ResultEditorPros) => {
+const ResultEditor = (props: ResultEditorProps) => {
 	const tournament = useTournament();
-	const game = tournament.games.find((game: Game): boolean => (game.round === props.roundId && game.table === props.tableId));
+	const game = tournament.games.find((game: Game): boolean => game.round === props.roundId && game.table === props.tableId)!
+	const originalScore = getOriginalScore(game);
+	const modifiableScore = getOriginalScore(game);
+	const [currentScore, setCurrentScore] = useState<[Score, Score, Score, Score]>(modifiableScore);
 	const [safeMode, setSafeMode] = useState<boolean>(true);
 	const [automaticUma, setAutomaticUma] = useState<boolean>(tournament.info.uma.automatic);
 
 	const dispatch = useDispatch();
-	const {addGames} = bindActionCreators(tournamentActionCreators, dispatch)
-
-	const eastRawOrig = {
-		positive: game ? game.participants[0].score.raw >= 0 : true,
-		value: Math.abs(game ? game.participants[0].score.raw : 0)
-	};
-	const eastUmaOrig = {
-		positive: game ? game.participants[0].score.uma >= 0 : true,
-		value: Math.abs(game ? game.participants[0].score.uma : 0)
-	};
-	const eastPenaltyOrig = {
-		positive: false,
-		value: Math.abs(game ? game.participants[0].score.penalty : 0)
-	};
-
-	const southRawOrig = {
-		positive: game ? game.participants[1].score.raw >= 0 : true,
-		value: Math.abs(game ? game.participants[1].score.raw : 0)
-	};
-	const southUmaOrig = {
-		positive: game ? game.participants[1].score.uma >= 0 : true,
-		value: Math.abs(game ? game.participants[1].score.uma : 0)
-	};
-	const southPenaltyOrig = {
-		positive: false,
-		value: Math.abs(game ? game.participants[1].score.penalty : 0)
-	};
-
-	const westRawOrig = {
-		positive: game ? game.participants[2].score.raw >= 0 : true,
-		value: Math.abs(game ? game.participants[2].score.raw : 0)
-	};
-	const westUmaOrig = {
-		positive: game ? game.participants[2].score.uma >= 0 : true,
-		value: Math.abs(game ? game.participants[2].score.uma : 0)
-	};
-	const westPenaltyOrig = {
-		positive: false,
-		value: Math.abs(game ? game.participants[2].score.penalty : 0)
-	};
-
-	const northRawOrig = {
-		positive: game ? game.participants[3].score.raw >= 0 : true,
-		value: Math.abs(game ? game.participants[3].score.raw : 0)
-	};
-	const northUmaOrig = {
-		positive: game ? game.participants[3].score.uma >= 0 : true,
-		value: Math.abs(game ? game.participants[3].score.uma : 0)
-	};
-	const northPenaltyOrig = {
-		positive: false,
-		value: Math.abs(game ? game.participants[3].score.penalty : 0)
-	};
-
-	const [eastRaw, setEastRaw] = useState<PointInputType>(eastRawOrig);
-	const [eastUma, setEastUma] = useState<PointInputType>(eastUmaOrig);
-	const [eastPenalty, setEastPenalty] = useState<PointInputType>(eastPenaltyOrig);
-
-	const [southRaw, setSouthRaw] = useState<PointInputType>(southRawOrig);
-	const [southUma, setSouthUma] = useState<PointInputType>(southUmaOrig);
-	const [southPenalty, setSouthPenalty] = useState<PointInputType>(southPenaltyOrig);
-
-	const [westRaw, setWestRaw] = useState<PointInputType>(westRawOrig);
-	const [westUma, setWestUma] = useState<PointInputType>(westUmaOrig);
-	const [westPenalty, setWestPenalty] = useState<PointInputType>(westPenaltyOrig);
-
-	const [northRaw, setNorthRaw] = useState<PointInputType>(northRawOrig);
-	const [northUma, setNorthUma] = useState<PointInputType>(northUmaOrig);
-	const [northPenalty, setNorthPenalty] = useState<PointInputType>(northPenaltyOrig);
-
-	const rawSum = getNumericValue(eastRaw) + getNumericValue(southRaw) + getNumericValue(westRaw) + getNumericValue(northRaw);
-	const umaSum = getNumericValue(eastUma) + getNumericValue(southUma) + getNumericValue(westUma) + getNumericValue(northUma);
-
-	const eastScore = {
-		raw: getNumericValue(eastRaw),
-		uma: getNumericValue(eastUma),
-		penalty: getNumericValue(eastPenalty)
-	};
-	const southScore = {
-		raw: getNumericValue(southRaw),
-		uma: getNumericValue(southUma),
-		penalty: getNumericValue(southPenalty)
-	};
-	const westScore = {
-		raw: getNumericValue(westRaw),
-		uma: getNumericValue(westUma),
-		penalty: getNumericValue(westPenalty)
-	};
-	const northScore = {
-		raw: getNumericValue(northRaw),
-		uma: getNumericValue(northUma),
-		penalty: getNumericValue(northPenalty)
-	};
-
-	const eastFinal = eastScore.raw + eastScore.uma + eastScore.penalty;
-	const southFinal = southScore.raw + southScore.uma + southScore.penalty;
-	const westFinal = westScore.raw + westScore.uma + westScore.penalty;
-	const northFinal = northScore.raw + northScore.uma + northScore.penalty;
+	const {addGames} = bindActionCreators(tournamentActionCreators, dispatch);
 
 	const save = () => {
-		if (!game) return;
+		const updatedGames = tournament.games.map((game: Game): Game => {
+			if (game.table !== props.tableId || game.round !== props.roundId) return game;
 
-		const updatedGame: Game = {
-			round: props.roundId,
-			table: props.tableId,
-			finished: true,
-			participants: [
-				{
-					playerId: game.participants[0].playerId,
-					score: eastScore
-				},
-				{
-					playerId: game.participants[1].playerId,
-					score: southScore
-				},
-				{
-					playerId: game.participants[2].playerId,
-					score: westScore
-				},
-				{
-					playerId: game.participants[3].playerId,
-					score: northScore
-				}
-			]
-		};
-
-		const updatedGames = tournament.games.map((currentGame: Game) => (
-			currentGame.round === props.roundId && currentGame.table === props.tableId ? updatedGame : currentGame
-		));
+			return {
+				...game,
+				finished: true,
+				participants: [
+					{
+						playerId: game.participants[Seats.East].playerId,
+						score: currentScore[Seats.East]
+					},
+					{
+						playerId: game.participants[Seats.South].playerId,
+						score: currentScore[Seats.South]
+					},
+					{
+						playerId: game.participants[Seats.West].playerId,
+						score: currentScore[Seats.West]
+					},
+					{
+						playerId: game.participants[Seats.North].playerId,
+						score: currentScore[Seats.North]
+					}
+				]
+			};
+		});
 
 		addGames(updatedGames);
 	};
 
 	const revertChanges = () => {
-		setEastRaw(eastRawOrig);
-		setEastUma(eastUmaOrig);
-		setEastPenalty(eastPenaltyOrig);
-
-		setSouthRaw(southRawOrig);
-		setSouthUma(southUmaOrig);
-		setSouthPenalty(southPenaltyOrig);
-
-		setWestRaw(westRawOrig);
-		setWestUma(westUmaOrig);
-		setWestPenalty(westPenaltyOrig);
-
-		setNorthRaw(northRawOrig);
-		setNorthUma(northUmaOrig);
-		setNorthPenalty(northPenaltyOrig);
+		setCurrentScore(originalScore);
 	};
 
-	const editEastRaw = (newValue: PointInputType) => {
-		setEastRaw(newValue);
-		if (!tournament.info.uma.automatic || !automaticUma) return;
+	const updateScore = (seat: Seats, newValue: Score) => {
+		const updatedScore: [Score, Score, Score, Score] = [...currentScore];
+		updatedScore[seat] = newValue;
 
-/* 		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
-			tournament.info.uma,
-			[newValue, southRaw, westRaw, northRaw]
-		);
+		if (automaticUma)
+		{
+			const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
+				tournament.info.uma,
+				updatedScore
+			);
 
-		setEastUma(updatedEastUma);
-		setSouthUma(updatedSouthUma);
-		setWestUma(updatedWestUma);
-		setNorthUma(updatedNorthUma); */
+			updatedScore[0].uma = updatedEastUma;
+			updatedScore[1].uma = updatedSouthUma;
+			updatedScore[2].uma = updatedWestUma;
+			updatedScore[3].uma = updatedNorthUma;
+		}
+
+		setCurrentScore(updatedScore);
 	};
 
-	const editSouthRaw = (newValue: PointInputType) => {
-		setSouthRaw(newValue);
-		if (!tournament.info.uma.automatic || !automaticUma) return;
-/* 
-		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
-			tournament.info.uma,
-			[eastRaw, newValue, westRaw, northRaw]
-		);
-
-		setEastUma(updatedEastUma);
-		setSouthUma(updatedSouthUma);
-		setWestUma(updatedWestUma);
-		setNorthUma(updatedNorthUma); */
-	};
-
-	const editWestRaw = (newValue: PointInputType) => {
-		setWestRaw(newValue);
-		if (!tournament.info.uma.automatic || !automaticUma) return;
-/* 
-		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
-			tournament.info.uma,
-			[eastRaw, southRaw, newValue, northRaw]
-		);
-
-		setEastUma(updatedEastUma);
-		setSouthUma(updatedSouthUma);
-		setWestUma(updatedWestUma);
-		setNorthUma(updatedNorthUma); */
-	};
-
-	const editNorthRaw = (newValue: PointInputType) => {
-		setNorthRaw(newValue);
-		if (!tournament.info.uma.automatic || !automaticUma) return;
-/* 		
-		const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
-			tournament.info.uma,
-			[eastRaw, southRaw, westRaw, newValue]
-		);
-
-		setEastUma(updatedEastUma);
-		setSouthUma(updatedSouthUma);
-		setWestUma(updatedWestUma);
-		setNorthUma(updatedNorthUma); */
-	};
-
-	if (!game) {
-		return (
-			<div>
-				<Alert
-					type={"error"}
-					message={"It seems that this game is missing from the tournament data for some reason."}
-				/>
-			</div>
-		);
-	};
-
-	const totalsWrong = safeMode && (rawSum !== 0 || umaSum !== 0);
-
-	const eastRawMod = eastScore.raw !== game.participants[0].score.raw;
-	const eastUmaMod = eastScore.uma !== game.participants[0].score.uma;
-	const eastPenaltyMod = eastScore.penalty !== game.participants[0].score.penalty;
-	const eastModified = eastRawMod || eastUmaMod || eastPenaltyMod;
-
-	const southRawMod = southScore.raw !== game.participants[1].score.raw;
-	const southUmaMod = southScore.uma !== game.participants[1].score.uma;
-	const southPenaltyMod = southScore.penalty !== game.participants[1].score.penalty;
-	const southModified = southRawMod || southUmaMod || southPenaltyMod;
-
-	const westRawMod = westScore.raw !== game.participants[2].score.raw;
-	const westUmaMod = westScore.uma !== game.participants[2].score.uma;
-	const westPenaltyMod = westScore.penalty !== game.participants[2].score.penalty;
-	const westModified = westRawMod || westUmaMod || westPenaltyMod;
-
-	const northRawMod = northScore.raw !== game.participants[3].score.raw;
-	const northUmaMod = northScore.uma !== game.participants[3].score.uma;
-	const northPenaltyMod = northScore.penalty !== game.participants[3].score.penalty;
-	const northModified = northRawMod || northUmaMod || northPenaltyMod;
-	
-	/**
-	 * It's possible (although ridiculously unlikely) for a game to end in a complete tie,
-	 * so we need to allow saving and finishing when every field is 0.
-	 */
-	const everythingIsZero =
-		eastScore.raw === 0 && eastScore.uma === 0 &&
-		southScore.raw === 0 && southScore.uma === 0 &&
-		westScore.raw === 0 && westScore.uma === 0 &&
-		northScore.raw === 0 && northScore.uma === 0;
-
-	const modified = everythingIsZero || eastModified || southModified || westModified || northModified;
+	const totalsWrong = areTotalsWrong(currentScore);
+	const modified = isModified(originalScore, currentScore);
 
 	return (
 		<div className={styles.resultEditor}>
@@ -297,182 +109,52 @@ const ResultEditor = (props: ResultEditorPros) => {
 					/>
 				</Space>
 				<table>
-					<thead>
+					<tbody>
 						<tr>
-							<th className={styles.windColumn}>{null}</th>
+							<th className={styles.windColumn}></th>
 							<th className={styles.name}>Player</th>
-							<th>Raw points</th>
+							<th>Raw point</th>
 							<th>Uma</th>
 							<th>Penalty</th>
 							<th className={styles.final}>Final</th>
-							<th>{null}</th>
+							<th></th>
 						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>East</td>
-							<td className={styles.name}>{tournament.playerList[game.participants[0].playerId].name}</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={eastRaw}
-									onChange={(newValue: PointInputType) => editEastRaw(newValue)}
-									tabIndex={1}
-									short={safeMode}
-								/>
-							</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={eastUma}
-									onChange={(newValue: PointInputType) => setEastUma(newValue)}
-									tabIndex={5}
-									short={safeMode}
-									disabled={automaticUma}
-									uma
-								/>
-							</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={eastPenalty}
-									onChange={(newValue: PointInputType) => setEastPenalty(newValue)}
-									tabIndex={9}
-									short={safeMode}
-									unflippable
-								/>
-							</td>
-							<td className={styles.final}>{safeMode ? formatPoints({points: eastFinal, sign: true}) : eastFinal}</td>
-							<td>{tournament.playerList[game.participants[0].playerId].substitute && "(Substitute)"}</td>
-						</tr>
-						<tr>
-							<td>South</td>
-							<td className={styles.name}>{tournament.playerList[game.participants[1].playerId].name}</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={southRaw}
-									onChange={(newValue: PointInputType) => editSouthRaw(newValue)}
-									tabIndex={2}
-									short={safeMode}
-								/>
-							</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={southUma}
-									onChange={(newValue: PointInputType) => setSouthUma(newValue)}
-									tabIndex={6}
-									short={safeMode}
-									disabled={automaticUma}
-									uma
-								/>
-							</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={southPenalty}
-									onChange={(newValue: PointInputType) => setSouthPenalty(newValue)}
-									tabIndex={10}
-									short={safeMode}
-									unflippable
-								/>
-							</td>
-							<td className={styles.final}>{safeMode ? formatPoints({points: southFinal, sign: true}) : southFinal}</td>
-							<td>{tournament.playerList[game.participants[1].playerId].substitute && "(Substitute)"}</td>
-						</tr>
-						<tr>
-							<td>West</td>
-							<td className={styles.name}>{tournament.playerList[game.participants[2].playerId].name}</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={westRaw}
-									onChange={(newValue: PointInputType) => editWestRaw(newValue)}
-									tabIndex={3}
-									short={safeMode}
-								/>
-							</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={westUma}
-									onChange={(newValue: PointInputType) => setWestUma(newValue)}
-									tabIndex={7}
-									short={safeMode}
-									disabled={automaticUma}
-									uma
-								/>
-							</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={westPenalty}
-									onChange={(newValue: PointInputType) => setWestPenalty(newValue)}
-									tabIndex={11}
-									short={safeMode}
-									unflippable
-								/>
-							</td>
-							<td className={styles.final}>{safeMode ? formatPoints({points: westFinal, sign: true}) : westFinal}</td>
-							<td>{tournament.playerList[game.participants[2].playerId].substitute && "(Substitute)"}</td>
-						</tr>
-						<tr>
-							<td>North</td>
-							<td className={styles.name}>{tournament.playerList[game.participants[3].playerId].name}</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={northRaw}
-									onChange={(newValue: PointInputType) => editNorthRaw(newValue)}
-									tabIndex={4}
-									short={safeMode}
-								/>
-							</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={northUma}
-									onChange={(newValue: PointInputType) => setNorthUma(newValue)}
-									tabIndex={8}
-									short={safeMode}
-									disabled={automaticUma}
-									uma
-								/>
-							</td>
-							<td>
-								<PointInput
-									className={styles.pointInput}
-									value={northPenalty}
-									onChange={(newValue: PointInputType) => setNorthPenalty(newValue)}
-									tabIndex={12}
-									short={safeMode}
-									unflippable
-								/>
-							</td>
-							<td className={styles.final}>{safeMode ? formatPoints({points: northFinal, sign: true}) : northFinal}</td>
-							<td>{tournament.playerList[game.participants[3].playerId].substitute && "(Substitute)"}</td>
-						</tr>
-						<tr>
-							<td>{null}</td>
-							<td>{null}</td>
-							<td>
-								<Input
-									className={`${styles.pointInput} ${styles.sumField} ${rawSum !== 0 ? styles.wrong : ""}`}
-									value={safeMode ? formatPoints({points: rawSum, sign: true}) : rawSum}
-									disabled={true}
-								/>
-							</td>
-							<td>
-								<Input
-									className={`${styles.pointInput} ${styles.sumField} ${umaSum !== 0 ? styles.wrong : ""}`}
-									value={safeMode ? formatPoints({points: umaSum, sign: true}) : umaSum}
-									disabled={true}
-								/>
-							</td>
-							<td>{null}</td>
-							<td>{null}</td>
-						</tr>
+						<PlayerRow
+							seat={Seats.East}
+							player={tournament.playerList[game.participants[Seats.East].playerId]}
+							safeMode={safeMode}
+							automaticUma={automaticUma}
+							score={currentScore[Seats.East]}
+							onChange={(newValue: Score) => updateScore(Seats.East, newValue)}
+						/>
+						<PlayerRow
+							seat={Seats.South}
+							player={tournament.playerList[game.participants[Seats.South].playerId]}
+							safeMode={safeMode}
+							automaticUma={automaticUma}
+							score={currentScore[Seats.South]}
+							onChange={(newValue: Score) => updateScore(Seats.South, newValue)}
+						/>
+						<PlayerRow
+							seat={Seats.West}
+							player={tournament.playerList[game.participants[Seats.West].playerId]}
+							safeMode={safeMode}
+							automaticUma={automaticUma}
+							score={currentScore[Seats.West]}
+							onChange={(newValue: Score) => updateScore(Seats.West, newValue)}
+						/>
+						<PlayerRow
+							seat={Seats.North}
+							player={tournament.playerList[game.participants[Seats.North].playerId]}
+							safeMode={safeMode}
+							automaticUma={automaticUma}
+							score={currentScore[Seats.North]}
+							onChange={(newValue: Score) => updateScore(Seats.North, newValue)}
+						/>
+						<SumRow
+							score={currentScore}
+							safeMode={safeMode}
+						/>
 					</tbody>
 				</table>
 				<Alert
@@ -489,7 +171,7 @@ const ResultEditor = (props: ResultEditorPros) => {
 					<Button
 						type={"primary"}
 						onClick={save}
-						disabled={totalsWrong || !modified}
+						disabled={disableSave(safeMode, totalsWrong, modified)}
 						title={totalsWrong ? "Raw and uma points do not sum up to 0." : ""}>
 						Save and mark finished
 					</Button>

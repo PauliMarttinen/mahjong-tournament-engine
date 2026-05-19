@@ -6,7 +6,7 @@ import { type CollapseProps } from "antd";
 import { Collapse } from "antd";
 import RoundSelector from "../../../components/RoundSelector";
 import AccordionLabel from "./AccordionLabel";
-import ResultEditor from "./ResultEditor/index2";
+import ResultEditor from "./ResultEditor";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import { getLastFinishedRound } from "../../../utils/getLastFinishedRound";

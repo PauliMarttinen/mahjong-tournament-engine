@@ -9,7 +9,7 @@ import styles from "./EditUma.module.css";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { tournamentActionCreators } from "../../../state";
-import { getUma } from "../HanchanResults/ResultEditor/utils/getUma2";
+import { getUma } from "../HanchanResults/ResultEditor/utils/getUma";
 
 const EditUma = () => {
 	const tournament = useTournament();
