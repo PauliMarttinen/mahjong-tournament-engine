@@ -10,6 +10,7 @@ import ResultEditor from "./ResultEditor";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import { getLastFinishedRound } from "../../../utils/getLastFinishedRound";
+import OorasuChecker from "./OorasuChecker";
 
 const HanchanResults = () => {
 	const tournament = useTournament();
@@ -48,6 +49,7 @@ const HanchanResults = () => {
 					nextDisabled={roundId === tournament.info.rounds.length-1}
 					onNext={() => setRoundId(roundId+1)}
 				/>
+				<OorasuChecker/>
 				<Collapse
 					key={roundId}
 					accordion={true}

@@ -1,0 +1,15 @@
+.oorasuModal .correct {
+	background: #f2fff0;
+	border: 1px solid #aaffa5;
+	color: black;
+}
+
+.oorasuModal .wrong {
+	background: #fff2f0;
+	border: 1px solid #ffccc7;
+	color: black;
+}
+
+.result {
+	padding-left: 20px;
+}
