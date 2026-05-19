@@ -2,26 +2,35 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { Modal, Alert, Switch, Card, Space, Input, Button } from "antd";
+import { Modal, Space, Button } from "antd";
 import { newTournamentActionCreators } from "../../../state";
 import { Routes } from "../../../utils/routeUtils";
 import styles from "./PlayerEntryView.module.css";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
+import NamedSwitch from "./NamedSwitch";
+import NamedPlayers from "./NamedPlayers";
+import DivisibleWarning from "./DivisbleWarning";
+import NamelessPlayers from "./NamelessPlayers";
+import { generateArray } from "../../../utils/generateArray";
 
 const PlayerEntryView = () => {
 	const [playersInput, setPlayersInput] = useState<string>("");
 	const [duplicates, setDuplicates] = useState<string[]>([]);
 	const [randomize, setRandomize] = useState<boolean>(false);
+	const [named, setNamed] = useState<boolean>(true);
+	const [namelessCount, setNamelessCount] = useState<number>(20);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const {addPlayers} = bindActionCreators(newTournamentActionCreators, dispatch);
 
 	const players: string[] = playersInput.split("\n").filter(name => name !== "");
-	const rightAmount = players.length > 0 && players.length % 4 === 0;
+	const rightAmount = (() => {
+		if (named) return players.length > 0 && players.length % 4 === 0;
+		return namelessCount % 4 === 0;
+	})();
 
-	const save = (): void => {
-		//Check for duplicates, notify if they exist and don't save names yet.
+	const saveNamed = (): void => {
 		const duplicatesFromInput = players.filter((name: string, index: number) => players.indexOf(name) !== index);
 
 		if (duplicatesFromInput.length > 0)
@@ -33,6 +42,19 @@ const PlayerEntryView = () => {
 		const playersInOrder = randomize ? players.sort((a: string, b: string) => Math.random() - 0.5) : players;
 
 		addPlayers(playersInOrder.map((name: string) => ({name: name, substitute: false})));
+	};
+
+	const saveNameless = (): void => {
+		const playerNumbers = generateArray(namelessCount, 1);
+		addPlayers(playerNumbers.map((playerNumber: number) => ({
+			name: playerNumber.toString(),
+			substitute: false
+		})));
+	};
+
+	const save = (): void => {
+		if (named) saveNamed();
+		if (!named) saveNameless();
 		navigate(Routes.SeatingTemplateEntry);
 	};
 
@@ -54,34 +76,33 @@ const PlayerEntryView = () => {
 				}
 				</ul>
 			</Modal>
-			<div className={styles.playerEntry}>
-				<Space direction={"vertical"}>
+			<Space
+				className={styles.playerEntry}
+				direction={"vertical"}>
 				<h1>Enter players</h1>
-				<Card>
-					<p>Enter players, one per line. Currently {players.length} players.</p>
-					<Input.TextArea
-						value={playersInput}
-						onChange={(e) => setPlayersInput(e.target.value)}
-					/>
-				</Card>
-				<Card>
-					<Space>
-						<Switch
-							checked={randomize}
-							id={"randomize"}
-							onChange={() => setRandomize(!randomize)}
-							size={"small"}
-						/>
-						<label htmlFor={"randomize"}>Randomize the order of names.</label>
-					</Space>
-				</Card>
+				<NamedSwitch
+					named={named}
+					onChange={setNamed}
+				/>
 				{
-					!rightAmount &&
-					<Alert
-						type={"error"}
-						message={"Must have a number of players that is divisible by 4."}
+					named
+					?
+					<NamedPlayers
+						playersCount={players.length}
+						textareaValue={playersInput}
+						onChange={setPlayersInput}
+						randomize={randomize}
+						onSwitch={setRandomize}
+					/>
+					:
+					<NamelessPlayers
+						value={namelessCount}
+						onChange={setNamelessCount}
 					/>
 				}
+				<DivisibleWarning
+					show={!rightAmount}
+				/>
 				<div className={styles.button}>
 					<Button
 						type={"primary"}
@@ -90,8 +111,7 @@ const PlayerEntryView = () => {
 						Save players
 					</Button>
 				</div>
-				</Space>
-			</div>
+			</Space>
 		</>
 	);
 };
