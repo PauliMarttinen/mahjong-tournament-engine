@@ -1,10 +1,10 @@
-import {useState, useMemo, useEffect} from "react";
+import { useState, useMemo, useEffect } from "react";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import { Steps, Button, Space, Card } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
-import useTournament from "../../../utils/hooks/useTournament";
-import useAppState from "../../../utils/hooks/useAppState";
+import { useTournament } from "../../../utils/hooks/useTournament";
+import { useAppState } from "../../../utils/hooks/useAppState";
 import { getSteps } from "./utils/getSteps";
 import { Routes } from "../../../utils/routeUtils";
 import { useDispatch } from "react-redux";

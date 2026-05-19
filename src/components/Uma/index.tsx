@@ -1,10 +1,11 @@
-import {useState} from "react";
-import UmaHelp from "./UmaHelp/UmaHelp";
+import { useState } from "react";
+import UmaHelp from "./UmaHelp";
 import { Space, Card, Checkbox, Radio, Button, RadioChangeEvent } from "antd";
 import {QuestionCircleOutlined} from "@ant-design/icons";
 import PointInput from "../PointInput";
 import { type Uma as UmaType, UmaTiebreak, type PointInputType } from "../../data-types/tournament-data-types";
 import styles from "./Uma.module.css";
+import { getNumericValue } from "../../utils/getNumericValue";
 
 type UmaProps = {
 	uma: UmaType,
@@ -31,10 +32,11 @@ const Uma = (props: UmaProps) => {
 	};
 
 	const setUmaAmount = (seat: number, newValue: PointInputType) => {
-		const updatedAmounts: [PointInputType, PointInputType, PointInputType, PointInputType] = [
+		const numericValue = getNumericValue(newValue);
+		const updatedAmounts: [number, number, number, number] = [
 			...props.uma.amount
 		];
-		updatedAmounts[seat] = newValue;
+		updatedAmounts[seat] = numericValue;
 
 		props.onChange({
 			...props.uma,

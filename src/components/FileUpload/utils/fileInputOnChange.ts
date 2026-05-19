@@ -1,6 +1,6 @@
-import type { ChangeEvent } from "react";
+import { type ChangeEvent } from "react";
 
-const fileInputOnChange = (e: ChangeEvent<HTMLInputElement>): FileList | null => {
+export const fileInputOnChange = (e: ChangeEvent<HTMLInputElement>): FileList | null => {
 	if (e.target.files === null || e.target.files.length === 0)
 	{
 		return null;
@@ -8,5 +8,3 @@ const fileInputOnChange = (e: ChangeEvent<HTMLInputElement>): FileList | null =>
 
 	return e.target.files;
 };
-
-export default fileInputOnChange;

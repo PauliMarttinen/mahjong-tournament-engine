@@ -1,6 +1,6 @@
 import NumberInput from "../../../../components/NumberInput";
 import { Card } from "antd";
-import { Round } from "../../../../data-types/tournament-data-types"
+import { type Round } from "../../../../data-types/tournament-data-types"
 
 type RoundProps = {
 	rounds: Round[],

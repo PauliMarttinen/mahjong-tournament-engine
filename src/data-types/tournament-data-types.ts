@@ -1,8 +1,8 @@
 import * as versionValidators from "./updateTournamentFormat/versionValidators";
-import type { Version0 } from "./updateTournamentFormat/version0/Version0";
-import type { Version1 } from "./updateTournamentFormat/version1/Version1";
-import type { Version2 } from "./updateTournamentFormat/version2/Version2";
-import type { Version3 } from "./updateTournamentFormat/version3/Version3";
+import { type Version0 } from "./updateTournamentFormat/version0/Version0";
+import { type Version1 } from "./updateTournamentFormat/version1/Version1";
+import { type Version2 } from "./updateTournamentFormat/version2/Version2";
+import { type Version3 } from "./updateTournamentFormat/version3/Version3";
 
 export type Round = {
 	scheduledStart: string,
@@ -14,7 +14,7 @@ export enum UmaTiebreak {
 	Split = "split"
 };
 
-export type UmaAmount = [PointInputType, PointInputType, PointInputType, PointInputType];
+export type UmaAmount = [number, number, number, number];
 
 export type Uma = {
 	automatic: boolean,

@@ -1,10 +1,10 @@
 import Performance from "./Performance";
 import { useSearchParams } from "react-router-dom";
-import useTournament from "../../../utils/hooks/useTournament";
-import alphabetizer from "../../../utils/alphabetizer";
+import { useTournament } from "../../../utils/hooks/useTournament";
+import { alphabetizer } from "../../../utils/alphabetizer";
 import styles from "./PrintReportCards.module.css";
-import type { Player } from "../../../data-types/tournament-data-types";
-import bodyNoMargin from "../../../utils/bodyNoMargin";
+import { type Player } from "../../../data-types/tournament-data-types";
+import { bodyNoMargin } from "../../../utils/bodyNoMargin";
 import { useEffect } from "react";
 
 const PrintReportCards = () => {

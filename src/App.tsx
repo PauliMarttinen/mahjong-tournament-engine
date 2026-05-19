@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import useTournament from "./utils/hooks/useTournament";
-import useAppState from "./utils/hooks/useAppState";
+import { useTournament } from "./utils/hooks/useTournament";
+import { useAppState } from "./utils/hooks/useAppState";
 import TournamentInfoEntry from "./views/NewTournament/TournamentInfoEntry";
 import ScheduleEntry from "./views/NewTournament/ScheduleEntry";
 import PlayerEntry from "./views/NewTournament/PlayerEntry";
@@ -14,7 +14,7 @@ import BigScreenPopup from "./views/Tournament/BigScreen/BigScreenPopup";
 import PrintOuts from "./views/Tournament/PrintOuts";
 import Entrance from "./views/Entrance";
 import EditPlayers from "./views/Tournament/EditPlayers";
-import EditUma from "./views/Tournament/EditUma/EditUma";
+import EditUma from "./views/Tournament/EditUma";
 import EditSchedule from "./views/Tournament/EditSchedule";
 import PrintPersonalSchedules from "./views/Print/PrintPersonalSchedules";
 import PrintReportCards from "./views/Print/PrintReportCards";
@@ -23,7 +23,7 @@ import PrintFullSchedule from "./views/Print/PrintFullSchedule";
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
 import Navigation from "./views/Tournament/Navigation";
 import { Layout, ConfigProvider, theme, Button } from "antd";
-import bodyNoMargin from "./utils/bodyNoMargin";
+import { bodyNoMargin } from "./utils/bodyNoMargin";
 import styles from "./App.module.css";
 import Affix from "./components/Affix";
 

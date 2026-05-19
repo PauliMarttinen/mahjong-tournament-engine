@@ -1,8 +1,8 @@
-import type { Game, Seat, Standing, Player } from "../../data-types/tournament-data-types";
+import { type Game, type Seat, type Standing, type Player } from "../../data-types/tournament-data-types";
 import { generateArray } from "../generateArray";
-import useTournament from "./useTournament";
+import { useTournament } from "./useTournament";
 
-const useStandings = (): Standing[][] => {
+export const useStandings = (): Standing[][] => {
 	const tournament = useTournament();
 	return generateArray(tournament.info.rounds.length).reduce((carry: Standing[][], roundIndex: number) => {
 		const byThisRound = tournament.playerList.map((_: Player, playerId: number): Standing => ({
@@ -46,5 +46,3 @@ const useStandings = (): Standing[][] => {
 		return [...carry, byThisRound];
 	}, []);
 };
-
-export default useStandings;

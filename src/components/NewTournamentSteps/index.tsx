@@ -1,4 +1,4 @@
-import {Steps} from "antd";
+import { Steps } from "antd";
 import styles from "./NewTournamentSteps.module.css";
 
 type NewTournamentStepsProps = {

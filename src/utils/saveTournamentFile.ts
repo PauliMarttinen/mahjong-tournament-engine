@@ -1,6 +1,6 @@
-import type { Tournament } from "../data-types/tournament-data-types";
+import { type Tournament } from "../data-types/tournament-data-types";
 
-const saveTournamentFile = (tournament: Tournament) => {  
+export const saveTournamentFile = (tournament: Tournament) => {  
 	const tournamentTitle = tournament.info.title;
 
 	const blob = new Blob([JSON.stringify(tournament)], {type: "application/json"});
@@ -14,6 +14,4 @@ const saveTournamentFile = (tournament: Tournament) => {
 	a.click();
 	URL.revokeObjectURL(href);
 	a.remove();
-}
-
-export default saveTournamentFile;
+};

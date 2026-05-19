@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { evaluateMeetingBalance, evaluateWindBalance } from "../utils/seatingTemplateEvaluation";
-import useNewTournament from "../../../../utils/hooks/useNewTournament";
-import {Modal, Alert, Card, Button} from "antd";
-import {QuestionCircleOutlined} from "@ant-design/icons";
+import { useNewTournament } from "../../../../utils/hooks/useNewTournament";
+import { Modal, Alert, Card, Button } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import styles from "./SeatingTemplateEvaluation.module.css";
 
 const SeatingTemplateEvaluations = () => {
 	const newTournament = useNewTournament();
-	const template = newTournament.seatingTemplateHistory[newTournament.currentSeatingTemplateIndex].template;
+	const template = newTournament.seatingTemplateStack[newTournament.currentSeatingTemplateIndex].template;
 	const errors = newTournament.seatingTemplateErrors;
 
 	const [showWindBalanceInfo, setShowWindBalanceInfo] = useState(false);
@@ -45,7 +45,7 @@ const SeatingTemplateEvaluations = () => {
 					message={"Note: the algorithm that evaluates the template is experimental and may produce silly numbers."}
 				/>
 			</Modal>
-			<Card title={"Seating evaluations"}>
+			<Card title={"Seating evaluations (experimental)"}>
 				<table className={styles.evaluationTable}>
 					<tbody>
 						<tr>

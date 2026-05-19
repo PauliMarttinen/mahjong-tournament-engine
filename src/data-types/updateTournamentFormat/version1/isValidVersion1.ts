@@ -1,4 +1,4 @@
-import type { Tournament } from "../../tournament-data-types";
+import { type Tournament } from "../../tournament-data-types";
 import areGamesValid from "../utils/areGamesValid";
 
 const isValidVersion1 = (data: any): data is Tournament => {

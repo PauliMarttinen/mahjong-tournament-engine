@@ -1,4 +1,4 @@
-import {combineReducers} from "redux";
+import { combineReducers } from "redux";
 import newTournamentReducer from "./newTournamentReducer";
 import tournamentReducer from "./tournamentReducer";
 import appReducer from "./appReducer";

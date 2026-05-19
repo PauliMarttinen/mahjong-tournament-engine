@@ -1,4 +1,4 @@
-const getSimpleDateISOString = (includeSeconds?: boolean): string => {
+export const getSimpleDateISOString = (includeSeconds?: boolean): string => {
 	const now = new Date();
 	const year = now.getFullYear().toString();
 	const month = (now.getMonth() + 1).toString().padStart(2, "0");
@@ -11,5 +11,3 @@ const getSimpleDateISOString = (includeSeconds?: boolean): string => {
 	
 	return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
-
-export default getSimpleDateISOString;

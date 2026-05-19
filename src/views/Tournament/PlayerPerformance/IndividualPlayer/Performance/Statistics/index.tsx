@@ -1,4 +1,4 @@
-import {Card} from "antd";
+import { Card } from "antd";
 import StatisticsChart from "../../../../../../components/PlayerPerformanceCharts/StatisticsChart";
 
 type StatisticsProps = {

@@ -1,7 +1,6 @@
 import IndividualPlayer from "./IndividualPlayer";
 import ReportCards from "./ReportCards";
-import {Tabs} from "antd";
-import type {TabsProps} from "antd";
+import { Tabs, type TabsProps } from "antd";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 

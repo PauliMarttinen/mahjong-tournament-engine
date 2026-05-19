@@ -1,7 +1,7 @@
 import StandingsDisplay from "../../../../../components/Standings";
 import styles from "./Standings.module.css";
-import simplifyTime from "../../../../../utils/simplifyTime";
-import useTournament from "../../../../../utils/hooks/useTournament";
+import { simplifyTime } from "../../../../../utils/simplifyTime";
+import { useTournament } from "../../../../../utils/hooks/useTournament";
 
 type StandingsProps = {
 	roundId: number

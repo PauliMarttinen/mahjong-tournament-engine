@@ -1,10 +1,10 @@
 import { useState } from "react";
-import type { Game } from "../../../data-types/tournament-data-types";
+import { type Game } from "../../../data-types/tournament-data-types";
 import Hanchan from "./Hanchan";
 import { generateArray } from "../../../utils/generateArray";
 import styles from "./Overview.module.css";
-import useTournament from "../../../utils/hooks/useTournament";
-import {Input} from "antd";
+import { useTournament } from "../../../utils/hooks/useTournament";
+import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";

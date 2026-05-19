@@ -1,8 +1,8 @@
 import { useState } from "react";
-import type { Game } from "../../../data-types/tournament-data-types";
+import { type Game } from "../../../data-types/tournament-data-types";
 import styles from "./HanchanResults.module.css";
-import useTournament from "../../../utils/hooks/useTournament";
-import type { CollapseProps } from "antd";
+import { useTournament } from "../../../utils/hooks/useTournament";
+import { type CollapseProps } from "antd";
 import { Collapse } from "antd";
 import RoundSelector from "../../../components/RoundSelector";
 import AccordionLabel from "./AccordionLabel";

@@ -1,6 +1,6 @@
 import styles from "./Welcome.module.css";
-import useTournament from "../../../../../utils/hooks/useTournament";
-import simplifyTime from "../../../../../utils/simplifyTime";
+import { useTournament } from "../../../../../utils/hooks/useTournament";
+import { simplifyTime } from "../../../../../utils/simplifyTime";
 
 const Welcome = () => {
 	const tournament = useTournament();

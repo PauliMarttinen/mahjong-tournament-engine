@@ -1,9 +1,9 @@
-import type { Dispatch } from "redux";
-import type { BigScreen } from "../../data-types/app-data-types";
+import { type Dispatch } from "redux";
+import { type BigScreen } from "../../data-types/app-data-types";
 import ActionTypes from "../action-types/app-action-types";
-import type {
-	MarkTournamentLoaded,
-	SetBigScreen
+import {
+	type MarkTournamentLoaded,
+	type SetBigScreen
 } from "../actions/app-actions";
 
 export const markTournamentLoaded = (newValue: boolean) => {

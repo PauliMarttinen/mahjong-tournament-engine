@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { generateArray } from "../../../../../utils/generateArray";
-import useNewTournament from "../../../../../utils/hooks/useNewTournament";
+import { useNewTournament } from "../../../../../utils/hooks/useNewTournament";
 import styles from "../SeatingTemplateTable.module.css";
-import type { ChangeEvent } from "react";
+import { type ChangeEvent } from "react";
 import { newTournamentActionCreators } from "../../../../../state";
 import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";
@@ -14,7 +14,7 @@ type SeatingTemplateTableProps = {
 const TableRoundVerticalTable = (props: SeatingTemplateTableProps) => {
 	const newTournament = useNewTournament();
 	const {seatingTemplateErrors} = newTournament;
-	const seatingTemplate = newTournament.seatingTemplateHistory[newTournament.currentSeatingTemplateIndex].template;
+	const seatingTemplate = newTournament.seatingTemplateStack[newTournament.currentSeatingTemplateIndex].template;
 	
 	const dispatch = useDispatch();
 	const {editTemplateField} = bindActionCreators(newTournamentActionCreators, dispatch);

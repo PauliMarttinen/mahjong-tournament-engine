@@ -1,4 +1,9 @@
-import type { DuplicatePlayerSeating, MissingPlayer, PlayerIdOutsideRange, SeatingTemplateErrors } from "../../../../data-types/new-tournament-data-types";
+import {
+	type DuplicatePlayerSeating,
+	type MissingPlayer,
+	type PlayerIdOutsideRange,
+	type SeatingTemplateErrors
+} from "../../../../data-types/new-tournament-data-types";
 import { generateArray } from "../../../../utils/generateArray";
 
 /**
@@ -81,7 +86,7 @@ export const evaluateWindBalance = (template: number[][]): number => {
 
 	// Scale to 0-100
 	return 100-(normalizedScore * 100);
-}
+};
 
 /**
  * evaluateMeetingBalance gives a score indicating how balanced the player meetings are on the scale of 0-100 where 100 is perfect.
@@ -151,4 +156,4 @@ export const evaluateMeetingBalance = (template: number[][]): number => {
 
 	// Scale to 0-100
 	return 100 - (normalizedScore * 100);
-}
+};

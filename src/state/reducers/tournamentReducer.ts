@@ -11,22 +11,7 @@ export const initialState: Tournament = {
 		rounds: Array(8).fill(emptyRound) as Round[],
 		uma: {
 			automatic: false,
-			amount: [{
-				positive: true,
-				value: 15000
-			},
-			{
-				positive: true,
-				value: 5000
-			},
-			{
-				positive: false,
-				value: 5000
-			},
-			{
-				positive: false,
-				value: 15000
-			}],
+			amount: [15000, 5000, -5000, -15000],
 			tiebreak: UmaTiebreak.Split
 		}
 	},

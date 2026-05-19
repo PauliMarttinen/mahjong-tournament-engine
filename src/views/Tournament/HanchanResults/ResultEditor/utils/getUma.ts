@@ -1,34 +1,33 @@
-import { UmaTiebreak, type PointInputType, type Uma } from "../../../../../data-types/tournament-data-types";
-import { getNumericValue } from "../../../../../utils/getNumericValue";
+import { type Score, UmaTiebreak, type Uma } from "../../../../../data-types/tournament-data-types";
 
 type Player = {
 	seat: number,
 	raw: number,
-	uma: PointInputType
+	uma: number
 };
 
-const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType, PointInputType]): [PointInputType, PointInputType, PointInputType, PointInputType] => {
+export const getUma = (rule: Uma, participants: [Score, Score, Score, Score]): [number, number, number, number] => {
 	//Step 1: mark players in their original seat order
 	const players: [Player, Player, Player, Player] = [
 		{
 			seat: 0,
-			raw: getNumericValue(raw[0]),
-			uma: {positive: true, value: 0}
+			raw: participants[0].raw,
+			uma: 0
 		},
 		{
 			seat: 1,
-			raw: getNumericValue(raw[1]),
-			uma: {positive: true, value: 0}
+			raw: participants[1].raw,
+			uma: 0
 		},
 		{
 			seat: 2,
-			raw: getNumericValue(raw[2]),
-			uma: {positive: true, value: 0}
+			raw: participants[2].raw,
+			uma: 0
 		},
 		{
 			seat: 3,
-			raw: getNumericValue(raw[3]),
-			uma: {positive: true, value: 0}
+			raw: participants[3].raw,
+			uma: 0
 		},
 	];
 
@@ -80,13 +79,10 @@ const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType,
 	// 1st and 2nd are tied but 3rd and 4th are not tied
 	else if (sortedPlayers[0].raw === sortedPlayers[1].raw && sortedPlayers[1].raw !== sortedPlayers[2].raw && sortedPlayers[2].raw !== sortedPlayers[3].raw)
 	{
-		const firstUmaValue = getNumericValue(rule.amount[0]);
-		const secondUmaValue = getNumericValue(rule.amount[1]);
-		const splitUmaValue = (firstUmaValue + secondUmaValue)/2;
-		const splitUma = {
-			positive: splitUmaValue >= 0,
-			value: Math.abs(splitUmaValue)
-		};
+		const firstUmaValue = rule.amount[0];
+		const secondUmaValue = rule.amount[1];
+		const splitUma = (firstUmaValue + secondUmaValue)/2;
+		
 		addedUma[0].uma = splitUma;
 		addedUma[1].uma = splitUma;
 		addedUma[2].uma = rule.amount[2];
@@ -96,13 +92,10 @@ const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType,
 	// 2nd and 3rd are tied
 	else if (sortedPlayers[0].raw !== sortedPlayers[1].raw && sortedPlayers[1].raw === sortedPlayers[2].raw && sortedPlayers[2].raw !== sortedPlayers[3].raw)
 	{
-		const secondUmaValue = getNumericValue(rule.amount[1]);
-		const thirdUmaValue = getNumericValue(rule.amount[2]);
-		const splitUmaValue = (secondUmaValue + thirdUmaValue)/2;
-		const splitUma = {
-			positive: splitUmaValue >= 0,
-			value: Math.abs(splitUmaValue)
-		};
+		const secondUmaValue = rule.amount[1];
+		const thirdUmaValue = rule.amount[2];
+		const splitUma = (secondUmaValue + thirdUmaValue)/2;
+		
 		addedUma[0].uma = rule.amount[0];
 		addedUma[1].uma = splitUma;
 		addedUma[2].uma = splitUma;
@@ -112,13 +105,10 @@ const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType,
 	// 3rd and 4th are tied but 1st and 4th are not tied
 	else if (sortedPlayers[0].raw !== sortedPlayers[1].raw && sortedPlayers[1].raw !== sortedPlayers[2].raw && sortedPlayers[2].raw === sortedPlayers[3].raw)
 	{
-		const thirdUmaValue = getNumericValue(rule.amount[2]);
-		const fourthUmaValue = getNumericValue(rule.amount[3]);
-		const splitUmaValue = (thirdUmaValue + fourthUmaValue)/2;
-		const splitUma = {
-			positive: splitUmaValue >= 0,
-			value: Math.abs(splitUmaValue)
-		};
+		const thirdUmaValue = rule.amount[2];
+		const fourthUmaValue = rule.amount[3];
+		const splitUma = (thirdUmaValue + fourthUmaValue)/2;
+		
 		addedUma[0].uma = rule.amount[0];
 		addedUma[1].uma = rule.amount[1];
 		addedUma[2].uma = splitUma;
@@ -128,20 +118,13 @@ const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType,
 	// 1st and 2nd are tied with each other, and 3rd and 4th are tied with each other
 	else if (sortedPlayers[0].raw === sortedPlayers[1].raw && sortedPlayers[1].raw !== sortedPlayers[2].raw && sortedPlayers[2].raw === sortedPlayers[3].raw)
 	{
-		const firstUmaValue = getNumericValue(rule.amount[0]);
-		const secondUmaValue = getNumericValue(rule.amount[1]);
-		const thirdUmaValue = getNumericValue(rule.amount[2]);
-		const fourthUmaValue = getNumericValue(rule.amount[3]);
-		const upperSplitUmaValue = (firstUmaValue + secondUmaValue)/2;
-		const lowerSplitUmaValue = (thirdUmaValue + fourthUmaValue)/2;
-		const upperSplitUma = {
-			positive: upperSplitUmaValue >= 0,
-			value: Math.abs(upperSplitUmaValue)
-		};
-		const lowerSplitUma = {
-			positive: lowerSplitUmaValue >= 0,
-			value: Math.abs(lowerSplitUmaValue)
-		}
+		const firstUmaValue = rule.amount[0];
+		const secondUmaValue = rule.amount[1];
+		const thirdUmaValue = rule.amount[2];
+		const fourthUmaValue = rule.amount[3];
+		const upperSplitUma = (firstUmaValue + secondUmaValue)/2;
+		const lowerSplitUma = (thirdUmaValue + fourthUmaValue)/2;
+		
 		addedUma[0].uma = upperSplitUma;
 		addedUma[1].uma = upperSplitUma;
 		addedUma[2].uma = lowerSplitUma;
@@ -151,14 +134,11 @@ const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType,
 	// 1st, 2nd and 3rd are tied
 	else if (sortedPlayers[0].raw === sortedPlayers[1].raw && sortedPlayers[1].raw === sortedPlayers[2].raw && sortedPlayers[2].raw !== sortedPlayers[3].raw)
 	{
-		const firstUmaValue = getNumericValue(rule.amount[0]);
-		const secondUmaValue = getNumericValue(rule.amount[1]);
-		const thirdUmaValue = getNumericValue(rule.amount[2]);
-		const splitUmaValue = (firstUmaValue + secondUmaValue + thirdUmaValue)/3;
-		const splitUma = {
-			positive: splitUmaValue >= 0,
-			value: Math.abs(splitUmaValue)
-		}
+		const firstUmaValue = rule.amount[0];
+		const secondUmaValue = rule.amount[1];
+		const thirdUmaValue = rule.amount[2];
+		const splitUma = (firstUmaValue + secondUmaValue + thirdUmaValue)/3;
+		
 		addedUma[0].uma = splitUma;
 		addedUma[1].uma = splitUma;
 		addedUma[2].uma = splitUma;
@@ -168,14 +148,11 @@ const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType,
 	// 2nd, 3rd and 4th are tied
 	else if (sortedPlayers[0].raw !== sortedPlayers[1].raw && sortedPlayers[1].raw === sortedPlayers[2].raw && sortedPlayers[2].raw === sortedPlayers[3].raw)
 	{
-		const secondUmaValue = getNumericValue(rule.amount[1]);
-		const thirdUmaValue = getNumericValue(rule.amount[2]);
-		const fourthUmaValue = getNumericValue(rule.amount[3]);
-		const splitUmaValue = (secondUmaValue + thirdUmaValue + fourthUmaValue)/3;
-		const splitUma = {
-			positive: splitUmaValue >= 0,
-			value: Math.abs(splitUmaValue)
-		}
+		const secondUmaValue = rule.amount[1];
+		const thirdUmaValue = rule.amount[2];
+		const fourthUmaValue = rule.amount[3];
+		const splitUma = (secondUmaValue + thirdUmaValue + fourthUmaValue)/3;
+		
 		addedUma[0].uma = rule.amount[0];
 		addedUma[1].uma = splitUma;
 		addedUma[2].uma = splitUma;
@@ -185,7 +162,8 @@ const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType,
 	// everyone is tied
 	else if (sortedPlayers[0].raw === sortedPlayers[1].raw && sortedPlayers[1].raw === sortedPlayers[2].raw && sortedPlayers[2].raw === sortedPlayers[3].raw)
 	{
-		const splitUma = {positive: true, value: 0};
+		const splitUma = (rule.amount[0] + rule.amount[1] + rule.amount[2] + rule.amount[3])/4;
+		
 		addedUma[0].uma = splitUma;
 		addedUma[1].uma = splitUma;
 		addedUma[2].uma = splitUma;
@@ -206,5 +184,3 @@ const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType,
 		resortedPlayers[3].uma
 	];
 };
-
-export default getUma;

@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import {
 	STATE_MESSAGE_IDENTIFIER,
 	PING_MESSAGE_IDENTIFIER,
@@ -10,7 +10,7 @@ import Standings from "./Standings";
 import FinalResults from "./FinalResults";
 import Welcome from "./Welcome";
 import Timer from "./Timer";
-import collectGarbage from "./utils/collectGarbage";
+import { collectGarbage } from "./utils/collectGarbage";
 
 const BigScreenPopup = () => {
 	const [pinger, setPinger] = useState<number | null>(null);

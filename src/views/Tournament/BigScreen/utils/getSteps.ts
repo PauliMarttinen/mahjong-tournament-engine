@@ -1,4 +1,4 @@
-import type { Tournament } from "../../../../data-types/tournament-data-types";
+import { type Tournament } from "../../../../data-types/tournament-data-types";
 import { generateArray } from "../../../../utils/generateArray";
 import { BigScreenStates } from "./setBigScreenState";
 import { getLastFinishedRound } from "../../../../utils/getLastFinishedRound";

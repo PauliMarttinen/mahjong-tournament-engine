@@ -4,7 +4,7 @@ import Positions from "./Positions";
 import RankingEvolution from "./RankingEvolution";
 import Statistics from "./Statistics";
 import styles from "./Performance.module.css";
-import {Space} from "antd";
+import { Space } from "antd";
 
 type PerformanceProps = {
 	playerId: number,

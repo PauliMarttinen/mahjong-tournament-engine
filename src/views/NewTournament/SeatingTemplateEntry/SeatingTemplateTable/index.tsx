@@ -1,4 +1,5 @@
-import { Formats } from "./FormatSelector/FormatSelector"
+import { Card } from "antd";
+import { Formats } from "../ViewOptions/FormatSelector"
 import TableRoundVerticalTable from "./TableRoundVerticalTable";
 import RoundTableVerticalTable from "./RoundTableVerticalTable";
 
@@ -9,7 +10,7 @@ type SeatingTemplateTableProps = {
 
 const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
 	return (
-		<div>
+		<Card>
 			{
 				props.format === Formats.TableRoundVertical &&
 				<TableRoundVerticalTable
@@ -22,7 +23,7 @@ const SeatingTemplateTable = (props: SeatingTemplateTableProps) => {
 					preview={props.preview}
 				/>
 			}
-		</div>
+		</Card>
 	);
 };
 

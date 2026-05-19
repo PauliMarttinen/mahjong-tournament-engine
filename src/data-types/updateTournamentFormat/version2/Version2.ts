@@ -1,4 +1,4 @@
-import type { Game, GeneralInfo, Meta, Player, Round } from "../../tournament-data-types";
+import { type Game, type Meta, type Player, type Round } from "../../tournament-data-types";
 
 export type GeneralInfoBeforeVersion3 = {
 	title: string,

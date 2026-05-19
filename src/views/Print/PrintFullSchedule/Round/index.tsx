@@ -1,5 +1,5 @@
-import type { Round as RoundType, Game, Player } from "../../../../data-types/tournament-data-types";
-import simplifyTime from "../../../../utils/simplifyTime";
+import { type Round as RoundType, type Game, type Player } from "../../../../data-types/tournament-data-types";
+import { simplifyTime } from "../../../../utils/simplifyTime";
 import Games from "./Games";
 import styles from "./Round.module.css";
 

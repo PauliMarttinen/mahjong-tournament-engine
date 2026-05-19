@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { generateArray } from "../../../../../utils/generateArray";
-import useNewTournament from "../../../../../utils/hooks/useNewTournament";
+import { useNewTournament } from "../../../../../utils/hooks/useNewTournament";
 import styles from "../SeatingTemplateTable.module.css";
 
 type SeatingTemplateTableProps = {
@@ -10,7 +10,7 @@ type SeatingTemplateTableProps = {
 const RoundTableHorizontalTable = (props: SeatingTemplateTableProps) => {
 	const newTournament = useNewTournament();
 	const {seatingTemplateErrors} = newTournament;
-	const seatingTemplate = newTournament.seatingTemplateHistory[newTournament.currentSeatingTemplateIndex].template;
+	const seatingTemplate = newTournament.seatingTemplateStack[newTournament.currentSeatingTemplateIndex].template;
 
 	const [highlightedRow, setHighlightedRow] = useState<number | null>(null);
 	const [highlightedColumn, setHighlightedColumn] = useState<number | null>(null);

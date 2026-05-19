@@ -1,4 +1,4 @@
-import type { GeneralInfo, Player } from "./tournament-data-types";
+import { type GeneralInfo, type Player } from "./tournament-data-types";
 
 export enum SeatingTemplateTypes {
 	Recommended,
@@ -6,7 +6,7 @@ export enum SeatingTemplateTypes {
 	Randomized
 };
 
-export type SeatingTemplateHistoryItem = {
+export type SeatingTemplateStackItem = {
 	template: number[][],
 	type: SeatingTemplateTypes
 };
@@ -36,7 +36,7 @@ export type SeatingTemplateErrors = {
 export type NewTournament = {
 	info: GeneralInfo,
 	playerList: Player[],
-	seatingTemplateHistory: SeatingTemplateHistoryItem[],
+	seatingTemplateStack: SeatingTemplateStackItem[],
 	currentSeatingTemplateIndex: number,
 	seatingTemplateErrors: SeatingTemplateErrors
 };

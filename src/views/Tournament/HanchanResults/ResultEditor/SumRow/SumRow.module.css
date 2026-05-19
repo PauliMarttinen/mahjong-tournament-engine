@@ -1,0 +1,9 @@
+.pointInput {
+	width: 7em;
+}
+
+.pointInput.wrong {
+	background: #fff2f0;
+	border: 1px solid #ffccc7;
+	color: black;	
+}

@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { newTournamentActionCreators } from "../../../state";
 import { Routes } from "../../../utils/routeUtils";
-import useNewTournament from "../../../utils/hooks/useNewTournament";
+import { useNewTournament } from "../../../utils/hooks/useNewTournament";
 import styles from "./ScheduleEntry.module.css";
 import { Space, Card, Button } from "antd";
-import { Round } from "../../../data-types/tournament-data-types";
+import { type Round } from "../../../data-types/tournament-data-types";
 import DateTimePicker from "../../../components/DateTimePicker";
 
 const ScheduleEntry = () => {
