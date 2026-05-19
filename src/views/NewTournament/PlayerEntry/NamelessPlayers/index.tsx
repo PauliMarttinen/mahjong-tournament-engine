@@ -17,7 +17,7 @@ const NamelessPlayers = (props: NamelessPlayersProps) => {
 					onChange={props.onChange}
 					increment={4}
 				/>
-				<p>Once players have been assigned to a number, you can input their actual names in the "Edit Players" view of the tournament.</p>
+				<p>Once players have been assigned a number in the draw, you can input their actual names in the "Edit Players" view of the tournament.</p>
 			</Space>
 		</Card>
 	);
