@@ -1,15 +1,9 @@
 import Round from "./Round/";
 import { type Round as RoundType, type Game } from "../../../data-types/tournament-data-types";
 import { useTournament } from "../../../utils/hooks/useTournament";
-import { bodyNoMargin } from "../../../utils/bodyNoMargin";
-import { useEffect } from "react";
 
 const PrintFullSchedule = () => {
 	const tournament = useTournament();
-
-	useEffect(() => {
-		bodyNoMargin();
-	}, []);
 
 	return (
 		<>

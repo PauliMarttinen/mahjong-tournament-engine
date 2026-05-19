@@ -2,8 +2,6 @@ import { type Game, type Seat } from "../../../data-types/tournament-data-types"
 import { generateArray } from "../../../utils/generateArray";
 import { useTournament } from "../../../utils/hooks/useTournament";
 import styles from "./PrintPersonalSchedules.module.css";
-import { bodyNoMargin } from "../../../utils/bodyNoMargin";
-import { useEffect } from "react";
 
 type Placement = {
 	round: number,
@@ -21,10 +19,6 @@ const PrintPlayerSchedules = () => {
 		table: game.table,
 		seat: game.participants.findIndex((participant: Seat): boolean => participant.playerId === playerId)
 	}));
-
-	useEffect(() => {
-		bodyNoMargin();
-	}, []);
 
 	return (
 		<div>
