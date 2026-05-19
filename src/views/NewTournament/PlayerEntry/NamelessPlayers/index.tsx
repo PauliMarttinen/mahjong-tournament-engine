@@ -10,14 +10,14 @@ const NamelessPlayers = (props: NamelessPlayersProps) => {
 	return (
 		<Card>
 			<Space direction={"vertical"}>
-				<p>In some tournaments, players must be randomized publicly. This option will create players with numbers starting from 1.</p>
+				<p>In some tournaments, players must be randomized publicly. This option will create the tournament without players having names yet.</p>
 				<NumberInput
 					value={props.value}
 					minimum={4}
 					onChange={props.onChange}
 					increment={4}
 				/>
-				<p>Once players have been assigned to a number, you can input their proper names in the "Edit Players" view of the tournament.</p>
+				<p>Once players have been assigned to a number, you can input their actual names in the "Edit Players" view of the tournament.</p>
 			</Space>
 		</Card>
 	);
