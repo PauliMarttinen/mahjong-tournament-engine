@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { type Game, type Score } from "../../../../data-types/tournament-data-types";
-import useTournament from "../../../../utils/hooks/useTournament";
+import { useTournament } from "../../../../utils/hooks/useTournament";
 import { useDispatch } from "react-redux";
 import { tournamentActionCreators } from "../../../../state";
 import { bindActionCreators } from "redux";
@@ -11,11 +11,11 @@ import UmaSwitch from "./UmaSwitch";
 import PlayerRow from "./PlayerRow";
 import SumRow from "./SumRow";
 import { Seats } from "../../../../data-types/app-data-types";
-import getUma from "./utils/getUma2";
-import getOriginalScore from "./utils/getOriginalScore";
-import isModified from "./utils/isModified";
-import areTotalsWrong from "./utils/areTotalsWrong";
-import disableSave from "./utils/disableSave";
+import { getUma } from "./utils/getUma2";
+import { getOriginalScore } from "./utils/getOriginalScore";
+import { isModified } from "./utils/isModified";
+import { areTotalsWrong } from "./utils/areTotalsWrong";
+import { disableSave } from "./utils/disableSave";
 
 type ResultEditorProps = {
 	tableId: number,

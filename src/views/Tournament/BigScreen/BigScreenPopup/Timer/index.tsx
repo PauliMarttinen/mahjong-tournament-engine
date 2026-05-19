@@ -3,7 +3,7 @@ import { Progress, Space, Button } from "antd";
 import styles from "./Timer.module.css";
 import { PlayCircleOutlined, /* PauseCircleOutlined, */ TrademarkCircleOutlined } from "@ant-design/icons";
 import alarmAudio from "./alarm.wav";
-import useTournament from "../../../../../utils/hooks/useTournament";
+import { useTournament } from "../../../../../utils/hooks/useTournament";
 import { BigScreenActions, setBigScreenState } from "../../utils/setBigScreenState";
 
 type TimerProps = {

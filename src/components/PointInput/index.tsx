@@ -1,10 +1,10 @@
 import { formatPoints } from "../../utils/formatPoints";
 import { type KeyboardEvent } from "react";
-import onKeyDown from "./utils/onKeyDown";
+import { onKeyDown } from "./utils/onKeyDown";
 import { type PointInputType } from "../../data-types/tournament-data-types";
 import { getNumericValue } from "../../utils/getNumericValue";
 import { Input } from "antd";
-import isPositive from "../../views/Tournament/HanchanResults/ResultEditor/utils/isPositive";
+import { isPositive } from "../../views/Tournament/HanchanResults/ResultEditor/utils/isPositive";
 
 type PointInputProps = {
 	value: PointInputType|number,

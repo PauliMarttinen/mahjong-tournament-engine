@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { tournamentActionCreators } from "../../../state";
 import { bindActionCreators } from "redux";
-import useTournament from "../../../utils/hooks/useTournament";
+import { useTournament } from "../../../utils/hooks/useTournament";
 import { type Player } from "../../../data-types/tournament-data-types";
 import { Input, Switch, Button, Modal } from "antd";
 import LayoutHeader from "../../../components/LayoutHeader";

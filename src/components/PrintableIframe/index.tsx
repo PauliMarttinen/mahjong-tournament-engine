@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import print from "./utils/print";
+import { print } from "./utils/print";
 import styles from "./PrintableIframe.module.css";
 
 type PrintableIframeProps = {

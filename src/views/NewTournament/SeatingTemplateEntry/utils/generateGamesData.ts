@@ -1,7 +1,7 @@
 import { type Score, type Game } from "../../../../data-types/tournament-data-types";
 import { generateArray } from "../../../../utils/generateArray";
 
-const createGamesData = (params: {
+export const createGamesData = (params: {
 	seatingTemplate: number[][],
 	roundCount: number,
 	playerCount: number
@@ -38,5 +38,3 @@ const createGamesData = (params: {
 		}))
 	)).reduce((combined: Game[], round: Game[]): Game[] => [...combined, ...round], []);
 };
-
-export default createGamesData;

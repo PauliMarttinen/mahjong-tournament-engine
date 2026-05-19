@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import useTournament from "../../../../utils/hooks/useTournament";
+import { useTournament } from "../../../../utils/hooks/useTournament";
 import { getNumericValue } from "../../../../utils/getNumericValue";
 import PointInput from "../../../../components/PointInput";
 import { type Game, type PointInputType } from "../../../../data-types/tournament-data-types";

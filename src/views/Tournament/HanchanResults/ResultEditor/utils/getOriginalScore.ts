@@ -1,6 +1,6 @@
 import { type Game, type Score } from "../../../../../data-types/tournament-data-types";
 
-const getOriginalScore = (game: Game): [Score, Score, Score, Score] => {
+export const getOriginalScore = (game: Game): [Score, Score, Score, Score] => {
 	return [
 		{
 			raw: game.participants[0].score.raw,
@@ -24,5 +24,3 @@ const getOriginalScore = (game: Game): [Score, Score, Score, Score] => {
 		}
 	];
 };
-
-export default getOriginalScore;

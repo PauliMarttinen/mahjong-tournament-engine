@@ -10,7 +10,7 @@ import styles from "./TournamentInfoEntry.module.css";
 import { Space, Button } from "antd";
 import NewTournamentSteps from "../../../components/NewTournamentSteps";
 import { emptyRound } from "../../../state/reducers/newTournamentReducer";
-import getSimpleDateISOString from "../../../utils/getSimpleDateISOString";
+import { getSimpleDateISOString } from "../../../utils/getSimpleDateISOString";
 import Title from "./Title";
 import Rounds from "./Rounds";
 import Uma from "../../../components/Uma";

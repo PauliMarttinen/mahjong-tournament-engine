@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import createGamesData from "./utils/generateGamesData";
-import useNewTournament from "../../../utils/hooks/useNewTournament";
+import { createGamesData } from "./utils/generateGamesData";
+import { useNewTournament } from "../../../utils/hooks/useNewTournament";
 import { bindActionCreators } from "redux";
 import { tournamentActionCreators } from "../../../state";
 import { newTournamentActionCreators } from "../../../state";

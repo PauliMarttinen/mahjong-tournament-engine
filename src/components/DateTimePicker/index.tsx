@@ -1,7 +1,7 @@
 import styles from "./DateTimePicker.module.css";
 import dayjs from "dayjs";
 import { DatePicker, TimePicker } from "antd";
-import getSimpleDateISOString from "../../utils/getSimpleDateISOString";
+import { getSimpleDateISOString } from "../../utils/getSimpleDateISOString";
 
 type DateTimePickerProps = {
 	onChange: (newValue: string) => void,

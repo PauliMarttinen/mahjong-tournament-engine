@@ -5,9 +5,9 @@ import { type Tournament } from "../../data-types/tournament-data-types";
 import { useNavigate } from "react-router-dom";
 import styles from "./Entrance.module.css";
 import { findRoute, Routes } from "../../utils/routeUtils";
-import saveTournamentFile from "../../utils/saveTournamentFile";
+import { saveTournamentFile } from "../../utils/saveTournamentFile";
 import FileUpload from "../../components/FileUpload";
-import shouldOfferStoredGame from "./utils/shouldOfferStoredGame";
+import { shouldOfferStoredGame } from "./utils/shouldOfferStoredGame";
 import updateTournamentFormat from "../../data-types/updateTournamentFormat/updateTournamentFormat";
 import { Space, Card, Alert, Button } from "antd";
 

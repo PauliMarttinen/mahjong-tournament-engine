@@ -7,7 +7,7 @@ type Player = {
 	uma: PointInputType
 };
 
-const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType, PointInputType]): [PointInputType, PointInputType, PointInputType, PointInputType] => {
+export const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType, PointInputType]): [PointInputType, PointInputType, PointInputType, PointInputType] => {
 	//Step 1: mark players in their original seat order
 	const players: [Player, Player, Player, Player] = [
 		{
@@ -205,10 +205,6 @@ const getUma = (rule: Uma, raw: [PointInputType, PointInputType, PointInputType,
 		resortedPlayers[2].uma,
 		resortedPlayers[3].uma
 	];
-};
+};*/
 
-export default getUma; */
-
-const getUma = () => {};
-
-export default getUma;
+export const getUma = () => {};

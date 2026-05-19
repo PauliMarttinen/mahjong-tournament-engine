@@ -1,7 +1,7 @@
 import { type KeyboardEvent } from "react";
 import { type PointInputType } from "../../../data-types/tournament-data-types";
 
-const onKeyDown = (params: {
+export const onKeyDown = (params: {
 	e: KeyboardEvent<HTMLInputElement>,
 	unflippable?: boolean,
 	short: boolean,
@@ -80,5 +80,3 @@ const onKeyDown = (params: {
 
 	return params.value;
 };
-
-export default onKeyDown;

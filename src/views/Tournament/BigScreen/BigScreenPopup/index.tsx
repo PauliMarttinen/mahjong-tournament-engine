@@ -10,7 +10,7 @@ import Standings from "./Standings";
 import FinalResults from "./FinalResults";
 import Welcome from "./Welcome";
 import Timer from "./Timer";
-import collectGarbage from "./utils/collectGarbage";
+import { collectGarbage } from "./utils/collectGarbage";
 
 const BigScreenPopup = () => {
 	const [pinger, setPinger] = useState<number | null>(null);

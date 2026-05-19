@@ -5,7 +5,7 @@ import { type MenuInfo } from "rc-menu/lib/interface";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../../../utils/routeUtils";
 import { useLocation } from "react-router-dom";
-import useTournament from "../../../utils/hooks/useTournament";
+import { useTournament } from "../../../utils/hooks/useTournament";
 import {
 	LineChartOutlined,
 	OrderedListOutlined,
@@ -18,8 +18,8 @@ import {
 	CalendarOutlined,
 	TransactionOutlined
 } from "@ant-design/icons";
-import saveTournamentFile from "../../../utils/saveTournamentFile";
-import saveSeatingFile from "../../../utils/saveSeatingFile";
+import { saveTournamentFile } from "../../../utils/saveTournamentFile";
+import { saveSeatingFile } from "../../../utils/saveSeatingFile";
 import BigScreenMonitor from "../../../components/BigScreenMonitor";
 
 type MenuItem = Required<MenuProps>["items"][number];

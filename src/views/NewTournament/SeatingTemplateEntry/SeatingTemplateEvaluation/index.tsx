@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { evaluateMeetingBalance, evaluateWindBalance } from "../utils/seatingTemplateEvaluation";
-import useNewTournament from "../../../../utils/hooks/useNewTournament";
+import { useNewTournament } from "../../../../utils/hooks/useNewTournament";
 import { Modal, Alert, Card, Button } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import styles from "./SeatingTemplateEvaluation.module.css";

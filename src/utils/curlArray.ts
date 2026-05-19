@@ -1,4 +1,4 @@
-const curlArray: Function = <T>(array: T[], perGroup: number): T[][] => ( 
+export const curlArray: Function = <T>(array: T[], perGroup: number): T[][] => ( 
 	array.reduce((carry: T[][], item: T): T[][] => ( 
 		carry[carry.length - 1].length < perGroup 
 		? 
@@ -7,5 +7,3 @@ const curlArray: Function = <T>(array: T[], perGroup: number): T[][] => (
 		[...carry, [item]] 
 	), [[]]) 
 );
-
-export default curlArray;

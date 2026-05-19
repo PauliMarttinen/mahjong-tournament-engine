@@ -1,7 +1,7 @@
 import { generateArray } from "../../../utils/generateArray";
 import styles from "./Table.module.css";
 import Column from "./Column";
-import useTournament from "../../../utils/hooks/useTournament";
+import { useTournament } from "../../../utils/hooks/useTournament";
 
 type StandingsProps = {
 	className?: string,

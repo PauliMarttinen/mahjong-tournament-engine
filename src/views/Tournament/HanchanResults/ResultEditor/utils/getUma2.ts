@@ -6,7 +6,7 @@ type Player = {
 	uma: number
 };
 
-const getUma = (rule: Uma, participants: [Score, Score, Score, Score]): [number, number, number, number] => {
+export const getUma = (rule: Uma, participants: [Score, Score, Score, Score]): [number, number, number, number] => {
 	//Step 1: mark players in their original seat order
 	const players: [Player, Player, Player, Player] = [
 		{
@@ -184,5 +184,3 @@ const getUma = (rule: Uma, participants: [Score, Score, Score, Score]): [number,
 		resortedPlayers[3].uma
 	];
 };
-
-export default getUma;

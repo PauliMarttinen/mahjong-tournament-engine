@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import { type Tournament } from "../../data-types/tournament-data-types";
 import { type State } from "../../state";
-import useAppState from "./useAppState";
+import { useAppState } from "./useAppState";
 import { isTournamentDataValid } from "../../data-types/tournament-data-types";
 import { initialState } from "../../state/reducers/tournamentReducer";
 
-const useTournament = (): Tournament => {
+export const useTournament = (): Tournament => {
 	const appState = useAppState();
 	const tournamentFromState = useSelector((state: State) => state.tournament);
 	if (appState.tournamentLoaded) return tournamentFromState;
@@ -15,5 +15,3 @@ const useTournament = (): Tournament => {
 
 	return initialState;
 };
-
-export default useTournament;

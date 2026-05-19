@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import useStandings from "../../utils/hooks/useStandings";
-import useTournament from "../../utils/hooks/useTournament";
+import { useStandings } from "../../utils/hooks/useStandings";
+import { useTournament } from "../../utils/hooks/useTournament";
 import { generateArray } from "../../utils/generateArray";
 import { type Standing } from "../../data-types/tournament-data-types";
 import {

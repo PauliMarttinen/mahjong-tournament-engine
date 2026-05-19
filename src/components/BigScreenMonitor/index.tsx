@@ -6,12 +6,12 @@ import {
 	BigScreenStates,
 	BigScreenActions
 } from "../../views/Tournament/BigScreen/utils/setBigScreenState";
-import collectGarbage from "../../views/Tournament/BigScreen/BigScreenPopup/utils/collectGarbage";
-import useTournament from "../../utils/hooks/useTournament";
+import { collectGarbage } from "../../views/Tournament/BigScreen/BigScreenPopup/utils/collectGarbage";
+import { useTournament } from "../../utils/hooks/useTournament";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appActionCreators, tournamentActionCreators } from "../../state";
-import getSimpleDateISOString from "../../utils/getSimpleDateISOString";
+import { getSimpleDateISOString } from "../../utils/getSimpleDateISOString";
 import { type Round, type Tournament } from "../../data-types/tournament-data-types";
 
 const BigScreenMonitor = () => {

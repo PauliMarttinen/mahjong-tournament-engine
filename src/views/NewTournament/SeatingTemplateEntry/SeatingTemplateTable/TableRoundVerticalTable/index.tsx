@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { generateArray } from "../../../../../utils/generateArray";
-import useNewTournament from "../../../../../utils/hooks/useNewTournament";
+import { useNewTournament } from "../../../../../utils/hooks/useNewTournament";
 import styles from "../SeatingTemplateTable.module.css";
 import { type ChangeEvent } from "react";
 import { newTournamentActionCreators } from "../../../../../state";

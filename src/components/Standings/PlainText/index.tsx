@@ -1,7 +1,7 @@
 import { type Standing } from "../../../data-types/tournament-data-types";
 import { formatPoints } from "../../../utils/formatPoints";
-import useStandings from "../../../utils/hooks/useStandings";
-import useTournament from "../../../utils/hooks/useTournament";
+import { useStandings } from "../../../utils/hooks/useStandings";
+import { useTournament } from "../../../utils/hooks/useTournament";
 
 type StandingsProps = {
 	className?: string,

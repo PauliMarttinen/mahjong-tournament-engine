@@ -86,7 +86,7 @@ export const evaluateWindBalance = (template: number[][]): number => {
 
 	// Scale to 0-100
 	return 100-(normalizedScore * 100);
-}
+};
 
 /**
  * evaluateMeetingBalance gives a score indicating how balanced the player meetings are on the scale of 0-100 where 100 is perfect.
@@ -156,4 +156,4 @@ export const evaluateMeetingBalance = (template: number[][]): number => {
 
 	// Scale to 0-100
 	return 100 - (normalizedScore * 100);
-}
+};

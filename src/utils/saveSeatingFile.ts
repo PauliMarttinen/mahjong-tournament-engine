@@ -1,7 +1,7 @@
 import { generateArray } from "./generateArray";
 import { type Tournament, type Game } from "../data-types/tournament-data-types";
 
-const saveSeatingFile = (tournament: Tournament) => {
+export const saveSeatingFile = (tournament: Tournament) => {
 	const filename = `seating-template-${tournament.info.rounds.length}r-${tournament.playerList.length}p.csv`;
 
 	const emptySeating: number[][] = generateArray(tournament.playerList.length).map((_: number) => []);
@@ -33,5 +33,3 @@ const saveSeatingFile = (tournament: Tournament) => {
 	URL.revokeObjectURL(href);
 	a.remove();
 };
-
-export default saveSeatingFile;

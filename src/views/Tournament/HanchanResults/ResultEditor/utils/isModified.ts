@@ -1,6 +1,6 @@
 import { type Score } from "../../../../../data-types/tournament-data-types";
 
-const isModified = (original: [Score, Score, Score, Score], compare: [Score, Score, Score, Score]): boolean => {
+export const isModified = (original: [Score, Score, Score, Score], compare: [Score, Score, Score, Score]): boolean => {
 	return (
 		(
 			//Allow saving when everything is zero - it might be a completely tied game
@@ -26,5 +26,3 @@ const isModified = (original: [Score, Score, Score, Score], compare: [Score, Sco
 		)
 	);
 };
-
-export default isModified

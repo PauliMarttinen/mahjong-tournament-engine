@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import useTournament from "./utils/hooks/useTournament";
-import useAppState from "./utils/hooks/useAppState";
+import { useTournament } from "./utils/hooks/useTournament";
+import { useAppState } from "./utils/hooks/useAppState";
 import TournamentInfoEntry from "./views/NewTournament/TournamentInfoEntry";
 import ScheduleEntry from "./views/NewTournament/ScheduleEntry";
 import PlayerEntry from "./views/NewTournament/PlayerEntry";
@@ -23,7 +23,7 @@ import PrintFullSchedule from "./views/Print/PrintFullSchedule";
 import PlayerPerformance from "./views/Tournament/PlayerPerformance";
 import Navigation from "./views/Tournament/Navigation";
 import { Layout, ConfigProvider, theme, Button } from "antd";
-import bodyNoMargin from "./utils/bodyNoMargin";
+import { bodyNoMargin } from "./utils/bodyNoMargin";
 import styles from "./App.module.css";
 import Affix from "./components/Affix";
 
