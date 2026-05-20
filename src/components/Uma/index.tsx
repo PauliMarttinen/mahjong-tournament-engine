@@ -3,7 +3,8 @@ import UmaHelp from "./UmaHelp";
 import { Space, Card, Checkbox, Radio, Button, RadioChangeEvent } from "antd";
 import {QuestionCircleOutlined} from "@ant-design/icons";
 import PointInput from "../PointInput";
-import { type Uma as UmaType, UmaTiebreak, type PointInputType } from "../../data-types/tournament-data-types";
+import { type Uma as UmaType, UmaTiebreak } from "../../data-types/tournament-data-types";
+import { type PointInputType } from "../PointInput";
 import styles from "./Uma.module.css";
 import { getNumericValue } from "../../utils/getNumericValue";
 

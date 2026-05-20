@@ -1,6 +1,7 @@
 import { Seats } from "../../../../../data-types/app-data-types";
 import PointInput from "../../../../../components/PointInput";
-import { type Player, type PointInputType, type Score } from "../../../../../data-types/tournament-data-types";
+import { type Player, type Score } from "../../../../../data-types/tournament-data-types";
+import { type PointInputType } from "../../../../../components/PointInput";
 import { formatPoints } from "../../../../../utils/formatPoints";
 import { getNumericValue } from "../../../../../utils/getNumericValue";
 import { isPositive } from "../utils/isPositive";
