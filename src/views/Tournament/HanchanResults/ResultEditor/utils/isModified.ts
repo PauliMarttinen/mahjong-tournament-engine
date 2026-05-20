@@ -1,28 +1,29 @@
 import { type Score } from "../../../../../data-types/tournament-data-types";
+import { Seats } from "../../../../../data-types/app-data-types";
 
 export const isModified = (original: [Score, Score, Score, Score], compare: [Score, Score, Score, Score]): boolean => {
 	return (
 		(
 			//Allow saving when everything is zero - it might be a completely tied game
-			original[0].raw === 0 || original[0].uma === 0 ||
-			original[1].raw === 0 || original[1].uma === 0 ||
-			original[2].raw === 0 || original[2].uma === 0 ||
-			original[3].raw === 0 || original[3].uma === 0
+			original[Seats.East].raw === 0 || original[Seats.East].uma === 0 ||
+			original[Seats.South].raw === 0 || original[Seats.South].uma === 0 ||
+			original[Seats.West].raw === 0 || original[Seats.West].uma === 0 ||
+			original[Seats.North].raw === 0 || original[Seats.North].uma === 0
 		)
 		||
 		(
-			original[0].raw !== compare[0].raw ||
-			original[0].uma !== compare[0].uma ||
-			original[0].penalty !== compare[0].penalty ||
-			original[1].raw !== compare[1].raw ||
-			original[1].uma !== compare[1].uma ||
-			original[1].penalty !== compare[1].penalty ||
-			original[2].raw !== compare[2].raw ||
-			original[2].uma !== compare[2].uma ||
-			original[2].penalty !== compare[2].penalty ||
-			original[3].raw !== compare[3].raw ||
-			original[3].uma !== compare[3].uma ||
-			original[3].penalty !== compare[3].penalty
+			original[Seats.East].raw !== compare[Seats.East].raw ||
+			original[Seats.East].uma !== compare[Seats.East].uma ||
+			original[Seats.East].penalty !== compare[Seats.East].penalty ||
+			original[Seats.South].raw !== compare[Seats.South].raw ||
+			original[Seats.South].uma !== compare[Seats.South].uma ||
+			original[Seats.South].penalty !== compare[Seats.South].penalty ||
+			original[Seats.West].raw !== compare[Seats.West].raw ||
+			original[Seats.West].uma !== compare[Seats.West].uma ||
+			original[Seats.West].penalty !== compare[Seats.West].penalty ||
+			original[Seats.North].raw !== compare[Seats.North].raw ||
+			original[Seats.North].uma !== compare[Seats.North].uma ||
+			original[Seats.North].penalty !== compare[Seats.North].penalty
 		)
 	);
 };

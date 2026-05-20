@@ -2,6 +2,7 @@ import { Input } from "antd";
 import { formatPoints } from "../../../../../utils/formatPoints";
 import { type Score } from "../../../../../data-types/tournament-data-types";
 import styles from "./SumRow.module.css";
+import { Seats } from "../../../../../data-types/app-data-types";
 
 type SumRowProps = {
 	score: [Score, Score, Score, Score],
@@ -10,16 +11,16 @@ type SumRowProps = {
 
 const SumRow = (props: SumRowProps) => {
 	const raw =
-		props.score[0].raw +
-		props.score[1].raw +
-		props.score[2].raw +
-		props.score[3].raw;
+		props.score[Seats.East].raw +
+		props.score[Seats.South].raw +
+		props.score[Seats.West].raw +
+		props.score[Seats.North].raw;
 
 	const uma =
-		props.score[0].uma +
-		props.score[1].uma +
-		props.score[2].uma +
-		props.score[3].uma;
+		props.score[Seats.East].uma +
+		props.score[Seats.South].uma +
+		props.score[Seats.West].uma +
+		props.score[Seats.North].uma;
 
 	return (
 		<tr>

@@ -1,4 +1,5 @@
 import { type Game, type Player } from "../../../../../data-types/tournament-data-types";
+import { Seats } from "../../../../../data-types/app-data-types";
 
 type GamesProps = {
 	games: Game[],
@@ -11,10 +12,10 @@ const Games = (props: GamesProps) => {
 			{props.games.map((game: Game, index: number) => (
 				<tr key={`game-tr-${index}`}>
 					<th scope={"row"}>Table {game.table + 1}</th>
-					<td>{props.playerList[game.participants[0].playerId].name}</td>
-					<td>{props.playerList[game.participants[1].playerId].name}</td>
-					<td>{props.playerList[game.participants[2].playerId].name}</td>
-					<td>{props.playerList[game.participants[3].playerId].name}</td>
+					<td>{props.playerList[game.participants[Seats.East].playerId].name}</td>
+					<td>{props.playerList[game.participants[Seats.South].playerId].name}</td>
+					<td>{props.playerList[game.participants[Seats.West].playerId].name}</td>
+					<td>{props.playerList[game.participants[Seats.North].playerId].name}</td>
 				</tr>
 			))}
 		</tbody>

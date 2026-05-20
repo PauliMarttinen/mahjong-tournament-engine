@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { tournamentActionCreators } from "../../../state";
 import { getUma } from "../HanchanResults/ResultEditor/utils/getUma";
+import { Seats } from "../../../data-types/app-data-types";
 
 const EditUma = () => {
 	const tournament = useTournament();
@@ -30,10 +31,10 @@ const EditUma = () => {
 		const updatedGames = tournament.games.map((game: Game): Game => {
 			if (!game.finished) return game;
 
-			const eastScore = game.participants[0].score;
-			const southScore = game.participants[1].score;
-			const westScore = game.participants[2].score;
-			const northScore = game.participants[3].score;
+			const eastScore = game.participants[Seats.East].score;
+			const southScore = game.participants[Seats.South].score;
+			const westScore = game.participants[Seats.West].score;
+			const northScore = game.participants[Seats.North].score;
 
 			const [updatedEastUma, updatedSouthUma, updatedWestUma, updatedNorthUma] = getUma(
 				currentUma,
@@ -44,30 +45,30 @@ const EditUma = () => {
 				...game,
 				participants: [
 					{
-						...game.participants[0],
+						...game.participants[Seats.East],
 						score: {
-							...game.participants[0].score,
+							...game.participants[Seats.East].score,
 							uma: updatedEastUma
 						}
 					},
 					{
-						...game.participants[1],
+						...game.participants[Seats.South],
 						score: {
-							...game.participants[1].score,
+							...game.participants[Seats.South].score,
 							uma: updatedSouthUma
 						}
 					},
 					{
-						...game.participants[2],
+						...game.participants[Seats.West],
 						score: {
-							...game.participants[2].score,
+							...game.participants[Seats.West].score,
 							uma: updatedWestUma
 						}
 					},
 					{
-						...game.participants[3],
+						...game.participants[Seats.North],
 						score: {
-							...game.participants[3].score,
+							...game.participants[Seats.North].score,
 							uma: updatedNorthUma
 						}
 					}

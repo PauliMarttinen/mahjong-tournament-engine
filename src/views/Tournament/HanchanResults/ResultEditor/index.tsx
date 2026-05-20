@@ -80,10 +80,10 @@ const ResultEditor = (props: ResultEditorProps) => {
 				updatedScore
 			);
 
-			updatedScore[0].uma = updatedEastUma;
-			updatedScore[1].uma = updatedSouthUma;
-			updatedScore[2].uma = updatedWestUma;
-			updatedScore[3].uma = updatedNorthUma;
+			updatedScore[Seats.East].uma = updatedEastUma;
+			updatedScore[Seats.South].uma = updatedSouthUma;
+			updatedScore[Seats.West].uma = updatedWestUma;
+			updatedScore[Seats.North].uma = updatedNorthUma;
 		}
 
 		setCurrentScore(updatedScore);

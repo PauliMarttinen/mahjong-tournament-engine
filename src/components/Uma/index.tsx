@@ -7,6 +7,7 @@ import { type Uma as UmaType, UmaTiebreak } from "../../data-types/tournament-da
 import { type PointInputType } from "../PointInput";
 import styles from "./Uma.module.css";
 import { getNumericValue } from "../../utils/getNumericValue";
+import { Positions } from "../../data-types/app-data-types";
 
 type UmaProps = {
 	uma: UmaType,
@@ -77,7 +78,7 @@ const Uma = (props: UmaProps) => {
 								<td>
 									<PointInput
 										className={styles.pointInput}
-										value={props.uma.amount[0]}
+										value={props.uma.amount[Positions.First]}
 										onChange={(newValue: PointInputType) => setUmaAmount(0, newValue)}
 										short={true}
 										disabled={!props.uma.automatic}
@@ -90,7 +91,7 @@ const Uma = (props: UmaProps) => {
 								<td>
 									<PointInput
 										className={styles.pointInput}
-										value={props.uma.amount[1]}
+										value={props.uma.amount[Positions.Second]}
 										onChange={(newValue: PointInputType) => setUmaAmount(1, newValue)}
 										short={true}
 										disabled={!props.uma.automatic}
@@ -103,7 +104,7 @@ const Uma = (props: UmaProps) => {
 								<td>
 									<PointInput
 										className={styles.pointInput}
-										value={props.uma.amount[2]}
+										value={props.uma.amount[Positions.Third]}
 										onChange={(newValue: PointInputType) => setUmaAmount(2, newValue)}
 										short={true}
 										disabled={!props.uma.automatic}
@@ -116,7 +117,7 @@ const Uma = (props: UmaProps) => {
 								<td>
 									<PointInput
 										className={styles.pointInput}
-										value={props.uma.amount[3]}
+										value={props.uma.amount[Positions.Fourth]}
 										onChange={(newValue: PointInputType) => setUmaAmount(3, newValue)}
 										short={true}
 										disabled={!props.uma.automatic}

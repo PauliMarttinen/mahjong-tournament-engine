@@ -58,28 +58,28 @@ const StatisticsChart = (props: StatisticsGraphProps) => {
 			return carry;
 		}
 
-		const seatId = game.participants.findIndex((seat: Seat): boolean => seat.playerId === props.playerId);
+		const seat = game.participants.findIndex((seat: Seat): boolean => seat.playerId === props.playerId);
 
 		return {
 			raw: {
-				highestSingle: game.participants[seatId].score.raw > carry.raw.highestSingle ? game.participants[seatId].score.raw : carry.raw.highestSingle,
-				lowestSingle: game.participants[seatId].score.raw < carry.raw.lowestSingle ? game.participants[seatId].score.raw : carry.raw.lowestSingle,
-				sum: carry.raw.sum + game.participants[seatId].score.raw
+				highestSingle: game.participants[seat].score.raw > carry.raw.highestSingle ? game.participants[seat].score.raw : carry.raw.highestSingle,
+				lowestSingle: game.participants[seat].score.raw < carry.raw.lowestSingle ? game.participants[seat].score.raw : carry.raw.lowestSingle,
+				sum: carry.raw.sum + game.participants[seat].score.raw
 			},
 			uma: {
-				highestSingle: game.participants[seatId].score.uma > carry.uma.highestSingle ? game.participants[seatId].score.uma : carry.uma.highestSingle,
-				lowestSingle: game.participants[seatId].score.uma < carry.uma.lowestSingle ? game.participants[seatId].score.uma : carry.uma.lowestSingle,
-				sum: carry.uma.sum + game.participants[seatId].score.uma
+				highestSingle: game.participants[seat].score.uma > carry.uma.highestSingle ? game.participants[seat].score.uma : carry.uma.highestSingle,
+				lowestSingle: game.participants[seat].score.uma < carry.uma.lowestSingle ? game.participants[seat].score.uma : carry.uma.lowestSingle,
+				sum: carry.uma.sum + game.participants[seat].score.uma
 			},
 			penalty: {
-				highestSingle: game.participants[seatId].score.penalty > carry.penalty.highestSingle ? game.participants[seatId].score.penalty : carry.penalty.highestSingle,
-				lowestSingle: game.participants[seatId].score.penalty < carry.penalty.lowestSingle ? game.participants[seatId].score.penalty : carry.penalty.lowestSingle,
-				sum: carry.penalty.sum + game.participants[seatId].score.penalty
+				highestSingle: game.participants[seat].score.penalty > carry.penalty.highestSingle ? game.participants[seat].score.penalty : carry.penalty.highestSingle,
+				lowestSingle: game.participants[seat].score.penalty < carry.penalty.lowestSingle ? game.participants[seat].score.penalty : carry.penalty.lowestSingle,
+				sum: carry.penalty.sum + game.participants[seat].score.penalty
 			},
 			total: {
-				highestSingle: getTotal(game.participants[seatId].score) > carry.total.highestSingle ? getTotal(game.participants[seatId].score) : carry.total.highestSingle,
-				lowestSingle: getTotal(game.participants[seatId].score) < carry.total.lowestSingle ? getTotal(game.participants[seatId].score) : carry.total.lowestSingle,
-				sum: carry.total.sum + getTotal(game.participants[seatId].score)
+				highestSingle: getTotal(game.participants[seat].score) > carry.total.highestSingle ? getTotal(game.participants[seat].score) : carry.total.highestSingle,
+				lowestSingle: getTotal(game.participants[seat].score) < carry.total.lowestSingle ? getTotal(game.participants[seat].score) : carry.total.lowestSingle,
+				sum: carry.total.sum + getTotal(game.participants[seat].score)
 			},
 			gamesPlayed: carry.gamesPlayed + 1
 		};

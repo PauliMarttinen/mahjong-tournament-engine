@@ -11,6 +11,7 @@ import LayoutHeader from "../../../components/LayoutHeader";
 import LayoutContent from "../../../components/LayoutContent";
 import { getLastFinishedRound } from "../../../utils/getLastFinishedRound";
 import OorasuChecker from "./OorasuChecker";
+import { Seats } from "../../../data-types/app-data-types";
 
 const HanchanResults = () => {
 	const tournament = useTournament();
@@ -23,10 +24,10 @@ const HanchanResults = () => {
 		label: (
 			<AccordionLabel
 				table={game.table}
-				east={tournament.playerList[game.participants[0].playerId].name}
-				south={tournament.playerList[game.participants[1].playerId].name}
-				west={tournament.playerList[game.participants[2].playerId].name}
-				north={tournament.playerList[game.participants[3].playerId].name}
+				east={tournament.playerList[game.participants[Seats.East].playerId].name}
+				south={tournament.playerList[game.participants[Seats.South].playerId].name}
+				west={tournament.playerList[game.participants[Seats.West].playerId].name}
+				north={tournament.playerList[game.participants[Seats.North].playerId].name}
 				finished={game.finished}
 			/>
 		),
