@@ -1,26 +1,27 @@
 import { type Game, type Score } from "../../../../../data-types/tournament-data-types";
+import { Seats } from "../../../../../data-types/app-data-types";
 
 export const getOriginalScore = (game: Game): [Score, Score, Score, Score] => {
 	return [
 		{
-			raw: game.participants[0].score.raw,
-			uma: game.participants[0].score.uma,
-			penalty: game.participants[0].score.penalty
+			raw: game.participants[Seats.East].score.raw,
+			uma: game.participants[Seats.East].score.uma,
+			penalty: game.participants[Seats.East].score.penalty
 		},
 		{
-			raw: game.participants[1].score.raw,
-			uma: game.participants[1].score.uma,
-			penalty: game.participants[1].score.penalty
+			raw: game.participants[Seats.South].score.raw,
+			uma: game.participants[Seats.South].score.uma,
+			penalty: game.participants[Seats.South].score.penalty
 		},
 		{
-			raw: game.participants[2].score.raw,
-			uma: game.participants[2].score.uma,
-			penalty: game.participants[2].score.penalty
+			raw: game.participants[Seats.West].score.raw,
+			uma: game.participants[Seats.West].score.uma,
+			penalty: game.participants[Seats.West].score.penalty
 		},
 		{
-			raw: game.participants[3].score.raw,
-			uma: game.participants[3].score.uma,
-			penalty: game.participants[3].score.penalty
+			raw: game.participants[Seats.North].score.raw,
+			uma: game.participants[Seats.North].score.uma,
+			penalty: game.participants[Seats.North].score.penalty
 		}
 	];
 };

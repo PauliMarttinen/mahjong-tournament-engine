@@ -1,5 +1,6 @@
 import { generateArray } from "./generateArray";
 import { type Tournament, type Game } from "../data-types/tournament-data-types";
+import { Seats } from "../data-types/app-data-types";
 
 export const saveSeatingFile = (tournament: Tournament) => {
 	const filename = `seating-template-${tournament.info.rounds.length}r-${tournament.playerList.length}p.csv`;
@@ -11,10 +12,10 @@ export const saveSeatingFile = (tournament: Tournament) => {
 		const firstRow = game.table*4;
 		const newCarryValue = [...seatingCarry];
 		
-		newCarryValue[firstRow][round] = game.participants[0].playerId;
-		newCarryValue[firstRow+1][round] = game.participants[1].playerId;
-		newCarryValue[firstRow+2][round] = game.participants[2].playerId;
-		newCarryValue[firstRow+3][round] = game.participants[3].playerId;
+		newCarryValue[firstRow][round] = game.participants[Seats.East].playerId;
+		newCarryValue[firstRow+1][round] = game.participants[Seats.South].playerId;
+		newCarryValue[firstRow+2][round] = game.participants[Seats.West].playerId;
+		newCarryValue[firstRow+3][round] = game.participants[Seats.North].playerId;
 
 		return newCarryValue;
 	}, emptySeating);

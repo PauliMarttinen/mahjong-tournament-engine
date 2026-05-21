@@ -1,5 +1,5 @@
 import { type KeyboardEvent } from "react";
-import { type PointInputType } from "../../../data-types/tournament-data-types";
+import { type PointInputType } from "../";
 
 export const onKeyDown = (params: {
 	e: KeyboardEvent<HTMLInputElement>,

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Modal, Space, Input } from "antd";
-import { type PointInputType } from "../../../../../data-types/tournament-data-types";
+import { type PointInputType } from "../../../../../components/PointInput";
 import PointInput from "../../../../../components/PointInput";
 import { getNumericValue } from "../../../../../utils/getNumericValue";
 import styles from "./OorasuModal.module.css";

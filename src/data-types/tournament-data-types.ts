@@ -69,11 +69,6 @@ export type Standing = {
 	change: number
 };
 
-export type PointInputType = {
-	positive: boolean,
-	value: number
-};
-
 export const isTournamentDataValid = (data: AllVersions): boolean => {
 	return versionValidators.isValidVersion0(data as Version0)
 		|| versionValidators.isValidVersion1(data as Version1)
