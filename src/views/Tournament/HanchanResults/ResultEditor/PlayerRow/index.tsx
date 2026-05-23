@@ -28,7 +28,7 @@ const PlayerRow = (props: PlayerRowProps) => {
 		value: Math.abs(props.score.uma)
 	};
 	const penalty = {
-		positive: isPositive(props.score.penalty),
+		positive: false,
 		value: Math.abs(props.score.penalty)
 	};
 
@@ -72,7 +72,7 @@ const PlayerRow = (props: PlayerRowProps) => {
 					onChange={(newValue: PointInputType) => update("penalty", newValue)}
 					tabIndex={9}
 					short={props.safeMode}
-					unflippable
+					forceSigned={"negative"}
 				/>
 			</td>
 			<td className={styles.final}>{props.safeMode ? formatPoints({points: final, sign: true}) : final}</td>
