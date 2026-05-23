@@ -10,10 +10,12 @@ export type PointInputType = {
 	value: number
 };
 
+export type ForceSigned = "positive"|"negative";
+
 type PointInputProps = {
 	value: PointInputType|number,
 	onChange: Function,
-	unflippable?: boolean,
+	forceSigned?: ForceSigned,
 	tabIndex?: number
 	short: boolean,
 	uma?: boolean,
@@ -26,7 +28,7 @@ const PointInput = (props: PointInputProps) => {
 		typeof props.value === "number"
 		?
 		{
-			positive: isPositive(props.value),
+			positive: isPositive(props.value, props.forceSigned),
 			value: Math.abs(props.value)
 		}
 		:
@@ -48,7 +50,7 @@ const PointInput = (props: PointInputProps) => {
 				value={displayValue}
 				onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => props.onChange(onKeyDown({
 					e: e,
-					unflippable: props.unflippable,
+					forceSigned: props.forceSigned,
 					short: props.short,
 					value: value,
 					uma: props.uma

@@ -1,9 +1,9 @@
 import { type KeyboardEvent } from "react";
-import { type PointInputType } from "../";
+import { type PointInputType, type ForceSigned } from "../";
 
 export const onKeyDown = (params: {
 	e: KeyboardEvent<HTMLInputElement>,
-	unflippable?: boolean,
+	forceSigned?: ForceSigned,
 	short: boolean,
 	value: PointInputType,
 	uma?: boolean
@@ -11,14 +11,14 @@ export const onKeyDown = (params: {
 	switch (params.e.key)
 	{
 		case "+":
-			if (params.unflippable) break;
+			if (params.forceSigned === "negative") break;
 			return {
 				positive: true,
 				value: params.value.value
 			};
 
 		case "-":
-			if (params.unflippable) break;
+			if (params.forceSigned === "positive") break;
 			return {
 				positive: false,
 				value: params.value.value
