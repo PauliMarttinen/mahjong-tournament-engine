@@ -32,7 +32,7 @@ const PrintReportCards = () => {
 						className={styles.card}>
 						<h1 className={styles.title}>{tournament.info.title}</h1>
 						<h2 className={styles.title}>Report card for player {tournament.playerList[playerId].name}</h2>
-						<p className={styles.title}>Created with Mahjong Tournament Engine 0.2 by Pauli Marttinen</p>
+						<p className={styles.title}>Created with Mahjong Tournament Engine {process.env.REACT_APP_VERSION} by Pauli Marttinen</p>
 						<Performance
 							anonymize={true}
 							playerId={playerId}
