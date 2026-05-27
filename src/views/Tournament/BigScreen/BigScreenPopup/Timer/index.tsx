@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, type ReactNode } from "react";
+import { useState, useEffect, useMemo, useRef, type ReactNode } from "react";
 import { Progress, Space, Button } from "antd";
 import styles from "./Timer.module.css";
 import { PlayCircleOutlined, /* PauseCircleOutlined, */ TrademarkCircleOutlined } from "@ant-design/icons";
@@ -12,9 +12,10 @@ type TimerProps = {
 
 const Timer = (props: TimerProps) => {
 	const tournament = useTournament();
-	const roundLength = tournament.info.roundLength*60;
+	const roundLengthSeconds = tournament.info.roundLength*60;
 	
-	const [timePassed, setTimePassed] = useState<number>(0);
+	const [timePassedSeconds, setTimePassedSeconds] = useState<number>(0);
+	const startTimeSeconds = useRef<number>(0);
 	const [timer, setTimer] = useState<number | null>(null);
 
 	const [timerSize, setTimerSize] = useState<number>(() =>
@@ -25,7 +26,18 @@ const Timer = (props: TimerProps) => {
 	alarm.loop = true;
 	
 	const passTime = () => {
-		setTimePassed(prevTime => prevTime+1);
+		const currentSeconds = Math.floor(new Date().getTime()/1000);
+		const difference = currentSeconds - startTimeSeconds.current;
+
+		if (difference >= roundLengthSeconds && timer !== null)
+		{
+			window.clearInterval(timer);
+			setTimer(null);
+			alarm.play();
+			return;
+		}
+		
+		setTimePassedSeconds(currentSeconds - startTimeSeconds.current);
 	};
 
 	/* const pauseTimer = () => {
@@ -42,6 +54,7 @@ const Timer = (props: TimerProps) => {
 
 		if (!stopPropagation)
 		{
+			startTimeSeconds.current = Math.floor(new Date().getTime()/1000);
 			setBigScreenState({
 				type: BigScreenActions.StartRound,
 				payload: props.roundId
@@ -55,12 +68,11 @@ const Timer = (props: TimerProps) => {
 	};
 
 	const resetTimer = () => {
-		setTimePassed(0);
+		setTimePassedSeconds(0);
 		stopAlarm();
 	};
 
 	useEffect(() => {
-		//Timer resizer
 		const updateSize = () => {
 			const height = window.innerHeight-250;
 			const width = window.innerWidth-250;
@@ -72,29 +84,19 @@ const Timer = (props: TimerProps) => {
 		//See if the round is already ongoing
 		if (tournament.info.rounds[props.roundId].realStart !== "")
 		{
-			const nowMs = new Date().getTime();
-			const roundStartMs = new Date(tournament.info.rounds[props.roundId].realStart).getTime();
-			const difference = Math.floor((nowMs - roundStartMs)/1000);
-			if (difference <= roundLength*60)
+			const currentSeconds = Math.floor(new Date().getTime()/1000);
+			startTimeSeconds.current = Math.floor(new Date(tournament.info.rounds[props.roundId].realStart).getTime()/1000);
+			const difference = currentSeconds - startTimeSeconds.current;
+			
+			if (difference <= roundLengthSeconds)
 			{
-				setTimePassed(difference);
+				setTimePassedSeconds(difference);
 				startTimer(true);
 			}
 		}
 
-		//Remove timer resized when leaving the timer
 		return () => window.removeEventListener("resize", updateSize);
 	}, []);
-
-	useEffect(() => {
-		if (timePassed >= roundLength && timer !== null)
-		{
-			window.clearInterval(timer);
-			setTimer(null);
-
-			alarm.play();
-		}
-	}, [timePassed])
 
 	const formatTime = (seconds: number): ReactNode => {
 		if (seconds <= 0)
@@ -121,8 +123,8 @@ const Timer = (props: TimerProps) => {
 					className={styles.timer}
 					size={timerSize}
 					type={"circle"}
-					percent={timePassed/roundLength*100}
-					format={(_) => formatTime(roundLength-timePassed)}
+					percent={timePassedSeconds/roundLengthSeconds*100}
+					format={(_) => formatTime(roundLengthSeconds-timePassedSeconds)}
 				/>
 				<Space>
 					<Button
@@ -139,13 +141,13 @@ const Timer = (props: TimerProps) => {
 					</Button> */}
 					<Button
 						onClick={resetTimer}
-						disabled={timer !== null && timePassed !== 0}
+						disabled={timer !== null && timePassedSeconds !== 0}
 						icon={<TrademarkCircleOutlined/>}>
 						Reset
 					</Button>
 				</Space>
 				{
-					timePassed >= roundLength &&
+					timePassedSeconds >= roundLengthSeconds &&
 					<Button
 						type={"text"}
 						onClick={stopAlarm}>
