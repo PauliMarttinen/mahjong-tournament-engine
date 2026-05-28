@@ -7,11 +7,12 @@ import alarmAudio from "./alarm.wav";
 import { useTournament } from "../../../../../utils/hooks/useTournament";
 import { BigScreenActions, setBigScreenState } from "../../utils/setBigScreenState";
 import { Routes } from "../../../../../utils/routeUtils";
+import { simplifyTime } from "../../../../../utils/simplifyTime";
 
 const Timer = () => {
 	const tournament = useTournament();
 	const roundLengthSeconds = tournament.info.roundLength*60;
-
+	
 	const {roundId} = useParams();
 	if (!roundId)
 	{
@@ -25,7 +26,7 @@ const Timer = () => {
 
 	const [timePassedSeconds, setTimePassedSeconds] = useState<number>(0);
 	const startTimeSeconds = useRef<number>(0);
-	const [timer, setTimer] = useState<number | null>(null);
+	const timer = useRef<number|null>(null);
 
 	const [timerSize, setTimerSize] = useState<number>(() => 
 		typeof window !== "undefined" ? window.innerHeight : 0
@@ -38,14 +39,13 @@ const Timer = () => {
 		const currentSeconds = Math.floor(new Date().getTime()/1000);
 		const difference = currentSeconds - startTimeSeconds.current;
 
-		if (difference >= roundLengthSeconds && timer !== null)
+		if (difference > roundLengthSeconds && timer.current !== null)
 		{
-			window.clearInterval(timer);
-			setTimer(null);
+			window.clearInterval(timer.current);
+			timer.current = null;
 			alarm.play();
 			return;
 		}
-
 		setTimePassedSeconds(currentSeconds - startTimeSeconds.current);
 	};
 
@@ -59,7 +59,7 @@ const Timer = () => {
 
 	const startTimer = (stopPropagation?: boolean) => {
 		const id = window.setInterval(() => passTime(), 1000);
-		setTimer(id);
+		timer.current = id;
 
 		if (!stopPropagation)
 		{
@@ -111,7 +111,18 @@ const Timer = () => {
 	const formatTime = (seconds: number): ReactNode => {
 		if (seconds <= 0)
 		{
-			return <>One More Hand!</>
+			if (roundIdNumber === tournament.info.rounds.length-1)
+			{
+				return <>One More Hand!</>;
+			}
+
+			return (
+				<>
+					One More Hand!
+					<br/>
+					<span className={styles.note}>Next hanchan at {simplifyTime(tournament.info.rounds[roundIdNumber+1].scheduledStart)}</span>
+				</>
+			);
 		}
 
 		const minutes = Math.floor(seconds/60);
@@ -139,7 +150,7 @@ const Timer = () => {
 				<Space>
 					<Button
 						onClick={() => startTimer()}
-						disabled={timer !== null}
+						disabled={timer.current !== null}
 						icon={<PlayCircleOutlined/>}>
 						Start
 					</Button>
@@ -151,7 +162,7 @@ const Timer = () => {
 					</Button> */}
 					<Button
 						onClick={resetTimer}
-						disabled={timer !== null && timePassedSeconds !== 0}
+						disabled={timer.current !== null && timePassedSeconds !== 0}
 						icon={<TrademarkCircleOutlined/>}>
 						Reset
 					</Button>

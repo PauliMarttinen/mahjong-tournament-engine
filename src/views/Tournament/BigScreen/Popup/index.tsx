@@ -24,7 +24,6 @@ const Popup = () => {
 	};
 
 	useEffect(() => {
-		console.log("use effct")
 		window.addEventListener("storage", receiveNavigation);
 
 		if (pinger !== null)
