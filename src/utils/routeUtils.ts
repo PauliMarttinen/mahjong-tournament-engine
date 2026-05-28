@@ -9,7 +9,6 @@ export enum Routes {
 	HanchanResults = "/tournament/hanchan-results",
 	Standings = "/tournament/standings",
 	BigScreen = "/tournament/big-screen",
-	BigScreenPopup = "/tournament/big-screen/popup",
 	BigScreenWelcome = "/tournament/big-screen/popup/welcome",
 	BigScreenTimer = "/tournament/big-screen/popup/:roundId/timer",
 	BigScreenStandings = "/tournament/big-screen/popup/:roundId/standings",

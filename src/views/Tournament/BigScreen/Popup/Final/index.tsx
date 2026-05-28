@@ -102,9 +102,12 @@ const Final = () => {
 					<div className={styles.fourth}>
 						{topName(3)}
 					</div>
-					<div className={styles.fifth}>
-						{topName(4)}
-					</div>
+					{
+						playerCount > 4 &&
+						<div className={styles.fifth}>
+							{topName(4)}
+						</div>
+					}
 				</div>
 			</div>
 			<div className={`${styles.columns} ${styles.bottomPlayers}`}>
