@@ -1,4 +1,4 @@
-/* import { formatPoints } from "../../../../../../utils/formatPoints";
+import { formatPoints } from "../../../../../../utils/formatPoints";
 import styles from "./Name.module.css";
 
 type NameProps = {
@@ -40,6 +40,4 @@ const Name = (props: NameProps) => {
 	);
 };
 
-export default Name; */
-
-export const pollo = () => {};
+export default Name;

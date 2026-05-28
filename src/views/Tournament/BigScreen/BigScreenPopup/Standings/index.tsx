@@ -1,4 +1,4 @@
-import StandingsDisplay from "../../../../../components/Standings";
+/* import StandingsDisplay from "../../../../../components/Standings";
 import styles from "./Standings.module.css";
 import { simplifyTime } from "../../../../../utils/simplifyTime";
 import { useTournament } from "../../../../../utils/hooks/useTournament";
@@ -29,4 +29,7 @@ const Standings = (props: StandingsProps) => {
 	);
 };
 
-export default Standings;
+export default Standings; */
+
+
+export const pollo = () => {};

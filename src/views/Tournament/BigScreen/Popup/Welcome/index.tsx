@@ -1,10 +1,10 @@
-/* import styles from "./Welcome.module.css";
+import styles from "./Welcome.module.css";
 import { useTournament } from "../../../../../utils/hooks/useTournament";
 import { simplifyTime } from "../../../../../utils/simplifyTime";
 
 const Welcome = () => {
 	const tournament = useTournament();
-	
+
 	return (
 		<div>
 			<header className={styles.header}>Welcome to {tournament.info.title}</header>
@@ -15,6 +15,4 @@ const Welcome = () => {
 	);
 };
 
-export default Welcome; */
-
-export const pollo = () => {};
+export default Welcome;

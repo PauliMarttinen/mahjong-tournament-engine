@@ -1,4 +1,4 @@
-/* .timerWrapper {
+.timerWrapper {
 	height: 100%;
 	margin: 0 auto;
 	padding: 3em;
@@ -16,4 +16,4 @@
 .hidden {
 	visibility: hidden;
 	display: none;
-} */
+}

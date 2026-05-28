@@ -1,13 +1,13 @@
-/* import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { type Standing } from "../../../../../data-types/tournament-data-types";
 import Confetti from "react-confetti";
-import styles from "./FinalResults.module.css";
+import styles from "./Final.module.css";
 import Name from "./Name";
 import { generateArray } from "../../../../../utils/generateArray";
 import { useTournament } from "../../../../../utils/hooks/useTournament";
 import { useStandings } from "../../../../../utils/hooks/useStandings";
 
-const FinalResults = () => {
+const Final = () => {
 	const tournament = useTournament();
 	const standings = useStandings()[tournament.info.rounds.length - 1];
 
@@ -135,6 +135,4 @@ const FinalResults = () => {
 	);
 };
 
-export default FinalResults; */
-
-export const pollo = () => {};
+export default Final;
