@@ -1,47 +1,56 @@
+import { useParams } from "react-router-dom";
 import { useState, useEffect, useMemo, useRef, type ReactNode } from "react";
 import { Progress, Space, Button } from "antd";
 import styles from "./Timer.module.css";
-import { PlayCircleOutlined, /* PauseCircleOutlined, */ TrademarkCircleOutlined } from "@ant-design/icons";
+import { PlayCircleOutlined, /*PauseCircleOutlined, */ TrademarkCircleOutlined } from "@ant-design/icons";
 import alarmAudio from "./alarm.wav";
 import { useTournament } from "../../../../../utils/hooks/useTournament";
 import { BigScreenActions, setBigScreenState } from "../../utils/setBigScreenState";
+import { Routes } from "../../../../../utils/routeUtils";
+import { simplifyTime } from "../../../../../utils/simplifyTime";
 
-type TimerProps = {
-	roundId: number,
-};
-
-const Timer = (props: TimerProps) => {
+const Timer = () => {
 	const tournament = useTournament();
 	const roundLengthSeconds = tournament.info.roundLength*60;
 	
+	const {roundId} = useParams();
+	if (!roundId)
+	{
+		throw new Error(`Missing parameter 'roundId' from URL: ${Routes.BigScreenStandings}`);
+	}
+	if (isNaN(parseInt(roundId)))
+	{
+		throw new Error(`Parameter 'roundId' must be an integer in URL: ${Routes.BigScreenStandings}`);
+	}
+	const roundIdNumber = Number(roundId);
+
 	const [timePassedSeconds, setTimePassedSeconds] = useState<number>(0);
 	const startTimeSeconds = useRef<number>(0);
-	const [timer, setTimer] = useState<number | null>(null);
+	const timer = useRef<number|null>(null);
 
-	const [timerSize, setTimerSize] = useState<number>(() =>
+	const [timerSize, setTimerSize] = useState<number>(() => 
 		typeof window !== "undefined" ? window.innerHeight : 0
 	);
 
 	const alarm = useMemo(() => new Audio(alarmAudio), []);
 	alarm.loop = true;
-	
+
 	const passTime = () => {
 		const currentSeconds = Math.floor(new Date().getTime()/1000);
 		const difference = currentSeconds - startTimeSeconds.current;
 
-		if (difference >= roundLengthSeconds && timer !== null)
+		if (difference > roundLengthSeconds && timer.current !== null)
 		{
-			window.clearInterval(timer);
-			setTimer(null);
+			window.clearInterval(timer.current);
+			timer.current = null;
 			alarm.play();
 			return;
 		}
-		
 		setTimePassedSeconds(currentSeconds - startTimeSeconds.current);
 	};
 
 	/* const pauseTimer = () => {
-		if (timer !== null)
+	  if (timer !== null)
 		{
 			window.clearInterval(timer);
 			setTimer(null);
@@ -50,14 +59,14 @@ const Timer = (props: TimerProps) => {
 
 	const startTimer = (stopPropagation?: boolean) => {
 		const id = window.setInterval(() => passTime(), 1000);
-		setTimer(id);
+		timer.current = id;
 
 		if (!stopPropagation)
 		{
 			startTimeSeconds.current = Math.floor(new Date().getTime()/1000);
 			setBigScreenState({
 				type: BigScreenActions.StartRound,
-				payload: props.roundId
+				payload: roundIdNumber
 			});
 		}
 	};
@@ -72,22 +81,23 @@ const Timer = (props: TimerProps) => {
 		stopAlarm();
 	};
 
-	useEffect(() => {
-		const updateSize = () => {
-			const height = window.innerHeight-250;
-			const width = window.innerWidth-250;
-			setTimerSize(Math.min(height, width))
-		};
-		updateSize();
-		window.addEventListener("resize", updateSize);
+	const updateTimerSize = () => {
+		const height = window.innerHeight-250;
+		const width = window.innerWidth-250;
+		setTimerSize(Math.min(height, width));
+	};
 
-		//See if the round is already ongoing
-		if (tournament.info.rounds[props.roundId].realStart !== "")
+	useEffect(() => {
+		updateTimerSize();
+		window.addEventListener("resize", updateTimerSize);
+
+		//See if the round is alread ongoing
+		if (tournament.info.rounds[roundIdNumber].realStart !== "")
 		{
 			const currentSeconds = Math.floor(new Date().getTime()/1000);
-			startTimeSeconds.current = Math.floor(new Date(tournament.info.rounds[props.roundId].realStart).getTime()/1000);
+			startTimeSeconds.current = Math.floor(new Date(tournament.info.rounds[roundIdNumber].realStart).getTime()/1000);
 			const difference = currentSeconds - startTimeSeconds.current;
-			
+
 			if (difference <= roundLengthSeconds)
 			{
 				setTimePassedSeconds(difference);
@@ -95,21 +105,32 @@ const Timer = (props: TimerProps) => {
 			}
 		}
 
-		return () => window.removeEventListener("resize", updateSize);
+		return () => window.removeEventListener("resize", updateTimerSize);
 	}, []);
 
 	const formatTime = (seconds: number): ReactNode => {
 		if (seconds <= 0)
 		{
-			return <>One More Hand!</>;
+			if (roundIdNumber === tournament.info.rounds.length-1)
+			{
+				return <>One More Hand!</>;
+			}
+
+			return (
+				<>
+					One More Hand!
+					<br/>
+					<span className={styles.note}>Next hanchan at {simplifyTime(tournament.info.rounds[roundIdNumber+1].scheduledStart)}</span>
+				</>
+			);
 		}
 
 		const minutes = Math.floor(seconds/60);
 		const remainder = seconds%60;
-		
+
 		return (
 			<>
-				<small>Round {props.roundId+1}</small>
+				<small>Round {roundIdNumber+1}</small>
 				<br/>
 				{minutes}:{remainder.toString().padStart(2, "0")}
 			</>
@@ -124,12 +145,12 @@ const Timer = (props: TimerProps) => {
 					size={timerSize}
 					type={"circle"}
 					percent={timePassedSeconds/roundLengthSeconds*100}
-					format={(_) => formatTime(roundLengthSeconds-timePassedSeconds)}
+					format={() => formatTime(roundLengthSeconds-timePassedSeconds)}
 				/>
 				<Space>
 					<Button
 						onClick={() => startTimer()}
-						disabled={timer !== null}
+						disabled={timer.current !== null}
 						icon={<PlayCircleOutlined/>}>
 						Start
 					</Button>
@@ -141,7 +162,7 @@ const Timer = (props: TimerProps) => {
 					</Button> */}
 					<Button
 						onClick={resetTimer}
-						disabled={timer !== null && timePassedSeconds !== 0}
+						disabled={timer.current !== null && timePassedSeconds !== 0}
 						icon={<TrademarkCircleOutlined/>}>
 						Reset
 					</Button>

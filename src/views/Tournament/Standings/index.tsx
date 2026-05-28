@@ -9,8 +9,8 @@ import LayoutContent from "../../../components/LayoutContent";
 import RoundSelector from "../../../components/RoundSelector";
 import styles from "./Standings.module.css";
 import { getLastFinishedRound } from "../../../utils/getLastFinishedRound";
-import { useAppState } from "../../../utils/hooks/useAppState";
-import { BigScreenStates, setBigScreenState } from "../BigScreen/utils/setBigScreenState";
+import { useAppState} from "../../../utils/hooks/useAppState";
+import { navigateBigScreen } from "../BigScreen/utils/setBigScreenState";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appActionCreators } from "../../../state";
@@ -26,19 +26,19 @@ const Standings = () => {
 	const { setBigScreen } = bindActionCreators(appActionCreators, dispatch);
 
 	const openWindow = () => {
-		setBigScreenState({
-			type: BigScreenStates.Standings,
-			roundId: afterRound
-		});
+		const route = Routes.BigScreenStandings.replace(":roundId", afterRound.toString());
 
 		if (!appState.bigScreen || appState.bigScreen.closed)
 		{
 			setBigScreen(window.open(
-				Routes.BigScreenPopup,
+				route,
 				"standingsWindow",
 				"width=500,height=500"
 			));
+			return;
 		}
+
+		navigateBigScreen(route);
 	};
 
 	return (

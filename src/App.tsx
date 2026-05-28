@@ -10,7 +10,12 @@ import Overview from "./views/Tournament/Overview";
 import HanchanResults from "./views/Tournament/HanchanResults";
 import Standings from "./views/Tournament/Standings";
 import BigScreen from "./views/Tournament/BigScreen";
-import BigScreenPopup from "./views/Tournament/BigScreen/BigScreenPopup";
+//import BigScreenPopup from "./views/Tournament/BigScreen/BigScreenPopup";
+import BigScreenPopup from "./views/Tournament/BigScreen/Popup";
+import BigScreenWelcome from "./views/Tournament/BigScreen/Popup/Welcome";
+import BigScreenTimer from "./views/Tournament/BigScreen/Popup/Timer";
+import BigScreenStandings from "./views/Tournament/BigScreen/Popup/Standings";
+import BigScreenFinal from "./views/Tournament/BigScreen/Popup/Final";
 import PrintOuts from "./views/Tournament/PrintOuts";
 import Entrance from "./views/Entrance";
 import EditPlayers from "./views/Tournament/EditPlayers";
@@ -49,7 +54,14 @@ const App = () => {
 							<Route path={"score-forms"} element={<PrintScoreForms/>}/>
 							<Route path={"full-schedule"} element={<PrintFullSchedule/>}/>
 						</Route>
-						<Route path={"/tournament/big-screen/popup"} element={<BigScreenPopup/>}/>
+						{/* <Route path={"/tournament/big-screen/popup"} element={<BigScreenPopup/>}/> */}
+						{/* <Route path={"/tournament/big-screen/popup"}>
+							<Route path={"welcome"} element={<BigScreenWelcome/>}/>
+							<Route path={":roundId/timer"} element={<BigScreenTimer/>}/>
+							<Route path={":roundId/standings"} element={<BigScreenStandings/>}/>
+							<Route path={"final"} element={<BigScreenFinal/>}/>
+						</Route> */}
+						<Route path={"/tournament/big-screen/popup/*"} element={<BigScreenPopup/>}/>
 						<Route path={"*"} element={
 							<ConfigProvider theme={config}>
 								<Layout className={styles.layout}>

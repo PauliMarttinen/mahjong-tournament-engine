@@ -1,13 +1,13 @@
 import {useEffect, useRef} from "react";
 import {
 	STATE_MESSAGE_IDENTIFIER,
-	PING_MESSAGE_IDENTIFIER,
-	PING_INTERVAL,
 	BigScreenStates,
 	BigScreenActions
 } from "../../views/Tournament/BigScreen/utils/setBigScreenState";
-import { collectGarbage } from "../../views/Tournament/BigScreen/BigScreenPopup/utils/collectGarbage";
+import { PING_MESSAGE_IDENTIFIER, PING_INTERVAL } from "../../views/Tournament/BigScreen/Popup/utils/ping";
+import { collectGarbage } from "../../views/Tournament/BigScreen/Popup/utils/collectGarbage";
 import { useTournament } from "../../utils/hooks/useTournament";
+import { useAppState } from "../../utils/hooks/useAppState";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appActionCreators, tournamentActionCreators } from "../../state";
@@ -15,6 +15,7 @@ import { getSimpleDateISOString } from "../../utils/getSimpleDateISOString";
 import { type Round, type Tournament } from "../../data-types/tournament-data-types";
 
 const BigScreenMonitor = () => {
+	const appState = useAppState();
 	const timeoutRef = useRef<number | null>(null);
 	const tournament = useTournament();
 	const tournamentRef = useRef<Tournament>(tournament);

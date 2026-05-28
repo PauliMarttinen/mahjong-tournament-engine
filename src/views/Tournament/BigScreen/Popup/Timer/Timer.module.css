@@ -17,3 +17,8 @@
 	visibility: hidden;
 	display: none;
 }
+
+.note {
+	color: #000;
+	font-size: 75%;
+}

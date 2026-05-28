@@ -1,12 +1,7 @@
 export const STATE_MESSAGE_IDENTIFIER = "mahjong-tournament-engine-bigscreen-state-change";
-export const PING_MESSAGE_IDENTIFIER = "mahjong-tournament-engine-bigscreen-ping";
-export const PING_INTERVAL = 1000;
+export const NAVIGATE_MESSAGE_IDENTIFIER = "mahjong-tournament-engine-bigscreen-navigate";
 
 export enum BigScreenStates {
-	Welcome = "Welcome",
-	Timer = "Timer",
-	Standings = "Standings",
-	Final = "Final",
 	Off = "Off"
 };
 
@@ -16,4 +11,8 @@ export enum BigScreenActions {
 
 export const setBigScreenState = (state: object) => {
 	localStorage.setItem(STATE_MESSAGE_IDENTIFIER, JSON.stringify(state));
+};
+
+export const navigateBigScreen = (route: string) => {
+	localStorage.setItem(NAVIGATE_MESSAGE_IDENTIFIER, route);
 };
