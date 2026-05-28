@@ -95,11 +95,11 @@ const BigScreenMonitor = () => {
 
 	/**Uncomment for debugging. */
 	
-	return (
+	/* return (
 		<div style={{background: "white"}}>
 			Big Screen Status: {appState.bigScreen && !appState.bigScreen.closed ? "on" : "off"}
 		</div>
-	);
+	); */
 
 	return <></>;
 };

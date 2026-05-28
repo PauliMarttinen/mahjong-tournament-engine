@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { NAVIGATE_MESSAGE_IDENTIFIER } from "../utils/setBigScreenState";
 import { collectGarbage } from "./utils/collectGarbage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { ping, PING_INTERVAL } from "./utils/ping";
 import { onClose } from "./utils/onClose";
 import BigScreenWelcome from "./Welcome";

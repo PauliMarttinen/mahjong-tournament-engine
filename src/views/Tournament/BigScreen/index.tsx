@@ -6,11 +6,11 @@ import { ExportOutlined } from "@ant-design/icons";
 import { useTournament } from "../../../utils/hooks/useTournament";
 import { useAppState } from "../../../utils/hooks/useAppState";
 import { getSteps } from "./utils/getSteps";
-import { Route, Routes } from "../../../utils/routeUtils";
+import { Routes } from "../../../utils/routeUtils";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appActionCreators } from "../../../state";
-import { BigScreenStates, navigateBigScreen } from "./utils/setBigScreenState";
+import { navigateBigScreen } from "./utils/setBigScreenState";
 
 const BigScreen = () => {
 	const tournament = useTournament();
