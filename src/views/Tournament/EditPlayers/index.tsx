@@ -38,6 +38,23 @@ const EditPlayers = () => {
 		addPlayers(newList);
 	};
 
+	const onPaste = (params: {event: React.ClipboardEvent<HTMLInputElement>, fieldId: number}) => {
+		params.event.preventDefault();
+		const pastedNames = params.event.clipboardData.getData("text/plain").split("\n").map((name: string) => name.trim()).filter((name: string) => name !== "");
+
+		setNewList(newList.map((oldPlayer: Player, playerId: number) => {
+			if (params.fieldId <= playerId && playerId < params.fieldId+pastedNames.length)
+			{
+				return {
+					name: pastedNames[playerId-params.fieldId],
+					substitute: newList[playerId].substitute
+				};
+			}
+
+			return newList[playerId];
+		}));
+	};
+
 	return (
 		<>
 			<Modal
@@ -77,6 +94,7 @@ const EditPlayers = () => {
 										<Input
 											value={newList[playerId].name}
 											onChange={(e) => changeName({newName: e.target.value, playerId})}
+											onPaste={(e) => onPaste({event: e, fieldId: playerId})}
 										/>
 									</td>
 									<td>
